@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db');
-const { compare } = require('bcrypt');
+const { compare } = require('bcryptjs');
 const joi = require('joi');
 const sendRefreshToken = require('../utils/sendRefreshToken');
 const { createAccessToken, createRefreshToken } = require('../utils/auth');
