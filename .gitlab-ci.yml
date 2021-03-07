@@ -21,4 +21,4 @@ Production:
   stage: deploy_production
   script:
     - cd backend
-    - dpl --provider=heroku --app=$HEROKU_APP_NAME_BACKEND --api-key=$HEROKU_API_KEY
+    - dpl --provider=heroku --app=eservis --api-key=$HEROKU_API_KEY
