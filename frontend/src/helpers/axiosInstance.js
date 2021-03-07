@@ -3,6 +3,7 @@ import isAuthenticated from '../utils/isAuthenticated';
 
 const axiosWithHistory = (history = null) => {
     const baseURL = process.env.BACKEND_URL;
+    console.log("url", baseURL);
 
     const axiosInstance = axios.create({
         baseURL: baseURL,
