@@ -1,0 +1,14 @@
+$theme-colors: (
+    "homeDark": #626d71,
+    "homeLight": #eae9ee,
+    "homeHighlight": #00a0d4,
+    "homeWhiteFont": #fdfbfc,
+);
+
+* {
+    border-radius: 0 !important;
+    font-family: 'Hind', sans-serif;
+}
+
+// Import Bootstrap and its default variables
+@import '~bootstrap/scss/bootstrap.scss';
