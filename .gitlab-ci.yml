@@ -10,8 +10,6 @@ before_script:
   - apt-get update -qy
   - apt-get install -y ruby-dev
   - gem install dpl
-  - apt-get install -y nodejs
-  - apt-get install -y npm
 
 stages:
   - deploy_production
@@ -23,5 +21,4 @@ Production:
   stage: deploy_production
   script:
     - cd backend
-    - npm install
     - dpl --provider=heroku --app=$HEROKU_APP_NAME_BACKEND --api-key=$HEROKU_API_KEY
