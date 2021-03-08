@@ -2,7 +2,7 @@ import axios from 'axios';
 import isAuthenticated from '../utils/isAuthenticated';
 
 const axiosWithHistory = (history = null) => {
-    const baseURL = 'https://eservis.herokuapp.com';
+    const baseURL = 'http://localhost:4000';
 
     const axiosInstance = axios.create({
         baseURL: baseURL,
