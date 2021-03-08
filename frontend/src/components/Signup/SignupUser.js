@@ -138,7 +138,7 @@ const SignupUser = () => {
                             />
 
                             {!loading &&
-                                <Button variant="contained" type="submit" className="my-2 bg-homeHighlight text-homeWhiteFont">
+                                <Button variant="contained" type="submit" className="my-2 bg-homeHighlight text-homeWhiteFont button-round">
                                     Kreiraj račun
                                 </Button>
                             }

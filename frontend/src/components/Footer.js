@@ -9,12 +9,12 @@ const Footer = () => {
                 <Row>
                     <Col xs={12} sm={12} md={4} className="d-flex flex-column align-items-center align-items-md-start">
                         <div className="mb-3">Imaginary logo</div>
-                        <p>2021 &copy; (naziv platforme). Sva prava pridržana.</p>
+                        <p>2021 &copy; eServis. Sva prava pridržana.</p>
                     </Col>
                     <Col xs={0} sm={0} md={2}></Col>
                     <Col xs={12} sm={12} md={6}>
-                        <div className="d-flex flex-column flex-sm-row flex-wrap align-content-center justify-content-between">
-                            <div className="d-flex align-items-center my-2">
+                        <div className="d-flex flex-column flex-md-row flex-wrap align-content-center justify-content-between">
+                            <div className="d-flex align-items-center justify-content-between my-2" style={{width: '215px'}}>
                                 <div>
                                     <span>Kontaktirajte nas:</span>
                                     <br />
@@ -27,7 +27,7 @@ const Footer = () => {
                                     </span>
                                 </div>
                             </div>
-                            <div className="d-flex align-items-center my-2">
+                            <div className="d-flex align-items-center justify-content-between my-2" style={{width: '215px'}}>
                                 <div>
                                     <span>Nazovite nas:</span>
                                     <br />

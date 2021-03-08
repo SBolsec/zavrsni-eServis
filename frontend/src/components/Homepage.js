@@ -46,7 +46,7 @@ function Homepage() {
           </Link>
         </div>
         <Link to="/login" className="ml-auto mr-3 mr-sm-5">
-          <Button variant="homeHighlight" className="text-homeWhiteFont">PRIJAVI SE</Button>
+          <Button variant="homeHighlight" className="text-homeWhiteFont button-round">PRIJAVI SE</Button>
         </Link>
       </Navbar>
 
@@ -65,14 +65,14 @@ function Homepage() {
             <h5 className="text-homeWhiteFont text-weight-bold text-uppercase">Pronađite odgovarajuće usluge servisa</h5>
             <p className="text-homeWhiteFont">Pomoći ćemo Vašem uređaju da opet radi brzo i pouzdano</p>
             <Link to="/signup/user">
-              <Button variant="homeHighlight">REGISTRACIJA</Button>
+              <Button variant="homeHighlight" className="button-round">REGISTRACIJA</Button>
             </Link>
           </Col>
           <Col xs={12} sm={6} className="p-5 bg-homeLight text-center text-weight-bold">
             <h5 className="text-weight-bold text-uppercase">Ponudite usluge servisa uređaja</h5>
             <p>Kvalitetan i profesionalan popravak i nadogradnja svih modela uređaja</p>
             <Link to="/signup/service">
-              <Button variant="homeHighlight">REGISTRACIJA</Button>
+              <Button variant="homeHighlight" className="button-round">REGISTRACIJA</Button>
             </Link>
           </Col>
         </Row>

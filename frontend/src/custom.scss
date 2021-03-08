@@ -6,8 +6,11 @@ $theme-colors: (
 );
 
 * {
-    border-radius: 0 !important;
     font-family: 'Hind', sans-serif;
+}
+
+.button-round {
+    border-radius: 50px !important;
 }
 
 // Import Bootstrap and its default variables
