@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db');
-const { hash } = require('bcrypt');
+const { hash } = require('bcryptjs');
 const joi = require('joi');
 
 router.post('/user', async (req, res) => {
