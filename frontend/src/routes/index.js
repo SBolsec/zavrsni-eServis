@@ -1,52 +1,59 @@
 import Homepage from "../components/Homepage";
-import Login from "../components/Signup/Login";
-import SignupService from "../components/Signup/SignupService";
-import SignupUser from "../components/Signup/SignupUser";
+import Login from "../components/Auth/Login";
+import SignupService from "../components/Auth/SignupService";
+import SignupUser from "../components/Auth/SignupUser";
 import UserDashboard from "../components/UserDashboard";
 import ServiceDashboard from "../components/ServiceDashboard";
+import { ROLE_USER, ROLE_SERVICE, ROLE_ADMIN } from '../constants/global';
 
 const routes = [
     {
         path: '/',
         exact: true,
         component: Homepage,
-        title: 'Homepage',
-        needsAuth: false
+        title: 'Početna Stranica',
+        needsAuth: false,
+        roles: []
     },
     {
         path: '/login',
         exact: false,
         component: Login,
-        title: 'Login',
-        needsAuth: false
+        title: 'Prijava',
+        needsAuth: false,
+        roles: []
     },
     {
         path: '/signup/user',
         exact: false,
         component: SignupUser,
-        title: 'Signup User',
-        needsAuth: false
+        title: 'Registracija Korisnika',
+        needsAuth: false,
+        roles: []
     },
     {
         path: '/signup/service',
         exact: false,
         component: SignupService,
-        title: 'Signup Service',
-        needsAuth: false
+        title: 'Registracija Servisa',
+        needsAuth: false,
+        roles: []
     },
     {
         path: '/user/dashboard',
         exact: false,
         component: UserDashboard,
-        title: 'User Dashboard',
-        needsAuth: true
+        title: 'Nadzorna ploča',
+        needsAuth: true,
+        roles: [ROLE_USER]
     },
     {
         path: '/service/dashboard',
         exact: false,
         component: ServiceDashboard,
-        title: 'User Dashboard',
-        needsAuth: true
+        title: 'Nadzorna ploča',
+        needsAuth: true,
+        roles: [ROLE_SERVICE]
     }
 ];
 

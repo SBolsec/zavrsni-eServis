@@ -1,31 +1,29 @@
 import axiosInstance from '../../helpers/axiosInstance';
 import { LOGIN_LOADING, LOGIN_ERROR, LOGIN_SUCCESS } from '../../constants/actionTypes';
+import { PREFIX } from '../../constants/global';
 
 const login = ({ email, password }) => (dispatch) => {
     dispatch({ type: LOGIN_LOADING });
 
-    setTimeout(() => {
-        axiosInstance()
+    axiosInstance()
         .post('/login', {
             email,
             password
         })
         .then((res) => {
-            localStorage.token = res.data.accessToken;
+            localStorage.setItem(PREFIX + 'token', res.data.accessToken);
             dispatch({
                 type: LOGIN_SUCCESS,
-                payload: res.data
+                payload: res.data.user
             });
         })
         .catch((err) => {
+            console.log('error', err);
             dispatch({
                 type: LOGIN_ERROR,
-                payload: err.response ? err.response.data : "Spajanje na poslužitelj neuspješno"
+                payload: err.response ? err.response.data.message : "Spajanje na poslužitelj neuspješno"
             });
-        })
-
-    }, 2000);
-    
+        });
 }
 
 export default login;

@@ -6,15 +6,15 @@ import TextField from '@material-ui/core/TextField';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
-import './Signup.css';
+import './Auth.css';
 import { Link } from 'react-router-dom';
-import { useContext, useEffect } from 'react';
-import { AuthContext } from '../../contexts/AuthContext';
+import { useEffect } from 'react';
+import { useAuth } from '../../contexts/AuthContext';
 import { useHistory } from 'react-router-dom';
 import signupService from '../../actions/signup/signupService';
 import { REGISTER_AFTER_REDIRECT, REGISTER_ERROR_REMOVE } from '../../constants/actionTypes';
 import Alert from 'react-bootstrap/esm/Alert';
-import Spinner from '../Spinner/Spinner';
+import Spinner from '../Utils/Spinner';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import axiosInstance from '../../helpers/axiosInstance';
 
@@ -51,7 +51,7 @@ const validationSchema = yup.object({
 
 const SignupService = () => {
     const history = useHistory();
-    const { auth: { loading, error, data }, dispatch } = useContext(AuthContext);
+    const { auth: { loading, error, data }, dispatch } = useAuth();
     const [cities, setCities] = useState([]); // id, city
 
     useEffect(() => {
@@ -110,7 +110,7 @@ const SignupService = () => {
                                 dispatch({ type: REGISTER_ERROR_REMOVE })
                             }
                             } dismissible>
-                                {error.message}
+                                {error}
                             </Alert>
                         }
 
@@ -164,7 +164,7 @@ const SignupService = () => {
                                     className="my-2 ml-sm-2"
                                     onChange={(_, value) => formik.setFieldValue('city', value ? value.id : '')}
                                     renderInput={(params) =>
-                                        <TextField 
+                                        <TextField
                                             {...params}
                                             name="city"
                                             size="small"
@@ -218,7 +218,7 @@ const SignupService = () => {
                             />
 
                             {!loading &&
-                                <Button variant="contained" type="submit" className="my-2 bg-homeHighlight text-homeWhiteFont button-round">
+                                <Button variant="contained" type="submit" className="my-2 bg-blueAccent text-white button-round">
                                     Kreiraj račun
                                 </Button>
                             }

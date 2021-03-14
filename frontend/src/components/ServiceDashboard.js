@@ -1,5 +1,5 @@
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../contexts/AuthContext";
+import { useEffect, useState } from "react";
+import { useAuth } from "../contexts/AuthContext";
 import logout from '../actions/auth/logout';
 import Button from "react-bootstrap/esm/Button";
 import { useHistory } from "react-router-dom";
@@ -7,11 +7,10 @@ import axiosInstance from '../helpers/axiosInstance';
 
 const ServiceDashboard = () => {
     const history = useHistory();
-    const { auth, dispatch } = useContext(AuthContext);
+    const { auth, dispatch } = useAuth();
 
     const [test, setTest] = useState('');
     useEffect(() => {
-        console.log('starting fetch');
         axiosInstance().get('/test')
             .then((response) => setTest(response.data))
             .catch(error => console.log(error));
@@ -20,6 +19,8 @@ const ServiceDashboard = () => {
     return (
         <div>
             Logged in as service
+            <br />
+            {auth.data.email}
             <hr />
             <Button onClick={() => logout(history)(dispatch)}>Logout</Button>
 

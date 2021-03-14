@@ -4,7 +4,7 @@ import Row from "react-bootstrap/Row";
 
 const Footer = () => {
     return (
-        <Container fluid className="px-0 py-5 bg-homeDark text-homeWhiteFont">
+        <Container fluid className="px-0 py-5 bg-gray text-white">
             <Container>
                 <Row>
                     <Col xs={12} sm={12} md={4} className="d-flex flex-column align-items-center align-items-md-start">
@@ -22,8 +22,8 @@ const Footer = () => {
                                 </div>
                                 <div>
                                     <span className="fas fa-stack fa-2x">
-                                        <i className="fas fa-circle fa-stack-2x text-homeHighlight"></i>
-                                        <i className="fas fa-envelope fa-stack-1x text-homeWhiteFont"></i>
+                                        <i className="fas fa-circle fa-stack-2x text-blueAccent"></i>
+                                        <i className="fas fa-envelope fa-stack-1x text-white"></i>
                                     </span>
                                 </div>
                             </div>
@@ -35,8 +35,8 @@ const Footer = () => {
                                 </div>
                                 <div>
                                     <span className="fas fa-stack fa-2x">
-                                        <i className="fas fa-circle fa-stack-2x text-homeHighlight"></i>
-                                        <i className="fas fa-phone-alt fa-stack-1x text-homeWhiteFont"></i>
+                                        <i className="fas fa-circle fa-stack-2x text-blueAccent"></i>
+                                        <i className="fas fa-phone-alt fa-stack-1x text-white"></i>
                                     </span>
                                 </div>
                             </div>

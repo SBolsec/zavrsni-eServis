@@ -3,7 +3,6 @@ import routes from './routes';
 import RenderRoute from './RenderRoute';
 
 function App() {
-
   return (
     <BrowserRouter>
       <Switch>
