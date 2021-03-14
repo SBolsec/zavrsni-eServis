@@ -1,5 +1,10 @@
 import axios from 'axios';
 import isAuthenticated from '../utils/isAuthenticated';
+import { PREFIX } from '../constants/global';
+
+const getToken = () => {
+    return localStorage.getItem(PREFIX + 'token');
+}
 
 const axiosWithHistory = (history = null) => {
     const baseURL = 'http://localhost:4000';
@@ -7,12 +12,12 @@ const axiosWithHistory = (history = null) => {
     const axiosInstance = axios.create({
         baseURL: baseURL,
         withCredentials: true,
-        headers: localStorage.token ? { 'Authorization': `Bearer ${localStorage.token}` } : {}
+        headers: localStorage.token ? { 'Authorization': `Bearer ${getToken()}` } : {}
     });
 
     axiosInstance.interceptors.request.use(
         async (config) => {
-            config.headers.Authorization = localStorage.token ? `Bearer ${localStorage.token}` : '';
+            config.headers.Authorization = getToken() ? `Bearer ${getToken()}` : '';
 
             if (isAuthenticated()) {
                 try {
@@ -22,7 +27,7 @@ const axiosWithHistory = (history = null) => {
                     });
                     const json = await response.json();
                     if (json && json.ok) {
-                        localStorage.token = json.accessToken;
+                        localStorage.setItem(PREFIX + 'token', json.accessToken);
                         config.headers.Authorization = `Bearer ${json.accessToken}`;
                     }
                     

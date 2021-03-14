@@ -1,5 +1,6 @@
 import axiosInstance from '../../helpers/axiosInstance';
 import { LOGIN_LOADING, LOGIN_ERROR, LOGIN_SUCCESS } from '../../constants/actionTypes';
+import { PREFIX } from '../../constants/global';
 
 const login = ({ email, password }) => (dispatch) => {
     dispatch({ type: LOGIN_LOADING });
@@ -10,7 +11,7 @@ const login = ({ email, password }) => (dispatch) => {
             password
         })
         .then((res) => {
-            localStorage.token = res.data.accessToken;
+            localStorage.setItem(PREFIX + 'token', res.data.accessToken);
             dispatch({
                 type: LOGIN_SUCCESS,
                 payload: res.data

@@ -1,6 +1,5 @@
 import { useEffect, useReducer } from 'react';
-
-const PREFIX = 'eservis-';
+import { PREFIX } from '../constants/global';
 
 export default function useLocalStorage(key, reducer, initialValue) {
     const prefixedKey = PREFIX + key;
