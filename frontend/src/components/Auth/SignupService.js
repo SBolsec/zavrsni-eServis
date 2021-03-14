@@ -110,7 +110,7 @@ const SignupService = () => {
                                 dispatch({ type: REGISTER_ERROR_REMOVE })
                             }
                             } dismissible>
-                                {error.message}
+                                {error}
                             </Alert>
                         }
 

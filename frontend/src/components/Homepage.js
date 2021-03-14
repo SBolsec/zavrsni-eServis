@@ -8,8 +8,16 @@ import Divider from './Utils/Divider';
 import Counter from './Utils/Counter/Counter';
 import MyNavbar from './MyNavbar';
 import Footer from './Footer';
+import { useEffect } from 'react';
+import { useAuth } from '../contexts/AuthContext';
+import { LOGIN_ERROR_REMOVE } from '../constants/actionTypes';
 
 function Homepage() {
+  const { dispatch } = useAuth();
+  
+  useEffect(() => {
+    dispatch({type: LOGIN_ERROR_REMOVE});
+  }, [dispatch]);
 
   return (
     <>

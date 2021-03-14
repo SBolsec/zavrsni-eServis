@@ -63,7 +63,7 @@ const Login = () => {
                   dispatch({ type: LOGIN_ERROR_REMOVE })
                 }
                 } dismissible>
-                  {auth.error.message}
+                  {auth.error}
                 </Alert>
               }
 

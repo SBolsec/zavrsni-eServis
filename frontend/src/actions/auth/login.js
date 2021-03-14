@@ -4,8 +4,7 @@ import { LOGIN_LOADING, LOGIN_ERROR, LOGIN_SUCCESS } from '../../constants/actio
 const login = ({ email, password }) => (dispatch) => {
     dispatch({ type: LOGIN_LOADING });
 
-    setTimeout(() => {
-        axiosInstance()
+    axiosInstance()
         .post('/login', {
             email,
             password
@@ -18,14 +17,12 @@ const login = ({ email, password }) => (dispatch) => {
             });
         })
         .catch((err) => {
+            console.log('error', err);
             dispatch({
                 type: LOGIN_ERROR,
-                payload: err.response ? err.response.data : "Spajanje na poslužitelj neuspješno"
+                payload: err.response ? err.response.data.message : "Spajanje na poslužitelj neuspješno"
             });
-        })
-
-    }, 2000);
-    
+        });
 }
 
 export default login;
