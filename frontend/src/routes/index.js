@@ -1,7 +1,7 @@
 import Homepage from "../components/Homepage";
-import Login from "../components/Signup/Login";
-import SignupService from "../components/Signup/SignupService";
-import SignupUser from "../components/Signup/SignupUser";
+import Login from "../components/Auth/Login";
+import SignupService from "../components/Auth/SignupService";
+import SignupUser from "../components/Auth/SignupUser";
 import UserDashboard from "../components/UserDashboard";
 import ServiceDashboard from "../components/ServiceDashboard";
 

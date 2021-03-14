@@ -6,14 +6,13 @@ import TextField from '@material-ui/core/TextField';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
-import './Signup.css';
+import './Auth.css';
 import { Link } from 'react-router-dom';
-import { useContext } from 'react';
-import { AuthContext } from '../../contexts/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 import { useHistory } from 'react-router-dom';
 import signupUser from '../../actions/signup/signupUser';
 import { REGISTER_AFTER_REDIRECT, REGISTER_ERROR_REMOVE } from '../../constants/actionTypes';
-import Spinner from '../Spinner/Spinner';
+import Spinner from '../Utils/Spinner';
 import Alert from 'react-bootstrap/esm/Alert';
 
 const validationSchema = yup.object({
@@ -37,7 +36,7 @@ const validationSchema = yup.object({
 
 const SignupUser = () => {
     const history = useHistory();
-    const { auth: { loading, error, data }, dispatch } = useContext(AuthContext);
+    const { auth: { loading, error, data }, dispatch } = useAuth();
 
     useEffect(() => {
         if (data) {
@@ -138,7 +137,7 @@ const SignupUser = () => {
                             />
 
                             {!loading &&
-                                <Button variant="contained" type="submit" className="my-2 bg-homeHighlight text-homeWhiteFont button-round">
+                                <Button variant="contained" type="submit" className="my-2 bg-blueAccent text-white button-round">
                                     Kreiraj račun
                                 </Button>
                             }

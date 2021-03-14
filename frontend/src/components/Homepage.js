@@ -2,77 +2,42 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
-import Navbar from 'react-bootstrap/Navbar';
 import './Homepage.css';
-import Footer from './Footer';
 import { Link } from 'react-router-dom';
-import CountUp from 'react-countup';
-import AppearSensor from './AppearSensor';
+import Divider from './Utils/Divider';
+import Counter from './Utils/Counter/Counter';
+import MyNavbar from './MyNavbar';
+import Footer from './Footer';
 
 function Homepage() {
-  function divider(width = 75) {
-    return (
-      <div className="d-flex justify-content-center my-3">
-        <div className="divider pt-1 bg-homeHighlight" style={{ width: `${width}px` }}></div>
-      </div>
-    );
-  }
-
-  function counter(value) {
-    return (
-      <AppearSensor>
-        {({ hasBeenVisible }) =>
-          hasBeenVisible
-            ? <CountUp
-              start={0}
-              end={value}
-              className="text-homeHighlight"
-              style={{ fontSize: '4rem' }} />
-            : <span
-              className="text-homeHighlight"
-              style={{ fontSize: '4rem' }}
-            >{value}</span>
-        }
-      </AppearSensor>
-    );
-  }
 
   return (
     <>
-      <Navbar bg="homeDark" className="px-0 py-2 text-homeWhiteFont">
-        <div className="brand-wrapper ml-3 ml-sm-5">
-          <Link to="/">
-            <img src="/images/logo.svg" alt="logo" className="logo" />
-          </Link>
-        </div>
-        <Link to="/login" className="ml-auto mr-3 mr-sm-5">
-          <Button variant="homeHighlight" className="text-homeWhiteFont button-round">PRIJAVI SE</Button>
-        </Link>
-      </Navbar>
+      <MyNavbar />
 
       <Container fluid className="px-0">
         <div className="text-center header d-flex align-content-center justify-content-center" style={{ backgroundImage: 'url(images/header_image.jpg)', backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundPosition: 'center' }}>
           <div className="my-auto">
-            <p className="text-homeWhiteFont text-uppercase py-2 header-subtitle">Pružamo najvišu kvalitetu</p>
-            <h1 className="text-homeWhiteFont font-weight-bold py-2 header-title">Davanje budućnosti Vašoj tehnologiji</h1>
+            <p className="text-white text-uppercase py-2 header-subtitle">Pružamo najvišu kvalitetu</p>
+            <h1 className="text-white font-weight-bold py-2 header-title">Davanje budućnosti Vašoj tehnologiji</h1>
           </div>
         </div>
       </Container>
 
       <Container fluid>
         <Row className="row-eq-height">
-          <Col xs={12} sm={6} className="p-5 bg-homeDark text-center">
-            <h5 className="text-homeWhiteFont text-weight-bold text-uppercase">Pronađite odgovarajuće usluge servisa</h5>
-            <p className="text-homeWhiteFont">Pomoći ćemo Vašem uređaju da opet radi brzo i pouzdano</p>
+          <Col xs={12} sm={6} className="p-5 bg-gray text-center">
+            <h5 className="text-white text-weight-bold text-uppercase">Pronađite odgovarajuće usluge servisa</h5>
+            <p className="text-white">Pomoći ćemo Vašem uređaju da opet radi brzo i pouzdano</p>
             <Link to="/signup/user">
-              <Button variant="homeHighlight" className="button-round">REGISTRACIJA</Button>
+              <Button variant="blueAccent" className="button-round">REGISTRACIJA</Button>
             </Link>
           </Col>
-          <Col xs={12} sm={6} className="p-5 bg-homeLight text-center text-weight-bold">
+          <Col xs={12} sm={6} className="p-5 bg-lightGray text-center text-weight-bold">
             <h5 className="text-weight-bold text-uppercase">Ponudite usluge servisa uređaja</h5>
             <p>Kvalitetan i profesionalan popravak i nadogradnja svih modela uređaja</p>
             <Link to="/signup/service">
-              <Button variant="homeHighlight" className="button-round">REGISTRACIJA</Button>
+              <Button variant="blueAccent" className="button-round">REGISTRACIJA</Button>
             </Link>
           </Col>
         </Row>
@@ -81,7 +46,7 @@ function Homepage() {
       <Container className="py-5">
         <div className="text-center">
           <h4 className="text-uppercase font-weight-bold">Servisi</h4>
-          {divider()}
+          <Divider width={75} />
           <p>Servisi u koje se možete pouzdati</p>
         </div>
 
@@ -110,10 +75,10 @@ function Homepage() {
         </Row>
       </Container>
 
-      <Container fluid className="px-0 pt-5 pb-5 bg-homeLight">
+      <Container fluid className="px-0 pt-5 pb-5 bg-lightGray">
         <div className="text-center pb-4">
           <h4 className="text-uppercase font-weight-bold">O nama</h4>
-          {divider()}
+          <Divider width={75} />
           <p>Nova perspektiva pružanja i dobivanja usluga</p>
         </div>
         <Container>
@@ -135,7 +100,7 @@ function Homepage() {
       <Container className="my-5 text-center">
         <div>
           <h4 className="text-uppercase font-weight-bold">Zašto odabrati nas?</h4>
-          {divider()}
+          <Divider width={75} />
           <p>Naša platforma omogućuje Vam da svojim potencijalnim kupcima ponudite kvalitetan i profesionalan popravak uređaja!</p>
           <p>Poboljšajte učinkovitost, iskoristite tehnologiju i pružite bolja iskustva korisnika s modernim tehnološkim uslugama dostupnim širom Hrvatske.</p>
         </div>
@@ -143,55 +108,55 @@ function Homepage() {
         <Row className="icons">
           <Col xs={12} sm={6} lg={3} className="px-2 py-2">
             <span className="fas fa-stack fa-3x">
-              <i className="fas fa-circle fa-stack-2x text-homeHighlight"></i>
-              <i className="fas fa-user-shield fa-stack-1x text-homeWhiteFont"></i>
+              <i className="fas fa-circle fa-stack-2x text-blueAccent"></i>
+              <i className="fas fa-user-shield fa-stack-1x text-white"></i>
             </span>
             <h5 className="text-uppercase font-weight-bold my-3">Integritet</h5>
-            {divider()}
+            <Divider width={75} />
             <p className="pt-3">Transparentnost je ono što nas definira. Nastojimo stvoriti jasne dugoročne poslovne odnose i odnose s kupcima.</p>
           </Col>
           <Col xs={12} sm={6} lg={3} className="px-2 py-2">
             <span className="fas fa-stack fa-3x">
-              <i className="fas fa-circle fa-stack-2x text-homeHighlight"></i>
-              <i className="fas fa-users fa-stack-1x text-homeWhiteFont"></i>
+              <i className="fas fa-circle fa-stack-2x text-blueAccent"></i>
+              <i className="fas fa-users fa-stack-1x text-white"></i>
             </span>
             <h5 className="text-uppercase font-weight-bold my-3">Predanost</h5>
-            {divider()}
+            <Divider width={75} />
             <p className="pt-3">Zahvaljujući marljivom radu svakog servisa, svi možemo napredovati te tako stvoriti dodatnu vrijednost i postići ciljeve.</p>
           </Col>
           <Col xs={12} sm={6} lg={3} className="px-2 py-2">
             <span className="fas fa-stack fa-3x">
-              <i className="fas fa-circle fa-stack-2x text-homeHighlight"></i>
-              <i className="fas fa-award fa-stack-1x text-homeWhiteFont"></i>
+              <i className="fas fa-circle fa-stack-2x text-blueAccent"></i>
+              <i className="fas fa-award fa-stack-1x text-white"></i>
             </span>
             <h5 className="text-uppercase font-weight-bold my-3">Izvrsnost</h5>
-            {divider()}
+            <Divider width={75} />
             <p className="pt-3">Svaki sklopljeni posao ostvaruje se na ispravan i najpogodniji način, poštujući sve ovlaštene servisere i korisnike.</p>
           </Col>
           <Col xs={12} sm={6} lg={3} className="px-2 py-2">
             <span className="fas fa-stack fa-3x">
-              <i className="fas fa-circle fa-stack-2x text-homeHighlight"></i>
-              <i className="fas fa-user-check fa-stack-1x text-homeWhiteFont"></i>
+              <i className="fas fa-circle fa-stack-2x text-blueAccent"></i>
+              <i className="fas fa-user-check fa-stack-1x text-white"></i>
             </span>
             <h5 className="text-uppercase font-weight-bold my-3">Korisnik na prvom mjestu</h5>
-            {divider()}
+            <Divider width={75} />
             <p className="pt-3">Razumijevajući potrebe korisnika, u tren oka pretvaramo probleme s uređajima u optimalna rješenja.</p>
           </Col>
         </Row>
       </Container>
 
-      <Container fluid className="bg-homeLight">
+      <Container fluid className="bg-lightGray">
         <Row className="p-4 text-center font-weight-bold">
           <Col xs={12} sm={4} className="py-2">
-            {counter(3225)}
+            <Counter start={0} end={3225} />
             <p className="text-uppercase">Popravljenih računala</p>
           </Col>
           <Col xs={12} sm={4} className="py-2">
-            {counter(2134)}
+            <Counter start={0} end={3225} />
             <p className="text-uppercase">Popravljenih mobitela</p>
           </Col>
           <Col xs={12} sm={4} className="py-2">
-            {counter(1139)}
+            <Counter start={0} end={3225} />
             <p className="text-uppercase">Popravljenih konzola</p>
           </Col>
         </Row>
