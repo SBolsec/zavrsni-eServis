@@ -20,7 +20,7 @@ const ServiceDashboard = () => {
         <div>
             Logged in as service
             <br />
-            {auth.data.user.email}
+            {auth.data.email}
             <hr />
             <Button onClick={() => logout(history)(dispatch)}>Logout</Button>
 

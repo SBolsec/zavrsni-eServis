@@ -30,8 +30,6 @@ const axiosWithHistory = (history = null) => {
                         localStorage.setItem(PREFIX + 'token', json.accessToken);
                         config.headers.Authorization = `Bearer ${json.accessToken}`;
                     }
-                    
-                    console.log('axios', json);
                 } catch (error) {
                     console.error(error);
                 }

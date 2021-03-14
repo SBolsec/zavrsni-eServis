@@ -4,7 +4,7 @@ import { ROLE_USER, ROLE_SERVICE, ROLE_ADMIN } from '../constants/global';
 
 const redirectToDashboard = (auth) => {
     if (isAuthenticated()) {
-        switch (auth.data.user.userType) {
+        switch (auth.data.role) {
             case ROLE_USER:
                 return <Redirect to='/user/dashboard' />;
             case ROLE_SERVICE:
@@ -14,6 +14,8 @@ const redirectToDashboard = (auth) => {
             default:
                 return <Redirect to='/' />;
         }
+    } else {
+        return <Redirect to='/' />
     }
 }
 

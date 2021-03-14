@@ -14,7 +14,7 @@ const login = ({ email, password }) => (dispatch) => {
             localStorage.setItem(PREFIX + 'token', res.data.accessToken);
             dispatch({
                 type: LOGIN_SUCCESS,
-                payload: res.data
+                payload: res.data.user
             });
         })
         .catch((err) => {

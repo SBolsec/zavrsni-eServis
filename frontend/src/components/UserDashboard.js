@@ -20,7 +20,7 @@ const UserDashboard = () => {
         <div>
             Logged in as user
             <br />
-            {auth.data.user.email}
+            {auth.data.email}
             <hr />
             <Button onClick={() => logout(history)(dispatch)}>Logout</Button>
 

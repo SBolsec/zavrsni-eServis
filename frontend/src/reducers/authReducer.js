@@ -1,5 +1,6 @@
 import { LOGIN_ERROR, LOGIN_LOADING, LOGIN_SUCCESS, LOGOUT, LOGIN_ERROR_REMOVE, REGISTER_LOADING, REGISTER_ERROR, REGISTER_SUCCESS, REGISTER_ERROR_REMOVE, REGISTER_AFTER_REDIRECT } from "../constants/actionTypes";
 import authInitialState from '../contexts/initialStates/authInitialState';
+import getRole from '../utils/getRole';
 
 const authReducer = (state, { type, payload }) => {
     switch (type) {
@@ -25,11 +26,17 @@ const authReducer = (state, { type, payload }) => {
             }
         case REGISTER_SUCCESS:
         case LOGIN_SUCCESS:
+            console.log(payload);
             return {
                 ...state,
                 loading: false,
                 error: false,
-                data: payload
+                data: {
+                    userId: payload.userId,
+                    role: getRole(payload.userType),
+                    tokenVersion: payload.tokenVersion,
+                    email: payload.email
+                }
             }
         case REGISTER_AFTER_REDIRECT:
             return {
