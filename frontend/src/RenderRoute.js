@@ -1,11 +1,10 @@
 import { useContext } from "react";
-import { Route, useHistory, Redirect } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import { AuthContext } from "./contexts/AuthContext";
 import isAuthenticated from "./utils/isAuthenticated";
 import redirectToDashboard from "./utils/redirectToDashboard";
 
 const RenderRoute = (route) => {
-    const history = useHistory();
     const { auth } = useContext(AuthContext);
 
     document.title = route.title || 'eServis';
