@@ -77,7 +77,6 @@ const SignupUser = () => {
 
                         {error &&
                             <Alert variant="danger" onClick={() => {
-                                console.log('click');
                                 dispatch({ type: REGISTER_ERROR_REMOVE })
                             }
                             } dismissible>

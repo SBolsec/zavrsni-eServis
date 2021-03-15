@@ -55,7 +55,7 @@ const SignupService = () => {
     const [cities, setCities] = useState([]); // id, city
 
     useEffect(() => {
-        axiosInstance(history).get('/city')
+        axiosInstance(history).get('/cities/formatted')
             .then(res => {
                 setCities(res.data);
             })
@@ -106,7 +106,6 @@ const SignupService = () => {
 
                         {error &&
                             <Alert variant="danger" onClick={() => {
-                                console.log('click');
                                 dispatch({ type: REGISTER_ERROR_REMOVE })
                             }
                             } dismissible>
