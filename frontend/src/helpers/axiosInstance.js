@@ -12,7 +12,7 @@ const axiosWithHistory = (history = null) => {
     const axiosInstance = axios.create({
         baseURL: baseURL,
         withCredentials: true,
-        headers: localStorage.token ? { 'Authorization': `Bearer ${getToken()}` } : {}
+        headers: getToken() ? { 'Authorization': `Bearer ${getToken()}` } : {}
     });
 
     axiosInstance.interceptors.request.use(
@@ -52,7 +52,7 @@ const axiosWithHistory = (history = null) => {
         }
 
         if (error.response.status === 403) {
-            localStorage.removeItem("token");
+            localStorage.removeItem(PREFIX + "token");
 
             if (history) {
                 history.push("/login");
