@@ -59,7 +59,6 @@ const Login = () => {
 
               {auth.error &&
                 <Alert variant="danger" onClick={() => {
-                  console.log('click');
                   dispatch({ type: LOGIN_ERROR_REMOVE })
                 }
                 } dismissible>

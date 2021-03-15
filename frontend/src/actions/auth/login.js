@@ -18,7 +18,6 @@ const login = ({ email, password }) => (dispatch) => {
             });
         })
         .catch((err) => {
-            console.log('error', err);
             dispatch({
                 type: LOGIN_ERROR,
                 payload: err.response ? err.response.data.message : "Spajanje na poslužitelj neuspješno"

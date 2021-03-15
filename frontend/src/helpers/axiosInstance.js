@@ -43,7 +43,6 @@ const axiosWithHistory = (history = null) => {
     );
 
     axiosInstance.interceptors.response.use((response) => {
-        console.log('response', response);
         return response;
     }, (error) => {
         if (!error.response) {

@@ -14,8 +14,6 @@ const redirectToDashboard = (auth) => {
             default:
                 return <Redirect to='/' />;
         }
-    } else {
-        return <Redirect to='/' />
     }
 }
 

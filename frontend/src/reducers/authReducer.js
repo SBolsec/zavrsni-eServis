@@ -25,7 +25,6 @@ const authReducer = (state, { type, payload }) => {
                 error: payload
             }
         case REGISTER_SUCCESS:
-            console.log('register', payload);
             return {
                 ...state,
                 loading: false,
@@ -40,8 +39,8 @@ const authReducer = (state, { type, payload }) => {
                 loading: false,
                 error: false,
                 data: {
-                    userId: payload.userId,
-                    role: getRole(payload.userType),
+                    userId: payload.id,
+                    role: getRole(payload.roleId),
                     tokenVersion: payload.tokenVersion,
                     email: payload.email
                 }
