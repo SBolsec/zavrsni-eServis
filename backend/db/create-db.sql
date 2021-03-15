@@ -10,7 +10,9 @@ CREATE TABLE Korisnik
   email VARCHAR NOT NULL UNIQUE,
   lozinka VARCHAR NOT NULL,
   sif_uloga INT NOT NULL REFERENCES Uloga(sif_uloga),
-  verzija_tokena INT NOT NULL DEFAULT 0
+  verzija_tokena INT NOT NULL DEFAULT 0,
+  trenutak_stvaranja TIMESTAMP,
+  trenutak_promjene TIMESTAMP
 );
 
 CREATE TABLE Osoba
@@ -18,7 +20,9 @@ CREATE TABLE Osoba
   sif_osoba SERIAL PRIMARY KEY,
   ime VARCHAR NOT NULL,
   prezime VARCHAR NOT NULL,
-  sif_korisnik INT NOT NULL REFERENCES Korisnik(sif_korisnik) ON DELETE CASCADE
+  sif_korisnik INT NOT NULL REFERENCES Korisnik(sif_korisnik) ON DELETE CASCADE,
+  trenutak_stvaranja TIMESTAMP,
+  trenutak_promjene TIMESTAMP
 );
 
 CREATE TABLE Mjesto 
@@ -36,7 +40,9 @@ CREATE TABLE Servis
   telefon VARCHAR NOT NULL,
   adresa VARCHAR NOT NULL,
   sif_mjesto INT NOT NULL REFERENCES Mjesto(sif_mjesto) ON DELETE CASCADE,
-  sif_korisnik INT NOT NULL REFERENCES Korisnik(sif_korisnik) ON DELETE CASCADE
+  sif_korisnik INT NOT NULL REFERENCES Korisnik(sif_korisnik) ON DELETE CASCADE,
+  trenutak_stvaranja TIMESTAMP,
+  trenutak_promjene TIMESTAMP
 );
 
 INSERT INTO uloga (naziv_uloga) VALUES ('admin');
