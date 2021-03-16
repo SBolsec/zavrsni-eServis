@@ -75,9 +75,9 @@ function Homepage() {
           </Col>
           <Col xs={12} md={4}>
             <div className="text-center">
-              <img className="img-fluid" src="/images/servis_konzola.jpg" alt="Servis konzola" />
-              <h5 className="text-uppercase font-weight-bold pt-3">Servis konzola</h5>
-              <p>Usluge servisa svih generacija i modela konzola, ručnih konzola i popravak retro igračih konzola</p>
+              <img className="img-fluid" src="/images/servis_bijele_tehnike.jpg" alt="Servis bijele tehnike" />
+              <h5 className="text-uppercase font-weight-bold pt-3">Servis bijele tehnike</h5>
+              <p>Usluge servisa bijele tehnike i kućanskih aparata renomiranih proizvođača</p>
             </div>
           </Col>
         </Row>
@@ -156,16 +156,16 @@ function Homepage() {
       <Container fluid className="bg-lightGray">
         <Row className="p-4 text-center font-weight-bold">
           <Col xs={12} sm={4} className="py-2">
-            <Counter start={0} end={3225} />
+            <Counter start={0} end={3255} />
             <p className="text-uppercase">Popravljenih računala</p>
           </Col>
           <Col xs={12} sm={4} className="py-2">
-            <Counter start={0} end={3225} />
+            <Counter start={0} end={2134} />
             <p className="text-uppercase">Popravljenih mobitela</p>
           </Col>
           <Col xs={12} sm={4} className="py-2">
-            <Counter start={0} end={3225} />
-            <p className="text-uppercase">Popravljenih konzola</p>
+            <Counter start={0} end={1139} />
+            <p className="text-uppercase">Popravljenih uređaja bijele tehnike</p>
           </Col>
         </Row>
       </Container>

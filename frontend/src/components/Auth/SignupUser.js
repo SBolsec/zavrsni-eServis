@@ -70,7 +70,7 @@ const SignupUser = () => {
                     <div className="login-wrapper my-auto mx-auto text-center">
                         <div className="brand-wrapper">
                             <Link to="/">
-                                <img src="/images/logo.svg" alt="logo" className="logo" />
+                                <img src="/images/e-servis_black.png" alt="logo" className="logo" />
                             </Link>
                         </div>
                         <p className="my-2 font-weight-bold">Ispunite podatke da biste kreirali račun.</p>

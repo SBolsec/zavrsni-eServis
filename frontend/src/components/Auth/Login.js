@@ -46,13 +46,13 @@ const Login = () => {
       <Container fluid className="px-0 body-wrapper">
         <Row noGutters>
           <Col sm={6} className="px-0 d-none d-sm-block">
-            <img src="/images/korisnik_registracija.jpg" alt="signup" className="login-img" />
+            <img src="/images/prijava.jpg" alt="signup" className="login-img" />
           </Col>
           <Col sm={6} className="login-section-wrapper">
             <div className="login-wrapper my-auto mx-auto text-center">
               <div className="brand-wrapper">
                 <Link to="/">
-                  <img src="/images/logo.svg" alt="logo" className="logo" />
+                  <img src="/images/e-servis_black.png" alt="logo" className="logo" />
                 </Link>
               </div>
               <p className="my-2 font-weight-bold">Dobrodošli natrag! Molimo prijavite se na svoj račun.</p>

@@ -1,6 +1,7 @@
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
     return (
@@ -8,13 +9,15 @@ const Footer = () => {
             <Container>
                 <Row>
                     <Col xs={12} sm={12} md={4} className="d-flex flex-column align-items-center align-items-md-start">
-                        <div className="mb-3">Imaginary logo</div>
-                        <p>2021 &copy; eServis. Sva prava pridržana.</p>
+                        <Link to="/">
+                            <img src="/images/e-servis_white.png" alt="logo" className="my-2" style={{height: '25px'}} />
+                        </Link>
+                        <p>2021 &copy; e-servis. Sva prava pridržana.</p>
                     </Col>
                     <Col xs={0} sm={0} md={2}></Col>
                     <Col xs={12} sm={12} md={6}>
                         <div className="d-flex flex-column flex-md-row flex-wrap align-content-center justify-content-between">
-                            <div className="d-flex align-items-center justify-content-between my-2" style={{width: '215px'}}>
+                            <div className="d-flex align-items-center justify-content-between my-2" style={{ width: '215px' }}>
                                 <div>
                                     <span>Kontaktirajte nas:</span>
                                     <br />
@@ -27,7 +30,7 @@ const Footer = () => {
                                     </span>
                                 </div>
                             </div>
-                            <div className="d-flex align-items-center justify-content-between my-2" style={{width: '215px'}}>
+                            <div className="d-flex align-items-center justify-content-between my-2" style={{ width: '215px' }}>
                                 <div>
                                     <span>Nazovite nas:</span>
                                     <br />
