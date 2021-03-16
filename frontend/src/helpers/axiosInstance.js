@@ -7,7 +7,7 @@ const getToken = () => {
 }
 
 const axiosWithHistory = (history = null) => {
-    const baseURL = 'http://localhost:4000';
+    const baseURL = 'https://eservis.herokuapp.com';
 
     const axiosInstance = axios.create({
         baseURL: baseURL,
