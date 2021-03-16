@@ -6,7 +6,7 @@ import redirectToDashboard from "./utils/redirectToDashboard";
 const RenderRoute = (route) => {
     const { auth } = useAuth();
 
-    document.title = 'e-Servis | ' + route.title;
+    document.title = 'e-servis | ' + route.title;
     if (route.needsAuth) {
         if (!isAuthenticated()) {
             return <Redirect to="/login" />
