@@ -5,7 +5,7 @@ const Divider = ({width}) => {
 
   return (
     <div className="d-flex justify-content-center my-3">
-      <div className="divider pt-1 bg-homeHighlight" style={{ width: `${width}px` }}></div>
+      <div className="divider pt-1 bg-blueAccent" style={{ width: `${width}px` }}></div>
     </div>
   );
 }
