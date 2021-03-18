@@ -4,10 +4,7 @@ import setShowSidebar from '../../actions/sidebar';
 import {
   CHeader,
   CToggler,
-  CHeaderBrand,
-  CHeaderNav,
-  CHeaderNavItem,
-  CHeaderNavLink
+  CHeaderBrand
 } from '@coreui/react';
 import CIcon from '@coreui/icons-react';
 
