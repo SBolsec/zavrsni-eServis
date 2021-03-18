@@ -6,45 +6,51 @@ const _nav =  [
     _tag: 'CSidebarNavItem',
     name: 'Dashboard',
     to: '/user/dashboard',
-    icon: <CIcon name="cil-speedometer" customClasses="c-sidebar-nav-icon"/>
-  },
-  {
-    _tag: 'CSidebarNavTitle',
-    _children: ['Theme']
+    icon: <CIcon name="cil-home" customClasses="c-sidebar-nav-icon"/>
   },
   {
     _tag: 'CSidebarNavItem',
-    name: 'Colors',
-    to: '/user/haja',
-    icon: 'cil-drop',
-  },
-  {
-    _tag: 'CSidebarNavItem',
-    name: 'Typography',
-    to: '/user/hajatwo',
-    icon: 'cil-pencil',
+    name: 'Poruke',
+    to: '/user/chat',
+    icon: 'cil-chat-bubble',
   },
   {
     _tag: 'CSidebarNavTitle',
-    _children: ['Components']
+    _children: ['Oglasi']
   },
   {
-    _tag: 'CSidebarNavDropdown',
-    name: 'Base',
-    route: '/base',
-    icon: 'cil-puzzle',
-    _children: [
-      {
-        _tag: 'CSidebarNavItem',
-        name: 'Breadcrumb',
-        to: '/base/breadcrumbs',
-      },
-      {
-        _tag: 'CSidebarNavItem',
-        name: 'Cards',
-        to: '/base/cards',
-      }
-    ],
+    _tag: 'CSidebarNavItem',
+    name: 'Aktivni oglasi',
+    to: '/user/active',
+    icon: 'cil-newspaper',
+  },
+  {
+    _tag: 'CSidebarNavItem',
+    name: 'Povijest oglasa',
+    to: '/user/history',
+    icon: 'cil-history',
+  },
+  {
+    _tag: 'CSidebarNavItem',
+    name: 'Pretraga servisera',
+    to: '/user/services',
+    icon: 'cil-search',
+  },
+  {
+    _tag: 'CSidebarNavTitle',
+    _children: ['Korisnik']
+  },
+  {
+    _tag: 'CSidebarNavItem',
+    name: 'Profil',
+    to: '/user/profile',
+    icon: 'cil-user',
+  },
+  {
+    _tag: 'CSidebarNavItem',
+    name: 'Odjava',
+    to: '/logout',
+    icon: 'cil-account-logout',
   }
 ]
 
