@@ -25,7 +25,7 @@ const RenderRoute = (route) => {
             path={route.path}
             exact={route.exact}
             render={props => (
-                <route.component {...props} content={route.content} />
+                <route.component {...props} content={route.content} title={route.title} />
             )}
         />
     );
