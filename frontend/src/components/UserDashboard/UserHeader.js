@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useUserContext } from '../../contexts/UserContext';
 import setShowSidebar from '../../actions/sidebar';
 import {
