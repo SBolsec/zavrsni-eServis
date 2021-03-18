@@ -8,7 +8,7 @@ import {
 } from '@coreui/react';
 import CIcon from '@coreui/icons-react';
 
-const UserHeader = () => {
+const UserHeader = ({title}) => {
   const { context, dispatch } = useUserContext();
 
   const toggleSidebar = () => {
@@ -36,6 +36,10 @@ const UserHeader = () => {
       <CHeaderBrand className="mx-auto my-1 d-lg-none" to="/user/dashboard">
         <CIcon name="logo" height="35" alt="Logo"/>
       </CHeaderBrand>
+
+      <div className="d-flex align-items-center">
+        {title}
+      </div>
 
 
       <div className="ml-auto mr-4 d-flex justify-content-between align-items-center">

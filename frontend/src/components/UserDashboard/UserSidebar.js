@@ -25,7 +25,7 @@ const TheSidebar = () => {
     <CSidebar
       show={context.sidebarShow}
       onShowChange={(val) => setShowSidebar(val)(dispatch)}
-      className="bg-darkGray"
+      className="bg-darkestGray"
     >
       <CSidebarBrand className="d-md-down-none" to="/user/dashboard">
         
