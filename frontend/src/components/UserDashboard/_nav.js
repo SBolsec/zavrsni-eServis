@@ -11,7 +11,7 @@ const _nav =  [
   {
     _tag: 'CSidebarNavItem',
     name: 'Poruke',
-    to: '/user/chat',
+    to: '/user/messages',
     icon: 'cil-chat-bubble',
   },
   {
@@ -33,7 +33,7 @@ const _nav =  [
   {
     _tag: 'CSidebarNavItem',
     name: 'Pretraga servisera',
-    to: '/user/services',
+    to: '/user/servicers',
     icon: 'cil-search',
   },
   {
