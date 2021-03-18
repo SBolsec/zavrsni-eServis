@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useUserContext } from '../../contexts/UserContext';
 import setShowSidebar from '../../actions/sidebar';
 import {
@@ -7,9 +7,7 @@ import {
   CHeaderBrand,
   CHeaderNav,
   CHeaderNavItem,
-  CHeaderNavLink,
-  CSubheader,
-  CLink
+  CHeaderNavLink
 } from '@coreui/react';
 import CIcon from '@coreui/icons-react';
 
@@ -27,7 +25,7 @@ const UserHeader = () => {
   }
 
   return (
-    <CHeader withSubheader>
+    <CHeader>
       <CToggler
         inHeader
         className="ml-md-3 d-lg-none"
@@ -38,8 +36,8 @@ const UserHeader = () => {
         className="ml-3 d-md-down-none"
         onClick={toggleSidebar}
       />
-      <CHeaderBrand className="mx-auto d-lg-none" to="/">
-        <CIcon name="logo" height="48" alt="Logo"/>
+      <CHeaderBrand className="mx-auto my-1 d-lg-none" to="/user/dashboard">
+        <CIcon name="logo" height="35" alt="Logo"/>
       </CHeaderBrand>
 
       <CHeaderNav className="d-md-down-none mr-auto">
@@ -57,24 +55,6 @@ const UserHeader = () => {
       <CHeaderNav className="px-3">
       </CHeaderNav>
 
-      <CSubheader className="px-3 justify-content-between">
-        
-          <div className="d-md-down-none mfe-2 c-subheader-nav">
-            <CLink className="c-subheader-nav-link"href="#">
-              <CIcon name="cil-speech" alt="Settings" />
-            </CLink>
-            <CLink 
-              className="c-subheader-nav-link" 
-              aria-current="page" 
-              to="/dashboard"
-            >
-              <CIcon name="cil-graph" alt="Dashboard" />&nbsp;Dashboard
-            </CLink>
-            <CLink className="c-subheader-nav-link" href="#">
-              <CIcon name="cil-settings" alt="Settings" />&nbsp;Settings
-            </CLink>
-          </div>
-      </CSubheader>
     </CHeader>
   )
 }
