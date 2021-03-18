@@ -40,20 +40,11 @@ const UserHeader = () => {
         <CIcon name="logo" height="35" alt="Logo"/>
       </CHeaderBrand>
 
-      <CHeaderNav className="d-md-down-none mr-auto">
-        <CHeaderNavItem className="px-3" >
-          <CHeaderNavLink to="/dashboard">Dashboard</CHeaderNavLink>
-        </CHeaderNavItem>
-        <CHeaderNavItem  className="px-3">
-          <CHeaderNavLink to="/users">Users</CHeaderNavLink>
-        </CHeaderNavItem>
-        <CHeaderNavItem className="px-3">
-          <CHeaderNavLink>Settings</CHeaderNavLink>
-        </CHeaderNavItem>
-      </CHeaderNav>
 
-      <CHeaderNav className="px-3">
-      </CHeaderNav>
+      <div className="ml-auto mr-4 d-flex justify-content-between align-items-center">
+        <span className="mr-3">John Doe</span>
+        <img src="/images/prijava.jpg" alt="avatar" className="rounded-circle" style={{width: '45px', height: '45px'}} />
+      </div>
 
     </CHeader>
   )
