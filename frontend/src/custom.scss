@@ -16,3 +16,6 @@ $theme-colors: (
 
 // Import Bootstrap and its default variables
 @import '~bootstrap/scss/bootstrap.scss';
+
+// Import CoreUI
+@import "~@coreui/coreui/scss/coreui";

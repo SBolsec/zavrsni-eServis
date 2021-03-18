@@ -4,6 +4,10 @@ import './custom.scss';
 import App from './App';
 import AuthContextProvider from './contexts/AuthContext';
 
+import { icons } from './assets/icons';
+
+React.icons = icons;
+
 ReactDOM.render(
     <AuthContextProvider>
       <App />
