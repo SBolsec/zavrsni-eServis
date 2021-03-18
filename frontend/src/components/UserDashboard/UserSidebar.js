@@ -22,7 +22,8 @@ const TheSidebar = ({showSidebar, setShowSidebar}) => {
       show={showSidebar}
       onShowChange={(val) => setShowSidebar(val)}
     >
-      <CSidebarBrand className="d-md-down-none" to="/test">
+      <CSidebarBrand className="d-md-down-none" to="/user/dashboard">
+        
         <CIcon
           className="c-sidebar-brand-full"
           name="logo-negative"

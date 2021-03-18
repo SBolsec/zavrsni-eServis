@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react';
+import UserContextProvider from '../../contexts/UserContext';
 import Footer from '../Footer';
 import {
   UserContent,
@@ -7,20 +7,20 @@ import {
   UserHeader
 } from './index'
 
-const UserLayout = ({content}) => {
-  const [showSidebar, setShowSidebar] = useState(true);
-
+const UserLayout = ({ content }) => {
   return (
-    <div className="c-app c-default-layout">
-      <UserSidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
-      <div className="c-wrapper">
-        <UserHeader showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
-        <div className="c-body">
-          <UserContent content={content} />
+    <UserContextProvider>
+      <div className="c-app c-default-layout">
+        <UserSidebar />
+        <div className="c-wrapper">
+          <UserHeader />
+          <div className="c-body">
+            <UserContent content={content} />
+          </div>
+          <Footer />
         </div>
-        <Footer />
       </div>
-    </div>
+    </UserContextProvider>
   )
 }
 
