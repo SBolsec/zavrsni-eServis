@@ -1,4 +1,6 @@
-import React from 'react'
+import React from 'react';
+import { useUserContext } from '../../contexts/UserContext';
+import setShowSidebar from '../../actions/sidebar';
 import {
   CHeader,
   CToggler,
@@ -8,19 +10,20 @@ import {
   CHeaderNavLink,
   CSubheader,
   CLink
-} from '@coreui/react'
-import CIcon from '@coreui/icons-react'
+} from '@coreui/react';
+import CIcon from '@coreui/icons-react';
 
-const UserHeader = ({showSidebar, setShowSidebar}) => {
+const UserHeader = () => {
+  const { context, dispatch } = useUserContext();
 
   const toggleSidebar = () => {
-    const val = [true, 'responsive'].includes(showSidebar) ? false : 'responsive'
-    setShowSidebar(val);
+    const val = [true, 'responsive'].includes(context.sidebarShow) ? false : 'responsive'
+    setShowSidebar(val)(dispatch);
   }
 
   const toggleSidebarMobile = () => {
-    const val = [true, 'responsive'].includes(showSidebar) ? true : 'responsive'
-    setShowSidebar(val);
+    const val = [false, 'responsive'].includes(context.sidebarShow) ? true : 'responsive'
+    setShowSidebar(val)(dispatch);
   }
 
   return (

@@ -1,4 +1,6 @@
-import React from 'react'
+import React from 'react';
+import { useUserContext } from '../../contexts/UserContext';
+import setShowSidebar from '../../actions/sidebar';
 import {
   CCreateElement,
   CSidebar,
@@ -9,18 +11,20 @@ import {
   CSidebarMinimizer,
   CSidebarNavDropdown,
   CSidebarNavItem,
-} from '@coreui/react'
+} from '@coreui/react';
 
-import CIcon from '@coreui/icons-react'
+import CIcon from '@coreui/icons-react';
 
 // sidebar nav config
-import navigation from './_nav'
+import navigation from './_nav';
 
-const TheSidebar = ({showSidebar, setShowSidebar}) => {
+const TheSidebar = () => {
+  const { context, dispatch } = useUserContext();
+
   return (
     <CSidebar
-      show={showSidebar}
-      onShowChange={(val) => setShowSidebar(val)}
+      show={context.sidebarShow}
+      onShowChange={(val) => setShowSidebar(val)(dispatch)}
       className="bg-darkGray"
     >
       <CSidebarBrand className="d-md-down-none" to="/user/dashboard">

@@ -10,3 +10,5 @@ export const LOGIN_ERROR = "LOGIN_ERROR";
 export const LOGIN_ERROR_REMOVE = "LOGIN_ERROR_REMOVE";
 
 export const LOGOUT = "LOGOUT";
+
+export const SET_SIDEBAR_SHOW = "SET_SIDEBAR_SHOW";
