@@ -3,10 +3,11 @@ import { useServiceContext } from '../../contexts/ServiceContext';
 import setShowSidebar from '../../actions/sidebar';
 import {
   CHeader,
-  CToggler,
   CHeaderBrand
 } from '@coreui/react';
 import CIcon from '@coreui/icons-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 const ServiceHeader = ({title}) => {
   const { context, dispatch } = useServiceContext();
@@ -23,16 +24,20 @@ const ServiceHeader = ({title}) => {
 
   return (
     <CHeader>
-      <CToggler
-        inHeader
-        className="ml-md-3 d-lg-none"
+      <div 
+        className="ml-3 d-flex align-items-center d-lg-none header-toggler" 
         onClick={toggleSidebarMobile}
-      />
-      <CToggler
-        inHeader
-        className="ml-3 d-md-down-none"
+      >
+        <FontAwesomeIcon icon={faBars} className="fa-2x" />
+      </div>
+
+      <div 
+        className="ml-3 d-none d-lg-flex align-items-center header-toggler" 
         onClick={toggleSidebar}
-      />
+      >
+        <FontAwesomeIcon icon={faBars} className="fa-2x" />
+      </div>
+
       <div className="d-none d-md-flex align-items-center ml-4">
         {title}
       </div>

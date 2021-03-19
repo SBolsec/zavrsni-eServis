@@ -25,3 +25,16 @@ html {
 .icons h5 {
     font-size: 1em;
 }
+
+.header-toggler {
+    color: white;
+}
+
+.header-toggler:hover {
+    color: rgb(168, 168, 168);
+    cursor: pointer;
+}
+
+.header-toggler:active {
+    transform: translateX(2px);
+}
