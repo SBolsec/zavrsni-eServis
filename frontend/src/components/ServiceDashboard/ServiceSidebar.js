@@ -1,5 +1,5 @@
 import React from 'react';
-import { useUserContext } from '../../contexts/UserContext';
+import { useServiceContext } from '../../contexts/ServiceContext';
 import setShowSidebar from '../../actions/sidebar';
 import {
   CCreateElement,
@@ -18,8 +18,8 @@ import CIcon from '@coreui/icons-react';
 // sidebar nav config
 import navigation from './_nav';
 
-const UserSidebar = () => {
-  const { context, dispatch } = useUserContext();
+const ServiceSidebar = () => {
+  const { context, dispatch } = useServiceContext();
 
   return (
     <CSidebar
@@ -57,4 +57,4 @@ const UserSidebar = () => {
   )
 }
 
-export default React.memo(UserSidebar)
+export default React.memo(ServiceSidebar)
