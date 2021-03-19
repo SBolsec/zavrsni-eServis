@@ -8,7 +8,7 @@ const Dashboard = () => {
     <>
       <Container fluid >
         <Row>
-          <Col xs={12} lg={4}  >
+          <Col xs={12} lg={4} className="my-2" >
             <div className="bg-white text-dark p-3 d-flex justify-content-between h-100">
               <div>
                 <h5 className="font-weight-bold text-uppercase">Registrirajte se</h5>
@@ -22,7 +22,7 @@ const Dashboard = () => {
               </div>
             </div>
           </Col>
-          <Col xs={12} lg={4}  >
+          <Col xs={12} lg={4} className="my-2" >
             <div className="bg-white text-dark p-3 d-flex justify-content-between h-100">
               <div>
                 <h5 className="font-weight-bold text-uppercase">Pretražite oglase</h5>
@@ -36,7 +36,7 @@ const Dashboard = () => {
               </div>
             </div>
           </Col>
-          <Col xs={12} lg={4} >
+          <Col xs={12} lg={4} className="my-2" >
             <div className="bg-white text-dark p-3 d-flex justify-content-between h-100">
               <div>
                 <h5 className="font-weight-bold text-uppercase">Servisirajte</h5>

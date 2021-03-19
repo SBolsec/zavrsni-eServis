@@ -21,7 +21,7 @@ const Dashboard = () => {
 
       <Container fluid>
         <Row className="row-eq-height">
-          <Col xs={12} lg={4} className="my-sm-2" >
+          <Col xs={12} lg={4} className="my-2" >
             <div className="bg-white text-dark p-3 d-flex justify-content-between h-100">
               <div>
                 <h5 className="font-weight-bold text-uppercase">Kreiraj oglas</h5>
@@ -35,7 +35,7 @@ const Dashboard = () => {
               </div>
             </div>
           </Col>
-          <Col xs={12} lg={4} className="my-sm-2" >
+          <Col xs={12} lg={4} className="my-2" >
             <div className="bg-white text-dark p-3 d-flex justify-content-between h-100">
               <div>
                 <h5 className="font-weight-bold text-uppercase">Objavi oglas</h5>
@@ -49,7 +49,7 @@ const Dashboard = () => {
               </div>
             </div>
           </Col>
-          <Col xs={12} lg={4} className="my-sm-2" >
+          <Col xs={12} lg={4} className="my-2" >
             <div className="bg-white text-dark p-3 d-flex justify-content-between h-100">
               <div>
                 <h5 className="font-weight-bold text-uppercase">Odaberi ponudu</h5>
