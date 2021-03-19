@@ -89,7 +89,7 @@ const routes = [
         path: '/user/servicers',
         exact: false,
         component: UserLayout,
-        title: 'Aktivni oglasi',
+        title: 'Pretraga servisera',
         needsAuth: true,
         roles: [ROLE_USER],
         content: USER_SERVICERS

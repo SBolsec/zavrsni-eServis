@@ -33,16 +33,15 @@ const UserHeader = ({title}) => {
         className="ml-3 d-md-down-none"
         onClick={toggleSidebar}
       />
+      <div className="d-none d-md-flex align-items-center ml-4">
+        {title}
+      </div>
+      
       <CHeaderBrand className="mx-auto my-1 d-lg-none" to="/user/dashboard">
         <CIcon name="logo" height="35" alt="Logo"/>
       </CHeaderBrand>
 
-      <div className="d-flex align-items-center">
-        {title}
-      </div>
-
-
-      <div className="ml-auto mr-4 d-flex justify-content-between align-items-center">
+      <div className="d-none ml-auto mr-4 d-sm-flex justify-content-between align-items-center">
         <span className="mr-3">John Doe</span>
         <img src="/images/prijava.jpg" alt="avatar" className="rounded-circle" style={{width: '45px', height: '45px'}} />
       </div>
