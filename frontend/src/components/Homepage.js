@@ -157,15 +157,15 @@ function Homepage() {
         <Row className="p-4 text-center font-weight-bold">
           <Col xs={12} sm={4} className="py-2">
             <Counter start={0} end={3255} />
-            <p className="text-uppercase">Popravljenih računala</p>
+            <p className="text-uppercase text-dark">Popravljenih računala</p>
           </Col>
           <Col xs={12} sm={4} className="py-2">
             <Counter start={0} end={2134} />
-            <p className="text-uppercase">Popravljenih mobitela</p>
+            <p className="text-uppercase text-dark">Popravljenih mobitela</p>
           </Col>
           <Col xs={12} sm={4} className="py-2">
             <Counter start={0} end={1139} />
-            <p className="text-uppercase">Popravljenih uređaja bijele tehnike</p>
+            <p className="text-uppercase text-dark">Popravljenih uređaja bijele tehnike</p>
           </Col>
         </Row>
       </Container>
