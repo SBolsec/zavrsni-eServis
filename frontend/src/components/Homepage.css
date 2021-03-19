@@ -38,3 +38,11 @@ html {
 .header-toggler:active {
     transform: translateX(2px);
 }
+
+.no-border-radius {
+    border-radius: 0 !important;
+}
+
+.header-dropdown-item:hover {
+    background: #cacaca;
+}

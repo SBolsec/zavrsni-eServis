@@ -8,7 +8,7 @@ import {
 } from '@coreui/react';
 import CIcon from '@coreui/icons-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faUser, faSignOutAlt} from '@fortawesome/free-solid-svg-icons';
 import Dropdown from 'react-bootstrap/Dropdown';
 
 const UserHeader = ({ title }) => {
@@ -50,17 +50,27 @@ const UserHeader = ({ title }) => {
 
       <div className="d-none ml-auto mr-4 d-sm-flex justify-content-between align-items-center">
         <div
-          style={{ borderLeft: '1px solid white', width: '10px'}}
+          style={{ borderLeft: '1px solid white', width: '10px' }}
         >&nbsp;</div>
 
         <Dropdown>
-          <Dropdown.Toggle variant="gray" id="dropdown-basic">
+          <Dropdown.Toggle variant="gray" id="dropdown-basic" className="no-border-radius" >
             John Doe
           </Dropdown.Toggle>
 
-          <Dropdown.Menu>
-            <Dropdown.Item><Link to="/user/profile" style={{ color: 'black', textDecoration: 'none'}}>Profil</Link></Dropdown.Item>
-            <Dropdown.Item><Link to="/logout" style={{ color: 'black', textDecoration: 'none'}}>Odjava</Link></Dropdown.Item>
+          <Dropdown.Menu className="no-border-radius p-0">
+            <div className=" px-3 py-1 header-dropdown-item">
+              <Link to="/user/profile" style={{ color: 'black', textDecoration: 'none' }}>
+                <FontAwesomeIcon icon={faUser} className="mr-2 text-darkGray"/>
+                <span>Profil</span>
+              </Link>
+            </div>
+            <div className=" px-3 py-1 header-dropdown-item">
+              <Link to="/logout" style={{ color: 'black', textDecoration: 'none' }}>
+                <FontAwesomeIcon icon={faSignOutAlt} className="mr-2 text-darkGray"/>
+                <span>Odjva</span>
+              </Link>
+            </div>
           </Dropdown.Menu>
         </Dropdown>
         <img src="/images/prijava.jpg" alt="avatar" className="rounded-circle ml-2" style={{ width: '45px', height: '45px' }} />
