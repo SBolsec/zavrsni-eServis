@@ -1,14 +1,17 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useServiceContext } from '../../contexts/ServiceContext';
 import setShowSidebar from '../../actions/sidebar';
 import {
   CHeader,
-  CToggler,
   CHeaderBrand
 } from '@coreui/react';
 import CIcon from '@coreui/icons-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars, faUser, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import Dropdown from 'react-bootstrap/Dropdown';
 
-const ServiceHeader = ({title}) => {
+const ServiceHeader = ({ title }) => {
   const { context, dispatch } = useServiceContext();
 
   const toggleSidebar = () => {
@@ -22,28 +25,55 @@ const ServiceHeader = ({title}) => {
   }
 
   return (
-    <CHeader>
-      <CToggler
-        inHeader
-        className="ml-md-3 d-lg-none"
+    <CHeader className="bg-gray">
+      <div
+        className="ml-3 d-flex align-items-center d-lg-none header-toggler"
         onClick={toggleSidebarMobile}
-      />
-      <CToggler
-        inHeader
-        className="ml-3 d-md-down-none"
+      >
+        <FontAwesomeIcon icon={faBars} className="fa-2x" />
+      </div>
+
+      <div
+        className="ml-3 d-none d-lg-flex align-items-center header-toggler"
         onClick={toggleSidebar}
-      />
+      >
+        <FontAwesomeIcon icon={faBars} className="fa-2x" />
+      </div>
+
       <div className="d-none d-md-flex align-items-center ml-4">
         {title}
       </div>
-      
+
       <CHeaderBrand className="mx-auto my-1 d-lg-none" to="/user/dashboard">
-        <CIcon name="logo" height="35" alt="Logo"/>
+        <CIcon name="logo-negative" height="35" alt="Logo" />
       </CHeaderBrand>
 
       <div className="d-none ml-auto mr-4 d-sm-flex justify-content-between align-items-center">
-        <span className="mr-3">John Doe</span>
-        <img src="/images/prijava.jpg" alt="avatar" className="rounded-circle" style={{width: '45px', height: '45px'}} />
+        <div
+          style={{ borderLeft: '1px solid white', width: '10px' }}
+        >&nbsp;</div>
+
+        <Dropdown>
+          <Dropdown.Toggle variant="gray" id="dropdown-basic" className="no-border-radius" >
+            John Doe
+          </Dropdown.Toggle>
+
+          <Dropdown.Menu className="no-border-radius p-0">
+            <div className=" px-3 py-1 header-dropdown-item">
+              <Link to="/user/profile" style={{ color: 'black', textDecoration: 'none' }}>
+                <FontAwesomeIcon icon={faUser} className="mr-2 text-darkGray" />
+                <span>Profil</span>
+              </Link>
+            </div>
+            <div className=" px-3 py-1 header-dropdown-item">
+              <Link to="/logout" style={{ color: 'black', textDecoration: 'none' }}>
+                <FontAwesomeIcon icon={faSignOutAlt} className="mr-2 text-darkGray" />
+                <span>Odjva</span>
+              </Link>
+            </div>
+          </Dropdown.Menu>
+        </Dropdown>
+        <img src="/images/prijava.jpg" alt="avatar" className="rounded-circle ml-2" style={{ width: '45px', height: '45px' }} />
       </div>
 
     </CHeader>

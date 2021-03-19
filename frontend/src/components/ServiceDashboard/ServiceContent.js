@@ -17,7 +17,7 @@ const loading = (
 
 const ServiceContent = ({ content }) => {
   return (
-    <main className="c-main">
+    <main className="c-main bg-lightGray">
       <CContainer fluid>
         <Suspense fallback={loading}>
           <CFade>
