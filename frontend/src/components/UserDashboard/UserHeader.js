@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useUserContext } from '../../contexts/UserContext';
 import setShowSidebar from '../../actions/sidebar';
 import {
@@ -8,6 +9,7 @@ import {
 import CIcon from '@coreui/icons-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 const UserHeader = ({ title }) => {
   const { context, dispatch } = useUserContext();
@@ -24,15 +26,15 @@ const UserHeader = ({ title }) => {
 
   return (
     <CHeader className="bg-gray" >
-      <div 
-        className="ml-3 d-flex align-items-center d-lg-none header-toggler" 
+      <div
+        className="ml-3 d-flex align-items-center d-lg-none header-toggler"
         onClick={toggleSidebarMobile}
       >
         <FontAwesomeIcon icon={faBars} className="fa-2x" />
       </div>
 
-      <div 
-        className="ml-3 d-none d-lg-flex align-items-center header-toggler" 
+      <div
+        className="ml-3 d-none d-lg-flex align-items-center header-toggler"
         onClick={toggleSidebar}
       >
         <FontAwesomeIcon icon={faBars} className="fa-2x" />
@@ -47,8 +49,21 @@ const UserHeader = ({ title }) => {
       </CHeaderBrand>
 
       <div className="d-none ml-auto mr-4 d-sm-flex justify-content-between align-items-center">
-        <span className="mr-3 pl-2" style={{ borderLeft: '1px solid white' }}>John Doe</span>
-        <img src="/images/prijava.jpg" alt="avatar" className="rounded-circle" style={{ width: '45px', height: '45px' }} />
+        <div
+          style={{ borderLeft: '1px solid white', width: '10px'}}
+        >&nbsp;</div>
+
+        <Dropdown>
+          <Dropdown.Toggle variant="gray" id="dropdown-basic">
+            John Doe
+          </Dropdown.Toggle>
+
+          <Dropdown.Menu>
+            <Dropdown.Item><Link to="/user/profile" style={{ color: 'black', textDecoration: 'none'}}>Profil</Link></Dropdown.Item>
+            <Dropdown.Item><Link to="/logout" style={{ color: 'black', textDecoration: 'none'}}>Odjava</Link></Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+        <img src="/images/prijava.jpg" alt="avatar" className="rounded-circle ml-2" style={{ width: '45px', height: '45px' }} />
       </div>
 
     </CHeader>
