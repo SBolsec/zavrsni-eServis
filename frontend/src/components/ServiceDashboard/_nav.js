@@ -1,40 +1,51 @@
-import React from 'react';
+import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faComments, faSearch, faHistory, faUser, faSignOutAlt, faNewspaper } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faComments, faSearch, faHistory, faUser, faSignOutAlt, faBuilding } from '@fortawesome/free-solid-svg-icons';
+import { faNewspaper } from '@fortawesome/free-regular-svg-icons';
 
 const _nav =  [
   {
     _tag: 'CSidebarNavItem',
     name: 'Dashboard',
-    to: '/user/dashboard',
+    to: '/service/dashboard',
     icon: <FontAwesomeIcon icon={faHome} className="c-sidebar-nav-icon"/>
   },
   {
     _tag: 'CSidebarNavItem',
     name: 'Poruke',
-    to: '/user/messages',
+    to: '/service/messages',
     icon: <FontAwesomeIcon icon={faComments} className="c-sidebar-nav-icon"/>
+  },
+  {
+    _tag: 'CSidebarNavTitle',
+    _children: ['Pretraga']
+  },
+  {
+    _tag: 'CSidebarNavItem',
+    name: 'Pretraga oglasa',
+    to: '/service/search',
+    icon: <FontAwesomeIcon icon={faSearch} className="c-sidebar-nav-icon"/>
   },
   {
     _tag: 'CSidebarNavItem',
     name: 'Pretraga servisera',
-    to: '/user/servicers',
-    icon: <FontAwesomeIcon icon={faSearch} className="c-sidebar-nav-icon"/>
+    to: '/service/servicers',
+    icon: <FontAwesomeIcon icon={faBuilding} className="c-sidebar-nav-icon"/>
   },
   {
     _tag: 'CSidebarNavTitle',
-    _children: ['Oglasi']
+    _children: ['Ponude']
   },
   {
     _tag: 'CSidebarNavItem',
-    name: 'Aktivni oglasi',
-    to: '/user/active',
+    name: 'Aktivne ponude',
+    to: '/service/active',
     icon: <FontAwesomeIcon icon={faNewspaper} className="c-sidebar-nav-icon"/>
   },
   {
     _tag: 'CSidebarNavItem',
-    name: 'Povijest oglasa',
-    to: '/user/history',
+    name: 'Povijest ponuda',
+    to: '/service/history',
     icon: <FontAwesomeIcon icon={faHistory} className="c-sidebar-nav-icon"/>
   },
   {
@@ -44,7 +55,7 @@ const _nav =  [
   {
     _tag: 'CSidebarNavItem',
     name: 'Profil',
-    to: '/user/profile',
+    to: '/service/profile',
     icon: <FontAwesomeIcon icon={faUser} className="c-sidebar-nav-icon"/>
   },
   {
