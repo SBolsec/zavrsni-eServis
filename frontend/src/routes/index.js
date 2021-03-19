@@ -4,10 +4,11 @@ import SignupService from "../components/Auth/SignupService";
 import SignupUser from "../components/Auth/SignupUser";
 import UserLayout from "../components/UserDashboard/UserLayout";
 import ServiceLayout from "../components/ServiceDashboard/ServiceLayout";
-import { ROLE_USER, ROLE_SERVICE, ROLE_ADMIN } from '../constants/global';
 import Logout from "../components/Logout";
+import { ROLE_USER, ROLE_SERVICE, ROLE_ADMIN, AUTH_ANY, AUTH_REQUIRED, AUTH_NONE } from '../constants/global';
 import { USER_DASHBOARD, USER_LISTINGS_ACTIVE, USER_LISTINGS_HISTORY, USER_MESSAGES, USER_PROFILE, USER_SERVICERS } from "../constants/userContent";
 import { SERVICE_DASHBOARD, SERVICE_MESSAGES, SERVICE_PROFILE, SERVICE_SEARCH, SERVICE_OFFERS_ACTIVE, SERVICE_OFFERS_HISTORY, SERVICE_SERVICERS } from '../constants/serviceContent';
+import NotFound from "../components/404";
 
 const routes = [
     {
@@ -15,7 +16,7 @@ const routes = [
         exact: true,
         component: Homepage,
         title: 'Početna Stranica',
-        needsAuth: false,
+        needsAuth: AUTH_NONE,
         roles: []
     },
     {
@@ -23,7 +24,7 @@ const routes = [
         exact: false,
         component: Login,
         title: 'Prijava',
-        needsAuth: false,
+        needsAuth: AUTH_NONE,
         roles: []
     },
     {
@@ -31,7 +32,7 @@ const routes = [
         exact: false,
         component: SignupUser,
         title: 'Registracija Korisnika',
-        needsAuth: false,
+        needsAuth: AUTH_NONE,
         roles: []
     },
     {
@@ -39,7 +40,7 @@ const routes = [
         exact: false,
         component: SignupService,
         title: 'Registracija Servisa',
-        needsAuth: false,
+        needsAuth: AUTH_NONE,
         roles: []
     },
     {
@@ -47,7 +48,7 @@ const routes = [
         exact: false,
         component: Logout,
         title: 'Odjava',
-        needsAuth: true,
+        needsAuth: AUTH_REQUIRED,
         roles: [ROLE_USER, ROLE_SERVICE, ROLE_ADMIN]
     },
     {
@@ -55,7 +56,7 @@ const routes = [
         exact: false,
         component: UserLayout,
         title: 'Nadzorna ploča',
-        needsAuth: true,
+        needsAuth: AUTH_REQUIRED,
         roles: [ROLE_USER],
         content: USER_DASHBOARD
     },
@@ -64,7 +65,7 @@ const routes = [
         exact: false,
         component: UserLayout,
         title: 'Poruke',
-        needsAuth: true,
+        needsAuth: AUTH_REQUIRED,
         roles: [ROLE_USER],
         content: USER_MESSAGES
     },
@@ -73,7 +74,7 @@ const routes = [
         exact: false,
         component: UserLayout,
         title: 'Aktivni oglasi',
-        needsAuth: true,
+        needsAuth: AUTH_REQUIRED,
         roles: [ROLE_USER],
         content: USER_LISTINGS_ACTIVE
     },
@@ -82,7 +83,7 @@ const routes = [
         exact: false,
         component: UserLayout,
         title: 'Povijest oglasa',
-        needsAuth: true,
+        needsAuth: AUTH_REQUIRED,
         roles: [ROLE_USER],
         content: USER_LISTINGS_HISTORY
     },
@@ -91,7 +92,7 @@ const routes = [
         exact: false,
         component: UserLayout,
         title: 'Pretraga servisera',
-        needsAuth: true,
+        needsAuth: AUTH_REQUIRED,
         roles: [ROLE_USER],
         content: USER_SERVICERS
     },
@@ -100,7 +101,7 @@ const routes = [
         exact: false,
         component: UserLayout,
         title: 'Profil',
-        needsAuth: true,
+        needsAuth: AUTH_REQUIRED,
         roles: [ROLE_USER],
         content: USER_PROFILE
     },
@@ -109,7 +110,7 @@ const routes = [
         exact: false,
         component: ServiceLayout,
         title: 'Nadzorna ploča',
-        needsAuth: true,
+        needsAuth: AUTH_REQUIRED,
         roles: [ROLE_SERVICE],
         content: SERVICE_DASHBOARD
     },
@@ -118,7 +119,7 @@ const routes = [
         exact: false,
         component: ServiceLayout,
         title: 'Poruke',
-        needsAuth: true,
+        needsAuth: AUTH_REQUIRED,
         roles: [ROLE_SERVICE],
         content: SERVICE_MESSAGES
     },
@@ -127,7 +128,7 @@ const routes = [
         exact: false,
         component: ServiceLayout,
         title: 'Aktivne ponude',
-        needsAuth: true,
+        needsAuth: AUTH_REQUIRED,
         roles: [ROLE_SERVICE],
         content: SERVICE_OFFERS_ACTIVE
     },
@@ -136,7 +137,7 @@ const routes = [
         exact: false,
         component: ServiceLayout,
         title: 'Povijest ponuda',
-        needsAuth: true,
+        needsAuth: AUTH_REQUIRED,
         roles: [ROLE_SERVICE],
         content: SERVICE_OFFERS_HISTORY
     },
@@ -145,7 +146,7 @@ const routes = [
         exact: false,
         component: ServiceLayout,
         title: 'Pretraga servisera',
-        needsAuth: true,
+        needsAuth: AUTH_REQUIRED,
         roles: [ROLE_SERVICE],
         content: SERVICE_SERVICERS
     },
@@ -154,7 +155,7 @@ const routes = [
         exact: false,
         component: ServiceLayout,
         title: 'Profil',
-        needsAuth: true,
+        needsAuth: AUTH_REQUIRED,
         roles: [ROLE_SERVICE],
         content: SERVICE_PROFILE
     },
@@ -163,10 +164,18 @@ const routes = [
         exact: false,
         component: ServiceLayout,
         title: 'Pretraga oglasa',
-        needsAuth: true,
+        needsAuth: AUTH_REQUIRED,
         roles: [ROLE_SERVICE],
         content: SERVICE_SEARCH
     },
+    {
+        path: '*',
+        exact: false,
+        component: NotFound,
+        title: 'Error 404',
+        needsAuth: AUTH_ANY,
+        roles: []
+    }
 ];
 
 export default routes;

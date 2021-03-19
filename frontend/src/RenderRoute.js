@@ -2,12 +2,13 @@ import { Route, Redirect } from "react-router-dom";
 import { useAuth } from "./contexts/AuthContext";
 import isAuthenticated from "./utils/isAuthenticated";
 import redirectToDashboard from "./utils/redirectToDashboard";
+import { AUTH_REQUIRED, AUTH_NONE } from './constants/global';
 
 const RenderRoute = (route) => {
     const { auth } = useAuth();
 
     document.title = 'e-servis | ' + route.title;
-    if (route.needsAuth) {
+    if (route.needsAuth === AUTH_REQUIRED) {
         if (!isAuthenticated()) {
             return <Redirect to="/login" />
         } else {
@@ -16,7 +17,7 @@ const RenderRoute = (route) => {
             }
         }
     }
-    if (!route.needsAuth && isAuthenticated()) {
+    if (route.needsAuth === AUTH_NONE && isAuthenticated()) {
         return redirectToDashboard(auth);
     }
 
