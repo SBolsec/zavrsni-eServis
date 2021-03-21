@@ -1,7 +1,6 @@
 import {Entity, PrimaryGeneratedColumn, Column, OneToMany} from 'typeorm';
 import { Service } from '.';
 
-
 @Entity({name: "mjesto"})
 export class City {
   @PrimaryGeneratedColumn({name: "sif_mjesto"})

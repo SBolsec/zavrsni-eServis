@@ -1,6 +1,5 @@
 import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany, OneToOne, JoinColumn} from 'typeorm';
-import { User } from '.';
-
+import { Listing, Review, User } from '.';
 
 @Entity({name: "osoba"})
 export class Person {
@@ -25,4 +24,10 @@ export class Person {
 
   @UpdateDateColumn({name: "trenutak_promjene"})
   updatedAt!: Date;
+
+  @OneToMany(() => Review, (review) => review.author)
+  reviews!: Review[];
+
+  @OneToMany(() => Listing, (listing) => listing.person)
+  listings!: Listing[];
 }

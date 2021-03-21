@@ -1,6 +1,5 @@
-import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn,  JoinColumn, OneToOne, ManyToOne} from 'typeorm';
-import { City, User } from '.';
-
+import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn,  JoinColumn, OneToOne, ManyToOne, OneToMany, ManyToMany, JoinTable} from 'typeorm';
+import { City, FaultCategory, Offer, Review, SearchHistory, User } from '.';
 
 @Entity({name: "servis"})
 export class Service {
@@ -38,4 +37,17 @@ export class Service {
 
   @UpdateDateColumn({name: "trenutak_promjene"})
   updatedAt!: Date;
+
+  @OneToMany(() => Review, (review) => review.service)
+  reviews!: Review[];
+
+  @ManyToMany(() => FaultCategory)
+  @JoinTable()
+  faultCategories?: FaultCategory[];
+
+  @OneToMany(() => Offer, (offer) => offer.service)
+  offers!: Offer[];
+
+  @OneToMany(() => SearchHistory, (history) => history.service)
+  searchHistory!: SearchHistory[];
 }

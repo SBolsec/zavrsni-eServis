@@ -1,6 +1,5 @@
-import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, JoinColumn, ManyToOne} from 'typeorm';
-import { Role } from '.';
-
+import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, JoinColumn, ManyToOne, OneToMany, OneToOne} from 'typeorm';
+import { Role, Message, Picture } from '.';
 
 @Entity({name: "korisnik"})
 export class User {
@@ -28,4 +27,17 @@ export class User {
 
   @UpdateDateColumn({name: "trenutak_promjene", type: 'timestamp without time zone'})
   updatedAt?: Date;
+
+  @OneToMany(() => Message, (message) => message.sender)
+  messagesSent!: Message[];
+
+  @OneToMany(() => Message, (message) => message.receiver)
+  messagesReceived!: Message[];
+
+  @Column({name: 'sif_slika_profila'})
+  profilePictureId!: number; 
+
+  @OneToOne(() => Picture)
+  @JoinColumn({name: 'sif_slika_profila'})
+  profilePicture?: Picture;
 }
