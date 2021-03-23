@@ -6,7 +6,7 @@ import Col from 'react-bootstrap/Col';
 const Dashboard = () => {
   return (
     <>
-      <Container fluid >
+      <Container fluid className="my-2" >
         <Row>
           <Col xs={12} lg={4} className="my-2" >
             <div className="bg-white text-dark p-3 d-flex justify-content-between h-100">

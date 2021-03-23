@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 const Dashboard = () => {
   return (
     <>
-      <div className="d-flex flex-column flex-md-row justify-content-between align-items-center bg-white text-dark pt-3 pb-3 px-4 mb-4">
+      <div className="d-flex flex-column flex-md-row justify-content-between align-items-center bg-white text-dark pt-3 pb-3 px-4">
         <div>
           <h5 className="text-uppercase">Kako do odgovarajuće usluge servisa?</h5>
           <p>Zaprimite ponude u nekoliko klikova. Uštedite vrijeme i novac uz manje napora.</p>
@@ -18,7 +18,7 @@ const Dashboard = () => {
         </Button>
       </div>
 
-      <Container fluid>
+      <Container fluid className="my-4" >
         <Row className="row-eq-height">
           <Col xs={12} lg={4} className="my-2" >
             <div className="bg-white text-dark p-3 d-flex justify-content-between h-100">

@@ -7,7 +7,7 @@ import OffersActive from './content/OffersActive';
 import OffersHistory from './content/OffersHistory';
 import Servicers from './content/Servicers';
 import Search from './content/Search';
-import { SERVICE_DASHBOARD, SERVICE_MESSAGES, SERVICE_PROFILE, SERVICE_SEARCH, SERVICE_OFFERS_ACTIVE, SERVICE_OFFERS_HISTORY, SERVICE_SERVICERS } from '../../constants/serviceContent';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 const loading = (
   <div className="pt-3 text-center">
@@ -15,19 +15,22 @@ const loading = (
   </div>
 )
 
-const ServiceContent = ({ content }) => {
+const ServiceContent = () => {
   return (
-    <main className="c-main bg-lightGray">
+    <main className="c-main bg-lightGray p-0 m-0">
       <CContainer fluid>
         <Suspense fallback={loading}>
           <CFade>
-            {content === SERVICE_DASHBOARD ? <Dashboard /> : null}
-            {content === SERVICE_PROFILE ? <Profile /> : null}
-            {content === SERVICE_MESSAGES ? <Messages /> : null}
-            {content === SERVICE_SEARCH ? <Search /> : null}
-            {content === SERVICE_OFFERS_ACTIVE ? <OffersActive /> : null}
-            {content === SERVICE_OFFERS_HISTORY ? <OffersHistory /> : null}
-            {content === SERVICE_SERVICERS ? <Servicers /> : null}
+            <Switch>
+              <Route exact path="/service/dashboard" component={Dashboard} />
+              <Route exact path="/service/profile" component={Profile} />
+              <Route exact path="/service/messages" component={Messages} />
+              <Route exact path="/service/active" component={OffersActive} />
+              <Route exact path="/service/history" component={OffersHistory} />
+              <Route exact path="/service/servicers" component={Servicers} />
+              <Route exact path="/service/search" component={Search} />
+              <Redirect to="/404" />
+            </Switch>
           </CFade>
         </Suspense>
       </CContainer>
