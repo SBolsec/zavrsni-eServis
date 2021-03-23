@@ -22,13 +22,13 @@ const ServiceContent = () => {
         <Suspense fallback={loading}>
           <CFade>
             <Switch>
-              <Route path="/service/dashboard" component={Dashboard} />
-              <Route path="/service/profile" component={Profile} />
-              <Route path="/service/messages" component={Messages} />
-              <Route path="/service/active" component={OffersActive} />
-              <Route path="/service/history" component={OffersHistory} />
-              <Route path="/service/servicers" component={Servicers} />
-              <Route path="/service/search" component={Search} />
+              <Route exact path="/service/dashboard" component={Dashboard} />
+              <Route exact path="/service/profile" component={Profile} />
+              <Route exact path="/service/messages" component={Messages} />
+              <Route exact path="/service/active" component={OffersActive} />
+              <Route exact path="/service/history" component={OffersHistory} />
+              <Route exact path="/service/servicers" component={Servicers} />
+              <Route exact path="/service/search" component={Search} />
               <Redirect to="/404" />
             </Switch>
           </CFade>

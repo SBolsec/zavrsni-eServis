@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faUser, faSignOutAlt} from '@fortawesome/free-solid-svg-icons';
 import Dropdown from 'react-bootstrap/Dropdown';
 
-const UserHeader = ({ title }) => {
+const UserHeader = () => {
   const { context, dispatch } = useUserContext();
 
   const toggleSidebar = () => {
@@ -23,6 +23,18 @@ const UserHeader = ({ title }) => {
     const val = [false, 'responsive'].includes(context.sidebarShow) ? true : 'responsive'
     setShowSidebar(val)(dispatch);
   }
+
+  let title = '';
+  switch (window.location.pathname) {
+    case '/user/dashboard': title = 'Nadzorna ploča'; break;
+    case '/user/messages': title = 'Poruke'; break;
+    case '/user/profile': title = 'Profil'; break;
+    case '/user/active': title = 'Aktivni oglasi'; break;
+    case '/user/history': title = 'Povijest oglasa'; break;
+    case '/user/servicers': title = 'Pretraga servisera'; break;
+    default: break;
+  }
+  document.title = 'e-servis | ' + title;
 
   return (
     <CHeader className="bg-gray" >

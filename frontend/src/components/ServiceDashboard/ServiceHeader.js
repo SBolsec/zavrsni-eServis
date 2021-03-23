@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faUser, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import Dropdown from 'react-bootstrap/Dropdown';
 
-const ServiceHeader = ({ title }) => {
+const ServiceHeader = () => {
   const { context, dispatch } = useServiceContext();
 
   const toggleSidebar = () => {
@@ -23,6 +23,19 @@ const ServiceHeader = ({ title }) => {
     const val = [false, 'responsive'].includes(context.sidebarShow) ? true : 'responsive'
     setShowSidebar(val)(dispatch);
   }
+
+  let title = '';
+  switch (window.location.pathname) {
+    case '/service/dashboard': title = 'Nadzorna ploča'; break;
+    case '/service/messages': title = 'Poruke'; break;
+    case '/service/profile': title = 'Profil'; break;
+    case '/service/active': title = 'Aktivne ponude'; break;
+    case '/service/history': title = 'Povijest ponuda'; break;
+    case '/service/servicers': title = 'Pretraga servisera'; break;
+    case '/service/search': title = 'Pretraga oglasa'; break;
+    default: break;
+  }
+  document.title = 'e-servis | ' + title;
 
   return (
     <CHeader className="bg-gray">

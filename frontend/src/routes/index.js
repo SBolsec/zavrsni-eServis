@@ -69,7 +69,7 @@ const routes = [
         path: '*',
         exact: false,
         component: NotFound,
-        title: 'Error 404',
+        title: 'Greška 404',
         needsAuth: AUTH_ANY,
         roles: []
     }
