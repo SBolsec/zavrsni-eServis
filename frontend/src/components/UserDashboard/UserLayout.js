@@ -7,7 +7,7 @@ import {
   UserHeader
 } from './index'
 
-const UserLayout = ({ content, title }) => {
+const UserLayout = ({ title }) => {
   return (
     <UserContextProvider>
       <div className="c-app c-default-layout">
@@ -15,7 +15,7 @@ const UserLayout = ({ content, title }) => {
         <div className="c-wrapper">
           <UserHeader title={title} />
           <div className="c-body">
-            <UserContent content={content} />
+            <UserContent />
           </div>
           <Footer />
         </div>

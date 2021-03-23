@@ -7,7 +7,7 @@ import {
   ServiceHeader
 } from './index'
 
-const ServiceLayout = ({ content, title }) => {
+const ServiceLayout = ({ title }) => {
   return (
     <ServiceContextProvider>
       <div className="c-app c-default-layout">
@@ -15,7 +15,7 @@ const ServiceLayout = ({ content, title }) => {
         <div className="c-wrapper">
           <ServiceHeader title={title} />
           <div className="c-body">
-            <ServiceContent content={content} />
+            <ServiceContent />
           </div>
           <Footer />
         </div>
