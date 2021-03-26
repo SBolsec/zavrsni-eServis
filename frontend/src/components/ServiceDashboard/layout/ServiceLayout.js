@@ -1,6 +1,6 @@
 import React from 'react'
-import ServiceContextProvider from '../../contexts/ServiceContext';
-import Footer from '../Footer';
+import ServiceContextProvider from '../../../contexts/ServiceContext';
+import Footer from '../../Footer';
 import {
   ServiceContent,
   ServiceSidebar,

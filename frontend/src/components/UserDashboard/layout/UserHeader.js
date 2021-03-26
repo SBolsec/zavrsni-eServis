@@ -1,20 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useServiceContext } from '../../contexts/ServiceContext';
-import { useAuth } from '../../contexts/AuthContext';
-import setShowSidebar from '../../actions/sidebar';
+import { useUserContext } from '../../../contexts/UserContext';
+import { useAuth } from '../../../contexts/AuthContext';
+import setShowSidebar from '../../../actions/sidebar';
 import {
   CHeader,
   CHeaderBrand
 } from '@coreui/react';
 import CIcon from '@coreui/icons-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faUser, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faUser, faSignOutAlt} from '@fortawesome/free-solid-svg-icons';
 import Dropdown from 'react-bootstrap/Dropdown';
 
-const ServiceHeader = () => {
+const UserHeader = () => {
   const { auth } = useAuth();
-  const { context, dispatch } = useServiceContext();
+  const { context, dispatch } = useUserContext();
 
   const toggleSidebar = () => {
     const val = [true, 'responsive'].includes(context.sidebarShow) ? false : 'responsive'
@@ -28,19 +28,18 @@ const ServiceHeader = () => {
 
   let title = '';
   switch (window.location.pathname) {
-    case '/service/dashboard': title = 'Nadzorna ploča'; break;
-    case '/service/messages': title = 'Poruke'; break;
-    case '/service/profile': title = 'Profil'; break;
-    case '/service/active': title = 'Aktivne ponude'; break;
-    case '/service/history': title = 'Povijest ponuda'; break;
-    case '/service/servicers': title = 'Pretraga servisera'; break;
-    case '/service/search': title = 'Pretraga oglasa'; break;
+    case '/user/dashboard': title = 'Nadzorna ploča'; break;
+    case '/user/messages': title = 'Poruke'; break;
+    case '/user/profile': title = 'Profil'; break;
+    case '/user/active': title = 'Aktivni oglasi'; break;
+    case '/user/history': title = 'Povijest oglasa'; break;
+    case '/user/servicers': title = 'Pretraga servisera'; break;
     default: break;
   }
   document.title = 'e-servis | ' + title;
 
   return (
-    <CHeader className="bg-gray">
+    <CHeader className="bg-gray" >
       <div
         className="ml-3 d-flex align-items-center d-lg-none header-toggler"
         onClick={toggleSidebarMobile}
@@ -75,14 +74,14 @@ const ServiceHeader = () => {
 
           <Dropdown.Menu className="no-border-radius p-0">
             <div className=" px-3 py-1 header-dropdown-item">
-              <Link to="/service/profile" style={{ color: 'black', textDecoration: 'none' }}>
-                <FontAwesomeIcon icon={faUser} className="mr-2 text-darkGray" />
+              <Link to="/user/profile" style={{ color: 'black', textDecoration: 'none' }}>
+                <FontAwesomeIcon icon={faUser} className="mr-2 text-darkGray"/>
                 <span>Profil</span>
               </Link>
             </div>
             <div className=" px-3 py-1 header-dropdown-item">
               <Link to="/logout" style={{ color: 'black', textDecoration: 'none' }}>
-                <FontAwesomeIcon icon={faSignOutAlt} className="mr-2 text-darkGray" />
+                <FontAwesomeIcon icon={faSignOutAlt} className="mr-2 text-darkGray"/>
                 <span>Odjva</span>
               </Link>
             </div>
@@ -95,4 +94,4 @@ const ServiceHeader = () => {
   )
 }
 
-export default ServiceHeader;
+export default UserHeader;
