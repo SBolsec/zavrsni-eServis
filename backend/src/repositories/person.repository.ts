@@ -26,3 +26,9 @@ export const getPerson = async (id: number): Promise<Person | null> => {
   const person = await personRepository.findOne({ id: id });
   return !person ? null : person;
 }
+
+export const getPersonByUserId = async (id: number): Promise<Person | null> => {
+  const personRepository = getRepository(Person);
+  const person = await personRepository.findOne({ userId: id });
+  return !person ? null : person;
+}

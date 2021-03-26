@@ -29,3 +29,9 @@ export const getService = async (id: number): Promise<Service | null> => {
   const service = await serviceRepository.findOne({ id: id });
   return !service ? null : service;
 }
+
+export const getServiceByUserId = async (id: number): Promise<Service | null> => {
+  const serviceRepository = getRepository(Service);
+  const service = await serviceRepository.findOne({ userId: id });
+  return !service ? null : service;
+}

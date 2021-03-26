@@ -36,6 +36,25 @@
 					"updatedAt": {
 						"type": "string",
 						"format": "date-time"
+					},
+					"messagesSent": {
+						"items": {
+							"$ref": "#/components/schemas/Message"
+						},
+						"type": "array"
+					},
+					"messagesReceived": {
+						"items": {
+							"$ref": "#/components/schemas/Message"
+						},
+						"type": "array"
+					},
+					"profilePictureId": {
+						"type": "number",
+						"format": "double"
+					},
+					"profilePicture": {
+						"$ref": "#/components/schemas/Picture"
 					}
 				},
 				"required": [
@@ -44,7 +63,9 @@
 					"password",
 					"roleId",
 					"role",
-					"tokenVersion"
+					"tokenVersion",
+					"messagesSent",
+					"messagesReceived"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -73,23 +94,146 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"IUserPayload": {
+			"Message": {
 				"properties": {
-					"email": {
-						"type": "string"
-					},
-					"password": {
-						"type": "string"
-					},
-					"roleId": {
+					"id": {
 						"type": "number",
 						"format": "double"
+					},
+					"content": {
+						"type": "string"
+					},
+					"senderId": {
+						"type": "number",
+						"format": "double"
+					},
+					"receiverId": {
+						"type": "number",
+						"format": "double"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"delivered": {
+						"type": "boolean"
+					},
+					"read": {
+						"type": "boolean"
+					},
+					"sender": {
+						"$ref": "#/components/schemas/User"
+					},
+					"receiver": {
+						"$ref": "#/components/schemas/User"
 					}
 				},
 				"required": [
-					"email",
-					"password",
-					"roleId"
+					"id",
+					"content",
+					"senderId",
+					"receiverId",
+					"createdAt",
+					"delivered",
+					"read",
+					"sender",
+					"receiver"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Listing": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"title": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"statusId": {
+						"type": "number",
+						"format": "double"
+					},
+					"status": {
+						"$ref": "#/components/schemas/ListingStatus"
+					},
+					"personId": {
+						"type": "number",
+						"format": "double"
+					},
+					"person": {
+						"$ref": "#/components/schemas/Person"
+					},
+					"pictures": {
+						"items": {
+							"$ref": "#/components/schemas/Picture"
+						},
+						"type": "array"
+					},
+					"faultCategoryId": {
+						"type": "number",
+						"format": "double"
+					},
+					"faultCategory": {
+						"$ref": "#/components/schemas/FaultCategory"
+					},
+					"offers": {
+						"items": {
+							"$ref": "#/components/schemas/Offer"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"id",
+					"title",
+					"description",
+					"createdAt",
+					"updatedAt",
+					"statusId",
+					"status",
+					"personId",
+					"person",
+					"pictures",
+					"faultCategoryId",
+					"faultCategory",
+					"offers"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ListingStatus": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"status": {
+						"type": "string"
+					},
+					"listings": {
+						"items": {
+							"$ref": "#/components/schemas/Listing"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"id",
+					"status",
+					"listings"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -120,6 +264,18 @@
 					"updatedAt": {
 						"type": "string",
 						"format": "date-time"
+					},
+					"reviews": {
+						"items": {
+							"$ref": "#/components/schemas/Review"
+						},
+						"type": "array"
+					},
+					"listings": {
+						"items": {
+							"$ref": "#/components/schemas/Listing"
+						},
+						"type": "array"
 					}
 				},
 				"required": [
@@ -129,28 +285,9 @@
 					"userId",
 					"user",
 					"createdAt",
-					"updatedAt"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"IPersonPayload": {
-				"properties": {
-					"firstName": {
-						"type": "string"
-					},
-					"lastName": {
-						"type": "string"
-					},
-					"userId": {
-						"type": "number",
-						"format": "double"
-					}
-				},
-				"required": [
-					"firstName",
-					"lastName",
-					"userId"
+					"updatedAt",
+					"reviews",
+					"listings"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -194,6 +331,30 @@
 					"updatedAt": {
 						"type": "string",
 						"format": "date-time"
+					},
+					"reviews": {
+						"items": {
+							"$ref": "#/components/schemas/Review"
+						},
+						"type": "array"
+					},
+					"faultCategories": {
+						"items": {
+							"$ref": "#/components/schemas/FaultCategory"
+						},
+						"type": "array"
+					},
+					"offers": {
+						"items": {
+							"$ref": "#/components/schemas/Offer"
+						},
+						"type": "array"
+					},
+					"searchHistory": {
+						"items": {
+							"$ref": "#/components/schemas/SearchHistory"
+						},
+						"type": "array"
 					}
 				},
 				"required": [
@@ -207,7 +368,10 @@
 					"userId",
 					"user",
 					"createdAt",
-					"updatedAt"
+					"updatedAt",
+					"reviews",
+					"offers",
+					"searchHistory"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -237,6 +401,291 @@
 					"name",
 					"postalCode",
 					"services"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Review": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"content": {
+						"type": "string"
+					},
+					"score": {
+						"type": "number",
+						"format": "double"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"authorId": {
+						"type": "number",
+						"format": "double"
+					},
+					"author": {
+						"$ref": "#/components/schemas/Person"
+					},
+					"serviceId": {
+						"type": "number",
+						"format": "double"
+					},
+					"service": {
+						"$ref": "#/components/schemas/Service"
+					}
+				},
+				"required": [
+					"id",
+					"content",
+					"score",
+					"createdAt",
+					"updatedAt",
+					"authorId",
+					"author",
+					"serviceId",
+					"service"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"FaultCategory": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"name": {
+						"type": "string"
+					},
+					"parentId": {
+						"type": "number",
+						"format": "double"
+					},
+					"parent": {
+						"$ref": "#/components/schemas/FaultCategory"
+					},
+					"children": {
+						"items": {
+							"$ref": "#/components/schemas/FaultCategory"
+						},
+						"type": "array"
+					},
+					"listings": {
+						"items": {
+							"$ref": "#/components/schemas/Listing"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"id",
+					"name"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Offer": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"title": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"price": {
+						"type": "number",
+						"format": "double"
+					},
+					"serviceId": {
+						"type": "number",
+						"format": "double"
+					},
+					"service": {
+						"$ref": "#/components/schemas/Service"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"statusId": {
+						"type": "number",
+						"format": "double"
+					},
+					"status": {
+						"$ref": "#/components/schemas/OfferStatus"
+					},
+					"listingId": {
+						"type": "number",
+						"format": "double"
+					},
+					"listing": {
+						"$ref": "#/components/schemas/Listing"
+					}
+				},
+				"required": [
+					"id",
+					"title",
+					"description",
+					"price",
+					"serviceId",
+					"service",
+					"createdAt",
+					"updatedAt",
+					"statusId",
+					"status",
+					"listingId",
+					"listing"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"OfferStatus": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"status": {
+						"type": "string"
+					},
+					"offers": {
+						"items": {
+							"$ref": "#/components/schemas/Offer"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"id",
+					"status",
+					"offers"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"SearchHistory": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"keyWord": {
+						"type": "string"
+					},
+					"points": {
+						"type": "number",
+						"format": "double"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"serviceId": {
+						"type": "number",
+						"format": "double"
+					},
+					"service": {
+						"$ref": "#/components/schemas/Service"
+					}
+				},
+				"required": [
+					"id",
+					"keyWord",
+					"points",
+					"createdAt",
+					"updatedAt",
+					"serviceId",
+					"service"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"Picture": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"name": {
+						"type": "string"
+					},
+					"cloudinaryId": {
+						"type": "number",
+						"format": "double"
+					},
+					"url": {
+						"type": "string"
+					},
+					"listing": {
+						"$ref": "#/components/schemas/Listing"
+					}
+				},
+				"required": [
+					"id",
+					"name",
+					"cloudinaryId",
+					"url"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IUserPayload": {
+				"properties": {
+					"email": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					},
+					"roleId": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"email",
+					"password",
+					"roleId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IPersonPayload": {
+				"properties": {
+					"firstName": {
+						"type": "string"
+					},
+					"lastName": {
+						"type": "string"
+					},
+					"userId": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"firstName",
+					"lastName",
+					"userId"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -300,6 +749,199 @@
 				"required": [
 					"name",
 					"postalCode"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IListingPayload": {
+				"properties": {
+					"personId": {
+						"type": "number",
+						"format": "double"
+					},
+					"title": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"faultCategoryId": {
+						"type": "number",
+						"format": "double"
+					},
+					"statusId": {
+						"type": "number",
+						"format": "double"
+					},
+					"pictures": {
+						"items": {
+							"$ref": "#/components/schemas/Picture"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"personId",
+					"title",
+					"description",
+					"faultCategoryId",
+					"statusId",
+					"pictures"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IPicturePayload": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"cloudinaryId": {
+						"type": "number",
+						"format": "double"
+					},
+					"url": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name",
+					"cloudinaryId",
+					"url"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IFaultCategory": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"parentId": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"name",
+					"parentId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IListingStatusPayload": {
+				"properties": {
+					"name": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IMessagePayload": {
+				"properties": {
+					"content": {
+						"type": "string"
+					},
+					"senderId": {
+						"type": "number",
+						"format": "double"
+					},
+					"receiverId": {
+						"type": "number",
+						"format": "double"
+					},
+					"delivered": {
+						"type": "boolean"
+					},
+					"read": {
+						"type": "boolean"
+					}
+				},
+				"required": [
+					"content",
+					"senderId",
+					"receiverId",
+					"delivered",
+					"read"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IOfferPayload": {
+				"properties": {
+					"title": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"price": {
+						"type": "number",
+						"format": "double"
+					},
+					"serviceId": {
+						"type": "number",
+						"format": "double"
+					},
+					"statusId": {
+						"type": "number",
+						"format": "double"
+					},
+					"listingId": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"title",
+					"description",
+					"price",
+					"serviceId",
+					"statusId",
+					"listingId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IOfferStatusPayload": {
+				"properties": {
+					"status": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"status"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IReviewPayload": {
+				"properties": {
+					"content": {
+						"type": "string"
+					},
+					"score": {
+						"type": "number",
+						"format": "double"
+					},
+					"authorId": {
+						"type": "number",
+						"format": "double"
+					},
+					"serviceId": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"content",
+					"score",
+					"authorId",
+					"serviceId"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -408,7 +1050,7 @@
 				]
 			}
 		},
-		"/users/{email}": {
+		"/users/email/{email}": {
 			"get": {
 				"operationId": "GetUserByEmail",
 				"responses": {
@@ -535,6 +1177,42 @@
 				]
 			}
 		},
+		"/people/user/{id}": {
+			"get": {
+				"operationId": "GetPersonByUserId",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/Person"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Person"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
 		"/services": {
 			"get": {
 				"operationId": "GetServices",
@@ -593,6 +1271,42 @@
 		"/services/{id}": {
 			"get": {
 				"operationId": "GetService",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/Service"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Service"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/services/user/{id}": {
+			"get": {
+				"operationId": "GetServiceByUserId",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -844,6 +1558,734 @@
 				],
 				"security": [],
 				"parameters": []
+			}
+		},
+		"/listings": {
+			"get": {
+				"operationId": "GetListings",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Listing"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Listing"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "CreateListing",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Listing"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Listing"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IListingPayload"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/listings/{id}": {
+			"get": {
+				"operationId": "GetListing",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/Listing"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Listing"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/pictures": {
+			"get": {
+				"operationId": "GetPictures",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Picture"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Picture"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "CreatePicture",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Picture"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Picture"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IPicturePayload"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/pictures/{id}": {
+			"get": {
+				"operationId": "GetPicture",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/Picture"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Picture"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/faultCategories": {
+			"get": {
+				"operationId": "GetFaultCategories",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/FaultCategory"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Fault Category"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "CreateFaultCategory",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/FaultCategory"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Fault Category"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IFaultCategory"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/faultCategories/{id}": {
+			"get": {
+				"operationId": "GetFaultCategory",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/FaultCategory"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Fault Category"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/listingStatuses": {
+			"get": {
+				"operationId": "GetListingStatuses",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/ListingStatus"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Listing status"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "CreateListingStatus",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ListingStatus"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Listing status"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IListingStatusPayload"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/listingStatuses/{id}": {
+			"get": {
+				"operationId": "GetListingStatus",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/ListingStatus"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Listing status"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/messages": {
+			"get": {
+				"operationId": "GetMessages",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Message"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Message"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "CreateMessage",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Message"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Message"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IMessagePayload"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/messages/{id}": {
+			"get": {
+				"operationId": "GetMessage",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/Message"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Message"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/offers": {
+			"get": {
+				"operationId": "GetOffers",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Offer"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Offer"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "CreateOffer",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Offer"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Offer"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IOfferPayload"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/offers/{id}": {
+			"get": {
+				"operationId": "GetOffer",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/Offer"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Offer"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/offerStatuses": {
+			"get": {
+				"operationId": "GetOfferStatuses",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/OfferStatus"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Offer status"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "CreateOfferStatus",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/OfferStatus"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Offer status"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IOfferStatusPayload"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/offerStatuses/{id}": {
+			"get": {
+				"operationId": "GetOfferStatus",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/OfferStatus"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Offer status"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/reviews": {
+			"get": {
+				"operationId": "GetReviews",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Review"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Review"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "CreateReview",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Review"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Review"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IReviewPayload"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/reviews/{id}": {
+			"get": {
+				"operationId": "GetReview",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/Review"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Review"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
 			}
 		}
 	},

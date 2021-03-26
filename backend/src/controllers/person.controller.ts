@@ -1,10 +1,10 @@
 import { Get, Route, Tags, Post, Body, Path } from 'tsoa';
 import { Person } from '../models';
-import { getPeople, createPerson, IPersonPayload, getPerson } from '../repositories/person.repository'; 
+import { getPeople, createPerson, IPersonPayload, getPerson, getPersonByUserId } from '../repositories/person.repository'; 
 
 @Route('people')
 @Tags("Person")
-export default class PersonContorller {
+export default class PersonController {
   @Get("/")
   public async getPeople(): Promise<Person[]> {
     return getPeople();
@@ -18,5 +18,10 @@ export default class PersonContorller {
   @Get('/:id')
   public async getPerson(@Path() id: string): Promise<Person | null> {
     return getPerson(Number(id));
+  }
+
+  @Get('/user/:id')
+  public async getPersonByUserId(@Path() id: string): Promise<Person | null> {
+    return getPersonByUserId(Number(id));
   }
 }

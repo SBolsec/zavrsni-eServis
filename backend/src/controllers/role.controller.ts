@@ -4,7 +4,7 @@ import { getRoles, createRole, IRolePayload, getRole } from '../repositories/rol
 
 @Route('roles')
 @Tags("Role")
-export default class UserContorller {
+export default class RoleController {
   @Get("/")
   public async getRoles(): Promise<Role[]> {
     return getRoles();

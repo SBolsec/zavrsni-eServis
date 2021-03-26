@@ -22,4 +22,11 @@ router.get("/:id", async (req, res) => {
   return res.send(response);
 });
 
+router.get("/user/:id", async (req, res) => {
+  const controller = new PersonController();
+  const response = await controller.getPersonByUserId(req.params.id);
+  if (!response) res.status(404).send({ message: "No person found" });
+  return res.send(response);
+});
+
 export default router;
