@@ -44,7 +44,8 @@ const authReducer = (state, { type, payload }) => {
                     tokenVersion: payload.tokenVersion,
                     email: payload.email,
                     name: payload.name,
-                    profilePictureURL: payload.profilePictureURL
+                    profilePictureURL: payload.profilePictureURL,
+                    profilePictureSet: payload.profilePictureSet
                 }
             }
         case REGISTER_AFTER_REDIRECT:
