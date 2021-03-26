@@ -4,7 +4,7 @@ import { getCities, createCity, ICityPayload, getCity, getFormattedCities } from
 
 @Route('cities')
 @Tags("City")
-export default class CityContorller {
+export default class CityController {
   @Get("/")
   public async getCities(): Promise<City[]> {
     return getCities();

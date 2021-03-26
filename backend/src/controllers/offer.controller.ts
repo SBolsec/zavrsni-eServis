@@ -4,7 +4,7 @@ import { createOffer, getOffer, getOffers, IOfferPayload } from '../repositories
 
 @Route("offers")
 @Tags("Offer")
-export default class FaultCategoryController {
+export default class OfferController {
   
   @Get("/")
   public async getOffers(): Promise<Offer[]> {

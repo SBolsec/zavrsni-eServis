@@ -4,7 +4,7 @@ import { createMessage, getMessage, getMessages, IMessagePayload } from '../repo
 
 @Route("messages")
 @Tags("Message")
-export default class FaultCategoryController {
+export default class MessageController {
   
   @Get("/")
   public async getMessages(): Promise<Message[]> {

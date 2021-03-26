@@ -4,7 +4,7 @@ import { getPictures, createPicture, getPicture, IPicturePayload } from "../repo
 
 @Route("pictures")
 @Tags("Picture")
-export default class ListingController {
+export default class PictureController {
   
   @Get("/")
   public async getPictures(): Promise<Picture[]> {

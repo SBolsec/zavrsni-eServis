@@ -4,7 +4,7 @@ import { getServices, createService, IServicePayload, getService, getServiceByUs
 
 @Route('services')
 @Tags("Service")
-export default class PersonContorller {
+export default class PersonController {
   @Get("/")
   public async getServices(): Promise<Service[]> {
     return getServices();

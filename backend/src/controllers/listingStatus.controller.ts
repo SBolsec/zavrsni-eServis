@@ -4,7 +4,7 @@ import { createListingStatus, getListingStatus, getListingStatuses, IListingStat
 
 @Route("listingStatuses")
 @Tags("Listing status")
-export default class FaultCategoryController {
+export default class ListingStatusController {
   
   @Get("/")
   public async getListingStatuses(): Promise<ListingStatus[]> {

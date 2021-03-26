@@ -4,7 +4,7 @@ import { getUsers, createUser, IUserPayload, getUserById, getUserByEmail } from 
 
 @Route('users')
 @Tags("User")
-export default class UserContorller {
+export default class UserController {
   @Get("/")
   public async getUsers(): Promise<User[]> {
     return getUsers();

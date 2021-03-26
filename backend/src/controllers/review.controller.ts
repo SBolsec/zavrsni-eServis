@@ -4,7 +4,7 @@ import { createReview, getReview, getReviews, IReviewPayload } from '../reposito
 
 @Route("reviews")
 @Tags("Review")
-export default class FaultCategoryController {
+export default class ReviewController {
   
   @Get("/")
   public async getReviews(): Promise<Review[]> {

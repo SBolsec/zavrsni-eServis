@@ -4,7 +4,7 @@ import { createOfferStatus, getOfferStatus, getOfferStatuses, IOfferStatusPayloa
 
 @Route("offerStatuses")
 @Tags("Offer status")
-export default class FaultCategoryController {
+export default class OfferStatusController {
   
   @Get("/")
   public async getOfferStatuses(): Promise<OfferStatus[]> {

@@ -4,7 +4,7 @@ import { getPeople, createPerson, IPersonPayload, getPerson, getPersonByUserId }
 
 @Route('people')
 @Tags("Person")
-export default class PersonContorller {
+export default class PersonController {
   @Get("/")
   public async getPeople(): Promise<Person[]> {
     return getPeople();
