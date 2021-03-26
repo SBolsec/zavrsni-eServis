@@ -34,6 +34,7 @@ const UserHeader = () => {
     case '/user/active': title = 'Aktivni oglasi'; break;
     case '/user/history': title = 'Povijest oglasa'; break;
     case '/user/servicers': title = 'Pretraga servisera'; break;
+    case '/user/search': title = 'Pretraga oglasa'; break;
     default: break;
   }
   document.title = 'e-servis | ' + title;

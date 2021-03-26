@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faComments, faSearch, faHistory, faUser, faSignOutAlt, faNewspaper } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faComments, faSearch, faHistory, faUser, faSignOutAlt, faNewspaper, faBuilding } from '@fortawesome/free-solid-svg-icons';
 
 const _nav =  [
   {
@@ -16,10 +16,20 @@ const _nav =  [
     icon: <FontAwesomeIcon icon={faComments} className="c-sidebar-nav-icon"/>
   },
   {
+    _tag: 'CSidebarNavTitle',
+    _children: ['Pretraga']
+  },
+  {
+    _tag: 'CSidebarNavItem',
+    name: 'Pretraga oglasa',
+    to: '/user/search',
+    icon: <FontAwesomeIcon icon={faSearch} className="c-sidebar-nav-icon"/>
+  },
+  {
     _tag: 'CSidebarNavItem',
     name: 'Pretraga servisera',
     to: '/user/servicers',
-    icon: <FontAwesomeIcon icon={faSearch} className="c-sidebar-nav-icon"/>
+    icon: <FontAwesomeIcon icon={faBuilding} className="c-sidebar-nav-icon"/>
   },
   {
     _tag: 'CSidebarNavTitle',
