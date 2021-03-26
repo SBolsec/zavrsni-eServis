@@ -2,7 +2,7 @@ import { Get, Route, Tags, Post, Body, Path } from "tsoa";
 import { FaultCategory } from "../models";
 import { createFaultCategory, getFaultCategories, getFaultCategory, IFaultCategory } from '../repositories/faulCategory.repository';
 
-@Route("fault categories")
+@Route("faultCategories")
 @Tags("Fault Category")
 export default class FaultCategoryController {
   
