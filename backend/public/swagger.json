@@ -65,8 +65,7 @@
 					"role",
 					"tokenVersion",
 					"messagesSent",
-					"messagesReceived",
-					"profilePictureId"
+					"messagesReceived"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -863,7 +862,7 @@
 				]
 			}
 		},
-		"/users/{email}": {
+		"/users/email/{email}": {
 			"get": {
 				"operationId": "GetUserByEmail",
 				"responses": {
@@ -990,6 +989,42 @@
 				]
 			}
 		},
+		"/people/user/{id}": {
+			"get": {
+				"operationId": "GetPersonByUserId",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/Person"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Person"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
 		"/services": {
 			"get": {
 				"operationId": "GetServices",
@@ -1048,6 +1083,42 @@
 		"/services/{id}": {
 			"get": {
 				"operationId": "GetService",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/Service"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Service"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/services/user/{id}": {
+			"get": {
+				"operationId": "GetServiceByUserId",
 				"responses": {
 					"200": {
 						"description": "Ok",

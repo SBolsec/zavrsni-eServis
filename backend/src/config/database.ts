@@ -1,5 +1,6 @@
 import { ConnectionOptions } from 'typeorm';
-import { User, 
+import { 
+  User, 
   Role, 
   City, 
   Person, 

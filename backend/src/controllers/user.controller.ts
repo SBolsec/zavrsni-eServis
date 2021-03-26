@@ -20,7 +20,7 @@ export default class UserContorller {
     return getUserById(Number(id));
   }
 
-  @Get('/:email')
+  @Get('/email/:email')
   public async getUserByEmail(@Path() email: string): Promise<User | null> {
     return getUserByEmail(email);
   }

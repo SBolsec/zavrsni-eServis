@@ -34,8 +34,8 @@ export class User {
   @OneToMany(() => Message, (message) => message.receiver)
   messagesReceived!: Message[];
 
-  @Column({name: 'sif_slika_profila'})
-  profilePictureId!: number; 
+  @Column({name: 'sif_slika_profila', nullable: true})
+  profilePictureId?: number; 
 
   @OneToOne(() => Picture)
   @JoinColumn({name: 'sif_slika_profila'})
