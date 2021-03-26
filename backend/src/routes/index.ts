@@ -9,6 +9,12 @@ import PersonRouter from "./person.router";
 import ServiceRouter from "./service.router";
 import ListingRouter from "./listing.router";
 import PictureRouter from "./picture.router";
+import FaultCategoryRouter from "./faultCategory.router";
+import ListingStatusRouter from "./listingStatus.router";
+import MessageRouter from "./message.router";
+import OfferRouter from "./offer.router";
+import OfferStatusRouter from "./offerStatus.router";
+import ReviewRouter from "./review.router";
 
 import auth from '../middlewares/isAuth';
 import UserController from '../controllers/user.controller';
@@ -35,5 +41,11 @@ router.use("/people", PersonRouter);
 router.use("/services", ServiceRouter);
 router.use("/listings", ListingRouter);
 router.use("/pictures", PictureRouter);
+router.use("/faultCategories", FaultCategoryRouter);
+router.use("/listingStatuses", ListingStatusRouter);
+router.use("/messages", MessageRouter);
+router.use("/offers", OfferRouter);
+router.use("/offerStatuses", OfferStatusRouter);
+router.use("/reviews", ReviewRouter);
 
 export default router;
