@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useUserContext } from '../../contexts/UserContext';
+import { useAuth } from '../../contexts/AuthContext';
 import setShowSidebar from '../../actions/sidebar';
 import {
   CHeader,
@@ -12,6 +13,7 @@ import { faBars, faUser, faSignOutAlt} from '@fortawesome/free-solid-svg-icons';
 import Dropdown from 'react-bootstrap/Dropdown';
 
 const UserHeader = () => {
+  const { auth } = useAuth();
   const { context, dispatch } = useUserContext();
 
   const toggleSidebar = () => {
@@ -67,7 +69,7 @@ const UserHeader = () => {
 
         <Dropdown>
           <Dropdown.Toggle variant="gray" id="dropdown-basic" className="no-border-radius" >
-            John Doe
+            {auth.data.name}
           </Dropdown.Toggle>
 
           <Dropdown.Menu className="no-border-radius p-0">
@@ -85,7 +87,7 @@ const UserHeader = () => {
             </div>
           </Dropdown.Menu>
         </Dropdown>
-        <img src="/images/prijava.jpg" alt="avatar" className="rounded-circle ml-2" style={{ width: '45px', height: '45px' }} />
+        <img src={auth.data.profilePictureURL} alt="avatar" className="rounded-circle ml-2" style={{ width: '45px', height: '45px' }} />
       </div>
 
     </CHeader>

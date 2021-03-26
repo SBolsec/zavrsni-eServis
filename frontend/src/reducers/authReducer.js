@@ -42,7 +42,9 @@ const authReducer = (state, { type, payload }) => {
                     userId: payload.id,
                     role: getRole(payload.roleId),
                     tokenVersion: payload.tokenVersion,
-                    email: payload.email
+                    email: payload.email,
+                    name: payload.name,
+                    profilePictureURL: payload.profilePictureURL
                 }
             }
         case REGISTER_AFTER_REDIRECT:

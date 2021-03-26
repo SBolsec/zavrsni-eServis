@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useServiceContext } from '../../contexts/ServiceContext';
+import { useAuth } from '../../contexts/AuthContext';
 import setShowSidebar from '../../actions/sidebar';
 import {
   CHeader,
@@ -12,6 +13,7 @@ import { faBars, faUser, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 import Dropdown from 'react-bootstrap/Dropdown';
 
 const ServiceHeader = () => {
+  const { auth } = useAuth();
   const { context, dispatch } = useServiceContext();
 
   const toggleSidebar = () => {
@@ -68,12 +70,12 @@ const ServiceHeader = () => {
 
         <Dropdown>
           <Dropdown.Toggle variant="gray" id="dropdown-basic" className="no-border-radius" >
-            John Doe
+            {auth.data.name}
           </Dropdown.Toggle>
 
           <Dropdown.Menu className="no-border-radius p-0">
             <div className=" px-3 py-1 header-dropdown-item">
-              <Link to="/user/profile" style={{ color: 'black', textDecoration: 'none' }}>
+              <Link to="/service/profile" style={{ color: 'black', textDecoration: 'none' }}>
                 <FontAwesomeIcon icon={faUser} className="mr-2 text-darkGray" />
                 <span>Profil</span>
               </Link>
@@ -86,7 +88,7 @@ const ServiceHeader = () => {
             </div>
           </Dropdown.Menu>
         </Dropdown>
-        <img src="/images/prijava.jpg" alt="avatar" className="rounded-circle ml-2" style={{ width: '45px', height: '45px' }} />
+        <img src={auth.data.profilePictureURL} alt="avatar" className="rounded-circle ml-2" style={{ width: '45px', height: '45px' }} />
       </div>
 
     </CHeader>
