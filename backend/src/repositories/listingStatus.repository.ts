@@ -5,12 +5,12 @@ export interface IListingStatusPayload {
   name: string
 }
 
-export const getListings = async (): Promise<ListingStatus[]> => {
+export const getListingStatuses = async (): Promise<ListingStatus[]> => {
   const listingStatusRepository = getRepository(ListingStatus);
   return listingStatusRepository.find();
 };
 
-export const createListing = async (
+export const createListingStatus = async (
   payload: IListingStatusPayload
 ): Promise<ListingStatus> => {
   const listingStatusRepository = getRepository(ListingStatus);
@@ -21,7 +21,7 @@ export const createListing = async (
   });
 };
 
-export const getListing = async (id: number): Promise<ListingStatus | null> => {
+export const getListingStatus = async (id: number): Promise<ListingStatus | null> => {
   const listingStatusRepository = getRepository(ListingStatus);
   const listingStatus = await listingStatusRepository.findOne({ id: id });
   return !listingStatus ? null : listingStatus;

@@ -9,12 +9,12 @@ export interface IMessagePayload {
   read: boolean;
 }
 
-export const getListings = async (): Promise<Message[]> => {
+export const getMessages = async (): Promise<Message[]> => {
   const messageRepository = getRepository(Message);
   return messageRepository.find();
 };
 
-export const createListing = async (
+export const createMessage = async (
   payload: IMessagePayload
 ): Promise<Message> => {
   const messageRepository = getRepository(Message);
@@ -25,7 +25,7 @@ export const createListing = async (
   });
 };
 
-export const getListing = async (id: number): Promise<Message | null> => {
+export const getMessage = async (id: number): Promise<Message | null> => {
   const messageRepository = getRepository(Message);
   const message = await messageRepository.findOne({ id: id });
   return !message ? null : message;

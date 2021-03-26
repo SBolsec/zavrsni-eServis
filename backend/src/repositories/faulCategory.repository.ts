@@ -11,7 +11,7 @@ export const getFaultCategories = async (): Promise<FaultCategory[]> => {
   return faultCategoryRepository.find();
 };
 
-export const createListing = async (
+export const createFaultCategory = async (
   payload: IFaultCategory
 ): Promise<FaultCategory> => {
   const faultCategoryRepository = getRepository(FaultCategory);
@@ -22,7 +22,7 @@ export const createListing = async (
   });
 };
 
-export const getListing = async (id: number): Promise<FaultCategory | null> => {
+export const getFaultCategory = async (id: number): Promise<FaultCategory | null> => {
   const faultCategoryRepository = getRepository(FaultCategory);
   const faultCategory = await faultCategoryRepository.findOne({ id: id });
   return !faultCategory ? null : faultCategory;

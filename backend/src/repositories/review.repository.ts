@@ -8,12 +8,12 @@ export interface IReviewPayload {
   serviceId: number;
 }
 
-export const getListings = async (): Promise<Review[]> => {
+export const getReviews = async (): Promise<Review[]> => {
   const reviewRepository = getRepository(Review);
   return reviewRepository.find();
 };
 
-export const createListing = async (
+export const createReview = async (
   payload: IReviewPayload
 ): Promise<Review> => {
   const reviewRepository = getRepository(Review);
@@ -24,7 +24,7 @@ export const createListing = async (
   });
 };
 
-export const getListing = async (id: number): Promise<Review | null> => {
+export const getReview = async (id: number): Promise<Review | null> => {
   const reviewRepository = getRepository(Review);
   const review = await reviewRepository.findOne({ id: id });
   return !review ? null : review;

@@ -10,12 +10,12 @@ export interface IOfferPayload {
   listingId: number;
 }
 
-export const getListings = async (): Promise<Offer[]> => {
+export const getOffers = async (): Promise<Offer[]> => {
   const offerRepository = getRepository(Offer);
   return offerRepository.find();
 };
 
-export const createListing = async (
+export const createOffer = async (
   payload: IOfferPayload
 ): Promise<Offer> => {
   const offerRepository = getRepository(Offer);
@@ -26,7 +26,7 @@ export const createListing = async (
   });
 };
 
-export const getListing = async (id: number): Promise<Offer | null> => {
+export const getOffer = async (id: number): Promise<Offer | null> => {
   const offerRepository = getRepository(Offer);
   const offer = await offerRepository.findOne({ id: id });
   return !offer ? null : offer;
