@@ -2,8 +2,12 @@ import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { useAuth } from '../../../contexts/AuthContext';
+import SetProfilePicture from '../../Shared/SetProfilePicture';
 
 const Dashboard = () => {
+  const { auth } = useAuth();
+
   return (
     <>
       <Container fluid className="my-2" >
@@ -52,6 +56,8 @@ const Dashboard = () => {
           </Col>
         </Row>
       </Container>
+
+      {!auth.data.profilePictureSet && <SetProfilePicture />}
     </>
   );
 }
