@@ -18,7 +18,7 @@ export class Listing {
     @UpdateDateColumn({name: 'trenutak_promjene', type: 'timestamp without time zone'})
     updatedAt!: Date;
 
-    @Column({name: 'sif_status'})
+    @Column({name: 'sif_status', default: 0})
     statusId!: number;
 
     @ManyToOne(() => ListingStatus, (listingStatus) => listingStatus.listings)

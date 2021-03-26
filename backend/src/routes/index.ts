@@ -7,6 +7,8 @@ import RoleRouter from "./role.router";
 import CityRouter from "./city.router";
 import PersonRouter from "./person.router";
 import ServiceRouter from "./service.router";
+import ListingRouter from "./listing.router";
+import PictureRouter from "./picture.router";
 
 import auth from '../middlewares/isAuth';
 import UserController from '../controllers/user.controller';
@@ -31,5 +33,7 @@ router.use("/roles", RoleRouter);
 router.use("/cities", CityRouter);
 router.use("/people", PersonRouter);
 router.use("/services", ServiceRouter);
+router.use("/listings", ListingRouter);
+router.use("/pictures", PictureRouter);
 
 export default router;

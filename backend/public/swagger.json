@@ -103,10 +103,6 @@
 					"content": {
 						"type": "string"
 					},
-					"postalCode": {
-						"type": "number",
-						"format": "double"
-					},
 					"senderId": {
 						"type": "number",
 						"format": "double"
@@ -135,7 +131,6 @@
 				"required": [
 					"id",
 					"content",
-					"postalCode",
 					"senderId",
 					"receiverId",
 					"createdAt",
@@ -757,6 +752,65 @@
 				],
 				"type": "object",
 				"additionalProperties": false
+			},
+			"IListingPayload": {
+				"properties": {
+					"personId": {
+						"type": "number",
+						"format": "double"
+					},
+					"title": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"faultCategoryId": {
+						"type": "number",
+						"format": "double"
+					},
+					"statusId": {
+						"type": "number",
+						"format": "double"
+					},
+					"pictures": {
+						"items": {
+							"$ref": "#/components/schemas/Picture"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"personId",
+					"title",
+					"description",
+					"faultCategoryId",
+					"statusId",
+					"pictures"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IPicturePayload": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"cloudinaryId": {
+						"type": "number",
+						"format": "double"
+					},
+					"url": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name",
+					"cloudinaryId",
+					"url"
+				],
+				"type": "object",
+				"additionalProperties": false
 			}
 		},
 		"securitySchemes": {}
@@ -1370,6 +1424,188 @@
 				],
 				"security": [],
 				"parameters": []
+			}
+		},
+		"/listings": {
+			"get": {
+				"operationId": "GetListings",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Listing"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Listing"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "CreateListing",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Listing"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Listing"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IListingPayload"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/listings/{id}": {
+			"get": {
+				"operationId": "GetListing",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/Listing"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Listing"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/pictures": {
+			"get": {
+				"operationId": "GetPictures",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Picture"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Picture"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "CreatePicture",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Picture"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Picture"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IPicturePayload"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/pictures/{id}": {
+			"get": {
+				"operationId": "GetPicture",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/Picture"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Picture"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
 			}
 		}
 	},

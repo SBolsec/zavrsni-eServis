@@ -9,9 +9,6 @@ export class Message {
   @Column({name: "sadrzaj"})
   content!: string;
 
-  @Column({name: "postanski_broj"})
-  postalCode!: number;
-
   @Column({name: 'sif_posiljatelj'})
   senderId!: number;
 
