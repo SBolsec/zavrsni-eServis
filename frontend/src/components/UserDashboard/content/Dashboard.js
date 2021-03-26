@@ -4,8 +4,12 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../../contexts/AuthContext';
+import SetProfilePicture from '../../Shared/SetProfilePicture';
 
 const Dashboard = () => {
+  const { auth } = useAuth();
+
   return (
     <>
       <div className="d-flex flex-column flex-md-row justify-content-between align-items-center bg-white text-dark pt-3 pb-3 px-4">
@@ -64,6 +68,8 @@ const Dashboard = () => {
           </Col>
         </Row>
       </Container>
+
+      {!auth.data.profilePictureSet && <SetProfilePicture />}
     </>
   );
 }
