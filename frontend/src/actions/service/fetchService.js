@@ -1,30 +1,29 @@
 import axiosInstance from "../../helpers/axiosInstance";
 import {
-  USER_DATA_ERROR,
-  USER_DATA_LOADING,
-  USER_DATA_SUCCESS,
+  SERVICE_DATA_ERROR,
+  SERVICE_DATA_LOADING,
+  SERVICE_DATA_SUCCESS,
 } from "../../constants/actionTypes";
 
-const fetchUser = ({ userId }) => (dispatch) => {
+const fetchService = ({ userId }) => (dispatch) => {
   if (typeof userId != 'number') {
-    console.log('userId is not a number');
+    console.log('userId is not a number')
     return;
   }
-
-  dispatch({ type: USER_DATA_LOADING });
+  
+  dispatch({ type: SERVICE_DATA_LOADING });
 
   axiosInstance()
-    .get(`/people/user/${userId}`)
+    .get(`/services/user/${userId}`)
     .then((res) => {
-      console.log(res);
       dispatch({
-        type: USER_DATA_SUCCESS,
+        type: SERVICE_DATA_SUCCESS,
         payload: res.data,
       });
     })
     .catch((err) => {
       dispatch({
-        type: USER_DATA_ERROR,
+        type: SERVICE_DATA_ERROR,
         payload: err.response
           ? err.response.data.message
           : "Spajanje na poslužitelj neuspješno",
@@ -32,4 +31,4 @@ const fetchUser = ({ userId }) => (dispatch) => {
     });
 };
 
-export default fetchUser;
+export default fetchService;

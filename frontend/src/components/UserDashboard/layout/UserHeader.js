@@ -76,7 +76,7 @@ const UserHeader = () => {
 
         <Dropdown>
           <Dropdown.Toggle variant="gray" id="dropdown-basic" className="no-border-radius" >
-            {context.loading && <span>Loading...</span>}
+            {context.loading && <span>Profil</span>}
             {!context.loading && context.data.firstName + " " + context.data.lastName}
           </Dropdown.Toggle>
 
