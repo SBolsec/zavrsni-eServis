@@ -1,22 +1,27 @@
-import React from 'react';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import { useAuth } from '../../../contexts/AuthContext';
-import SetProfilePicture from '../../Shared/SetProfilePicture';
+import React from "react";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import { useAuth } from "../../../contexts/AuthContext";
+import SetProfilePicture from "../../Shared/SetProfilePicture";
 
 const Dashboard = () => {
   const { auth } = useAuth();
 
   return (
     <>
-      <Container fluid className="my-2" >
+      <Container fluid className="my-2">
         <Row>
-          <Col xs={12} lg={4} className="my-2" >
+          <Col xs={12} lg={4} className="my-2">
             <div className="bg-white text-dark p-3 d-flex justify-content-between h-100">
               <div>
-                <h5 className="font-weight-bold text-uppercase">Registrirajte se</h5>
-                <p>Ispunite uslužne mogućnosti svoje tvrtke i kreirajte besplatni profil.</p>
+                <h5 className="font-weight-bold text-uppercase">
+                  Registrirajte se
+                </h5>
+                <p>
+                  Ispunite uslužne mogućnosti svoje tvrtke i kreirajte besplatni
+                  profil.
+                </p>
               </div>
               <div className="d-flex align-items-center">
                 <span className="fas fa-stack fa-2x">
@@ -26,11 +31,16 @@ const Dashboard = () => {
               </div>
             </div>
           </Col>
-          <Col xs={12} lg={4} className="my-2" >
+          <Col xs={12} lg={4} className="my-2">
             <div className="bg-white text-dark p-3 d-flex justify-content-between h-100">
               <div>
-                <h5 className="font-weight-bold text-uppercase">Pretražite oglase</h5>
-                <p>Filtriranje Vam osigurava pronalazak oglasa sukladno uslužnim djelatnostima.</p>
+                <h5 className="font-weight-bold text-uppercase">
+                  Pretražite oglase
+                </h5>
+                <p>
+                  Filtriranje Vam osigurava pronalazak oglasa sukladno uslužnim
+                  djelatnostima.
+                </p>
               </div>
               <div className="d-flex align-items-center">
                 <span className="fas fa-stack fa-2x">
@@ -40,11 +50,15 @@ const Dashboard = () => {
               </div>
             </div>
           </Col>
-          <Col xs={12} lg={4} className="my-2" >
+          <Col xs={12} lg={4} className="my-2">
             <div className="bg-white text-dark p-3 d-flex justify-content-between h-100">
               <div>
-                <h5 className="font-weight-bold text-uppercase">Servisirajte</h5>
-                <p>Nakon dogovorenog posla, započnite s uslužnim djelatnostima.</p>
+                <h5 className="font-weight-bold text-uppercase">
+                  Servisirajte
+                </h5>
+                <p>
+                  Nakon dogovorenog posla, započnite s uslužnim djelatnostima.
+                </p>
               </div>
               <div className="d-flex align-items-center">
                 <span className="fas fa-stack fa-2x">
@@ -57,9 +71,16 @@ const Dashboard = () => {
         </Row>
       </Container>
 
-      {!auth.data.profilePictureSet && <SetProfilePicture />}
+      {/* Replace this with something more generic */}
+      {!auth.data.profilePictureSet &&
+      <Container fluid className="my-2">
+        <Row>
+          <Col md={6}>{!auth.data.profilePictureSet && <SetProfilePicture />}</Col>
+        </Row>
+      </Container>
+      }
     </>
   );
-}
+};
 
 export default Dashboard;

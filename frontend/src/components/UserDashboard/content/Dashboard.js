@@ -69,7 +69,14 @@ const Dashboard = () => {
         </Row>
       </Container>
 
-      {!auth.data.profilePictureSet && <SetProfilePicture />}
+      {/* Replace this with something more generic */}
+      {!auth.data.profilePictureSet &&
+      <Container fluid className="my-2">
+        <Row>
+          <Col md={6}>{!auth.data.profilePictureSet && <SetProfilePicture />}</Col>
+        </Row>
+      </Container>
+      }
     </>
   );
 }
