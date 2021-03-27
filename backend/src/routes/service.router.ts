@@ -1,4 +1,5 @@
 import express from "express";
+import CityController from "../controllers/city.controller";
 import ServiceController from "../controllers/service.controller";
 
 const router = express.Router();
@@ -26,7 +27,12 @@ router.get("/user/:id", async (req, res) => {
   const controller = new ServiceController();
   const response = await controller.getServiceByUserId(req.params.id);
   if (!response) res.status(404).send({ message: "No service found" });
-  return res.send(response);
+  const cityConttroller = new CityController();
+  const city = await cityConttroller.getCity(response!.cityId.toString());
+  return res.send({
+    ...response,
+    cityName: city!.name
+  });
 });
 
 export default router;

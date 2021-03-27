@@ -310,6 +310,12 @@
 					"address": {
 						"type": "string"
 					},
+					"website": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
 					"cityId": {
 						"type": "number",
 						"format": "double"

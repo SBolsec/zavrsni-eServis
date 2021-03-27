@@ -18,6 +18,12 @@ export class Service {
   @Column({name: "adresa"})
   address!: string;
 
+  @Column({name: 'web_lokacija', nullable: true})
+  website?: string;
+
+  @Column({name: 'opis', nullable: true})
+  description?: string;
+
   @Column({name: "sif_mjesto"})
   cityId!: number;
 
