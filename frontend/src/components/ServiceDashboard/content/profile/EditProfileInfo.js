@@ -11,6 +11,9 @@ import axiosInstance from "../../../../helpers/axiosInstance";
 import { useHistory } from "react-router-dom";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import SetProfilePicture from '../../../Shared/SetProfilePicture';
+import { LOGIN_SUCCESS, SERVICE_DATA_SUCCESS } from "../../../../constants/actionTypes";
+import Spinner from "../../../Utils/Spinner";
+
 
 const validationSchema = yup.object({
   name: yup
@@ -72,9 +75,10 @@ const validationSchema = yup.object({
 
 const EditProfileInfo = ({ disableEdit }) => {
   const history = useHistory();
-  const { auth } = useAuth();
-  const { context } = useServiceContext();
+  const { auth, dispatch: authDispatch } = useAuth();
+  const { context, dispatch: serviceDispatch } = useServiceContext();
   const [cities, setCities] = useState([]); // id, city
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     axiosInstance(history)
@@ -95,7 +99,7 @@ const EditProfileInfo = ({ disableEdit }) => {
       cityId: context.data.cityId,
       phone: context.data.phone,
       website: context.data.website,
-      description: context.data.desciption,
+      description: context.data.description,
       email: auth.data.email,
       currentPassword: "",
       password: "",
@@ -103,8 +107,27 @@ const EditProfileInfo = ({ disableEdit }) => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log(values);
-      // TODO send data to backend
+      setLoading(true);
+      axiosInstance().put(`/services/${context.data.id}`, {
+        ...values,
+        userId: auth.data.userId
+      })
+        .then(res => {
+          setLoading(false);
+          authDispatch({
+            type: LOGIN_SUCCESS,
+            payload: res.data.user
+          });
+          serviceDispatch({
+            type: SERVICE_DATA_SUCCESS,
+            payload: res.data.service
+          });
+          disableEdit();
+        })
+        .catch(err => {
+          setLoading(false);
+          console.log(err);
+        })
     },
   });
 
@@ -302,6 +325,7 @@ const EditProfileInfo = ({ disableEdit }) => {
               />
 
               <div className="w-100 d-flex justify-content-around align-items-center">
+                {!loading && <>
                 <Button
                   variant="contained"
                   className="my-4 px-4 bg-lightGray text-dark no-round font-weight-bold"
@@ -317,6 +341,8 @@ const EditProfileInfo = ({ disableEdit }) => {
                 >
                   Spremi Promjene
                 </Button>
+                </>}
+                {loading && <Spinner />}
               </div>
             </div>
           </form>

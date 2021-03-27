@@ -87,10 +87,12 @@ const EditProfileInfo = ({ disableEdit }) => {
           userDispatch({
             type: USER_DATA_SUCCESS,
             payload: res.data.person
-          })
+          });
+          disableEdit();
         })
         .catch(err => {
           setLoading(false);
+          console.log(err);
         })
     },
   });
