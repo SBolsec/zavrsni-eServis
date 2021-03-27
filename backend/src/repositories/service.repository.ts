@@ -8,6 +8,8 @@ export interface IServicePayload {
   address: string;
   cityId: number;
   userId: number;
+  website?: string;
+  description?: string;
 }
 
 export const getServices = async (): Promise<Service[]> => {
@@ -28,6 +30,16 @@ export const getService = async (id: number): Promise<Service | null> => {
   const serviceRepository = getRepository(Service);
   const service = await serviceRepository.findOne({ id: id });
   return !service ? null : service;
+}
+
+export const updateService = async (id: number, payload: IServicePayload): Promise<Service | null> => {
+  const serviceRepository = getRepository(Service);
+  const service = await serviceRepository.findOne({id: id});
+  if (!service) return null;
+  return serviceRepository.save({
+    ...service,
+    ...payload
+  });
 }
 
 export const getServiceByUserId = async (id: number): Promise<Service | null> => {

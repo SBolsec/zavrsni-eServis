@@ -1,6 +1,6 @@
-import { Get, Route, Tags, Post, Body, Path } from 'tsoa';
+import { Get, Route, Tags, Post, Body, Path, Put } from 'tsoa';
 import { Person } from '../models';
-import { getPeople, createPerson, IPersonPayload, getPerson, getPersonByUserId } from '../repositories/person.repository'; 
+import { getPeople, createPerson, updatePerson, IPersonPayload, getPerson, getPersonByUserId } from '../repositories/person.repository'; 
 
 @Route('people')
 @Tags("Person")
@@ -18,6 +18,11 @@ export default class PersonController {
   @Get('/:id')
   public async getPerson(@Path() id: string): Promise<Person | null> {
     return getPerson(Number(id));
+  }
+
+  @Put('/:id')
+  public async updatePerson(@Path() id: string, @Body() body: IPersonPayload): Promise<Person | null> {
+    return updatePerson(Number(id), body);
   }
 
   @Get('/user/:id')

@@ -310,6 +310,12 @@
 					"address": {
 						"type": "string"
 					},
+					"website": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
 					"cityId": {
 						"type": "number",
 						"format": "double"
@@ -629,8 +635,7 @@
 						"type": "string"
 					},
 					"cloudinaryId": {
-						"type": "number",
-						"format": "double"
+						"type": "string"
 					},
 					"url": {
 						"type": "string"
@@ -657,6 +662,10 @@
 						"type": "string"
 					},
 					"roleId": {
+						"type": "number",
+						"format": "double"
+					},
+					"profilePictureId": {
 						"type": "number",
 						"format": "double"
 					}
@@ -711,6 +720,12 @@
 					"userId": {
 						"type": "number",
 						"format": "double"
+					},
+					"website": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
 					}
 				},
 				"required": [
@@ -720,6 +735,26 @@
 					"address",
 					"cityId",
 					"userId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IPicturePayload": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"cloudinaryId": {
+						"type": "string"
+					},
+					"url": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name",
+					"cloudinaryId",
+					"url"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -787,27 +822,6 @@
 					"faultCategoryId",
 					"statusId",
 					"pictures"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"IPicturePayload": {
-				"properties": {
-					"name": {
-						"type": "string"
-					},
-					"cloudinaryId": {
-						"type": "number",
-						"format": "double"
-					},
-					"url": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"name",
-					"cloudinaryId",
-					"url"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -1015,6 +1029,51 @@
 			}
 		},
 		"/users/{id}": {
+			"put": {
+				"operationId": "UpdateUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/User"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IUserPayload"
+							}
+						}
+					}
+				}
+			},
 			"get": {
 				"operationId": "GetUserById",
 				"responses": {
@@ -1175,6 +1234,50 @@
 						}
 					}
 				]
+			},
+			"put": {
+				"operationId": "UpdatePerson",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/Person"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Person"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IPersonPayload"
+							}
+						}
+					}
+				}
 			}
 		},
 		"/people/user/{id}": {
@@ -1302,6 +1405,50 @@
 						}
 					}
 				]
+			},
+			"put": {
+				"operationId": "UpdateService",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/Service"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Service"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IServicePayload"
+							}
+						}
+					}
+				}
 			}
 		},
 		"/services/user/{id}": {
@@ -1326,6 +1473,97 @@
 				},
 				"tags": [
 					"Service"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/pictures": {
+			"get": {
+				"operationId": "GetPictures",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Picture"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Picture"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "CreatePicture",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Picture"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Picture"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IPicturePayload"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/pictures/{id}": {
+			"get": {
+				"operationId": "GetPicture",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/Picture"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Picture"
 				],
 				"security": [],
 				"parameters": [
@@ -1637,97 +1875,6 @@
 				},
 				"tags": [
 					"Listing"
-				],
-				"security": [],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
-			}
-		},
-		"/pictures": {
-			"get": {
-				"operationId": "GetPictures",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"items": {
-										"$ref": "#/components/schemas/Picture"
-									},
-									"type": "array"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Picture"
-				],
-				"security": [],
-				"parameters": []
-			},
-			"post": {
-				"operationId": "CreatePicture",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/Picture"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Picture"
-				],
-				"security": [],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/IPicturePayload"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/pictures/{id}": {
-			"get": {
-				"operationId": "GetPicture",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"allOf": [
-										{
-											"$ref": "#/components/schemas/Picture"
-										}
-									],
-									"nullable": true
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Picture"
 				],
 				"security": [],
 				"parameters": [

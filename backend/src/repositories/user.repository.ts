@@ -5,6 +5,7 @@ export interface IUserPayload {
   email: string;
   password: string;
   roleId: number;
+  profilePictureId?: number;
 }
 
 export const getUsers = async (): Promise<User[]> => {
@@ -18,6 +19,16 @@ export const createUser = async (payload: IUserPayload): Promise<User> => {
   return userRepository.save({
     ...user,
     ...payload
+  });
+}
+
+export const updateUser = async (id: number, user: IUserPayload): Promise<User | null> => {
+  const userRepository = getRepository(User);
+  const toBeUpdated = await userRepository.findOne({id: id});
+  if (!toBeUpdated) return null;
+  return userRepository.save({
+    ...toBeUpdated,
+    ...user
   });
 }
 

@@ -3,7 +3,7 @@ import { Picture } from "../models";
 
 export interface IPicturePayload {
   name: string,
-  cloudinaryId: number,
+  cloudinaryId: string,
   url: string
 }
 

@@ -10,7 +10,7 @@ export class Picture {
     name!: string;
 
     @Column({name: 'cloudinary_id'})
-    cloudinaryId!: number;
+    cloudinaryId!: string;
 
     @Column({name: 'url'})
     url!: string;
