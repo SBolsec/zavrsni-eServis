@@ -664,6 +664,10 @@
 					"roleId": {
 						"type": "number",
 						"format": "double"
+					},
+					"profilePictureId": {
+						"type": "number",
+						"format": "double"
 					}
 				},
 				"required": [
@@ -1016,7 +1020,9 @@
 						}
 					}
 				}
-			},
+			}
+		},
+		"/users/{id}": {
 			"put": {
 				"operationId": "UpdateUser",
 				"responses": {
@@ -1025,7 +1031,12 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/User"
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/User"
+										}
+									],
+									"nullable": true
 								}
 							}
 						}
@@ -1035,20 +1046,28 @@
 					"User"
 				],
 				"security": [],
-				"parameters": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
 				"requestBody": {
 					"required": true,
 					"content": {
 						"application/json": {
 							"schema": {
-								"$ref": "#/components/schemas/User"
+								"$ref": "#/components/schemas/IUserPayload"
 							}
 						}
 					}
 				}
-			}
-		},
-		"/users/{id}": {
+			},
 			"get": {
 				"operationId": "GetUserById",
 				"responses": {
@@ -1209,6 +1228,50 @@
 						}
 					}
 				]
+			},
+			"put": {
+				"operationId": "UpdatePerson",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/Person"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Person"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IPersonPayload"
+							}
+						}
+					}
+				}
 			}
 		},
 		"/people/user/{id}": {

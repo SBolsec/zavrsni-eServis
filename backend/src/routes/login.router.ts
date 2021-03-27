@@ -10,12 +10,11 @@ import PictureController from "../controllers/picture.controller";
 
 const router = express.Router();
 
-interface ILoginResponse {
+export interface ILoginResponse {
   id: number,
   roleId: number,
   email: string,
   tokenVersion: number,
-  name: string,
   profilePictureURL: string,
   profilePictureSet: boolean
 };
@@ -63,29 +62,6 @@ router.post("/", async (req, res) => {
     }
 
     sendRefreshToken(res, createRefreshToken(user));
-    
-    // dohvati ime ovisno o vrsti korisnika
-    let name = "";
-    if (user.roleId === 2) { // obican korisnik
-      const personController = new PersonContorller();
-      let response = await personController.getPersonByUserId(user.id.toString());
-      if (!response) {
-        name = "Neimenovan korisnik";
-      } else {
-        name = response.firstName + " " + response.lastName;
-      }
-    } else if (user.roleId === 3) { // serviser
-      const serviceController = new ServiceController();
-      let response = await serviceController.getServiceByUserId(user.id.toString());
-      if (!response) {
-        name = "Neimenovan serviser"
-      } else {
-        name = response.name;
-      }
-    } else if (user.roleId === 1) { // admin?
-      // do nothing for now
-      name = "Admin"
-    }
 
     // postavi url do slike profila
     let profilePictureSet = false;
@@ -102,7 +78,6 @@ router.post("/", async (req, res) => {
       roleId: user.roleId,
       email: user.email,
       tokenVersion: user.tokenVersion,
-      name,
       profilePictureURL,
       profilePictureSet
     };

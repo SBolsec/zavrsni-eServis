@@ -21,6 +21,16 @@ export const createPerson = async (payload: IPersonPayload): Promise<Person> => 
   });
 }
 
+export const updatePerson = async (id: number, payload: IPersonPayload): Promise<Person | null> => {
+  const personRepository = getRepository(Person);
+  const person = await personRepository.findOne({id: id});
+  if (!person) return null;
+  return personRepository.save({
+    ...person,
+    ...payload
+  });
+}
+
 export const getPerson = async (id: number): Promise<Person | null> => {
   const personRepository = getRepository(Person);
   const person = await personRepository.findOne({ id: id });

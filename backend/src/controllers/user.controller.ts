@@ -15,9 +15,9 @@ export default class UserController {
     return createUser(body);
   }
 
-  @Put('/')
-  public async updateUser(@Body() body: User): Promise<User> {
-    return updateUser(body);
+  @Put('/:id')
+  public async updateUser(@Path() id: number, @Body() body: IUserPayload): Promise<User | null> {
+    return updateUser(id, body);
   }
 
   @Get('/:id')
