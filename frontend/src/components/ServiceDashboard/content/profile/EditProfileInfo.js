@@ -109,7 +109,7 @@ const EditProfileInfo = ({ disableEdit }) => {
   });
 
   return (
-    <Container className="my-3">
+    <Container fluid className="my-3">
       <Row>
         <Col lg={6} className="bg-white">
           <form onSubmit={formik.handleSubmit}>
@@ -251,6 +251,7 @@ const EditProfileInfo = ({ disableEdit }) => {
               <TextField
                 className="my-2"
                 fullWidth
+                type="password"
                 id="currentPassword"
                 name="currentPassword"
                 label="Trenutna lozinka"
@@ -269,6 +270,7 @@ const EditProfileInfo = ({ disableEdit }) => {
               <TextField
                 className="my-2"
                 fullWidth
+                type="password"
                 id="password"
                 name="password"
                 label="Nova lozinka"
@@ -283,6 +285,7 @@ const EditProfileInfo = ({ disableEdit }) => {
               <TextField
                 className="my-2"
                 fullWidth
+                type="password"
                 id="repeatPassword"
                 name="repeatPassword"
                 label="Potvrdi lozinku"

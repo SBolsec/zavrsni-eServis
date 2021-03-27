@@ -43,7 +43,6 @@ const authReducer = (state, { type, payload }) => {
                     role: getRole(payload.roleId),
                     tokenVersion: payload.tokenVersion,
                     email: payload.email,
-                    name: payload.name,
                     profilePictureURL: payload.profilePictureURL,
                     profilePictureSet: payload.profilePictureSet
                 }

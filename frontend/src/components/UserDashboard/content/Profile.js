@@ -15,7 +15,7 @@ const Profile = () => {
   }
 
   return (
-    <Container>
+    <Container fluid>
       {!editProfile ? 
         <ShowProfileInfo enableEdit={enableEdit} /> 
         : 

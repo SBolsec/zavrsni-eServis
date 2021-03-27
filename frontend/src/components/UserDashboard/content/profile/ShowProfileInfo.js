@@ -11,7 +11,7 @@ const ShowProfileInfo = ({ enableEdit }) => {
   const { context } = useUserContext();
 
   return (
-    <Container className="my-3">
+    <Container fluid className="my-3">
       <Row>
         <Col lg={6} className="bg-white">
           <div className="d-flex flex-column justify-content-center align-items-center">

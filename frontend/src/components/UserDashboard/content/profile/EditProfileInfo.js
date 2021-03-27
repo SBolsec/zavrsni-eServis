@@ -1,5 +1,5 @@
 import { Button, TextField } from "@material-ui/core";
-import React from "react";
+import React, { useState } from "react";
 import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/esm/Row";
 import Col from "react-bootstrap/esm/Col";
@@ -8,6 +8,9 @@ import { useUserContext } from "../../../../contexts/UserContext";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import SetProfilePicture from "../../../Shared/SetProfilePicture";
+import axiosInstance from '../../../../helpers/axiosInstance';
+import { LOGIN_SUCCESS, USER_DATA_SUCCESS } from "../../../../constants/actionTypes";
+import Spinner from "../../../Utils/Spinner";
 
 const validationSchema = yup.object({
   firstName: yup
@@ -56,7 +59,8 @@ const validationSchema = yup.object({
 
 const EditProfileInfo = ({ disableEdit }) => {
   const { auth, dispatch: authDispatch } = useAuth();
-  const { context } = useUserContext();
+  const { context, dispatch: userDispatch } = useUserContext();
+  const [loading, setLoading] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -69,13 +73,30 @@ const EditProfileInfo = ({ disableEdit }) => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log(values);
-      // TODO send data to backend
+      setLoading(true);
+      axiosInstance().put(`/people/${context.data.id}`, {
+        ...values,
+        userId: auth.data.userId
+      })
+        .then(res => {
+          setLoading(false);
+          authDispatch({
+            type: LOGIN_SUCCESS,
+            payload: res.data.user
+          });
+          userDispatch({
+            type: USER_DATA_SUCCESS,
+            payload: res.data.person
+          })
+        })
+        .catch(err => {
+          setLoading(false);
+        })
     },
   });
 
   return (
-    <Container className="my-3">
+    <Container fluid className="my-3">
       <Row>
         <Col lg={6} className="bg-white">
           <form onSubmit={formik.handleSubmit}>
@@ -144,6 +165,7 @@ const EditProfileInfo = ({ disableEdit }) => {
               <TextField
                 className="my-2"
                 fullWidth
+                type="password"
                 id="currentPassword"
                 name="currentPassword"
                 label="Trenutna lozinka"
@@ -162,6 +184,7 @@ const EditProfileInfo = ({ disableEdit }) => {
               <TextField
                 className="my-2"
                 fullWidth
+                type="password"
                 id="password"
                 name="password"
                 label="Nova lozinka"
@@ -176,6 +199,7 @@ const EditProfileInfo = ({ disableEdit }) => {
               <TextField
                 className="my-2"
                 fullWidth
+                type="password"
                 id="repeatPassword"
                 name="repeatPassword"
                 label="Potvrdi lozinku"
@@ -192,6 +216,7 @@ const EditProfileInfo = ({ disableEdit }) => {
               />
 
               <div className="w-100 d-flex justify-content-around align-items-center">
+                {!loading && <>
                 <Button
                   variant="contained"
                   className="my-4 px-4 bg-lightGray text-dark no-round font-weight-bold"
@@ -207,6 +232,8 @@ const EditProfileInfo = ({ disableEdit }) => {
                 >
                   Spremi Promjene
                 </Button>
+                </>}
+                {loading && <Spinner />}
               </div>
             </div>
           </form>
