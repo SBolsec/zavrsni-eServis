@@ -7,6 +7,7 @@ import { useAuth } from "../../../../contexts/AuthContext";
 import { useUserContext } from "../../../../contexts/UserContext";
 import * as yup from "yup";
 import { useFormik } from "formik";
+import SetProfilePicture from "../../../Shared/SetProfilePicture";
 
 const validationSchema = yup.object({
   firstName: yup
@@ -24,37 +25,37 @@ const validationSchema = yup.object({
   currentPassword: yup
     .string("Unesite trenutnu lozinku")
     .min(8, "Trenutna lozinka mora imati barem 8 znakova")
-    .test('cp1', 'Potrebo je unijeti trenutnu lozinku', function(value) {
-        if (this.parent.repeatPassword || this.parent.password) {
-            return Boolean(value);
-        }
-        return true;
+    .test("cp1", "Potrebo je unijeti trenutnu lozinku", function (value) {
+      if (this.parent.repeatPassword || this.parent.password) {
+        return Boolean(value);
+      }
+      return true;
     }),
   password: yup
     .string("Unesite novu lozinku")
     .min(8, "Nova lozinka mora imati barem 8 znakova")
-    .test('p1', 'Potrebno je unijeti novu lozinku', function(value) {
-        if (this.parent.currentPassword || this.parent.repeatPassword) {
-            return Boolean(value);
-        }
-        return true;
+    .test("p1", "Potrebno je unijeti novu lozinku", function (value) {
+      if (this.parent.currentPassword || this.parent.repeatPassword) {
+        return Boolean(value);
+      }
+      return true;
     }),
   repeatPassword: yup
     .string()
-    .test('rp1', 'Lozinke se moraju podudarati', function(value) {
-        if (this.parent.currentPassword) {
-            if (this.parent.password) {
-                return this.parent.password === value;
-            } else {
-                return false;
-            }
+    .test("rp1", "Lozinke se moraju podudarati", function (value) {
+      if (this.parent.currentPassword) {
+        if (this.parent.password) {
+          return this.parent.password === value;
+        } else {
+          return false;
         }
-        return this.parent.password === value
+      }
+      return this.parent.password === value;
     }),
 });
 
 const EditProfileInfo = ({ disableEdit }) => {
-  const { auth } = useAuth();
+  const { auth, dispatch: authDispatch } = useAuth();
   const { context } = useUserContext();
 
   const formik = useFormik({
@@ -85,21 +86,9 @@ const EditProfileInfo = ({ disableEdit }) => {
               >
                 Informacije o računu
               </h5>
-              <div className="my-4">
-                <img
-                  src={auth.data.profilePictureURL}
-                  alt="avatar"
-                  className="rounded-circle ml-2"
-                  style={{ width: "90px", height: "90px" }}
-                />
-              </div>
-              <Button
-                variant="contained"
-                size="small"
-                className="bg-blueAccent text-white no-round mb-4 mt-2 font-weight-bold"
-              >
-                Promijeni
-              </Button>
+
+              <SetProfilePicture />
+
               <div className="w-100 d-flex flex-column flex-sm-row justify-content-evenly align-items-center">
                 <TextField
                   className="my-2 mr-sm-2"

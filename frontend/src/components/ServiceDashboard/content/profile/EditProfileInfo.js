@@ -10,6 +10,7 @@ import { useFormik } from "formik";
 import axiosInstance from "../../../../helpers/axiosInstance";
 import { useHistory } from "react-router-dom";
 import Autocomplete from "@material-ui/lab/Autocomplete";
+import SetProfilePicture from '../../../Shared/SetProfilePicture';
 
 const validationSchema = yup.object({
   name: yup
@@ -119,21 +120,9 @@ const EditProfileInfo = ({ disableEdit }) => {
               >
                 Informacije o tvrtci
               </h5>
-              <div className="my-4">
-                <img
-                  src={auth.data.profilePictureURL}
-                  alt="avatar"
-                  className="rounded-circle ml-2"
-                  style={{ width: "90px", height: "90px" }}
-                />
-              </div>
-              <Button
-                variant="contained"
-                size="small"
-                className="bg-blueAccent text-white no-round mb-4 mt-2 font-weight-bold"
-              >
-                Promijeni
-              </Button>
+              
+              <SetProfilePicture />
+              
               <TextField
                 className="my-2 mr-sm-2"
                 fullWidth
