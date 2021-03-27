@@ -31,7 +31,7 @@ router.get("/user/:id", async (req, res) => {
   const city = await cityConttroller.getCity(response!.cityId.toString());
   return res.send({
     ...response,
-    cityName: city!.name
+    cityName: city!.postalCode + " " + city!.name
   });
 });
 
