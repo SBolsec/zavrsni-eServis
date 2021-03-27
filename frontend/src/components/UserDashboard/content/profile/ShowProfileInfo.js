@@ -9,13 +9,17 @@ import { useUserContext } from "../../../../contexts/UserContext";
 const ShowProfileInfo = ({ enableEdit }) => {
   const { auth } = useAuth();
   const { context } = useUserContext();
-  
+
   return (
     <Container className="my-3">
       <Row>
         <Col lg={6} className="bg-white">
-          <h5 className="text-dark text-uppercase my-4">Informacije o računu</h5>
           <div className="d-flex flex-column justify-content-center align-items-center">
+            <h5 className="text-dark text-uppercase my-4 font-weight-bold align-self-start"
+              style={{fontSize: '1.1em'}}
+            >
+              Informacije o računu
+            </h5>
             <div className="my-4">
               <img
                 src={auth.data.profilePictureURL}
@@ -69,7 +73,7 @@ const ShowProfileInfo = ({ enableEdit }) => {
 
             <Button
               variant="contained"
-              className="my-4 px-4 bg-blueAccent text-white no-round"
+              className="my-4 px-4 bg-blueAccent text-white no-round font-weight-bold"
               onClick={() => enableEdit()}
             >
               Uredi
