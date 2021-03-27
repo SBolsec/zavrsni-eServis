@@ -1,5 +1,8 @@
 const userInitialState = {
-  sidebarShow: 'responsive'
+  sidebarShow: 'responsive',
+  loading: false,
+  error: false,
+  data: {}
 }
 
 export default userInitialState;

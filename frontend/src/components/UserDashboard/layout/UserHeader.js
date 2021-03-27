@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useUserContext } from '../../../contexts/UserContext';
 import { useAuth } from '../../../contexts/AuthContext';
@@ -11,10 +11,16 @@ import CIcon from '@coreui/icons-react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faUser, faSignOutAlt} from '@fortawesome/free-solid-svg-icons';
 import Dropdown from 'react-bootstrap/Dropdown';
+import fetchUser from '../../../actions/user/fetchUser';
 
 const UserHeader = () => {
   const { auth } = useAuth();
   const { context, dispatch } = useUserContext();
+
+  // fetch user info
+  useEffect(() => {
+    fetchUser({ userId: auth.data.userId })(dispatch);
+  }, [auth.data]);
 
   const toggleSidebar = () => {
     const val = [true, 'responsive'].includes(context.sidebarShow) ? false : 'responsive'
@@ -70,7 +76,8 @@ const UserHeader = () => {
 
         <Dropdown>
           <Dropdown.Toggle variant="gray" id="dropdown-basic" className="no-border-radius" >
-            {auth.data.name}
+            {context.loading && <span>Loading...</span>}
+            {!context.loading && context.data.firstName + " " + context.data.lastName}
           </Dropdown.Toggle>
 
           <Dropdown.Menu className="no-border-radius p-0">
