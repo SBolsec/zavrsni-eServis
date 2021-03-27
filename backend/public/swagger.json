@@ -635,8 +635,7 @@
 						"type": "string"
 					},
 					"cloudinaryId": {
-						"type": "number",
-						"format": "double"
+						"type": "string"
 					},
 					"url": {
 						"type": "string"
@@ -730,6 +729,26 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"IPicturePayload": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"cloudinaryId": {
+						"type": "string"
+					},
+					"url": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name",
+					"cloudinaryId",
+					"url"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"IRolePayload": {
 				"properties": {
 					"role": {
@@ -793,27 +812,6 @@
 					"faultCategoryId",
 					"statusId",
 					"pictures"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"IPicturePayload": {
-				"properties": {
-					"name": {
-						"type": "string"
-					},
-					"cloudinaryId": {
-						"type": "number",
-						"format": "double"
-					},
-					"url": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"name",
-					"cloudinaryId",
-					"url"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -1014,6 +1012,36 @@
 						"application/json": {
 							"schema": {
 								"$ref": "#/components/schemas/IUserPayload"
+							}
+						}
+					}
+				}
+			},
+			"put": {
+				"operationId": "UpdateUser",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/User"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"User"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/User"
 							}
 						}
 					}
@@ -1346,6 +1374,97 @@
 				]
 			}
 		},
+		"/pictures": {
+			"get": {
+				"operationId": "GetPictures",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Picture"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Picture"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "CreatePicture",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Picture"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Picture"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IPicturePayload"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/pictures/{id}": {
+			"get": {
+				"operationId": "GetPicture",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/Picture"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Picture"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
 		"/roles": {
 			"get": {
 				"operationId": "GetRoles",
@@ -1643,97 +1762,6 @@
 				},
 				"tags": [
 					"Listing"
-				],
-				"security": [],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
-			}
-		},
-		"/pictures": {
-			"get": {
-				"operationId": "GetPictures",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"items": {
-										"$ref": "#/components/schemas/Picture"
-									},
-									"type": "array"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Picture"
-				],
-				"security": [],
-				"parameters": []
-			},
-			"post": {
-				"operationId": "CreatePicture",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/Picture"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Picture"
-				],
-				"security": [],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/IPicturePayload"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/pictures/{id}": {
-			"get": {
-				"operationId": "GetPicture",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"allOf": [
-										{
-											"$ref": "#/components/schemas/Picture"
-										}
-									],
-									"nullable": true
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Picture"
 				],
 				"security": [],
 				"parameters": [

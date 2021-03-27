@@ -6,6 +6,7 @@ import { createAccessToken, createRefreshToken } from '../utils/auth';
 import { sendRefreshToken } from '../utils/sendRefreshToken';
 import PersonContorller from "../controllers/person.controller";
 import ServiceController from "../controllers/service.controller";
+import PictureController from "../controllers/picture.controller";
 
 const router = express.Router();
 
@@ -90,8 +91,10 @@ router.post("/", async (req, res) => {
     let profilePictureSet = false;
     let profilePictureURL = "https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/512x512/plain/user.png";
     if (user.profilePictureId) {
+      const pictureController = new PictureController();
+      const picture = await pictureController.getPicture(user!.profilePictureId.toString());
       profilePictureSet = true;
-      profilePictureURL = user.profilePicture!.url;
+      profilePictureURL = picture!.url;
     }
 
     const payload: ILoginResponse = {

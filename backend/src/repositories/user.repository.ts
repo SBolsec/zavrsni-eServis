@@ -21,6 +21,15 @@ export const createUser = async (payload: IUserPayload): Promise<User> => {
   });
 }
 
+export const updateUser = async (user: User): Promise<User> => {
+  const userRepository = getRepository(User);
+  const toBeUpdated = await userRepository.findOne({id: user.id});
+  return userRepository.save({
+    ...toBeUpdated,
+    ...user
+  });
+}
+
 export const getUserById = async (id: number): Promise<User | null> => {
   const userRepository = getRepository(User);
   const user = await userRepository.findOne({ id: id });
