@@ -7,6 +7,7 @@ import UserController from "../controllers/user.controller";
 import { IServicePayload } from "../repositories/service.repository";
 import { ILoginResponse } from "./login.router";
 import auth from '../middlewares/isAuth';
+import Joi from 'joi';
 
 const router = express.Router();
 
@@ -42,6 +43,32 @@ router.get("/user/:id", auth([1, 3]), async (req, res) => {
 });
 
 router.put("/:id", auth([1, 3]), async (req, res) => {
+  // provjera unesenih podataka
+  const schema = Joi.object({
+    name: Joi.string().min(1).required(),
+    oib: Joi.string().pattern(new RegExp('[0-9]{11,11}')).required(),
+    phone: Joi.string().pattern(new RegExp('[0-9]{6,11}')).required(),
+    website: Joi.string().allow('').allow(null),
+    description: Joi.string().allow('').allow(null),
+    address: Joi.string().min(1).required(),
+    cityId: Joi.number().required(),
+    email: Joi.string().email().required(),
+    currentPassword: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).allow(''),
+    password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).allow(''),
+    repeatPassword: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).allow(''),
+    userId: Joi.number().required()
+  });
+
+  try {
+    await schema.validateAsync(req.body);
+  }
+  catch (err) {
+    return res.status(400).json({
+      error: true,
+      message: err.details[0].message
+    });
+  }
+
   const serviceController = new ServiceController();
   const servicePayload: IServicePayload = {
     name: req.body.name,
@@ -93,6 +120,5 @@ router.put("/:id", auth([1, 3]), async (req, res) => {
     service
   });
 });
-
 
 export default router;
