@@ -217,11 +217,11 @@ const EditProfileInfo = ({ disableEdit }) => {
                 variant="outlined"
               />
 
-              <div className="w-100 d-flex justify-content-around align-items-center">
+              <div className="w-100 px-4 mb-4 mt-2 d-flex flex-column flex-sm-row justify-content-center align-items-center">
                 {!loading && <>
                 <Button
                   variant="contained"
-                  className="my-4 px-4 bg-lightGray text-dark no-round font-weight-bold"
+                  className="w-100 m-2 px-4 bg-lightGray text-dark no-round font-weight-bold"
                   onClick={() => disableEdit()}
                 >
                   Odustani
@@ -230,7 +230,7 @@ const EditProfileInfo = ({ disableEdit }) => {
                 <Button
                   variant="contained"
                   type="submit"
-                  className="my-4 px-4 bg-blueAccent text-white no-round font-weight-bold"
+                  className="w-100 m-2 px-4 bg-blueAccent text-white no-round font-weight-bold"
                 >
                   Spremi Promjene
                 </Button>

@@ -56,7 +56,7 @@ const SetProfilePicture = () => {
         <Button
           variant="contained"
           size="small"
-          className="bg-blueAccent text-white no-round font-weight-bold m-2 px-4 text-center"
+          className="bg-blueAccent text-white no-round font-weight-bold m-2 px-3 text-center"
           onClick={uploadPicture}
         >
           Promijeni sliku

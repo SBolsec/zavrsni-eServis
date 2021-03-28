@@ -73,7 +73,7 @@ const ShowProfileInfo = ({ enableEdit }) => {
 
             <Button
               variant="contained"
-              className="my-4 px-4 bg-blueAccent text-white no-round font-weight-bold"
+              className="w-50 my-4 px-4 bg-blueAccent text-white no-round font-weight-bold"
               onClick={() => enableEdit()}
             >
               Uredi
