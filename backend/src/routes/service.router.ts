@@ -6,29 +6,30 @@ import ServiceController from "../controllers/service.controller";
 import UserController from "../controllers/user.controller";
 import { IServicePayload } from "../repositories/service.repository";
 import { ILoginResponse } from "./login.router";
+import auth from '../middlewares/isAuth';
 
 const router = express.Router();
 
-router.get("/", async (_req, res) => {
+router.get("/", auth([1, 2, 3]), async (_req, res) => {
   const controller = new ServiceController();
   const response = await controller.getServices();
   return res.send(response);
 });
 
-router.post("/", async (req, res) => {
+router.post("/", auth([1, 2, 3]), async (req, res) => {
   const controller = new ServiceController();
   const response = await controller.createService(req.body);
   return res.send(response);
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", auth([1, 2, 3]), async (req, res) => {
   const controller = new ServiceController();
   const response = await controller.getService(req.params.id);
   if (!response) res.status(404).send({ message: "No service found" });
   return res.send(response);
 });
 
-router.get("/user/:id", async (req, res) => {
+router.get("/user/:id", auth([1, 3]), async (req, res) => {
   const controller = new ServiceController();
   const response = await controller.getServiceByUserId(req.params.id);
   if (!response) res.status(404).send({ message: "No service found" });
@@ -40,7 +41,7 @@ router.get("/user/:id", async (req, res) => {
   });
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", auth([1, 3]), async (req, res) => {
   const serviceController = new ServiceController();
   const servicePayload: IServicePayload = {
     name: req.body.name,

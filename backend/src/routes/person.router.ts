@@ -5,29 +5,30 @@ import UserController from "../controllers/user.controller";
 import { IPersonPayload } from "../repositories/person.repository";
 import { ILoginResponse } from "./login.router";
 import { hash } from "bcryptjs";
+import auth from '../middlewares/isAuth';
 
 const router = express.Router();
 
-router.get("/", async (_req, res) => {
+router.get("/", auth([1, 2, 3]), async (_req, res) => {
   const controller = new PersonController();
   const response = await controller.getPeople();
   return res.send(response);
 });
 
-router.post("/", async (req, res) => {
+router.post("/", auth([1, 2, 3]), async (req, res) => {
   const controller = new PersonController();
   const response = await controller.createPerson(req.body);
   return res.send(response);
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", auth([1, 2, 3]), async (req, res) => {
   const controller = new PersonController();
   const response = await controller.getPerson(req.params.id);
   if (!response) res.status(404).send({ message: "No person found" });
   return res.send(response);
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", auth([1, 2]), async (req, res) => {
   const personController = new PersonController();
   const personPayload: IPersonPayload = {
     firstName: req.body.firstName,
@@ -75,7 +76,7 @@ router.put("/:id", async (req, res) => {
   });
 });
 
-router.get("/user/:id", async (req, res) => {
+router.get("/user/:id",  auth([1, 2, 3]), async (req, res) => {
   const controller = new PersonController();
   const response = await controller.getPersonByUserId(req.params.id);
   if (!response) res.status(404).send({ message: "No person found" });

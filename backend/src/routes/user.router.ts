@@ -14,27 +14,27 @@ router.get("/", auth([1, 2, 3]), async (_req, res) => {
   return res.send(response);
 });
 
-router.post("/", async (req, res) => {
+router.post("/", auth([1, 2, 3]), async (req, res) => {
   const controller = new UserController();
   const response = await controller.createUser(req.body);
   return res.send(response);
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", auth([1, 2, 3]), async (req, res) => {
   const controller = new UserController();
   const response = await controller.getUserById(req.params.id);
   if (!response) res.status(404).send({ message: "No user found" });
   return res.send(response);
 });
 
-router.get("/email/:email", async (req, res) => {
+router.get("/email/:email", auth([1, 2, 3]), async (req, res) => {
   const controller = new UserController();
   const response = await controller.getUserByEmail(req.params.email);
   if (!response) res.status(404).send({ message: "No user found" });
   return res.send(response);
 });
 
-router.post("/upload-picture/:id", upload.single('picture'), async (req, res) => {
+router.post("/upload-picture/:id", auth([1, 2, 3]), upload.single('picture'), async (req, res) => {
   const userId = req.params.id;
   const file = req.file;
 
