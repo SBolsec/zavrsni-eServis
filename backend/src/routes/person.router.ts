@@ -6,6 +6,7 @@ import { IPersonPayload } from "../repositories/person.repository";
 import { ILoginResponse } from "./login.router";
 import { hash } from "bcryptjs";
 import auth from '../middlewares/isAuth';
+import Joi from 'joi';
 
 const router = express.Router();
 
@@ -28,7 +29,35 @@ router.get("/:id", auth([1, 2, 3]), async (req, res) => {
   return res.send(response);
 });
 
+router.get("/user/:id",  auth([1, 2, 3]), async (req, res) => {
+  const controller = new PersonController();
+  const response = await controller.getPersonByUserId(req.params.id);
+  if (!response) res.status(404).send({ message: "No person found" });
+  return res.send(response);
+});
+
 router.put("/:id", auth([1, 2]), async (req, res) => {
+  // provjera unesenih podataka
+  const schema = Joi.object({
+    firstName: Joi.string().min(1).required(),
+    lastName: Joi.string().min(1).required(),
+    email: Joi.string().email().required(),
+    currentPassword: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).allow(''),
+    password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).allow(''),
+    repeatPassword: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).allow(''),
+    userId: Joi.number().required()
+  });
+
+  try {
+    await schema.validateAsync(req.body);
+  }
+  catch (err) {
+    return res.status(400).json({
+      error: true,
+      message: err.details[0].message
+    });
+  }
+  
   const personController = new PersonController();
   const personPayload: IPersonPayload = {
     firstName: req.body.firstName,
@@ -74,13 +103,6 @@ router.put("/:id", auth([1, 2]), async (req, res) => {
     user: u,
     person
   });
-});
-
-router.get("/user/:id",  auth([1, 2, 3]), async (req, res) => {
-  const controller = new PersonController();
-  const response = await controller.getPersonByUserId(req.params.id);
-  if (!response) res.status(404).send({ message: "No person found" });
-  return res.send(response);
 });
 
 export default router;
