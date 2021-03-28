@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useServiceContext } from '../../../contexts/ServiceContext';
 import { useAuth } from '../../../contexts/AuthContext';
@@ -16,10 +16,11 @@ import fetchService from '../../../actions/service/fetchService';
 const ServiceHeader = () => {
   const { auth } = useAuth();
   const { context, dispatch } = useServiceContext();
+  const [showDropdown, setShowDropdown] = useState(false);
 
   // fetch service info
   useEffect(() => {
-    fetchService({userId: auth.data.userId})(dispatch);
+    fetchService({ userId: auth.data.userId })(dispatch);
   }, [auth.data]);
 
   const toggleSidebar = () => {
@@ -74,25 +75,25 @@ const ServiceHeader = () => {
           style={{ borderLeft: '1px solid white', width: '10px' }}
         >&nbsp;</div>
 
-        <Dropdown>
-          <Dropdown.Toggle variant="gray" id="dropdown-basic" className="no-border-radius" >
-          {context.loading && <span>Profil</span>}
-          {!context.loading && context.data.name}
+        <Dropdown show={showDropdown} onToggle={() => setShowDropdown(!showDropdown)}>
+          <Dropdown.Toggle variant="gray" id="dropdown-basic" className="no-border-radius">
+            {context.loading && <span>Profil</span>}
+            {!context.loading && context.data.name}
           </Dropdown.Toggle>
 
-          <Dropdown.Menu className="no-border-radius p-0">
-            <div className=" px-3 py-1 header-dropdown-item">
-              <Link to="/service/profile" style={{ color: 'black', textDecoration: 'none' }}>
+          <Dropdown.Menu className="no-border-radius p-0" onClick={() => setShowDropdown(false)}>
+            <Link to="/service/profile" style={{ color: 'black', textDecoration: 'none' }} >
+              <div className=" px-3 py-1 header-dropdown-item">
                 <FontAwesomeIcon icon={faUser} className="mr-2 text-darkGray" />
                 <span>Profil</span>
-              </Link>
-            </div>
-            <div className=" px-3 py-1 header-dropdown-item">
-              <Link to="/logout" style={{ color: 'black', textDecoration: 'none' }}>
+              </div>
+            </Link>
+            <Link to="/logout" style={{ color: 'black', textDecoration: 'none' }}>
+              <div className=" px-3 py-1 header-dropdown-item">
                 <FontAwesomeIcon icon={faSignOutAlt} className="mr-2 text-darkGray" />
-                <span>Odjva</span>
-              </Link>
-            </div>
+                <span>Odjava</span>
+              </div>
+            </Link>
           </Dropdown.Menu>
         </Dropdown>
         <img src={auth.data.profilePictureURL} alt="avatar" className="rounded-circle ml-2" style={{ width: '45px', height: '45px' }} />

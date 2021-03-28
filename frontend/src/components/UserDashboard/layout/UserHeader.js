@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useUserContext } from '../../../contexts/UserContext';
 import { useAuth } from '../../../contexts/AuthContext';
@@ -16,6 +16,7 @@ import fetchUser from '../../../actions/user/fetchUser';
 const UserHeader = () => {
   const { auth } = useAuth();
   const { context, dispatch } = useUserContext();
+  const [showDropdown, setShowDropdown] = useState(false);
 
   // fetch user info
   useEffect(() => {
@@ -74,13 +75,13 @@ const UserHeader = () => {
           style={{ borderLeft: '1px solid white', width: '10px' }}
         >&nbsp;</div>
 
-        <Dropdown>
+        <Dropdown show={showDropdown} onToggle={() => setShowDropdown(!showDropdown)}>
           <Dropdown.Toggle variant="gray" id="dropdown-basic" className="no-border-radius" >
             {context.loading && <span>Profil</span>}
             {!context.loading && context.data.firstName + " " + context.data.lastName}
           </Dropdown.Toggle>
 
-          <Dropdown.Menu className="no-border-radius p-0">
+          <Dropdown.Menu className="no-border-radius p-0" onClick={() => setShowDropdown(false)}>
             <div className=" px-3 py-1 header-dropdown-item">
               <Link to="/user/profile" style={{ color: 'black', textDecoration: 'none' }}>
                 <FontAwesomeIcon icon={faUser} className="mr-2 text-darkGray"/>
