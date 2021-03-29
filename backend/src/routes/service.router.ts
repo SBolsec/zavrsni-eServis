@@ -1,4 +1,4 @@
-import { hash } from "bcryptjs";
+import { compare, hash } from "bcryptjs";
 import express from "express";
 import CityController from "../controllers/city.controller";
 import PictureController from "../controllers/picture.controller";
@@ -64,11 +64,40 @@ router.put("/:id", auth([1, 3]), async (req, res) => {
   }
   catch (err) {
     return res.status(400).json({
-      error: true,
-      message: err.details[0].message
+      message: "Neki od podataka je neispravan"
     });
   }
 
+  // azuriranje login podataka
+  const userController = new UserController();
+  const user = await userController.getUserById(req.body.userId);
+  if (!user) res.status(400).send({ message: "Nije pronađen korisnik" });
+  const checkEmail = await userController.getUserByEmail(req.body.email);
+  if (checkEmail) {
+    if (user!.id !== checkEmail.id) {
+      return res.status(400).json({
+        message: "E-mail je već zauzet"
+      });
+    }
+  }
+  user!.email = req.body.email;
+  if (!!req.body.password && !!req.body.currentPassword && !!req.body.repeatPassword) {
+    // provjera lozinke
+    const match = await compare(req.body.password, user!.password);
+
+    if (!match || req.body.password !== req.body.repeatPassword) {
+      return res.status(400).json({
+        message: "Pogrešna lozinka"
+      });
+    }
+
+    if (req.body.password === req.body.repeatPassword) {
+      user!.password = await hash(req.body.password, 10);
+    }
+  }
+  userController.updateUser(user!.id, user!);
+
+  // azuriranje podataka servisera
   const serviceController = new ServiceController();
   const servicePayload: IServicePayload = {
     name: req.body.name,
@@ -84,15 +113,7 @@ router.put("/:id", auth([1, 3]), async (req, res) => {
     req.params.id,
     servicePayload
   );
-  if (!service) res.status(404).send({ message: "No service found" });
-
-  const userController = new UserController();
-  const user = await userController.getUserById(service!.userId.toString());
-  if (!!req.body.email) user!.email = req.body.email;
-  if (!!req.body.password) {
-    user!.password = await hash(req.body.password, 10);
-  }
-  userController.updateUser(user!.id, user!);
+  if (!service) res.status(404).send({ message: "Nije pronađen serviser" });
 
   let profilePictureSet = false;
   let profilePictureURL =

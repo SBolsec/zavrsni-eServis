@@ -4,7 +4,7 @@ import PictureController from "../controllers/picture.controller";
 import UserController from "../controllers/user.controller";
 import { IPersonPayload } from "../repositories/person.repository";
 import { ILoginResponse } from "./login.router";
-import { hash } from "bcryptjs";
+import { hash, compare } from "bcryptjs";
 import auth from '../middlewares/isAuth';
 import Joi from 'joi';
 
@@ -53,11 +53,40 @@ router.put("/:id", auth([1, 2]), async (req, res) => {
   }
   catch (err) {
     return res.status(400).json({
-      error: true,
-      message: err.details[0].message
+      message: "Neki od podataka je neispravan"
     });
   }
+
+  // azuriranje login podataka
+  const userController = new UserController();
+  const user = await userController.getUserById(req.body.userId);
+  if (!user) res.status(400).send({ message: "Nije pronađen korisnik" });
+  const checkEmail = await userController.getUserByEmail(req.body.email);
+  if (checkEmail) {
+    if (user!.id !== checkEmail.id) {
+      return res.status(400).json({
+        message: "E-mail je već zauzet"
+      });
+    }
+  }
+  user!.email = req.body.email;
+  if (!!req.body.password && !!req.body.currentPassword && !!req.body.repeatPassword) {
+    // provjera lozinke
+    const match = await compare(req.body.password, user!.password);
+
+    if (!match || req.body.password !== req.body.repeatPassword) {
+      return res.status(400).json({
+        message: "Pogrešna lozinka"
+      });
+    }
+
+    if (req.body.password === req.body.repeatPassword) {
+      user!.password = await hash(req.body.password, 10);
+    }
+  }
+  userController.updateUser(user!.id, user!);
   
+  // azuriranje osobnih podataka
   const personController = new PersonController();
   const personPayload: IPersonPayload = {
     firstName: req.body.firstName,
@@ -68,15 +97,7 @@ router.put("/:id", auth([1, 2]), async (req, res) => {
     req.params.id,
     personPayload
   );
-  if (!person) res.status(404).send({ message: "No person found" });
-
-  const userController = new UserController();
-  const user = await userController.getUserById(person!.userId.toString());
-  if (!!req.body.email) user!.email = req.body.email;
-  if (!!req.body.password) {
-    user!.password = await hash(req.body.password, 10);
-  }
-  userController.updateUser(user!.id, user!);
+  if (!person) res.status(404).send({ message: "Nije pronađen korisnik" });
 
   let profilePictureSet = false;
   let profilePictureURL =
