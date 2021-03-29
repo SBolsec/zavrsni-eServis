@@ -1980,6 +1980,53 @@
 				]
 			}
 		},
+		"/faultCategories/formatted": {
+			"get": {
+				"operationId": "GetFaultCategoriesFormatted",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"properties": {
+											"parentName": {
+												"type": "string"
+											},
+											"parentId": {
+												"type": "number",
+												"format": "double"
+											},
+											"name": {
+												"type": "string"
+											},
+											"id": {
+												"type": "number",
+												"format": "double"
+											}
+										},
+										"required": [
+											"parentName",
+											"parentId",
+											"name",
+											"id"
+										],
+										"type": "object"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Fault Category"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
 		"/listingStatuses": {
 			"get": {
 				"operationId": "GetListingStatuses",
