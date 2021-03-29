@@ -38,6 +38,7 @@ const UserHeader = () => {
     case '/user/dashboard': title = 'Nadzorna ploča'; break;
     case '/user/messages': title = 'Poruke'; break;
     case '/user/profile': title = 'Profil'; break;
+    case '/user/create': title = 'Stvorite novi oglas'; break;
     case '/user/active': title = 'Aktivni oglasi'; break;
     case '/user/history': title = 'Povijest oglasa'; break;
     case '/user/servicers': title = 'Pretraga servisera'; break;

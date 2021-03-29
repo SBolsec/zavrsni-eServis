@@ -8,6 +8,7 @@ import ListingsHistory from "../content/ListingsHistory";
 import Servicers from "../content/Servicers";
 import { Redirect, Route, Switch } from "react-router-dom";
 import Search from "../content/Search";
+import CreateListing from "../content/CreateListing";
 
 const loading = (
   <div className="pt-3 text-center">
@@ -24,6 +25,7 @@ const UserContent = () => {
             <Route exact path="/user/dashboard" component={Dashboard} />
             <Route exact path="/user/messages" component={Messages} />
             <Route exact path="/user/profile" component={Profile} />
+            <Route exact path="/user/create" component={CreateListing} />
             <Route exact path="/user/active" component={ListingsActive} />
             <Route exact path="/user/history" component={ListingsHistory} />
             <Route exact path="/user/servicers" component={Servicers} />
