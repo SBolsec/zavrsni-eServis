@@ -16,6 +16,10 @@ $theme-colors: (
     border-radius: 50px !important;
 }
 
+.no-round {
+    border-radius: 0 !important;
+}
+
 .c-active {
     border-left: 5px solid #00a0d4 !important;
 }

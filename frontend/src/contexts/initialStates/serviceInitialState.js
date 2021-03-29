@@ -1,5 +1,8 @@
 const serviceInitialState = {
-  sidebarShow: 'responsive'
+  sidebarShow: 'responsive',
+  loading: false,
+  error: false,
+  data: {}
 }
 
 export default serviceInitialState;

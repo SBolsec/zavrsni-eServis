@@ -4,8 +4,13 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../../contexts/AuthContext';
+import SetProfilePicture from '../../Shared/SetProfilePicture';
+import InfoCard from '../../Shared/InfoCard';
 
 const Dashboard = () => {
+  const { auth } = useAuth();
+
   return (
     <>
       <div className="d-flex flex-column flex-md-row justify-content-between align-items-center bg-white text-dark pt-3 pb-3 px-4">
@@ -21,49 +26,37 @@ const Dashboard = () => {
       <Container fluid className="my-4" >
         <Row className="row-eq-height">
           <Col xs={12} lg={4} className="my-2" >
-            <div className="bg-white text-dark p-3 d-flex justify-content-between h-100">
-              <div>
-                <h5 className="font-weight-bold text-uppercase">Kreiraj oglas</h5>
-                <p>Ispunite obrazac, opišite projekt te priložite slike.</p>
-              </div>
-              <div className="d-flex align-items-center">
-                <span className="fas fa-stack fa-2x">
-                  <i className="fas fa-circle fa-stack-2x text-lightBlue"></i>
-                  <i className="fas fa-plus fa-stack-1x text-blueAccent"></i>
-                </span>
-              </div>
-            </div>
+            <InfoCard
+              title={"Kreiraj oglas"}
+              content={"Ispunite obrazac, opišite projekt te priložite slike."}
+              icon={"fas fa-plus"}
+            />
           </Col>
           <Col xs={12} lg={4} className="my-2" >
-            <div className="bg-white text-dark p-3 d-flex justify-content-between h-100">
-              <div>
-                <h5 className="font-weight-bold text-uppercase">Objavi oglas</h5>
-                <p>Mehanizam će obavijestiti odgovarajuće servisere koji imaju mogućnost otkloniti Vaš kvar.</p>
-              </div>
-              <div className="d-flex align-items-center">
-                <span className="fas fa-stack fa-2x">
-                  <i className="fas fa-circle fa-stack-2x text-lightBlue"></i>
-                  <i className="fas fa-upload fa-stack-1x text-blueAccent"></i>
-                </span>
-              </div>
-            </div>
+            <InfoCard
+              title={"Objavi oglas"}
+              content={"Mehanizam će obavijestiti odgovarajuće servisere koji imaju mogućnost otkloniti Vaš kvar."}
+              icon={"fas fa-upload"}
+            />
           </Col>
           <Col xs={12} lg={4} className="my-2" >
-            <div className="bg-white text-dark p-3 d-flex justify-content-between h-100">
-              <div>
-                <h5 className="font-weight-bold text-uppercase">Odaberi ponudu</h5>
-                <p>Prihvatite sebi adekvatnu ponudu i krenite u posao.</p>
-              </div>
-              <div className="d-flex align-items-center">
-                <span className="fas fa-stack fa-2x">
-                  <i className="fas fa-circle fa-stack-2x text-lightBlue"></i>
-                  <i className="fas fa-mouse-pointer fa-stack-1x text-blueAccent"></i>
-                </span>
-              </div>
-            </div>
+            <InfoCard
+              title={"Odaberi ponudu"}
+              content={"Prihvatite sebi adekvatnu ponudu i krenite u posao."}
+              icon={"fas fa-mouse-pointer"}
+            />
           </Col>
         </Row>
       </Container>
+
+      {/* Replace this with something more generic */}
+      {!auth.data.profilePictureSet &&
+        <Container fluid className="my-2">
+          <Row>
+            <Col md={6}>{!auth.data.profilePictureSet && <SetProfilePicture />}</Col>
+          </Row>
+        </Container>
+      }
     </>
   );
 }

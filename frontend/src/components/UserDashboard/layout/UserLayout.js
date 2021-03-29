@@ -1,6 +1,6 @@
 import React from 'react'
-import UserContextProvider from '../../contexts/UserContext';
-import Footer from '../Footer';
+import UserContextProvider from '../../../contexts/UserContext';
+import Footer from '../../Footer';
 import {
   UserContent,
   UserSidebar,

@@ -1,6 +1,6 @@
 import React from 'react';
-import { useServiceContext } from '../../contexts/ServiceContext';
-import setShowSidebar from '../../actions/sidebar';
+import { useUserContext } from '../../../contexts/UserContext';
+import setShowSidebar from '../../../actions/sidebar';
 import {
   CCreateElement,
   CSidebar,
@@ -10,7 +10,7 @@ import {
   CSidebarNavTitle,
   CSidebarMinimizer,
   CSidebarNavDropdown,
-  CSidebarNavItem
+  CSidebarNavItem,
 } from '@coreui/react';
 
 import CIcon from '@coreui/icons-react';
@@ -18,8 +18,8 @@ import CIcon from '@coreui/icons-react';
 // sidebar nav config
 import navigation from './_nav';
 
-const ServiceSidebar = () => {
-  const { context, dispatch } = useServiceContext();
+const UserSidebar = () => {
+  const { context, dispatch } = useUserContext();
 
   return (
     <CSidebar
@@ -57,4 +57,4 @@ const ServiceSidebar = () => {
   )
 }
 
-export default React.memo(ServiceSidebar)
+export default UserSidebar;

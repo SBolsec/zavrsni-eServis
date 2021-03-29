@@ -1,4 +1,4 @@
-import { LOGIN_ERROR, LOGIN_LOADING, LOGIN_SUCCESS, LOGOUT, LOGIN_ERROR_REMOVE, REGISTER_LOADING, REGISTER_ERROR, REGISTER_SUCCESS, REGISTER_ERROR_REMOVE, REGISTER_AFTER_REDIRECT } from "../constants/actionTypes";
+import { LOGIN_ERROR, LOGIN_LOADING, LOGIN_SUCCESS, LOGOUT, LOGIN_ERROR_REMOVE, REGISTER_LOADING, REGISTER_ERROR, REGISTER_SUCCESS, REGISTER_ERROR_REMOVE, REGISTER_AFTER_REDIRECT, UPLOAD_PROFILE_PICTURE_LOADING, UPLOAD_PROFILE_PICTURE_SUCCESS, UPLOAD_PROFILE_PICTURE_ERROR } from "../constants/actionTypes";
 import authInitialState from '../contexts/initialStates/authInitialState';
 import getRole from '../utils/getRole';
 
@@ -42,7 +42,9 @@ const authReducer = (state, { type, payload }) => {
                     userId: payload.id,
                     role: getRole(payload.roleId),
                     tokenVersion: payload.tokenVersion,
-                    email: payload.email
+                    email: payload.email,
+                    profilePictureURL: payload.profilePictureURL,
+                    profilePictureSet: payload.profilePictureSet
                 }
             }
         case REGISTER_AFTER_REDIRECT:
@@ -52,6 +54,29 @@ const authReducer = (state, { type, payload }) => {
             }
         case LOGOUT:
             return authInitialState;
+        case UPLOAD_PROFILE_PICTURE_LOADING:
+            return {
+                ...state,
+                loading: true,
+                error: false
+            };
+        case UPLOAD_PROFILE_PICTURE_ERROR:
+            return {
+                ...state,
+                loading: false,
+                error: true
+            };
+        case UPLOAD_PROFILE_PICTURE_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                error: false,
+                data: {
+                    ...state.data,
+                    profilePictureSet: true,
+                    profilePictureURL: payload
+                }
+            };
         default:
             return state;
     }
