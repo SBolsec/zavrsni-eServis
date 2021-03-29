@@ -1,5 +1,5 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Listing, Service } from ".";
+import { Listing } from ".";
 
 @Entity({name: 'kategorija_kvara'})
 export class FaultCategory {
@@ -9,7 +9,7 @@ export class FaultCategory {
     @Column({name: 'naziv_kategorija_kvara'})
     name!: string;
 
-    @Column({name: 'sif_roditelj'})
+    @Column({name: 'sif_roditelj', nullable: true})
     parentId?: number;
 
     @ManyToOne(() => FaultCategory, (categ) => categ.children)
