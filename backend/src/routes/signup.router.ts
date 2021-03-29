@@ -57,7 +57,7 @@ router.post('/user', async (req, res) => {
 
       const personController = new PersonController();
       const personPayload: IPersonPayload = {
-        firstName, 
+        firstName,
         lastName,
         userId: user.id
       };
@@ -84,7 +84,7 @@ router.post('/service', async (req, res) => {
     phone: Joi.string().pattern(new RegExp('[0-9]{6,11}')).required(),
     email: Joi.string().email().required(),
     password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required(),
-});
+  });
 
   try {
     await schema.validateAsync(req.body);
