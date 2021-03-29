@@ -11,6 +11,7 @@ import SetProfilePicture from "../../../Shared/SetProfilePicture";
 import axiosInstance from '../../../../helpers/axiosInstance';
 import { LOGIN_SUCCESS, USER_DATA_SUCCESS } from "../../../../constants/actionTypes";
 import Spinner from "../../../Utils/Spinner";
+import Alert from 'react-bootstrap/Alert';
 
 const validationSchema = yup.object({
   firstName: yup
@@ -61,6 +62,7 @@ const EditProfileInfo = ({ disableEdit }) => {
   const { auth, dispatch: authDispatch } = useAuth();
   const { context, dispatch: userDispatch } = useUserContext();
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const formik = useFormik({
     initialValues: {
@@ -74,12 +76,14 @@ const EditProfileInfo = ({ disableEdit }) => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       setLoading(true);
+      setError(false);
       axiosInstance().put(`/people/${context.data.id}`, {
         ...values,
         userId: auth.data.userId
       })
         .then(res => {
           setLoading(false);
+          setError(false);
           authDispatch({
             type: LOGIN_SUCCESS,
             payload: res.data.user
@@ -92,7 +96,7 @@ const EditProfileInfo = ({ disableEdit }) => {
         })
         .catch(err => {
           setLoading(false);
-          console.log(err);
+          setError(err.response.data.message);
         })
     },
   });
@@ -219,24 +223,30 @@ const EditProfileInfo = ({ disableEdit }) => {
 
               <div className="w-100 px-4 mb-4 mt-2 d-flex flex-column flex-sm-row justify-content-center align-items-center">
                 {!loading && <>
-                <Button
-                  variant="contained"
-                  className="w-100 m-2 px-4 bg-lightGray text-dark no-round font-weight-bold"
-                  onClick={() => disableEdit()}
-                >
-                  Odustani
+                  <Button
+                    variant="contained"
+                    className="w-100 m-2 px-4 bg-lightGray text-dark no-round font-weight-bold"
+                    onClick={() => disableEdit()}
+                  >
+                    Odustani
                 </Button>
 
-                <Button
-                  variant="contained"
-                  type="submit"
-                  className="w-100 m-2 px-4 bg-blueAccent text-white no-round font-weight-bold"
-                >
-                  Spremi Promjene
+                  <Button
+                    variant="contained"
+                    type="submit"
+                    className="w-100 m-2 px-4 bg-blueAccent text-white no-round font-weight-bold"
+                  >
+                    Spremi Promjene
                 </Button>
                 </>}
                 {loading && <Spinner />}
               </div>
+              {error &&
+                <Alert className="w-100" variant="danger" onClick={() => { setError(false) }
+                } dismissible>
+                  {error}
+                </Alert>
+              }
             </div>
           </form>
         </Col>

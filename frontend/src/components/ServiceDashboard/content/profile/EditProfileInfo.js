@@ -13,6 +13,7 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import SetProfilePicture from '../../../Shared/SetProfilePicture';
 import { LOGIN_SUCCESS, SERVICE_DATA_SUCCESS } from "../../../../constants/actionTypes";
 import Spinner from "../../../Utils/Spinner";
+import Alert from 'react-bootstrap/Alert';
 
 const validationSchema = yup.object({
   name: yup
@@ -78,6 +79,7 @@ const EditProfileInfo = ({ disableEdit }) => {
   const { context, dispatch: serviceDispatch } = useServiceContext();
   const [cities, setCities] = useState([]); // id, city
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   // fetch cities
   useEffect(() => {
@@ -108,12 +110,14 @@ const EditProfileInfo = ({ disableEdit }) => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       setLoading(true);
+      setError(false);
       axiosInstance().put(`/services/${context.data.id}`, {
         ...values,
         userId: auth.data.userId
       })
         .then(res => {
           setLoading(false);
+          setError(false);
           authDispatch({
             type: LOGIN_SUCCESS,
             payload: res.data.user
@@ -126,7 +130,7 @@ const EditProfileInfo = ({ disableEdit }) => {
         })
         .catch(err => {
           setLoading(false);
-          console.log(err);
+          setError(err.response.data.message);
         })
     },
   });
@@ -143,9 +147,9 @@ const EditProfileInfo = ({ disableEdit }) => {
               >
                 Informacije o tvrtci
               </h5>
-              
+
               <SetProfilePicture />
-              
+
               <TextField
                 className="my-2 mr-sm-2"
                 fullWidth
@@ -189,7 +193,7 @@ const EditProfileInfo = ({ disableEdit }) => {
                   id="cityId"
                   name="cityId"
                   options={cities}
-                  defaultValue={{id: context.data.cityId, city: context.data.cityName}}
+                  defaultValue={{ id: context.data.cityId, city: context.data.cityName }}
                   getOptionLabel={(option) => option.city}
                   fullWidth
                   className="my-2 ml-sm-2"
@@ -326,24 +330,30 @@ const EditProfileInfo = ({ disableEdit }) => {
 
               <div className="w-100 px-4 mb-4 mt-2 d-flex flex-column flex-sm-row justify-content-center align-items-center">
                 {!loading && <>
-                <Button
-                  variant="contained"
-                  className="w-100 m-2 px-4 bg-lightGray text-dark no-round font-weight-bold"
-                  onClick={() => disableEdit()}
-                >
-                  Odustani
+                  <Button
+                    variant="contained"
+                    className="w-100 m-2 px-4 bg-lightGray text-dark no-round font-weight-bold"
+                    onClick={() => disableEdit()}
+                  >
+                    Odustani
                 </Button>
 
-                <Button
-                  variant="contained"
-                  type="submit"
-                  className="w-100 m-2 px-4 bg-blueAccent text-white no-round font-weight-bold"
-                >
-                  Spremi Promjene
+                  <Button
+                    variant="contained"
+                    type="submit"
+                    className="w-100 m-2 px-4 bg-blueAccent text-white no-round font-weight-bold"
+                  >
+                    Spremi Promjene
                 </Button>
                 </>}
                 {loading && <Spinner />}
               </div>
+              {error &&
+                  <Alert className="w-100" variant="danger" onClick={() => { setError(false) }
+                  } dismissible>
+                    {error}
+                  </Alert>
+                }
             </div>
           </form>
         </Col>
