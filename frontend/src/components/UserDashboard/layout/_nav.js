@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faComments, faSearch, faHistory, faUser, faSignOutAlt, faNewspaper, faBuilding } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faComments, faSearch, faHistory, faUser, faSignOutAlt, faNewspaper, faBuilding, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 const _nav =  [
   {
@@ -17,6 +17,28 @@ const _nav =  [
   },
   {
     _tag: 'CSidebarNavTitle',
+    _children: ['Oglasi']
+  },
+  {
+    _tag: 'CSidebarNavItem',
+    name: 'Novi oglas',
+    to: '/user/create',
+    icon: <FontAwesomeIcon icon={faPlus} className="c-sidebar-nav-icon"/>
+  },
+  {
+    _tag: 'CSidebarNavItem',
+    name: 'Aktivni oglasi',
+    to: '/user/active',
+    icon: <FontAwesomeIcon icon={faNewspaper} className="c-sidebar-nav-icon"/>
+  },
+  {
+    _tag: 'CSidebarNavItem',
+    name: 'Povijest oglasa',
+    to: '/user/history',
+    icon: <FontAwesomeIcon icon={faHistory} className="c-sidebar-nav-icon"/>
+  },
+  {
+    _tag: 'CSidebarNavTitle',
     _children: ['Pretraga']
   },
   {
@@ -30,22 +52,6 @@ const _nav =  [
     name: 'Pretraga servisera',
     to: '/user/servicers',
     icon: <FontAwesomeIcon icon={faBuilding} className="c-sidebar-nav-icon"/>
-  },
-  {
-    _tag: 'CSidebarNavTitle',
-    _children: ['Oglasi']
-  },
-  {
-    _tag: 'CSidebarNavItem',
-    name: 'Aktivni oglasi',
-    to: '/user/active',
-    icon: <FontAwesomeIcon icon={faNewspaper} className="c-sidebar-nav-icon"/>
-  },
-  {
-    _tag: 'CSidebarNavItem',
-    name: 'Povijest oglasa',
-    to: '/user/history',
-    icon: <FontAwesomeIcon icon={faHistory} className="c-sidebar-nav-icon"/>
   },
   {
     _tag: 'CSidebarNavTitle',

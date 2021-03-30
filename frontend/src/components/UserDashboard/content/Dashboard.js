@@ -19,7 +19,7 @@ const Dashboard = () => {
           <p>Zaprimite ponude u nekoliko klikova. Uštedite vrijeme i novac uz manje napora.</p>
         </div>
         <Button variant="blueAccent" className="no-border-radius">
-          <Link to="#" className="text-white text-uppercase" style={{ textDecoration: 'none' }}>Kreiraj oglas</Link>
+          <Link to="/user/create" className="text-white text-uppercase" style={{ textDecoration: 'none' }}>Kreiraj oglas</Link>
         </Button>
       </div>
 
