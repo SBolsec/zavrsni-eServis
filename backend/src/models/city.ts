@@ -1,5 +1,5 @@
 import {Entity, PrimaryGeneratedColumn, Column, OneToMany} from 'typeorm';
-import { Service } from '.';
+import { Listing, Service } from '.';
 
 @Entity({name: "mjesto"})
 export class City {
@@ -14,4 +14,7 @@ export class City {
 
   @OneToMany((_type) => Service, (service: Service) => service.city)
   services!: Service[];
+
+  @OneToMany((_type) => Listing, (listing: Listing) => listing.city)
+  listings!: Listing[];
 }

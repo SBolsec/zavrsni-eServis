@@ -194,6 +194,13 @@
 							"$ref": "#/components/schemas/Offer"
 						},
 						"type": "array"
+					},
+					"cityId": {
+						"type": "number",
+						"format": "double"
+					},
+					"city": {
+						"$ref": "#/components/schemas/City"
 					}
 				},
 				"required": [
@@ -209,7 +216,9 @@
 					"pictures",
 					"faultCategoryId",
 					"faultCategory",
-					"offers"
+					"offers",
+					"cityId",
+					"city"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -400,13 +409,20 @@
 							"$ref": "#/components/schemas/Service"
 						},
 						"type": "array"
+					},
+					"listings": {
+						"items": {
+							"$ref": "#/components/schemas/Listing"
+						},
+						"type": "array"
 					}
 				},
 				"required": [
 					"id",
 					"name",
 					"postalCode",
-					"services"
+					"services",
+					"listings"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -640,6 +656,10 @@
 					"url": {
 						"type": "string"
 					},
+					"listingId": {
+						"type": "number",
+						"format": "double"
+					},
 					"listing": {
 						"$ref": "#/components/schemas/Listing"
 					}
@@ -688,6 +708,10 @@
 					},
 					"url": {
 						"type": "string"
+					},
+					"listingId": {
+						"type": "number",
+						"format": "double"
 					}
 				},
 				"required": [
@@ -804,6 +828,10 @@
 						"type": "number",
 						"format": "double"
 					},
+					"cityId": {
+						"type": "number",
+						"format": "double"
+					},
 					"statusId": {
 						"type": "number",
 						"format": "double"
@@ -820,8 +848,8 @@
 					"title",
 					"description",
 					"faultCategoryId",
-					"statusId",
-					"pictures"
+					"cityId",
+					"statusId"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -1198,6 +1226,40 @@
 						}
 					}
 				}
+			}
+		},
+		"/pictures/listing/{id}": {
+			"get": {
+				"operationId": "GetPicturesByListing",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Picture"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Picture"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
 			}
 		},
 		"/pictures/{id}": {
@@ -1851,6 +1913,38 @@
 						}
 					}
 				}
+			}
+		},
+		"/listings/active/{id}": {
+			"get": {
+				"operationId": "GetActiveListings",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Listing"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
 			}
 		},
 		"/listings/{id}": {

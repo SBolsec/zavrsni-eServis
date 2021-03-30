@@ -15,6 +15,9 @@ export class Picture {
     @Column({name: 'url'})
     url!: string;
 
+    @Column({name: 'sif_oglas', nullable: true})
+    listingId?: number;
+
     @ManyToOne(() => Listing, (listing) => listing.pictures)
     listing?: Listing;
 }
