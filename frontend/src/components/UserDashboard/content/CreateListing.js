@@ -49,21 +49,21 @@ const CreateListing = () => {
   // fetch cities and categories
   useEffect(() => {
     axiosInstance(history)
-      .get("/cities/formatted")
-      .then((res) => {
-        setCities(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    axiosInstance(history)
       .get("/faultCategories/formatted")
       .then(res => {
         setCategories(res.data);
       })
       .catch(err => {
         console.log(err)
+      });
+
+    axiosInstance(history)
+      .get("/cities/formatted")
+      .then((res) => {
+        setCities(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }, []);
 
@@ -83,10 +83,12 @@ const CreateListing = () => {
 
   const setPictures = (e) => {
     e.preventDefault();
-    formik.setFieldValue("pictures", [...formik.values.pictures, ...e.target.files]);
+    console.log(e.target.files);
+    let files = Array.from(e.target.files).filter(file => file.type.startsWith('image/'));
+    formik.setFieldValue("pictures", [...formik.values.pictures, ...files]);
 
     let p = preview;
-    Array.from(e.target.files).forEach(file => {
+    Array.from(files).forEach(file => {
       let reader = new FileReader();
       reader.onloadend = () => {
         p = [...p, reader.result];
@@ -208,6 +210,7 @@ const CreateListing = () => {
                     type="file"
                     id="picture"
                     name="picture"
+                    accept="image/*"
                     onChange={setPictures}
                     multiple
                     hidden
@@ -222,7 +225,7 @@ const CreateListing = () => {
                   <img key={index}
                     src={picture}
                     alt="slika"
-                    className="m-2 img-preview"
+                    className="m-2 img-preview img-thumbnail"
                     style={{ maxWidth: "200px", maxHeight: "200px" }}
                     onClick={() => deletePicture(index)}
                   />
@@ -236,7 +239,7 @@ const CreateListing = () => {
                     <Button
                       variant="contained"
                       type="submit"
-                      className="w-50 m-2 px-4 bg-blueAccent text-white no-round font-weight-bold"
+                      className="m-2 px-4 bg-blueAccent text-white no-round font-weight-bold"
                     >
                       Stvori oglas
                   </Button>
