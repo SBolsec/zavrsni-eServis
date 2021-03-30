@@ -22,14 +22,14 @@ const UserContent = () => {
       <Suspense fallback={loading}>
         <CFade>
           <Switch>
-            <Route exact path="/user/dashboard" component={Dashboard} />
-            <Route exact path="/user/messages" component={Messages} />
-            <Route exact path="/user/profile" component={Profile} />
-            <Route exact path="/user/create" component={CreateListing} />
-            <Route exact path="/user/active" component={ListingsActive} />
-            <Route exact path="/user/history" component={ListingsHistory} />
-            <Route exact path="/user/servicers" component={Servicers} />
-            <Route exact path="/user/search" component={Search} />
+            <Route path="/user/dashboard" component={Dashboard} />
+            <Route path="/user/messages" component={Messages} />
+            <Route path="/user/profile" component={Profile} />
+            <Route path="/user/create" component={CreateListing} />
+            <Route path="/user/active" component={ListingsActive} />
+            <Route path="/user/history" component={ListingsHistory} />
+            <Route path="/user/servicers" component={Servicers} />
+            <Route path="/user/search" component={Search} />
             <Redirect to="/404" />
           </Switch>
         </CFade>

@@ -1,7 +1,7 @@
 import { Button, TextField } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { useFormik } from 'formik';
-import React, { useEffect,  useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Alert from 'react-bootstrap/esm/Alert';
 import Col from 'react-bootstrap/esm/Col';
 import Container from 'react-bootstrap/esm/Container';
@@ -77,7 +77,38 @@ const CreateListing = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      console.log(values);
+      setLoading(true);
+      setError(false);
+
+      axiosInstance(history).post('/listings', {
+        ...values,
+        personId: context.data.id
+      })
+        .then(res => {
+          let formData = new FormData();
+          for (let picture of values.pictures) {
+            formData.append("pictures[]", picture);
+          }
+          axiosInstance(history).post(`/listings/upload-pictures/${res.data.id}`, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            }
+          }).then(response => {
+            setLoading(false);
+            setError(false);
+            history.push('/user/active');
+          })
+          .catch(e => {
+            setLoading(false);
+            setError('Greška kod uploadanja slika');
+            console.log(e);
+          });
+        })
+        .catch(err => {
+          setLoading(false);
+          setError('Greška kod stvaranja oglasa');
+          console.log(err);
+        })
     }
   });
 
@@ -202,8 +233,6 @@ const CreateListing = () => {
                   size="small"
                   className="bg-lightGray text-dark no-round font-weight-bold m-2 px-4 text-center"
                   component="label"
-                  error={formik.touched.pictures && Boolean(formik.errors.pictures)}
-                  helperText={formik.touched.pictures && formik.errors.pictures}
                 >
                   Odaberi slike
                     <input
@@ -218,7 +247,7 @@ const CreateListing = () => {
                 </Button>
               </div>
               <div className="w-100 text-danger text-center">
-              {formik.touched.pictures && formik.errors.pictures}
+                {formik.touched.pictures && formik.errors.pictures}
               </div>
               <div>
                 {preview.map((picture, index) => (
