@@ -4,7 +4,8 @@ import { Picture } from "../models";
 export interface IPicturePayload {
   name: string,
   cloudinaryId: string,
-  url: string
+  url: string,
+  listingId?: number
 }
 
 export const getPictures = async (): Promise<Picture[]> => {
@@ -25,4 +26,9 @@ export const getPicture = async (id: number): Promise<Picture | null> => {
   const pictureRepository = getRepository(Picture);
   const picture = await pictureRepository.findOne({ id: id });
   return !picture ? null : picture;
+};
+
+export const getPicturesByListing = async (id: number): Promise<Picture[]> => {
+  const pictureRepository = getRepository(Picture);
+  return pictureRepository.find({ listingId: id });
 };

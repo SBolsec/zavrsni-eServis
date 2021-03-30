@@ -15,6 +15,12 @@ router.post("/", async (req, res) => {
   return res.send(response);
 });
 
+router.get("/formatted", async (req, res) => {
+  const controller = new FaultCategoryController();
+  const response = await controller.getFaultCategoriesFormatted();
+  res.send(response);
+});
+
 router.get("/:id", async (req, res) => {
   const controller = new FaultCategoryController();
   const response = await controller.getFaultCategory(req.params.id);
