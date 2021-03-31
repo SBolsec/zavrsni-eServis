@@ -114,7 +114,6 @@ const CreateListing = () => {
 
   const setPictures = (e) => {
     e.preventDefault();
-    console.log(e.target.files);
     let files = Array.from(e.target.files).filter(file => file.type.startsWith('image/'));
     formik.setFieldValue("pictures", [...formik.values.pictures, ...files]);
 

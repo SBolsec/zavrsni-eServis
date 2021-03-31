@@ -9,6 +9,7 @@ import Servicers from "../content/Servicers";
 import { Redirect, Route, Switch } from "react-router-dom";
 import Search from "../content/Search";
 import CreateListing from "../content/CreateListing";
+import ListingDetails from "../content/ListingDetails";
 
 const loading = (
   <div className="pt-3 text-center">
@@ -30,6 +31,7 @@ const UserContent = () => {
             <Route path="/user/history" component={ListingsHistory} />
             <Route path="/user/servicers" component={Servicers} />
             <Route path="/user/search" component={Search} />
+            <Route path="/user/listing/:id" component={ListingDetails} />
             <Redirect to="/404" />
           </Switch>
         </CFade>
