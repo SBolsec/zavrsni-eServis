@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Listing } from ".";
 
 @Entity({name: 'slika'})
@@ -19,5 +19,6 @@ export class Picture {
     listingId?: number;
 
     @ManyToOne(() => Listing, (listing) => listing.pictures)
+    @JoinColumn({ name: 'sif_oglas'})
     listing?: Listing;
 }
