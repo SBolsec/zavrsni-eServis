@@ -163,6 +163,7 @@ const CreateListing = () => {
                 className="my-2 mr-sm-2 h-100"
                 fullWidth
                 multiline
+                rows={5}
                 id="description"
                 name="description"
                 label="Opis oglasa"
