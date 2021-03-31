@@ -27,27 +27,20 @@ export const createListing = async (
   });
 };
 
-export const getListing = async (id: number): Promise<Listing | null> => {
+export const getListing = async (id: number): Promise<Listing|null> => {
   const listingRepository = getRepository(Listing);
-  const listing = await listingRepository.findOne({ id: id });
+  const listing = await listingRepository.findOne({ 
+    where: { id: id },
+    relations: ["offers", "offers.status", "offers.service", "offers.service.user", "offers.service.user.profilePicture", "offers.service.reviews", "city", "faultCategory", "faultCategory.parent", "status", "pictures", "person", "person.user", "person.user.profilePicture"]
+  });
   return !listing ? null : listing;
 };
 
-export const getActiveListings = async (id: number): Promise<any[]> => {
-  const manager = getManager();
-  const rawData: any[] = await manager.query(`
-    SELECT 
-	    o.sif_oglas AS id,
-	    o.naslov AS title,
-	    o.opis AS description,
-	    o.trenutak_stvaranja AS createdAt,
-	    o.sif_osoba AS personId,
-	    m.postanski_broj || ' ' || m.naziv_mjesto AS city,
-	    b.naziv_kategorija_kvara || ' - ' || a.naziv_kategorija_kvara AS category
-    FROM oglas o
-    LEFT JOIN mjesto m USING (sif_mjesto)
-    LEFT JOIN  kategorija_kvara a USING (sif_kategorija_kvara)
-    LEFT JOIN kategorija_kvara b ON (a.sif_roditelj = b.sif_kategorija_kvara)`
-  );
-  return rawData;
+export const getActiveListings = async (id: number): Promise<Listing[]> => {
+  const listingRepository = getRepository(Listing);
+  return listingRepository.find({
+    where: { personId: id, statusId: 1 },
+    relations: ["offers", "offers.status", "city", "faultCategory", "faultCategory.parent", "status", "pictures"]
+    
+  });
 }

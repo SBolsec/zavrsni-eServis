@@ -1924,7 +1924,9 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"items": {},
+									"items": {
+										"$ref": "#/components/schemas/Listing"
+									},
 									"type": "array"
 								}
 							}
@@ -1947,7 +1949,7 @@
 				]
 			}
 		},
-		"/listings/{id}": {
+		"/listings/id/{id}": {
 			"get": {
 				"operationId": "GetListing",
 				"responses": {
@@ -1981,6 +1983,48 @@
 						}
 					}
 				]
+			}
+		},
+		"/listings/upload-pictures/{id}": {
+			"post": {
+				"operationId": "UploadPictures",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Picture"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Listing"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {}
+						}
+					}
+				}
 			}
 		},
 		"/faultCategories": {

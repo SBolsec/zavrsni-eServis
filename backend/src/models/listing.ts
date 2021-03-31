@@ -39,7 +39,7 @@ export class Listing {
     faultCategoryId!: number;
 
     @ManyToOne(() => FaultCategory, (categ) => categ.listings)
-    @JoinColumn({ name: 'sif_kategorija_kvara' })
+    @JoinColumn({ name: "sif_kategorija_kvara" })
     faultCategory!: FaultCategory;
 
     @OneToMany(() => Offer, (offer) => offer.listing)
