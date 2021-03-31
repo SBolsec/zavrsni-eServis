@@ -31,7 +31,7 @@ export const getListing = async (id: number): Promise<Listing|null> => {
   const listingRepository = getRepository(Listing);
   const listing = await listingRepository.findOne({ 
     where: { id: id },
-    relations: ["offers", "offers.status", "city", "faultCategory", "faultCategory.parent", "status", "pictures", "person", "person.user", "person.user.profilePicture"]
+    relations: ["offers", "offers.status", "offers.service", "offers.service.user", "offers.service.user.profilePicture", "offers.service.reviews", "city", "faultCategory", "faultCategory.parent", "status", "pictures", "person", "person.user", "person.user.profilePicture"]
   });
   return !listing ? null : listing;
 };

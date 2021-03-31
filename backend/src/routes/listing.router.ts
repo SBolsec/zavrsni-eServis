@@ -20,8 +20,19 @@ router.post("/", auth([1, 2]), async (req, res) => {
 
 router.get("/id/:id", async (req, res) => {
   const controller = new ListingController();
-  const response = await controller.getListing(req.params.id);
+  const response:any = await controller.getListing(req.params.id);
   if (!response) res.status(404).send({ message: "No listing found" });
+  
+  // remove sensitive user information
+  response.person.profilePicture = response.person.user.profilePicture;
+  delete response.person.user;
+
+  // remove sensitive servicer information
+  response.offers.forEach((offer: any) => {
+    offer.service.profilePicture = offer.service.user.profilePicture;
+    delete offer.service.user;
+  });
+  
   return res.send(response);
 });
 
