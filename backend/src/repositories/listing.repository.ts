@@ -47,7 +47,9 @@ export const getActiveListings = async (id: number): Promise<any[]> => {
     FROM oglas o
     LEFT JOIN mjesto m USING (sif_mjesto)
     LEFT JOIN  kategorija_kvara a USING (sif_kategorija_kvara)
-    LEFT JOIN kategorija_kvara b ON (a.sif_roditelj = b.sif_kategorija_kvara)`
+    LEFT JOIN kategorija_kvara b ON (a.sif_roditelj = b.sif_kategorija_kvara)
+    WHERE o.sif_osoba = ${id} AND o.sif_status = 1
+    ORDER BY o.trenutak_promjene DESC`
   );
   return rawData;
 }
