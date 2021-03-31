@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axiosInstance from '../../../helpers/axiosInstance';
-import { Route, Switch, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import ListingCard from '../../Shared/ListingCard';
 import Spinner from '../../Utils/Spinner';
 import { useUserContext } from '../../../contexts/UserContext';
 import Container from 'react-bootstrap/esm/Container';
-import Row from 'react-bootstrap/esm/Row';
-import Col from 'react-bootstrap/esm/Col';
 
 const ListingsActive = () => {
   const history = useHistory();
@@ -21,7 +19,6 @@ const ListingsActive = () => {
         setLoading(false);
         setError(false);
         setListings(res.data);
-        console.log(res.data);
       })
       .catch(err => {
         setLoading(false);
@@ -42,16 +39,11 @@ const ListingsActive = () => {
   }
 
   return (
-    <Switch>
-      <Route exact path="/user/active">
-        <Container fluid>
-          {listings.map((l, index) => (
-            <ListingCard key={index} id={l.id} title={l.title} category={l.category} city={l.city} createdAt={l.createdat} picture={l.pictures[0]} />
-          ))}
-        </Container>
-      </Route>
-    </Switch>
-
+    <Container fluid>
+      {listings.map((l, index) => (
+        <ListingCard key={index} listing={l} type="user" />
+      ))}
+    </Container>
   );
 }
 
