@@ -11,7 +11,12 @@ const ListingCard = ({ listing, type }) => {
       <Container fluid className="mx-auto my-4">
         <Row>
           <Col md={3} className="mx-0 px-0">
-            <img src={listing.pictures[0].url} alt={listing.pictures[0].name} className="h-100 w-100" />
+          <div className="w-100 h-100">
+            <img src={listing.pictures[0].url} alt={listing.pictures[0].name}  
+              className="w-100 h-100"
+              style={{ objectFit: 'cover' }}
+            />
+          </div>
           </Col>
           <Col md={9} className="pl-4 py-2 bg-white">
             <h4 className="mt-3">{listing.title}</h4>
