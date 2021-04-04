@@ -1,4 +1,4 @@
-import { getRepository } from "typeorm";
+import { getManager, getRepository } from "typeorm";
 import { Listing, Picture } from "../models";
 
 export interface IListingPayload {
@@ -6,8 +6,9 @@ export interface IListingPayload {
   title: string;
   description: string;
   faultCategoryId: number;
+  cityId: number,
   statusId: number;
-  pictures: Picture[];
+  pictures?: Picture[];
 }
 
 export const getListings = async (): Promise<Listing[]> => {
@@ -26,8 +27,20 @@ export const createListing = async (
   });
 };
 
-export const getListing = async (id: number): Promise<Listing | null> => {
+export const getListing = async (id: number): Promise<Listing|null> => {
   const listingRepository = getRepository(Listing);
-  const listing = await listingRepository.findOne({ id: id });
+  const listing = await listingRepository.findOne({ 
+    where: { id: id },
+    relations: ["offers", "offers.status", "offers.service", "offers.service.user", "offers.service.user.profilePicture", "offers.service.reviews", "city", "faultCategory", "faultCategory.parent", "status", "pictures", "person", "person.user", "person.user.profilePicture"]
+  });
   return !listing ? null : listing;
 };
+
+export const getActiveListings = async (id: number): Promise<Listing[]> => {
+  const listingRepository = getRepository(Listing);
+  return listingRepository.find({
+    where: { personId: id, statusId: 1 },
+    relations: ["offers", "offers.status", "city", "faultCategory", "faultCategory.parent", "status", "pictures"]
+    
+  });
+}

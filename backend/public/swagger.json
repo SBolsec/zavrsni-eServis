@@ -194,6 +194,13 @@
 							"$ref": "#/components/schemas/Offer"
 						},
 						"type": "array"
+					},
+					"cityId": {
+						"type": "number",
+						"format": "double"
+					},
+					"city": {
+						"$ref": "#/components/schemas/City"
 					}
 				},
 				"required": [
@@ -209,7 +216,9 @@
 					"pictures",
 					"faultCategoryId",
 					"faultCategory",
-					"offers"
+					"offers",
+					"cityId",
+					"city"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -400,13 +409,20 @@
 							"$ref": "#/components/schemas/Service"
 						},
 						"type": "array"
+					},
+					"listings": {
+						"items": {
+							"$ref": "#/components/schemas/Listing"
+						},
+						"type": "array"
 					}
 				},
 				"required": [
 					"id",
 					"name",
 					"postalCode",
-					"services"
+					"services",
+					"listings"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -640,6 +656,10 @@
 					"url": {
 						"type": "string"
 					},
+					"listingId": {
+						"type": "number",
+						"format": "double"
+					},
 					"listing": {
 						"$ref": "#/components/schemas/Listing"
 					}
@@ -674,6 +694,30 @@
 					"email",
 					"password",
 					"roleId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IPicturePayload": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"cloudinaryId": {
+						"type": "string"
+					},
+					"url": {
+						"type": "string"
+					},
+					"listingId": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"name",
+					"cloudinaryId",
+					"url"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -739,26 +783,6 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"IPicturePayload": {
-				"properties": {
-					"name": {
-						"type": "string"
-					},
-					"cloudinaryId": {
-						"type": "string"
-					},
-					"url": {
-						"type": "string"
-					}
-				},
-				"required": [
-					"name",
-					"cloudinaryId",
-					"url"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
 			"IRolePayload": {
 				"properties": {
 					"role": {
@@ -804,6 +828,10 @@
 						"type": "number",
 						"format": "double"
 					},
+					"cityId": {
+						"type": "number",
+						"format": "double"
+					},
 					"statusId": {
 						"type": "number",
 						"format": "double"
@@ -820,8 +848,8 @@
 					"title",
 					"description",
 					"faultCategoryId",
-					"statusId",
-					"pictures"
+					"cityId",
+					"statusId"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -1073,7 +1101,9 @@
 						}
 					}
 				}
-			},
+			}
+		},
+		"/users/id/{id}": {
 			"get": {
 				"operationId": "GetUserById",
 				"responses": {
@@ -1137,6 +1167,131 @@
 					{
 						"in": "path",
 						"name": "email",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/pictures": {
+			"get": {
+				"operationId": "GetPictures",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Picture"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Picture"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "CreatePicture",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Picture"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Picture"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IPicturePayload"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/pictures/listing/{id}": {
+			"get": {
+				"operationId": "GetPicturesByListing",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Picture"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Picture"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/pictures/{id}": {
+			"get": {
+				"operationId": "GetPicture",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/Picture"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Picture"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
 						"required": true,
 						"schema": {
 							"type": "string"
@@ -1487,97 +1642,6 @@
 				]
 			}
 		},
-		"/pictures": {
-			"get": {
-				"operationId": "GetPictures",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"items": {
-										"$ref": "#/components/schemas/Picture"
-									},
-									"type": "array"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Picture"
-				],
-				"security": [],
-				"parameters": []
-			},
-			"post": {
-				"operationId": "CreatePicture",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/Picture"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Picture"
-				],
-				"security": [],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/IPicturePayload"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/pictures/{id}": {
-			"get": {
-				"operationId": "GetPicture",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"allOf": [
-										{
-											"$ref": "#/components/schemas/Picture"
-										}
-									],
-									"nullable": true
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Picture"
-				],
-				"security": [],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
-			}
-		},
 		"/roles": {
 			"get": {
 				"operationId": "GetRoles",
@@ -1853,7 +1917,41 @@
 				}
 			}
 		},
-		"/listings/{id}": {
+		"/listings/active/{id}": {
+			"get": {
+				"operationId": "GetActiveListings",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Listing"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Listing"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/listings/id/{id}": {
 			"get": {
 				"operationId": "GetListing",
 				"responses": {
@@ -1887,6 +1985,48 @@
 						}
 					}
 				]
+			}
+		},
+		"/listings/upload-pictures/{id}": {
+			"post": {
+				"operationId": "UploadPictures",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Picture"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Listing"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {}
+						}
+					}
+				}
 			}
 		},
 		"/faultCategories": {
@@ -1978,6 +2118,53 @@
 						}
 					}
 				]
+			}
+		},
+		"/faultCategories/formatted": {
+			"get": {
+				"operationId": "GetFaultCategoriesFormatted",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"properties": {
+											"parentName": {
+												"type": "string"
+											},
+											"parentId": {
+												"type": "number",
+												"format": "double"
+											},
+											"name": {
+												"type": "string"
+											},
+											"id": {
+												"type": "number",
+												"format": "double"
+											}
+										},
+										"required": [
+											"parentName",
+											"parentId",
+											"name",
+											"id"
+										],
+										"type": "object"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Fault Category"
+				],
+				"security": [],
+				"parameters": []
 			}
 		},
 		"/listingStatuses": {
