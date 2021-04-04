@@ -79,8 +79,7 @@ const UserHeader = () => {
 
         <Dropdown show={showDropdown} onToggle={() => setShowDropdown(!showDropdown)}>
           <Dropdown.Toggle variant="gray" id="dropdown-basic" className="no-border-radius" >
-            {context.loading && <span>Profil</span>}
-            {!context.loading && context.data.firstName + " " + context.data.lastName}
+            {context.data.firstName + " " + context.data.lastName}
           </Dropdown.Toggle>
 
           <Dropdown.Menu className="no-border-radius p-0" onClick={() => setShowDropdown(false)}>
@@ -98,7 +97,7 @@ const UserHeader = () => {
             </div>
           </Dropdown.Menu>
         </Dropdown>
-        <img src={auth.data.profilePictureURL} alt="avatar" className="rounded-circle ml-2" style={{ width: '45px', height: '45px' }} />
+        <img src={auth.data.profilePictureURL} alt="avatar" className="rounded-circle ml-2" style={{ width: '35px', height: '35px' }} />
       </div>
 
     </CHeader>

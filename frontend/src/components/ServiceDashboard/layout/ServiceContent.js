@@ -1,5 +1,5 @@
-import React, { Suspense } from "react";
-import { CContainer, CFade } from "@coreui/react";
+import React, { Suspense, useEffect } from "react";
+import { CFade } from "@coreui/react";
 import Dashboard from "../content/Dashboard";
 import Profile from "../content/Profile";
 import Messages from "../content/Messages";
@@ -7,7 +7,9 @@ import OffersActive from "../content/OffersActive";
 import OffersHistory from "../content/OffersHistory";
 import Servicers from "../content/Servicers";
 import Search from "../content/Search";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route, Redirect, useHistory } from "react-router-dom";
+import { useAuth } from "../../../contexts/AuthContext";
+import getUpdatedData from "../../../actions/auth/getUpdatedData";
 
 const loading = (
   <div className="pt-3 text-center">
@@ -16,6 +18,13 @@ const loading = (
 );
 
 const ServiceContent = () => {
+  // check if user info has changed
+  const history = useHistory();
+  const { auth, dispatch } = useAuth();
+  useEffect(() => {
+    getUpdatedData({userId: auth.data.userId})(dispatch);
+  }, [history.location]);
+
   return (
     <main className="c-main bg-lightGray p-0 m-0">
       <Suspense fallback={loading}>

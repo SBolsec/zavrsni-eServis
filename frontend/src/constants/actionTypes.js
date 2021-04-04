@@ -11,6 +11,8 @@ export const LOGIN_ERROR_REMOVE = "LOGIN_ERROR_REMOVE";
 
 export const LOGOUT = "LOGOUT";
 
+export const UPDATE_AUTH_DATA = "UPDATE_AUTH_DATA";
+
 export const SET_SIDEBAR_SHOW = "SET_SIDEBAR_SHOW";
 
 export const USER_DATA_LOADING = "USER_DATA_LOADING";
