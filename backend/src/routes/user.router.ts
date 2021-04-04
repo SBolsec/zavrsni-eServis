@@ -56,6 +56,7 @@ router.post("/upload-picture/:id", auth([1, 2, 3]), upload.single('picture'), as
 
     const user = await userController.getUserById(userId);
     user!.profilePictureId = result.id;
+    user!.profilePicture = result;
     await userController.updateUser(user!.id, user!);
 
     res.send({
