@@ -34,7 +34,10 @@ export const updateUser = async (id: number, user: IUserPayload): Promise<User |
 
 export const getUserById = async (id: number): Promise<User | null> => {
   const userRepository = getRepository(User);
-  const user = await userRepository.findOne({ id: id });
+  const user = await userRepository.findOne({ 
+    where: {id: id},
+    relations: ["profilePicture", "messagesReceived", "messagesSent"]
+  });
   return !user ? null : user;
 }
 

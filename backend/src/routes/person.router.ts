@@ -3,10 +3,10 @@ import PersonController from "../controllers/person.controller";
 import PictureController from "../controllers/picture.controller";
 import UserController from "../controllers/user.controller";
 import { IPersonPayload } from "../repositories/person.repository";
-import { ILoginResponse } from "./login.router";
 import { hash, compare } from "bcryptjs";
 import auth from '../middlewares/isAuth';
 import Joi from 'joi';
+import { userToUserInfo } from "../mappers/userInfo.mapper";
 
 const router = express.Router();
 
@@ -99,29 +99,10 @@ router.put("/:id", auth([1, 2]), async (req, res) => {
   );
   if (!person) res.status(404).send({ message: "Nije pronađen korisnik" });
 
-  let profilePictureSet = false;
-  let profilePictureURL =
-    "https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/512x512/plain/user.png";
-  if (user!.profilePictureId) {
-    const pictureController = new PictureController();
-    const picture = await pictureController.getPicture(
-      user!.profilePictureId.toString()
-    );
-    profilePictureSet = true;
-    profilePictureURL = picture!.url;
-  }
-
-  const u: ILoginResponse = {
-    email: user!.email,
-    id: user!.id,
-    profilePictureSet,
-    profilePictureURL,
-    roleId: user!.roleId,
-    tokenVersion: user!.tokenVersion,
-  };
+  const userInfo = await userToUserInfo(user!);
 
   return res.send({
-    user: u,
+    user: userInfo,
     person
   });
 });

@@ -1,13 +1,12 @@
 import { compare, hash } from "bcryptjs";
 import express from "express";
 import CityController from "../controllers/city.controller";
-import PictureController from "../controllers/picture.controller";
 import ServiceController from "../controllers/service.controller";
 import UserController from "../controllers/user.controller";
 import { IServicePayload } from "../repositories/service.repository";
-import { ILoginResponse } from "./login.router";
 import auth from '../middlewares/isAuth';
 import Joi from 'joi';
+import { userToUserInfo } from "../mappers/userInfo.mapper";
 
 const router = express.Router();
 
@@ -115,29 +114,10 @@ router.put("/:id", auth([1, 3]), async (req, res) => {
   );
   if (!service) res.status(404).send({ message: "Nije pronađen serviser" });
 
-  let profilePictureSet = false;
-  let profilePictureURL =
-    "https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/512x512/plain/user.png";
-  if (user!.profilePictureId) {
-    const pictureController = new PictureController();
-    const picture = await pictureController.getPicture(
-      user!.profilePictureId.toString()
-    );
-    profilePictureSet = true;
-    profilePictureURL = picture!.url;
-  }
-
-  const u: ILoginResponse = {
-    email: user!.email,
-    id: user!.id,
-    profilePictureSet,
-    profilePictureURL,
-    roleId: user!.roleId,
-    tokenVersion: user!.tokenVersion,
-  };
+  const userInfo = await userToUserInfo(user!);
 
   return res.send({
-    user: u,
+    user: userInfo,
     service
   });
 });

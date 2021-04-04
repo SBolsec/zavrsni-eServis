@@ -20,7 +20,7 @@ export default class UserController {
     return updateUser(id, body);
   }
 
-  @Get('/:id')
+  @Get('/id/:id')
   public async getUserById(@Path() id: string): Promise<User | null> {
     return getUserById(Number(id));
   }
