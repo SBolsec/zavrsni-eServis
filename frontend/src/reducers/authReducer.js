@@ -1,4 +1,4 @@
-import { LOGIN_ERROR, LOGIN_LOADING, LOGIN_SUCCESS, LOGOUT, LOGIN_ERROR_REMOVE, REGISTER_LOADING, REGISTER_ERROR, REGISTER_SUCCESS, REGISTER_ERROR_REMOVE, REGISTER_AFTER_REDIRECT, UPLOAD_PROFILE_PICTURE_LOADING, UPLOAD_PROFILE_PICTURE_SUCCESS, UPLOAD_PROFILE_PICTURE_ERROR } from "../constants/actionTypes";
+import { LOGIN_ERROR, LOGIN_LOADING, LOGIN_SUCCESS, LOGOUT, LOGIN_ERROR_REMOVE, REGISTER_LOADING, REGISTER_ERROR, REGISTER_SUCCESS, REGISTER_ERROR_REMOVE, REGISTER_AFTER_REDIRECT, UPLOAD_PROFILE_PICTURE_LOADING, UPLOAD_PROFILE_PICTURE_SUCCESS, UPLOAD_PROFILE_PICTURE_ERROR, UPDATE_AUTH_DATA } from "../constants/actionTypes";
 import authInitialState from '../contexts/initialStates/authInitialState';
 import getRole from '../utils/getRole';
 
@@ -77,6 +77,20 @@ const authReducer = (state, { type, payload }) => {
                     profilePictureURL: payload
                 }
             };
+        case UPDATE_AUTH_DATA:
+            return {
+                ...state,
+                loading: false,
+                error: false,
+                data: {
+                    userId: payload.id,
+                    role: getRole(payload.roleId),
+                    tokenVersion: payload.tokenVersion,
+                    email: payload.email,
+                    profilePictureURL: payload.profilePictureURL,
+                    profilePictureSet: payload.profilePictureSet
+                }
+            }
         default:
             return state;
     }
