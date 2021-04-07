@@ -9,9 +9,9 @@ import Servicers from "../content/Servicers";
 import { Redirect, Route, Switch, useHistory } from "react-router-dom";
 import Search from "../content/Search";
 import CreateListing from "../content/CreateListing";
-import ListingDetails from "../content/ListingDetails";
 import { useAuth } from "../../../contexts/AuthContext";
 import getUpdatedData from "../../../actions/auth/getUpdatedData";
+import ListingDetails from "../../Shared/ListingDetails";
 
 const loading = (
   <div className="pt-3 text-center">

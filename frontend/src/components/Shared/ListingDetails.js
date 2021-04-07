@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom';
-import axiosInstance from '../../../helpers/axiosInstance';
-import Spinner from '../../Utils/Spinner';
+import axiosInstance from '../../helpers/axiosInstance';
+import Spinner from '../Utils/Spinner';
 import Carousel from 'react-gallery-carousel';
 import 'react-gallery-carousel/dist/index.css';
 import Container from 'react-bootstrap/esm/Container';
 import Moment from 'react-moment';
 import Button from 'react-bootstrap/esm/Button';
-import { useAuth } from '../../../contexts/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 
 const ListingDetails = () => {
   const { id } = useParams();
@@ -85,7 +85,7 @@ const ListingDetails = () => {
       </Container>
 
 
-      {auth.data.userId == listing.person.userId &&
+      {auth.data.userId != listing.person.userId &&
         <Container className="bg-white text-black my-4 pt-4 pb-3">
           <div className="d-flex flex-column flex-md-row justify-content-between align-items-center">
             <div>
@@ -107,7 +107,9 @@ const ListingDetails = () => {
       <Container className="bg-white text-black my-4 pt-4 pb-3">
         <div className="d-flex flex-column flex-sm-row justify-content-between align-items-center">
           <h5>Ponude</h5>
-          <Button variant="blueAccent" className="no-round my-2">Kreiraj ponudu</Button>
+          {auth.data.role === 3 &&
+            <Button variant="blueAccent" className="no-round my-2">Kreiraj ponudu</Button>
+          }
         </div>
 
         {listing.offers.map((offer, index) => (
@@ -133,10 +135,12 @@ const ListingDetails = () => {
               </div>
             </div>
 
+            {auth.data.userId == listing.person.userId &&
             <div className="p-3 d-flex flex-row flex-sm-column">
               <Button variant="success" className="no-round m-2 text-uppercase">Prihvati</Button>
               <Button variant="danger" className="no-round m-2 text-uppercase">Odbij</Button>
             </div>
+            }
           </div>
         ))}
       </Container>
