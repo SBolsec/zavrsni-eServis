@@ -89,7 +89,7 @@ export const getPaginatedSearchListings = async (query: IListingSearchPayload): 
     prev_page: prevPage,
     current_page: totalPages - Math.floor((total - skip) / take),
     per_page: take,
-    total_pages: totalPages,
+    total_pages: totalPages+1,
     data: result
   }
 }

@@ -25,6 +25,13 @@ router.get("/id/:id", async (req, res) => {
   
   // remove sensitive user information
   response.person.profilePicture = response.person.user.profilePicture;
+  if (!response.person.profilePicture) {
+    response.person.profilePicture = {
+      id: 0,
+      name: 'no-picture',
+      url: "https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/512x512/plain/user.png"
+    }
+  }
   delete response.person.user;
 
   // remove sensitive servicer information
