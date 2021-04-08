@@ -1,7 +1,8 @@
-import { Get, Route, Tags, Post, Body, Path } from "tsoa";
+import { Get, Route, Tags, Post, Body, Path, Query } from "tsoa";
 import cloudinary from "../config/cloudinary";
+import { IListingSearchPayload, IListingSearchResult } from "../interfaces";
 import { Listing, Picture } from "../models";
-import { createListing, getListing, getListings, getActiveListings, IListingPayload } from '../repositories/listing.repository';
+import { createListing, getListing, getListings, getActiveListings, IListingPayload, getPaginatedSearchListings } from '../repositories/listing.repository';
 import { IPicturePayload } from "../repositories/picture.repository";
 import PictureController from "./picture.controller";
 
@@ -59,5 +60,21 @@ export default class ListingController {
     }
 
     return pictures;
+  }
+
+  @Get("/search")
+  public async getSearchResults(@Query() listing?: string, 
+    @Query() faultCategoryId?: number,
+    @Query() cityId?: number,
+    @Query() page?: number,
+    @Query() per_page?: number): Promise<IListingSearchResult> {
+
+    return getPaginatedSearchListings({
+      listing,
+      faultCategoryId,
+      cityId,
+      page,
+      per_page
+    });
   }
 }
