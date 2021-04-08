@@ -336,7 +336,7 @@ const EditProfileInfo = ({ disableEdit }) => {
                     onClick={() => disableEdit()}
                   >
                     Odustani
-                </Button>
+                  </Button>
 
                   <Button
                     variant="contained"
@@ -344,7 +344,7 @@ const EditProfileInfo = ({ disableEdit }) => {
                     className="w-100 m-2 px-4 bg-blueAccent text-white no-round font-weight-bold"
                   >
                     Spremi Promjene
-                </Button>
+                  </Button>
                 </>}
                 {loading && <Spinner />}
               </div>
