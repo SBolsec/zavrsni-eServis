@@ -6,10 +6,11 @@ import Messages from "../content/Messages";
 import OffersActive from "../content/OffersActive";
 import OffersHistory from "../content/OffersHistory";
 import Servicers from "../content/Servicers";
-import Search from "../content/Search";
+import ListingSearch from '../../Shared/ListingSearch';
 import { Switch, Route, Redirect, useHistory } from "react-router-dom";
 import { useAuth } from "../../../contexts/AuthContext";
 import getUpdatedData from "../../../actions/auth/getUpdatedData";
+import ListingDetails from "../../Shared/ListingDetails";
 
 const loading = (
   <div className="pt-3 text-center">
@@ -36,7 +37,8 @@ const ServiceContent = () => {
             <Route exact path="/service/active" component={OffersActive} />
             <Route exact path="/service/history" component={OffersHistory} />
             <Route exact path="/service/servicers" component={Servicers} />
-            <Route exact path="/service/search" component={Search} />
+            <Route exact path="/service/search" component={ListingSearch} />
+            <Route path="/service/listing/:id" component={ListingDetails} />
             <Redirect to="/404" />
           </Switch>
         </CFade>

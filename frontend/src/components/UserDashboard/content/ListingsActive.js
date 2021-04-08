@@ -5,6 +5,8 @@ import ListingCard from '../../Shared/ListingCard';
 import Spinner from '../../Utils/Spinner';
 import { useUserContext } from '../../../contexts/UserContext';
 import Container from 'react-bootstrap/esm/Container';
+import Button from 'react-bootstrap/Button';
+import { Link } from 'react-router-dom';
 
 const ListingsActive = () => {
   const history = useHistory();
@@ -40,6 +42,14 @@ const ListingsActive = () => {
 
   return (
     <Container fluid>
+      {listings.length === 0 && 
+        <div className="text-center py-5 my-5">
+          <p>Nemate aktivnih oglasa!</p>
+          <Button variant="blueAccent" className="no-border-radius">
+            <Link to="/user/create" className="text-white text-uppercase" style={{ textDecoration: 'none' }}>Kreiraj oglas</Link>
+          </Button>
+        </div>
+      }
       {listings.map((l, index) => (
         <ListingCard key={index} listing={l} type="user" />
       ))}

@@ -96,7 +96,7 @@ const CreateListing = () => {
           }).then(response => {
             setLoading(false);
             setError(false);
-            history.push('/user/active');
+            history.push(`/user/listing/${res.data.id}`);
           })
           .catch(e => {
             setLoading(false);

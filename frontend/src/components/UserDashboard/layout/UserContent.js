@@ -7,11 +7,11 @@ import ListingsActive from "../content/ListingsActive";
 import ListingsHistory from "../content/ListingsHistory";
 import Servicers from "../content/Servicers";
 import { Redirect, Route, Switch, useHistory } from "react-router-dom";
-import Search from "../content/Search";
 import CreateListing from "../content/CreateListing";
-import ListingDetails from "../content/ListingDetails";
 import { useAuth } from "../../../contexts/AuthContext";
 import getUpdatedData from "../../../actions/auth/getUpdatedData";
+import ListingDetails from "../../Shared/ListingDetails";
+import ListingSearch from "../../Shared/ListingSearch";
 
 const loading = (
   <div className="pt-3 text-center">
@@ -39,7 +39,7 @@ const UserContent = () => {
             <Route path="/user/active" component={ListingsActive} />
             <Route path="/user/history" component={ListingsHistory} />
             <Route path="/user/servicers" component={Servicers} />
-            <Route path="/user/search" component={Search} />
+            <Route path="/user/search" component={ListingSearch} />
             <Route path="/user/listing/:id" component={ListingDetails} />
             <Redirect to="/404" />
           </Switch>
