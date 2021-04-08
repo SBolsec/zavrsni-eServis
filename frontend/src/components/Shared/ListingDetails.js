@@ -112,6 +112,8 @@ const ListingDetails = () => {
           }
         </div>
 
+        {listing.offers.length === 0 && <span className="ml-2 text-gray">Oglas još nema ponuda.</span>}
+
         {listing.offers.map((offer, index) => (
           <div key={index}
             className="my-4 d-flex flex-column flex-sm-row justify-content-between align-items-center"

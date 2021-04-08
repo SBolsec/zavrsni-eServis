@@ -51,9 +51,15 @@ const Dashboard = () => {
 
       {/* Replace this with something more generic */}
       {!auth.data.profilePictureSet &&
-        <Container fluid className="my-2">
+        <Container fluid className="my-4">
           <Row>
-            <Col md={6}>{!auth.data.profilePictureSet && <SetProfilePicture />}</Col>
+            <Col md={6}>
+              {!auth.data.profilePictureSet &&
+                <div>
+                  <div className="bg-white text-dark text-center pt-4 text-uppercase font-weight-bold" >Promijenite sliku profila</div>
+                  <SetProfilePicture />
+                </div>}
+            </Col>
           </Row>
         </Container>
       }
