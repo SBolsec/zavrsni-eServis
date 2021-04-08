@@ -1,3 +1,5 @@
+import { IListingSearchPayload } from './listingSearchPayload.interface';
+import { IListingSearchResult } from './listingSearchResult.interface';
 import { IUserInfo } from './userInfo.interface';
 
-export { IUserInfo };
+export { IUserInfo, IListingSearchResult, IListingSearchPayload };

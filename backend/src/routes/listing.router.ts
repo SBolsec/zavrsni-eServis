@@ -25,6 +25,13 @@ router.get("/id/:id", async (req, res) => {
   
   // remove sensitive user information
   response.person.profilePicture = response.person.user.profilePicture;
+  if (!response.person.profilePicture) {
+    response.person.profilePicture = {
+      id: 0,
+      name: 'no-picture',
+      url: "https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/512x512/plain/user.png"
+    }
+  }
   delete response.person.user;
 
   // remove sensitive servicer information
@@ -45,6 +52,17 @@ router.post("/upload-pictures/:id", auth([1, 2]), upload.array("pictures[]", 10)
 router.get("/active/:id", async (req, res) => {
   const listingController = new ListingController();
   const listings: any = await listingController.getActiveListings(req.params.id);
+  if (!listings) res.status(404).send({ message: "No listings found" });
+  return res.send(listings);
+});
+
+router.get("/search", async (req, res) => {
+  const listingController = new ListingController();
+  const { listing, faultCategoryId, cityId, page, per_page } = req.query;
+  const listings: any = await listingController.getSearchResults(
+    listing ? String(listing) : undefined, faultCategoryId ? Number(faultCategoryId) : undefined, cityId ? Number(cityId) : undefined, 
+    page ? Number(page) : undefined, per_page ? Number(per_page) : undefined
+  );
   if (!listings) res.status(404).send({ message: "No listings found" });
   return res.send(listings);
 });
