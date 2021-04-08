@@ -4,12 +4,9 @@ import Pagination from '@material-ui/lab/Pagination';
 import { useFormik } from 'formik';
 import React, { useEffect, useState } from 'react'
 import Alert from 'react-bootstrap/esm/Alert';
-import Col from 'react-bootstrap/esm/Col';
 import Container from 'react-bootstrap/esm/Container';
-import Row from 'react-bootstrap/esm/Row';
 import { useHistory } from 'react-router';
 import * as yup from 'yup';
-import { useAuth } from '../../contexts/AuthContext';
 import axiosInstance from "../../helpers/axiosInstance";
 import Spinner from '../Utils/Spinner';
 import SearchIcon from '@material-ui/icons/Search';
@@ -96,6 +93,7 @@ const ListingSearch = () => {
         setLoading(false);
         setError(false);
         setData(res.data);
+        document.getElementById("listings").scrollIntoView({ behavior: "smooth" });
       })
       .catch(err => {
         setLoading(false);
@@ -229,9 +227,9 @@ const ListingSearch = () => {
         }
       </Container>
 
-      <Container className="p-2 my-2 text-black">
+      <Container id="listings" className="p-2 my-2 text-black">
         {data && data.data.map((listing, index) => (
-          <ListingCard key={index} listing={listing} type="user" />
+          <ListingCard key={index} listing={listing} />
         ))}
         {data &&
           <div className="text-center">

@@ -4,8 +4,21 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Moment from 'react-moment';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 
-const ListingCard = ({ listing, type }) => {
+const ListingCard = ({ listing }) => {
+  const { auth } = useAuth();
+  let type;
+  switch (auth.data.role) {
+    case 1: type = 'admin'; break;
+    case 2: type = 'user'; break;
+    case 3: type = 'service'; break;
+    default: type = 'user'; break;
+  }
+
+  // sort pictures so that the same one is used as the preview
+  listing.pictures.sort((a,b) => (a.id > b.id) ? 1 : ((b.id > a.id) ? -1 : 0));
+
   return (
     <Link to={`/${type}/listing/${listing.id}`} className="text-decoration-none text-dark">
       <Container fluid className="mx-auto my-4">
