@@ -4,12 +4,13 @@ import Pagination from '@material-ui/lab/Pagination';
 import { useFormik } from 'formik';
 import React, { useEffect, useState } from 'react'
 import Alert from 'react-bootstrap/esm/Alert';
+import Col from 'react-bootstrap/esm/Col';
 import Container from 'react-bootstrap/esm/Container';
+import Row from 'react-bootstrap/esm/Row';
 import { useHistory } from 'react-router';
 import * as yup from 'yup';
 import axiosInstance from "../../helpers/axiosInstance";
 import Spinner from '../Utils/Spinner';
-import SearchIcon from '@material-ui/icons/Search';
 import ListingCard from './ListingCard';
 
 const validationSchema = yup.object({
@@ -68,7 +69,7 @@ const ListingSearch = () => {
       listing: '',
       faultCategoryId: '',
       cityId: '',
-      per_page: 10,
+      per_page: '',
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -104,117 +105,121 @@ const ListingSearch = () => {
 
   return (
     <>
-      <Container fluid className="p-2 bg-white text-black">
+      <Container className="my-4 p-2 bg-white text-black">
         <form onSubmit={formik.handleSubmit}>
-          <TextField
-            className="my-2 mr-sm-2 h-100"
-            id="listing"
-            name="listing"
-            label="Pretražite aktivne oglase"
-            value={formik.values.listing}
-            onChange={formik.handleChange}
-            error={
-              formik.touched.listing && Boolean(formik.errors.listing)
-            }
-            helperText={
-              formik.touched.listing && formik.errors.listing
-            }
-            variant="outlined"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchIcon />
-                </InputAdornment>
-              )
-            }}
-          />
-          <Autocomplete
-            id="faultCategoryId"
-            name="faultCategoryId"
-            options={categories}
-            groupBy={(option) => option.parentname}
-            getOptionLabel={(option) => option.name}
-            className="my-2"
-            onChange={(_, value) =>
-              formik.setFieldValue("faultCategoryId", value ? value.id : "")
-            }
-            renderInput={(params) => (
+          <Row className="p-2">
+            <Col xs={12} className="text-center">
               <TextField
-                {...params}
+                className="my-2 h-100"
+                fullWidth
+                id="listing"
+                name="listing"
+                label="Pretražite aktivne oglase"
+                value={formik.values.listing}
+                onChange={formik.handleChange}
+                error={
+                  formik.touched.listing && Boolean(formik.errors.listing)
+                }
+                helperText={
+                  formik.touched.listing && formik.errors.listing
+                }
+                variant="outlined"
+              />
+            </Col>
+            <h5 className="font-weight-bold ml-3 mt-2 mb-1">Napredno pretraživanje</h5>
+            <Col xs={12} className="d-flex flex-column flex-sm-row justify-content-between align-items-center">
+              <Autocomplete
+                id="faultCategoryId"
                 name="faultCategoryId"
-                variant="outlined"
-                label="Kategorija kvara"
-                error={formik.touched.faultCategoryId && Boolean(formik.errors.faultCategoryId)}
-                helperText={formik.touched.faultCategoryId && formik.errors.faultCategoryId}
+                options={categories}
+                groupBy={(option) => option.parentname}
+                getOptionLabel={(option) => option.name}
+                className="my-2 mr-sm-2 flex-fill flex-grow-1"
+                fullWidth
+                onChange={(_, value) =>
+                  formik.setFieldValue("faultCategoryId", value ? value.id : "")
+                }
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    name="faultCategoryId"
+                    variant="outlined"
+                    label="Kategorija kvara"
+                    error={formik.touched.faultCategoryId && Boolean(formik.errors.faultCategoryId)}
+                    helperText={formik.touched.faultCategoryId && formik.errors.faultCategoryId}
+                  />
+                )}
               />
-            )}
-          />
-          <Autocomplete
-            id="cityId"
-            name="cityId"
-            options={cities}
-            getOptionLabel={(option) => option.city}
-            className="my-2"
-            onChange={(_, value) =>
-              formik.setFieldValue("cityId", value ? value.id : "")
-            }
-            renderInput={(params) => (
-              <TextField
-                {...params}
+              <Autocomplete
+                id="cityId"
                 name="cityId"
-                variant="outlined"
-                label="Mjesto"
-                error={formik.touched.cityId && Boolean(formik.errors.cityId)}
-                helperText={formik.touched.cityId && formik.errors.cityId}
+                options={cities}
+                getOptionLabel={(option) => option.city}
+                className="my-2 mx-sm-2 flex-fill flex-grow-1"
+                fullWidth
+                onChange={(_, value) =>
+                  formik.setFieldValue("cityId", value ? value.id : "")
+                }
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    name="cityId"
+                    variant="outlined"
+                    label="Mjesto"
+                    error={formik.touched.cityId && Boolean(formik.errors.cityId)}
+                    helperText={formik.touched.cityId && formik.errors.cityId}
+                  />
+                )}
               />
-            )}
-          />
-          <FormControl>
-            <InputLabel htmlFor="per_page">Broj oglasa po stranici</InputLabel>
-            <Select
-              className="my-2 mr-sm-2 h-100"
-              id="per_page"
-              name="per_page"
-              label="Broj oglasa po stranici"
-              defaultValue={10}
-              displayEmpty={true}
-              value={formik.values.per_page}
-              onChange={formik.handleChange}
-              error={
-                formik.touched.per_page && Boolean(formik.errors.per_page)
+              <FormControl className="my-2 ml-sm-2 flex-fill flex-grow-1" fullWidth>
+                <InputLabel className="ml-2 my-auto" htmlFor="per_page">Broj oglasa po stranici</InputLabel>
+                <Select
+                  className=""
+                  id="per_page"
+                  name="per_page"
+                  label="Broj oglasa po stranici"
+                  value={formik.values.per_page}
+                  onChange={formik.handleChange}
+                  error={
+                    formik.touched.per_page && Boolean(formik.errors.per_page)
+                  }
+                  helperText={
+                    formik.touched.per_page && formik.errors.per_page
+                  }
+                  variant="outlined"
+                >
+                  <MenuItem value=""></MenuItem>
+                  <MenuItem value={5}>5</MenuItem>
+                  <MenuItem value={10}>10</MenuItem>
+                  <MenuItem value={15}>15</MenuItem>
+                  <MenuItem value={25}>25</MenuItem>
+                  <MenuItem value={50}>50</MenuItem>
+                </Select>
+              </FormControl>
+            </Col>
+            <Col>
+              {!loading &&
+                <div className="d-flex justify-content-center align-items-center">
+                  <Button
+                    variant="contained"
+                    type="reset"
+                    className="my-2 mr-2 px-4 bg-danger text-white no-round font-weight-bold"
+                    onClick={formik.resetForm}
+                  >
+                    Resetiraj
+                  </Button>
+                  <Button
+                    variant="contained"
+                    type="submit"
+                    className="my-2 ml-2 px-4 bg-blueAccent text-white no-round font-weight-bold"
+                  >
+                    Traži
+                  </Button>
+                </div>
               }
-              helperText={
-                formik.touched.per_page && formik.errors.per_page
-              }
-              variant="outlined"
-            >
-              <MenuItem value={5}>5</MenuItem>
-              <MenuItem value={10} selected={true}>10</MenuItem>
-              <MenuItem value={15}>15</MenuItem>
-              <MenuItem value={25}>25</MenuItem>
-              <MenuItem value={50}>50</MenuItem>
-            </Select>
-          </FormControl>
-          {!loading &&
-            <>
-              <Button
-                variant="contained"
-                type="submit"
-                className="my-2 px-4 bg-blueAccent text-white no-round font-weight-bold"
-              >
-                Traži
-              </Button>
-              <Button
-                variant="contained"
-                type="reset"
-                className="my-2 px-4 bg-blueAccent text-white no-round font-weight-bold"
-                onClick={formik.resetForm}
-              >
-                Reset
-              </Button>
-            </>
-          }
-          {loading && <Spinner />}
+              {loading && <Spinner />}
+            </Col>
+          </Row>
         </form>
       </Container>
 
@@ -227,7 +232,7 @@ const ListingSearch = () => {
         }
       </Container>
 
-      <Container id="listings" className="p-2 my-2 text-black">
+      <Container id="listings" className="p-0 my-2 text-black">
         {data && data.data.map((listing, index) => (
           <ListingCard key={index} listing={listing} />
         ))}
