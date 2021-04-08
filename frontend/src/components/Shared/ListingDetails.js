@@ -93,7 +93,7 @@ const ListingDetails = () => {
               <span className="ml-2">{listing.person.firstName + " " + listing.person.lastName}</span>
             </div>
             <div className="d-flex justify-content-between align-items-center my-4">
-              <span className="mx-2 align-self-center">Svi oglasi ovog oglašivača</span>
+              {/* <span className="mx-2 align-self-center">Svi oglasi ovog oglašivača</span> */}
               <Button
                 variant="blueAccent"
                 className="no-round mx-2"

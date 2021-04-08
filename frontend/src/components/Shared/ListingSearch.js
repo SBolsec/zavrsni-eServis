@@ -1,5 +1,6 @@
-import { Button, InputAdornment, TextField } from '@material-ui/core';
+import { Button, FormControl, InputAdornment, InputLabel, MenuItem, Select, TextField } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import Pagination from '@material-ui/lab/Pagination';
 import { useFormik } from 'formik';
 import React, { useEffect, useState } from 'react'
 import Alert from 'react-bootstrap/esm/Alert';
@@ -17,19 +18,19 @@ import ListingCard from './ListingCard';
 const validationSchema = yup.object({
   listing: yup.string(),
   faultCategoryId: yup.number(),
-  cityId: yup.number()
+  cityId: yup.number(),
+  per_page: yup.number()
 });
 
 const ListingSearch = () => {
   const history = useHistory();
-  const { auth } = useAuth();
   const [cities, setCities] = useState([]);
   const [categories, setCategories] = useState([]);
   const [data, setData] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  // fetch cities and categories
+  // fetch cities, categories and initial search results
   useEffect(() => {
     axiosInstance(history)
       .get("/faultCategories/formatted")
@@ -69,28 +70,39 @@ const ListingSearch = () => {
     initialValues: {
       listing: '',
       faultCategoryId: '',
-      cityId: ''
+      cityId: '',
+      per_page: 10,
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      let query = "";
-      if (values.listing) query += `listing=${values.listing}`;
-      if (values.faultCategoryId) query += `&faultCategoryId=${values.faultCategoryId}`;
-      if (values.cityId) query += `&cityId=${values.cityId}`;
-      setLoading(true);
-      axiosInstance(history).get("/listings/search?" + query)
-        .then(res => {
-          setLoading(false);
-          setError(false);
-          setData(res.data);
-        })
-        .catch(err => {
-          setLoading(false);
-          setError('Neuspješno dohvaćanje oglasa');
-          console.log(err);
-        })
+      fetchListings(values, 0)
     }
   });
+
+  const handlePageChange = (page) => {
+    fetchListings(formik.values, page - 1);
+  }
+
+  const fetchListings = (values, page) => {
+    let query = "";
+    if (values.listing) query += `listing=${values.listing}`;
+    if (values.faultCategoryId) query += `&faultCategoryId=${values.faultCategoryId}`;
+    if (values.cityId) query += `&cityId=${values.cityId}`;
+    if (values.per_page) query += `&per_page=${values.per_page}`;
+    if (page) query += `&page=${page}`
+    setLoading(true);
+    axiosInstance(history).get("/listings/search?" + query)
+      .then(res => {
+        setLoading(false);
+        setError(false);
+        setData(res.data);
+      })
+      .catch(err => {
+        setLoading(false);
+        setError('Neuspješno dohvaćanje oglasa');
+        console.log(err);
+      })
+  }
 
   return (
     <>
@@ -159,6 +171,32 @@ const ListingSearch = () => {
               />
             )}
           />
+          <FormControl>
+            <InputLabel htmlFor="per_page">Broj oglasa po stranici</InputLabel>
+            <Select
+              className="my-2 mr-sm-2 h-100"
+              id="per_page"
+              name="per_page"
+              label="Broj oglasa po stranici"
+              defaultValue={10}
+              displayEmpty={true}
+              value={formik.values.per_page}
+              onChange={formik.handleChange}
+              error={
+                formik.touched.per_page && Boolean(formik.errors.per_page)
+              }
+              helperText={
+                formik.touched.per_page && formik.errors.per_page
+              }
+              variant="outlined"
+            >
+              <MenuItem value={5}>5</MenuItem>
+              <MenuItem value={10} selected={true}>10</MenuItem>
+              <MenuItem value={15}>15</MenuItem>
+              <MenuItem value={25}>25</MenuItem>
+              <MenuItem value={50}>50</MenuItem>
+            </Select>
+          </FormControl>
           {!loading &&
             <>
               <Button
@@ -195,6 +233,15 @@ const ListingSearch = () => {
         {data && data.data.map((listing, index) => (
           <ListingCard key={index} listing={listing} type="user" />
         ))}
+        {data &&
+          <div className="text-center">
+            <Pagination
+              className="d-inline-block"
+              count={data.total_pages}
+              onChange={(_, page) => handlePageChange(page)}
+              showFirstButton showLastButton
+            />
+          </div>}
       </Container>
     </>
   );
