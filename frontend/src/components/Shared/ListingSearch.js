@@ -1,4 +1,4 @@
-import { Button, FormControl, InputAdornment, InputLabel, MenuItem, Select, TextField } from '@material-ui/core';
+import { Button, FormControl, InputAdornment, InputLabel, makeStyles, MenuItem, Select, TextField } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Pagination from '@material-ui/lab/Pagination';
 import { useFormik } from 'formik';
@@ -12,6 +12,16 @@ import * as yup from 'yup';
 import axiosInstance from "../../helpers/axiosInstance";
 import Spinner from '../Utils/Spinner';
 import ListingCard from './ListingCard';
+
+const useStyles = makeStyles((theme) => ({
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+}));
 
 const validationSchema = yup.object({
   listing: yup.string(),
@@ -171,13 +181,13 @@ const ListingSearch = () => {
                   />
                 )}
               />
-              <FormControl className="my-2 ml-sm-2 flex-fill flex-grow-1" fullWidth>
-                <InputLabel className="ml-2 my-auto" htmlFor="per_page">Broj oglasa po stranici</InputLabel>
+              <FormControl variant="outlined" className="my-2 ml-sm-2 flex-fill flex-grow-1" fullWidth>
+                <InputLabel id="per_page_label">Broj oglasa po stranici</InputLabel>
                 <Select
-                  className=""
+                  labelId="per_page_label"
+                  label="Broj oglasa po stranici"
                   id="per_page"
                   name="per_page"
-                  label="Broj oglasa po stranici"
                   value={formik.values.per_page}
                   onChange={formik.handleChange}
                   error={
@@ -188,7 +198,6 @@ const ListingSearch = () => {
                   }
                   variant="outlined"
                 >
-                  <MenuItem value=""></MenuItem>
                   <MenuItem value={5}>5</MenuItem>
                   <MenuItem value={10}>10</MenuItem>
                   <MenuItem value={15}>15</MenuItem>
@@ -199,7 +208,7 @@ const ListingSearch = () => {
             </Col>
             <Col>
               {!loading &&
-                <div className="d-flex justify-content-center align-items-center">
+                <div id="listings" className="d-flex justify-content-center align-items-center">
                   <Button
                     variant="contained"
                     type="reset"
@@ -217,7 +226,7 @@ const ListingSearch = () => {
                   </Button>
                 </div>
               }
-              {loading && <Spinner />}
+              {loading && <div className="d-flex justify-content-center align-items-center"><Spinner /></div>}
             </Col>
           </Row>
         </form>
@@ -232,7 +241,7 @@ const ListingSearch = () => {
         }
       </Container>
 
-      <Container id="listings" className="p-0 my-2 text-black">
+      <Container className="p-0 my-2 text-black">
         {data && data.data.map((listing, index) => (
           <ListingCard key={index} listing={listing} />
         ))}
