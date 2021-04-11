@@ -15,7 +15,7 @@ export default class CityController {
     return createCity(body);
   }
 
-  @Get('/:id')
+  @Get('/id/:id')
   public async getCity(@Path() id: string): Promise<City | null> {
     return getCity(Number(id));
   }
