@@ -30,10 +30,24 @@ export const createListing = async (
 
 export const getListing = async (id: number): Promise<Listing | null> => {
   const listingRepository = getRepository(Listing);
-  const listing = await listingRepository.findOne({
-    where: { id: id },
-    relations: ["offers", "offers.status", "offers.service", "offers.service.user", "offers.service.user.profilePicture", "offers.service.reviews", "city", "faultCategory", "faultCategory.parent", "status", "pictures", "person", "person.user", "person.user.profilePicture"]
-  });
+  const listing = await listingRepository.createQueryBuilder('listing')
+    .leftJoinAndSelect('listing.offers', 'offers', 'offers.statusId <> 4')
+    .leftJoinAndSelect('offers.status', 'offerStatus')
+    .leftJoinAndSelect('offers.service', 'offerService')
+    .leftJoinAndSelect('offerService.user', 'offerServiceUser')
+    .leftJoinAndSelect('offerServiceUser.profilePicture', 'offerServiceUserPicture')
+    .leftJoinAndSelect('offerService.reviews', 'reviews')
+    .leftJoinAndSelect('listing.city', 'city')
+    .leftJoinAndSelect('listing.faultCategory', 'faultCategory')
+    .leftJoinAndSelect('faultCategory.parent', 'faultCategoryParent')
+    .leftJoinAndSelect('listing.status', 'listingStatus')
+    .leftJoinAndSelect('listing.pictures', 'pictures')
+    .leftJoinAndSelect('listing.person', 'person')
+    .leftJoinAndSelect('person.user', 'personUser')
+    .leftJoinAndSelect('personUser.profilePicture', 'personUserPicture')
+    .where('listing.id = :id', {id: id})
+    .getOne();
+
   return !listing ? null : listing;
 };
 
