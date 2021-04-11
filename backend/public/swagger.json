@@ -2557,43 +2557,7 @@
 					}
 				}
 			},
-			"get": {
-				"operationId": "GetOffer",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"allOf": [
-										{
-											"$ref": "#/components/schemas/Offer"
-										}
-									],
-									"nullable": true
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Offer"
-				],
-				"security": [],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
-			}
-		},
-		"/offers/delete/{id}": {
-			"post": {
+			"delete": {
 				"operationId": "DeleteOffer",
 				"responses": {
 					"200": {
@@ -2624,6 +2588,40 @@
 						"schema": {
 							"format": "double",
 							"type": "number"
+						}
+					}
+				]
+			},
+			"get": {
+				"operationId": "GetOffer",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/Offer"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Offer"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
 						}
 					}
 				]

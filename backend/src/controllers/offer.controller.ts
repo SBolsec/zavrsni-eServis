@@ -1,4 +1,4 @@
-import { Get, Route, Tags, Post, Body, Path, Put } from "tsoa";
+import { Get, Route, Tags, Post, Body, Path, Put, Delete } from "tsoa";
 import { IOfferPayload } from "../interfaces";
 import { Offer } from "../models";
 import { createOffer, deleteOffer, getOffer, getOffers, updateOffer } from '../repositories/offer.repository';
@@ -22,7 +22,7 @@ export default class OfferController {
     return updateOffer(id, body);
   }
 
-  @Post("/delete/:id")
+  @Delete("/:id")
   public async deleteOffer(@Path() id: number): Promise<Offer | null> {
     return deleteOffer(id);
   }
