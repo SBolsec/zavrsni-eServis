@@ -1,14 +1,6 @@
+import { IOfferPayload } from './../interfaces/offerPayload.interface';
 import { getRepository } from "typeorm";
 import { Offer } from "../models";
-
-export interface IOfferPayload {
-  title: string;
-  description: string;
-  price: number;
-  serviceId: number;
-  statusId: number;
-  listingId: number;
-}
 
 export const getOffers = async (): Promise<Offer[]> => {
   const offerRepository = getRepository(Offer);

@@ -1,6 +1,7 @@
 import { Get, Route, Tags, Post, Body, Path } from "tsoa";
+import { IOfferPayload } from "../interfaces";
 import { Offer } from "../models";
-import { createOffer, getOffer, getOffers, IOfferPayload } from '../repositories/offer.repository';
+import { createOffer, getOffer, getOffers } from '../repositories/offer.repository';
 
 @Route("offers")
 @Tags("Offer")

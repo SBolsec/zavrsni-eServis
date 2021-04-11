@@ -971,10 +971,6 @@
 						"type": "number",
 						"format": "double"
 					},
-					"statusId": {
-						"type": "number",
-						"format": "double"
-					},
 					"listingId": {
 						"type": "number",
 						"format": "double"
@@ -985,7 +981,6 @@
 					"description",
 					"price",
 					"serviceId",
-					"statusId",
 					"listingId"
 				],
 				"type": "object",
