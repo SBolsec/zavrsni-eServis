@@ -16,7 +16,7 @@ const OfferCard = ({ offer, authorId }) => {
 
   const handleOfferDelete = (e) => {
     if (window.confirm("Jeste li sigurni da želite obrisati ponudu?")) {
-      axiosInstance(history).delete(`/offers/${offer.id}`)
+      axiosInstance(history).post(`/offers/delete/${offer.id}`,)
         .then(res => {
           history.go(0); // refresh page
         })
