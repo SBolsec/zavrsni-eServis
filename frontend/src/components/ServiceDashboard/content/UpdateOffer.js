@@ -7,7 +7,6 @@ import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import { useHistory, useParams } from 'react-router-dom';
 import * as yup from 'yup';
-import { useAuth } from '../../../contexts/AuthContext';
 import { useServiceContext } from '../../../contexts/ServiceContext';
 import axiosInstance from "../../../helpers/axiosInstance";
 import Spinner from '../../Utils/Spinner';
@@ -26,7 +25,7 @@ const validationSchema = yup.object({
     .required("Obavezno je staviti cijenu")
 });
 
-const CreateOffer = () => {
+const UpdateOffer = ({offer, toggleUpdateMode, updateOffer}) => {
   const history = useHistory();
   const { id } = useParams();
   const { context } = useServiceContext();
@@ -35,16 +34,16 @@ const CreateOffer = () => {
 
   const formik = useFormik({
     initialValues: {
-      title: '',
-      description: '',
-      price: ''
+      title: offer.title,
+      description: offer.description,
+      price: offer.price
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
       setLoading(true);
       setError(false);
 
-      axiosInstance(history).post('/offers/', {
+      axiosInstance(history).put(`/offers/${offer.id}`, {
         ...values,
         serviceId: context.data.id,
         listingId: id
@@ -52,11 +51,12 @@ const CreateOffer = () => {
         .then(res => {
           setLoading(false);
           setError(false);
-          history.push(`/service/listing/${id}`);
+          updateOffer(values);
+          toggleUpdateMode();
         })
         .catch(e => {
           setLoading(false);
-          setError('Greška kod stvaranja oglasa na poslužitelju');
+          setError('Greška kod ažuriranja oglasa na poslužitelju');
           console.log(e);
         });
     }
@@ -65,7 +65,7 @@ const CreateOffer = () => {
   return (
     <Container className="my-3">
       <div className="bg-white text-dark p-4">
-        <h5 className="text-uppercase font-weight-bold">Stvori ponudu</h5>
+        <h5 className="text-uppercase font-weight-bold">Ažuriraj ponudu</h5>
 
         <form onSubmit={formik.handleSubmit}>
           <Row>
@@ -134,10 +134,18 @@ const CreateOffer = () => {
                     <Button
                       variant="contained"
                       type="submit"
+                      className="m-2 px-4 bg-danger text-white no-round font-weight-bold"
+                      onClick={toggleUpdateMode}
+                    >
+                      Odustani
+                   </Button>
+                    <Button
+                      variant="contained"
+                      type="submit"
                       className="m-2 px-4 bg-blueAccent text-white no-round font-weight-bold"
                     >
-                      Stvori ponudu
-                  </Button>
+                      Ažuriraj ponudu
+                    </Button>
                   </>}
                 {loading && <Spinner />}
               </div>
@@ -155,4 +163,4 @@ const CreateOffer = () => {
   );
 }
 
-export default CreateOffer;
+export default UpdateOffer;

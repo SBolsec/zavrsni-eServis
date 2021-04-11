@@ -12,6 +12,7 @@ import { useAuth } from "../../../contexts/AuthContext";
 import getUpdatedData from "../../../actions/auth/getUpdatedData";
 import ListingDetails from "../../Shared/ListingDetails";
 import CreateOffer from "../content/CreateOffer";
+import UpdateOffer from "../content/UpdateOffer";
 
 const loading = (
   <div className="pt-3 text-center">
@@ -41,6 +42,7 @@ const ServiceContent = () => {
             <Route exact path="/service/search" component={ListingSearch} />
             <Route path="/service/listing/:id" component={ListingDetails} />
             <Route path="/service/create/:id" component={CreateOffer} />
+            <Route path="/service/update-offer/:id" component={UpdateOffer} />
             <Redirect to="/404" />
           </Switch>
         </CFade>
