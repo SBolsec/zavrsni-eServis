@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useHistory, useParams } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import axiosInstance from '../../helpers/axiosInstance';
 import Spinner from '../Utils/Spinner';
 import Carousel from 'react-gallery-carousel';
@@ -8,6 +8,7 @@ import Container from 'react-bootstrap/esm/Container';
 import Moment from 'react-moment';
 import Button from 'react-bootstrap/esm/Button';
 import { useAuth } from '../../contexts/AuthContext';
+import OfferCard from './OfferCard';
 
 const ListingDetails = () => {
   const { id } = useParams();
@@ -108,42 +109,16 @@ const ListingDetails = () => {
         <div className="d-flex flex-column flex-sm-row justify-content-between align-items-center">
           <h5>Ponude</h5>
           {auth.data.role === 3 &&
-            <Button variant="blueAccent" className="no-round my-2">Kreiraj ponudu</Button>
+            <Link to={`/service/create/${listing.id}`}>
+              <Button variant="blueAccent" className="no-round my-2">Kreiraj ponudu</Button>
+            </Link>
           }
         </div>
 
         {listing.offers.length === 0 && <span className="ml-2 text-gray">Oglas još nema ponuda.</span>}
 
         {listing.offers.map((offer, index) => (
-          <div key={index}
-            className="my-4 d-flex flex-column flex-sm-row justify-content-between align-items-center"
-            style={{ border: '1px solid gray' }}
-          >
-            <div className="p-3 flex-grow-1">
-              <h5>{offer.title}</h5>
-              <p>{offer.description}</p>
-              <p>
-                <span>Cijena: </span>{offer.price} <span> KN</span>
-              </p>
-              <p>
-                <span className="text-gray" style={{ fontSize: '0.8em' }}>Objavljen: </span>
-                <Moment format="DD.MM.YYYY">{offer.createdAt}</Moment>
-              </p>
-              <hr />
-              <div>
-                <img src={offer.service.profilePicture.url} alt="profilePicture" className="rounded-circle ml-2" style={{ width: '45px', height: '45px' }} />
-                <span className="ml-2">{offer.service.name}</span>
-                <span className="ml-2 text-gray"> TODO: zvijezdice od recenzija</span>
-              </div>
-            </div>
-
-            {auth.data.userId == listing.person.userId &&
-            <div className="p-3 d-flex flex-row flex-sm-column">
-              <Button variant="success" className="no-round m-2 text-uppercase">Prihvati</Button>
-              <Button variant="danger" className="no-round m-2 text-uppercase">Odbij</Button>
-            </div>
-            }
-          </div>
+          <OfferCard key={index} offer={offer} userId={listing.person.userId} />
         ))}
       </Container>
     </Container>
