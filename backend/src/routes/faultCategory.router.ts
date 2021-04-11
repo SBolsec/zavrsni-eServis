@@ -21,7 +21,13 @@ router.get("/formatted", async (req, res) => {
   res.send(response);
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/search", async (req, res) => {
+  const controller = new FaultCategoryController();
+  const response = await controller.getFaultCategoriesSearch();
+  res.send(response);
+});
+
+router.get("/id/:id", async (req, res) => {
   const controller = new FaultCategoryController();
   const response = await controller.getFaultCategory(req.params.id);
   if (!response) res.status(404).send({ message: "No fault category found" });

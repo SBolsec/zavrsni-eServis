@@ -28,7 +28,7 @@ export class Offer {
     @UpdateDateColumn({name: 'trenutak_promjene', type: 'timestamp without time zone'})
     updatedAt!: Date;
 
-    @Column({name: 'sif_status'})
+    @Column({name: 'sif_status', default: 1})
     statusId!: number;
 
     @ManyToOne(() => OfferStatus, (status) => status.offers)

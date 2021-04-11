@@ -1,6 +1,6 @@
 import { Get, Route, Tags, Post, Body, Path } from "tsoa";
 import { FaultCategory } from "../models";
-import { createFaultCategory, getFaultCategories, getFaultCategoriesFormatted, getFaultCategory, IFaultCategory } from '../repositories/faulCategory.repository';
+import { createFaultCategory, getFaultCategories, getFaultCategoriesFormatted, getFaultCategoriesForSearch, getFaultCategory, IFaultCategory } from '../repositories/faulCategory.repository';
 
 @Route("faultCategories")
 @Tags("Fault Category")
@@ -16,13 +16,18 @@ export default class FaultCategoryController {
     return createFaultCategory(body);
   }
 
-  @Get("/:id")
+  @Get("/id/:id")
   public async getFaultCategory(@Path() id: string): Promise<FaultCategory | null> {
     return getFaultCategory(Number(id));
   }
 
   @Get("/formatted")
-  public async getFaultCategoriesFormatted(): Promise<{ id: number, name: string, parentId: number, parentName: string }[]> {
+  public async getFaultCategoriesFormatted(): Promise<FaultCategory[]> {
     return getFaultCategoriesFormatted();
+  }
+
+  @Get("/search")
+  public async getFaultCategoriesSearch(): Promise<FaultCategory[]> {
+    return getFaultCategoriesForSearch();
   }
 }
