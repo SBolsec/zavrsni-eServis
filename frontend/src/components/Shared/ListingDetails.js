@@ -108,7 +108,6 @@ const ListingDetails = () => {
       <Container className="bg-white text-black my-4 pt-4 pb-3">
         <div className="d-flex flex-column flex-sm-row justify-content-between align-items-center">
           <h5>Ponude</h5>
-          {console.log('a' ,listing.offers)}
           {auth.data.role === 3 && listing.offers.filter(offer => offer.service.userId == auth.data.userId).length === 0 &&
             <Link to={`/service/create/${listing.id}`}>
               <Button variant="blueAccent" className="no-round my-2">Kreiraj ponudu</Button>
