@@ -22,7 +22,7 @@ router.put("/:id", async (req, res) => {
   return res.send(response);
 });
 
-router.post("/delete/:id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
   const controller = new OfferController();
   const response = await controller.deleteOffer(Number(req.params.id));
   if (!response) res.status(404).send({ message: "No offer found" });
