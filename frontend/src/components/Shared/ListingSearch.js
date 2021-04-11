@@ -1,4 +1,4 @@
-import { Button, FormControl, InputAdornment, InputLabel, makeStyles, MenuItem, Select, TextField } from '@material-ui/core';
+import { Button, FormControl,  InputLabel,  MenuItem, Select, TextField } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Pagination from '@material-ui/lab/Pagination';
 import { useFormik } from 'formik';
@@ -12,16 +12,6 @@ import * as yup from 'yup';
 import axiosInstance from "../../helpers/axiosInstance";
 import Spinner from '../Utils/Spinner';
 import ListingCard from './ListingCard';
-
-const useStyles = makeStyles((theme) => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-}));
 
 const validationSchema = yup.object({
   listing: yup.string(),
@@ -41,7 +31,7 @@ const ListingSearch = () => {
   // fetch cities, categories and initial search results
   useEffect(() => {
     axiosInstance(history)
-      .get("/faultCategories/formatted")
+      .get("/faultCategories/search")
       .then(res => {
         setCategories(res.data);
       })
@@ -142,7 +132,7 @@ const ListingSearch = () => {
                 id="faultCategoryId"
                 name="faultCategoryId"
                 options={categories}
-                groupBy={(option) => option.parentname}
+                groupBy={(option) => option.parent.name}
                 getOptionLabel={(option) => option.name}
                 className="my-2 mr-sm-2 flex-fill flex-grow-1"
                 fullWidth
