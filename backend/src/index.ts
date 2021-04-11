@@ -16,7 +16,7 @@ const app: Application = express();
 
 app.use(cookieParser());
 app.use(cors({
-  origin: "https://eservis.herokuapp.com",
+  origin: "https://e-servis.herokuapp.com",
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'HEAD', 'OPTIONS'],
   credentials: true
 }));
