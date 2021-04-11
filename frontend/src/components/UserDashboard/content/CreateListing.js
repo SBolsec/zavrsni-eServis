@@ -183,7 +183,7 @@ const CreateListing = () => {
                 id="faultCategoryId"
                 name="faultCategoryId"
                 options={categories}
-                groupBy={(option) => option.parentname}
+                groupBy={(option) => option.parent.name}
                 getOptionLabel={(option) => option.name}
                 fullWidth
                 className="my-2"

@@ -31,7 +31,7 @@ const ListingSearch = () => {
   // fetch cities, categories and initial search results
   useEffect(() => {
     axiosInstance(history)
-      .get("/faultCategories/formatted")
+      .get("/faultCategories/search")
       .then(res => {
         setCategories(res.data);
       })
@@ -132,7 +132,7 @@ const ListingSearch = () => {
                 id="faultCategoryId"
                 name="faultCategoryId"
                 options={categories}
-                groupBy={(option) => option.parentname}
+                groupBy={(option) => option.parent.name}
                 getOptionLabel={(option) => option.name}
                 className="my-2 mr-sm-2 flex-fill flex-grow-1"
                 fullWidth
