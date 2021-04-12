@@ -1,6 +1,6 @@
 import { Get, Route, Tags, Post, Body, Path, Query } from "tsoa";
 import cloudinary from "../config/cloudinary";
-import { IListingSearchPayload, IListingSearchResult } from "../interfaces";
+import { IListingSearchResult } from "../interfaces";
 import { Listing, Picture } from "../models";
 import { createListing, getListing, getListings, getActiveListings, IListingPayload, getPaginatedSearchListings } from '../repositories/listing.repository';
 import { IPicturePayload } from "../repositories/picture.repository";

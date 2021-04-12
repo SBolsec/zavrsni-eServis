@@ -1,11 +1,10 @@
 import express from "express";
 import PersonController from "../controllers/person.controller";
-import PictureController from "../controllers/picture.controller";
 import UserController from "../controllers/user.controller";
 import { IPersonPayload } from "../repositories/person.repository";
 import { hash, compare } from "bcryptjs";
-import auth from '../middlewares/isAuth';
 import Joi from 'joi';
+import auth from '../middlewares/isAuth';
 import { userToUserInfo } from "../mappers/userInfo.mapper";
 
 const router = express.Router();
@@ -17,19 +16,45 @@ router.get("/", auth([1, 2, 3]), async (_req, res) => {
 });
 
 router.post("/", auth([1, 2, 3]), async (req, res) => {
+  try {
+    await Joi.object({
+      firstName: Joi.string().required(),
+      lastName: Joi.string().required(),
+      userId: Joi.number().required(),
+    }).validateAsync(req.body);
+  } catch (err) {
+    return res.status(400).send({ message: err.details[0].message });
+  }
+
   const controller = new PersonController();
   const response = await controller.createPerson(req.body);
   return res.send(response);
 });
 
 router.get("/:id", auth([1, 2, 3]), async (req, res) => {
+  try {
+    await Joi.object({
+      id: Joi.number().required()
+    }).validateAsync(req.params);
+  } catch (err) {
+    return res.status(400).send({ message: err.details[0].message });
+  }
+
   const controller = new PersonController();
   const response = await controller.getPerson(req.params.id);
   if (!response) res.status(404).send({ message: "No person found" });
   return res.send(response);
 });
 
-router.get("/user/:id",  auth([1, 2, 3]), async (req, res) => {
+router.get("/user/:id", auth([1, 2, 3]), async (req, res) => {
+  try {
+    await Joi.object({
+      id: Joi.number().required()
+    }).validateAsync(req.params);
+  } catch (err) {
+    return res.status(400).send({ message: err.details[0].message });
+  }
+
   const controller = new PersonController();
   const response = await controller.getPersonByUserId(req.params.id);
   if (!response) res.status(404).send({ message: "No person found" });
@@ -85,7 +110,7 @@ router.put("/:id", auth([1, 2]), async (req, res) => {
     }
   }
   userController.updateUser(user!.id, user!);
-  
+
   // azuriranje osobnih podataka
   const personController = new PersonController();
   const personPayload: IPersonPayload = {

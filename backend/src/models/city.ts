@@ -10,7 +10,7 @@ export class City {
   name!: string;
 
   @Column({name: "postanski_broj"})
-  postalCode!: number;
+  postalCode!: string;
 
   @OneToMany((_type) => Service, (service: Service) => service.city)
   services!: Service[];
