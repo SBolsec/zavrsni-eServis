@@ -401,8 +401,7 @@
 						"type": "string"
 					},
 					"postalCode": {
-						"type": "number",
-						"format": "double"
+						"type": "string"
 					},
 					"services": {
 						"items": {
@@ -801,8 +800,7 @@
 						"type": "string"
 					},
 					"postalCode": {
-						"type": "number",
-						"format": "double"
+						"type": "string"
 					}
 				},
 				"required": [

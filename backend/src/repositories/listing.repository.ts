@@ -1,4 +1,4 @@
-import { getRepository, Like, Raw } from "typeorm";
+import { getRepository } from "typeorm";
 import { IListingSearchPayload, IListingSearchResult } from "../interfaces";
 import { Listing, Picture } from "../models";
 
