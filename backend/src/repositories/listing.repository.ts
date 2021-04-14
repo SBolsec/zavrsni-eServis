@@ -76,6 +76,39 @@ export const getActiveListings = async (query: IListingPaginatedPayload): Promis
   }
 }
 
+export const getHistoryListings = async (query: IListingPaginatedPayload): Promise<IListingPaginatedResult> => {
+  const listingRepository = getRepository(Listing);
+  const take = query.per_page || 10;
+  const skip = query.page! * query.per_page! || 0;
+  
+  const [result, total] = await listingRepository.createQueryBuilder('listing')
+    .leftJoinAndSelect('listing.offers', 'offer')
+    .leftJoinAndSelect('offer.status', 'offerStatus')
+    .leftJoinAndSelect('offer.service', 'offerService')
+    .leftJoinAndSelect('offerService.user', 'offerServiceUser')
+    .leftJoinAndSelect('offerServiceUser.profilePicture', 'offerServicePicture')
+    .leftJoinAndSelect('listing.city', 'city')
+    .leftJoinAndSelect('listing.faultCategory', 'faultCategory')
+    .leftJoinAndSelect('faultCategory.parent', 'faultCategoryParent')
+    .leftJoinAndSelect('listing.status', 'listingStatus')
+    .leftJoinAndSelect('listing.pictures', 'pictures')
+    .where('listing.personId = :id AND listing.statusId = :status', {id: query.personId, status: 2})
+    .orderBy({ 'listing.updatedAt': "DESC" })
+    .take(take)
+    .skip(skip)
+    .getManyAndCount();
+
+  const totalPages = Math.floor(total / take);
+  const currentPage = totalPages - Math.floor((total - skip) / take);
+
+  return {
+    current_page: currentPage,
+    per_page: take,
+    total_pages: totalPages+1,
+    data: result
+  }
+}
+
 export const getPaginatedSearchListings = async (query: IListingSearchPayload): Promise<IListingPaginatedResult> => {
   const listingRepository = getRepository(Listing);
   const take = query.per_page || 10;
