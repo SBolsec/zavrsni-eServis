@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import axiosInstance from '../../../helpers/axiosInstance';
 import { useHistory } from 'react-router-dom';
 import OfferCard from '../../Shared/OfferCard';
-import ListingCard from '../../Shared/ListingCard';
 import Spinner from '../../Utils/Spinner';
 import { useServiceContext } from '../../../contexts/ServiceContext';
 import Container from 'react-bootstrap/esm/Container';
