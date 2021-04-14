@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Moment from 'react-moment';
 import { useAuth } from '../../contexts/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faEdit, faTimes, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import axiosInstance from '../../helpers/axiosInstance';
 import { useHistory } from 'react-router-dom';
 import UpdateOffer from '../ServiceDashboard/content/UpdateOffer';
@@ -14,7 +14,17 @@ const OfferCard = ({ offer, authorId }) => {
   const history = useHistory();
   const [updateMode, setUpdateMode] = useState(false);
   const [offer1, setOffer] = useState(offer);
-  console.log(history.location);
+
+  const toggleUpdateMode = () => {
+    setUpdateMode(!updateMode);
+  }
+
+  const updateOffer = (newOffer) => {
+    setOffer({
+      ...offer1,
+      ...newOffer
+    })
+  }
 
   const handleOfferDelete = (e) => {
     if (window.confirm("Jeste li sigurni da želite obrisati ponudu?")) {
@@ -29,15 +39,30 @@ const OfferCard = ({ offer, authorId }) => {
     }
   }
 
-  const toggleUpdateMode = () => {
-    setUpdateMode(!updateMode);
+  const handleAcceptOffer = () => {
+    if (window.confirm("Jeste li sigurni da želite prihvatiti ponudu?")) {
+      axiosInstance(history).post(`/offers/accept/${offer.id}`)
+        .then(res => {
+          history.push(`/`);
+        })
+        .catch(err => {
+          alert("Prihvaćanje neuspješno! Greška na poslužitelju.");
+          console.log(err);
+        })
+    }
   }
 
-  const updateOffer = (newOffer) => {
-    setOffer({
-      ...offer1,
-      ...newOffer
-    })
+  const handleDeclineOffer = () => {
+    if (window.confirm("Jeste li sigurni da želite odbiti ponudu?")) {
+      axiosInstance(history).post(`/offers/decline/${offer.id}`)
+        .then(res => {
+          history.go(0); // refresh page
+        })
+        .catch(err => {
+          alert("Odbijanje neuspješno! Greška na poslužitelju.");
+          console.log(err);
+        })
+    }
   }
 
   return (
@@ -72,9 +97,13 @@ const OfferCard = ({ offer, authorId }) => {
       {((auth.data.userId == authorId) || (!updateMode && auth.data.userId == offer.service.userId)) &&
         <Card.Footer>
           {auth.data.userId == authorId &&
-            <div className="d-flex flex-sm-column">
-              <Button variant="success" className="no-round m-2 text-uppercase">Prihvati</Button>
-              <Button variant="danger" className="no-round m-2 text-uppercase">Odbij</Button>
+            <div className="d-flex justify-content-center">
+            <Button onClick={handleDeclineOffer} variant="danger" className="no-round mx-4 text-uppercase">
+                <FontAwesomeIcon icon={faTimes} className=" bg-danger" />
+              </Button>
+              <Button onClick={handleAcceptOffer} variant="success" className="no-round mx-4 text-uppercase">
+                <FontAwesomeIcon icon={faCheck} className=" bg-success" />
+              </Button>
             </div>
           }
           {!updateMode && auth.data.userId == offer.service.userId &&
