@@ -1,5 +1,6 @@
+import { createUser } from './user.repository';
 import { getRepository } from "typeorm";
-import { IListingSearchPayload, IListingSearchResult } from "../interfaces";
+import { IListingSearchPayload, IListingPaginatedResult, IListingPaginatedPayload } from "../interfaces";
 import { Listing, Picture } from "../models";
 
 export interface IListingPayload {
@@ -51,16 +52,31 @@ export const getListing = async (id: number): Promise<Listing | null> => {
   return !listing ? null : listing;
 };
 
-export const getActiveListings = async (id: number): Promise<Listing[]> => {
+export const getActiveListings = async (query: IListingPaginatedPayload): Promise<IListingPaginatedResult> => {
   const listingRepository = getRepository(Listing);
-  return listingRepository.find({
-    where: { personId: id, statusId: 1 },
+  const take = query.per_page || 10;
+  const skip = query.page! * query.per_page! || 0;
+  
+  const [result, total] = await listingRepository.findAndCount({
+    where: { personId: query.personId, statusId: 1 },
     relations: ["offers", "offers.status", "city", "faultCategory", "faultCategory.parent", "status", "pictures"],
-    order: { updatedAt: "DESC" }
+    order: { updatedAt: "DESC" },
+    take: take,
+    skip: skip
   });
+
+  const totalPages = Math.floor(total / take);
+  const currentPage = totalPages - Math.floor((total - skip) / take);
+
+  return {
+    current_page: currentPage,
+    per_page: take,
+    total_pages: totalPages+1,
+    data: result
+  }
 }
 
-export const getPaginatedSearchListings = async (query: IListingSearchPayload): Promise<IListingSearchResult> => {
+export const getPaginatedSearchListings = async (query: IListingSearchPayload): Promise<IListingPaginatedResult> => {
   const listingRepository = getRepository(Listing);
   const take = query.per_page || 10;
   const skip = query.page! * query.per_page! || 0;
@@ -92,16 +108,13 @@ export const getPaginatedSearchListings = async (query: IListingSearchPayload): 
     .orderBy({ 'listing.updatedAt': "DESC" })
     .take(take)
     .skip(skip)
-    .getManyAndCount()
+    .getManyAndCount();
 
-  const nextPage = query.page ? (skip + take > total ? null : query.page + 1) : 1;
-  const prevPage = query.page ? (query.page - 1 < 0 ? null : query.page - 1) : null;
   const totalPages = Math.floor(total / take);
+  const currentPage = totalPages - Math.floor((total - skip) / take);
 
   return {
-    next_page: nextPage,
-    prev_page: prevPage,
-    current_page: totalPages - Math.floor((total - skip) / take),
+    current_page: currentPage,
     per_page: take,
     total_pages: totalPages+1,
     data: result

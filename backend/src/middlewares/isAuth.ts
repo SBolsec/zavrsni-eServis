@@ -24,7 +24,7 @@ const isAuth = (roles: number[]) => async (req: Request, res: Response, next: Ne
             return res.status(403).send("Nemate ovlasti");
         }
 
-        // res.payload = payload;
+        req.currentUser = user;
     } catch (err) {
         console.log(err);
         return res.status(403).send("not authenticated");

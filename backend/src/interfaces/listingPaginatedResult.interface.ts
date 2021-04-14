@@ -1,8 +1,6 @@
 import { Listing } from "../models";
 
-export interface IListingSearchResult {
-  prev_page: number | null,
-  next_page: number | null,
+export interface IListingPaginatedResult {
   current_page: number,
   total_pages: number,
   per_page: number,
