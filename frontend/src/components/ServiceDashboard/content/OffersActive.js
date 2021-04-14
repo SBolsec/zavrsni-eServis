@@ -14,7 +14,6 @@ import Col from 'react-bootstrap/esm/Col';
 import { Accordion, AccordionSummary, AccordionDetails } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import CardColumns from 'react-bootstrap/esm/CardColumns';
-import Moment from 'react-moment';
 import ListingInfo from '../../Shared/ListingInfo';
 
 const OffersActive = () => {
