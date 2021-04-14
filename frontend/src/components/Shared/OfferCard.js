@@ -66,7 +66,7 @@ const OfferCard = ({ offer, authorId }) => {
   }
 
   return (
-    <Card className="no-round mb-0">
+    <Card className={`no-round mb-0 ${offer.statusId == 2 ? 'bg-accepted' : ''} ${offer.statusId == 3 ? 'bg-declined' : ''}`}>
       <Card.Body className="">
         {!updateMode &&
           <>
@@ -79,7 +79,7 @@ const OfferCard = ({ offer, authorId }) => {
               <span className="text-gray" style={{ fontSize: '0.8em' }}>Objavljen: </span>
               <Moment format="DD.MM.YYYY">{offer.createdAt}</Moment>
             </p>
-            {(history.location.pathname != '/service/active' || offer.service.userId !== auth.data.userId) && <>
+            {((history.location.pathname != '/service/active' && history.location.pathname != '/service/history') || offer.service.userId !== auth.data.userId) && <>
               <hr />
               <div>
                 <img src={offer.service.profilePicture.url} alt="profilePicture" className="rounded-circle ml-2" style={{ width: '45px', height: '45px' }} />
