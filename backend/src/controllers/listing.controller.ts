@@ -2,7 +2,7 @@ import { Get, Route, Tags, Post, Body, Path, Query } from "tsoa";
 import cloudinary from "../config/cloudinary";
 import { IListingPaginatedResult } from "../interfaces";
 import { Listing, Picture } from "../models";
-import { createListing, getListing, getListings, getActiveListings, IListingPayload, getPaginatedSearchListings } from '../repositories/listing.repository';
+import { createListing, getListing, getListings, getActiveListings, IListingPayload, getPaginatedSearchListings, finishListing } from '../repositories/listing.repository';
 import { IPicturePayload } from "../repositories/picture.repository";
 import PictureController from "./picture.controller";
 
@@ -77,5 +77,10 @@ export default class ListingController {
       page,
       per_page
     });
+  }
+
+  @Post("/finish/:id")
+  public async finishListing(id: number): Promise<Listing | null> {
+    return finishListing(id);
   }
 }

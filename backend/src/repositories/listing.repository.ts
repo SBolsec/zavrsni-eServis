@@ -32,7 +32,7 @@ export const createListing = async (
 export const getListing = async (id: number): Promise<Listing | null> => {
   const listingRepository = getRepository(Listing);
   const listing = await listingRepository.createQueryBuilder('listing')
-    .leftJoinAndSelect('listing.offers', 'offers', 'offers.statusId <> 4')
+    .leftJoinAndSelect('listing.offers', 'offers', 'offers.statusId = 1')
     .leftJoinAndSelect('offers.status', 'offerStatus')
     .leftJoinAndSelect('offers.service', 'offerService')
     .leftJoinAndSelect('offerService.user', 'offerServiceUser')
@@ -119,4 +119,12 @@ export const getPaginatedSearchListings = async (query: IListingSearchPayload): 
     total_pages: totalPages+1,
     data: result
   }
+}
+
+export const finishListing = async (id: number): Promise<Listing | null> => {
+  const repository = getRepository(Listing);
+  const response = await repository.findOne({ id: id });
+  if (!response) return null;
+  response.statusId = 2;
+  return repository.save(response);
 }

@@ -38,7 +38,10 @@ export const deleteOffer = async (id: number): Promise<Offer | null> => {
 
 export const getOffer = async (id: number): Promise<Offer | null> => {
   const offerRepository = getRepository(Offer);
-  const offer = await offerRepository.findOne({ id: id });
+  const offer = await offerRepository.findOne({
+    where: { id: id },
+    relations: ["service", "listing", "listing.person"]
+  });
   return !offer ? null : offer;
 };
 
@@ -76,4 +79,20 @@ export const getActiveOffers = async (query: IServicePaginatedPayload): Promise<
     total_pages: totalPages+1,
     data: result
   }
+}
+
+export const acceptOffer = async (id: number): Promise<Offer | null> => {
+  const repository = getRepository(Offer);
+  const result = await repository.findOne({id: id});
+  if (!result) return null;
+  result.statusId = 2;
+  return repository.save(result);
+}
+
+export const declineOffer = async (id: number): Promise<Offer | null> => {
+  const repository = getRepository(Offer);
+  const result = await repository.findOne({id: id});
+  if (!result) return null;
+  result.statusId = 3;
+  return repository.save(result);
 }

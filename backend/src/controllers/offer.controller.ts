@@ -2,7 +2,7 @@ import { IOfferPaginatedResult } from './../interfaces/offerPaginatedResult.inte
 import { Get, Route, Tags, Post, Body, Path, Put, Delete, Query } from "tsoa";
 import { IOfferPayload } from "../interfaces";
 import { Offer } from "../models";
-import { createOffer, deleteOffer, getActiveOffers, getOffer, getOffers, updateOffer } from '../repositories/offer.repository';
+import { createOffer, deleteOffer, getActiveOffers, getOffer, getOffers, updateOffer, acceptOffer, declineOffer } from '../repositories/offer.repository';
 
 @Route("offers")
 @Tags("Offer")
@@ -36,5 +36,15 @@ export default class OfferController {
   @Get("/active/:id")
   public async getActiveOffers(@Path() id: string, @Query() page?: number, @Query() per_page?: number): Promise<IOfferPaginatedResult> {
     return getActiveOffers({serviceId: Number(id), page, per_page});
+  }
+
+  @Post("/accept/:id")
+  public async acceptOffer(@Path() id: number): Promise<Offer | null> {
+    return acceptOffer(id);
+  }
+
+  @Post("/decline/:id")
+  public async declineOffer(@Path() id: number): Promise<Offer | null> {
+    return declineOffer(id);
   }
 }
