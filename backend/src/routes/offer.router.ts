@@ -84,11 +84,39 @@ router.get("/active/:id", async (req, res) => {
   }
 
   const controller = new OfferController();
-  const {page, per_page} = req.query;
-  const listings: any = await controller.getActiveOffers(req.params.id, 
+  const { page, per_page } = req.query;
+  const response: any = await controller.getActiveOffers(req.params.id,
     page ? Number(req.query.page) : 0, per_page ? Number(req.query.per_page) : 10);
-  if (!listings) res.status(404).send({ message: "No listings found" });
-  return res.send(listings);
+  if (!response) res.status(404).send({ message: "No listings found" });
+
+  // remove sensitive servicer information and add picture if there is none
+  response.data.forEach((offer: any) => {
+    offer.service.profilePicture = offer.service.user.profilePicture;
+    if (!offer.service.profilePicture) {
+      offer.service.profilePicture = {
+        id: 0,
+        name: 'no-picture',
+        url: "https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/512x512/plain/user.png"
+      }
+    }
+    delete offer.service.user;
+  });
+  // remove sensitive servicer information and add picture if there is none
+  response.data.forEach((offer: any) => {
+    offer.listing.offers.forEach((o: any) => {
+      o.service.profilePicture = o.service.user.profilePicture;
+      if (!o.service.profilePicture) {
+        o.service.profilePicture = {
+          id: 0,
+          name: 'no-picture',
+          url: "https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/512x512/plain/user.png"
+        }
+      }
+      delete o.service.user;
+    });
+  });
+
+  return res.send(response);
 });
 
 export default router;
