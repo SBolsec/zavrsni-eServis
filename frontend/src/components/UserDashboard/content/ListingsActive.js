@@ -7,26 +7,37 @@ import { useUserContext } from '../../../contexts/UserContext';
 import Container from 'react-bootstrap/esm/Container';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
+import Pagination from '@material-ui/lab/Pagination';
 
 const ListingsActive = () => {
   const history = useHistory();
   const { context } = useUserContext();
-  const [listings, setListings] = useState([]);
+  const [data, setData] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    axiosInstance(history).get(`/listings/active/${context.data.id}`)
+    fetchListings(0);
+  }, [])
+
+  const handlePageChange = (page) => {
+    fetchListings(page - 1);
+  }
+
+  const fetchListings = (page) => {
+    axiosInstance(history).get(`/listings/active/${context.data.id}?per_page=10&page=${page}`)
       .then(res => {
         setLoading(false);
         setError(false);
-        setListings(res.data);
+        setData(res.data);
+        document.getElementById("top").scrollIntoView({ behavior: "smooth" });
       })
       .catch(err => {
         setLoading(false);
-        setError(true);
+        setError('Neuspješno dohvaćanje oglasa');
+        console.log(err);
       });
-  }, [])
+  }
 
   if (loading) {
     return (
@@ -41,8 +52,8 @@ const ListingsActive = () => {
   }
 
   return (
-    <Container fluid>
-      {listings.length === 0 && 
+    <Container fluid id="top">
+      {data && data.data.length === 0 && 
         <div className="text-center py-5 my-5">
           <p>Nemate aktivnih oglasa!</p>
           <Button variant="blueAccent" className="no-border-radius">
@@ -50,8 +61,18 @@ const ListingsActive = () => {
           </Button>
         </div>
       }
-      {listings.map((l, index) => (
-        <ListingCard key={index} listing={l} type="user" />
+      {data && data.data.map((l, index) => (
+        <div key={index}>
+        <ListingCard  listing={l} type="user" />
+        <div className="text-center">
+            <Pagination
+              className="d-inline-block mb-4"
+              count={data.total_pages}
+              onChange={(_, page) => handlePageChange(page)}
+              showFirstButton showLastButton
+            />
+          </div>
+        </div>
       ))}
     </Container>
   );

@@ -238,7 +238,7 @@ const ListingSearch = () => {
         {data &&
           <div className="text-center">
             <Pagination
-              className="d-inline-block"
+              className="d-inline-block mb-4"
               count={data.total_pages}
               onChange={(_, page) => handlePageChange(page)}
               showFirstButton showLastButton
