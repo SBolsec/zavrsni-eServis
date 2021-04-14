@@ -1,4 +1,4 @@
-import { Button, FormControl,  InputLabel,  MenuItem, Select, TextField } from '@material-ui/core';
+import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Pagination from '@material-ui/lab/Pagination';
 import { useFormik } from 'formik';
@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react'
 import Alert from 'react-bootstrap/esm/Alert';
 import Col from 'react-bootstrap/esm/Col';
 import Container from 'react-bootstrap/esm/Container';
+import CardColumns from 'react-bootstrap/esm/CardColumns';
 import Row from 'react-bootstrap/esm/Row';
 import { useHistory } from 'react-router';
 import * as yup from 'yup';
@@ -232,13 +233,15 @@ const ListingSearch = () => {
       </Container>
 
       <Container className="p-0 my-2 text-black">
-        {data && data.data.map((listing, index) => (
-          <ListingCard key={index} listing={listing} />
-        ))}
+        <CardColumns>
+          {data && data.data.map((listing, index) => (
+            <ListingCard key={index} listing={listing} />
+          ))}
+        </CardColumns>
         {data &&
           <div className="text-center">
             <Pagination
-              className="d-inline-block mb-4"
+              className="d-inline-block my-4"
               count={data.total_pages}
               onChange={(_, page) => handlePageChange(page)}
               showFirstButton showLastButton

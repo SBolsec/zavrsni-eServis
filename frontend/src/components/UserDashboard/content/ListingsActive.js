@@ -5,6 +5,7 @@ import ListingCard from '../../Shared/ListingCard';
 import Spinner from '../../Utils/Spinner';
 import { useUserContext } from '../../../contexts/UserContext';
 import Container from 'react-bootstrap/esm/Container';
+import CardColumns from 'react-bootstrap/esm/CardColumns';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 import Pagination from '@material-ui/lab/Pagination';
@@ -53,7 +54,7 @@ const ListingsActive = () => {
 
   return (
     <Container fluid id="top">
-      {data && data.data.length === 0 && 
+      {data && data.data.length === 0 &&
         <div className="text-center py-5 my-5">
           <p>Nemate aktivnih oglasa!</p>
           <Button variant="blueAccent" className="no-border-radius">
@@ -61,19 +62,24 @@ const ListingsActive = () => {
           </Button>
         </div>
       }
-      {data && data.data.map((l, index) => (
-        <div key={index}>
-        <ListingCard  listing={l} type="user" />
-        <div className="text-center">
-            <Pagination
-              className="d-inline-block mb-4"
-              count={data.total_pages}
-              onChange={(_, page) => handlePageChange(page)}
-              showFirstButton showLastButton
-            />
+
+      <CardColumns className="my-4">
+        {data && data.data.map((l, index) => (
+          <div key={index}>
+            <ListingCard listing={l} type="user" />
           </div>
-        </div>
-      ))}
+        ))}
+      </CardColumns>
+
+      {data && data.data.length !== 0 &&
+        <div className="text-center">
+          <Pagination
+            className="d-inline-block mb-4"
+            count={data.total_pages}
+            onChange={(_, page) => handlePageChange(page)}
+            showFirstButton showLastButton
+          />
+        </div>}
     </Container>
   );
 }

@@ -5,6 +5,7 @@ import Spinner from '../Utils/Spinner';
 import Carousel from 'react-gallery-carousel';
 import 'react-gallery-carousel/dist/index.css';
 import Container from 'react-bootstrap/esm/Container';
+import CardColumns from 'react-bootstrap/esm/CardColumns';
 import Moment from 'react-moment';
 import Button from 'react-bootstrap/esm/Button';
 import { useAuth } from '../../contexts/AuthContext';
@@ -105,7 +106,7 @@ const ListingDetails = () => {
           </div>
         </Container>}
 
-      <Container className="bg-white text-black my-4 pt-4 pb-3">
+      <Container className="bg-white text-black my-4 py-4">
         <div className="d-flex flex-column flex-sm-row justify-content-between align-items-center">
           <h5>Ponude</h5>
           {auth.data.role === 3 && listing.offers.filter(offer => offer.service.userId == auth.data.userId).length === 0 &&
@@ -117,9 +118,12 @@ const ListingDetails = () => {
 
         {listing.offers.length === 0 && <span className="ml-2 text-gray">Oglas još nema ponuda.</span>}
 
-        {listing.offers.map((offer, index) => (
-          <OfferCard key={index} offer={offer} authorId={listing.person.userId} />
-        ))}
+        <CardColumns>
+          {listing.offers.map((offer, index) => (
+            <OfferCard key={index} offer={offer} authorId={listing.person.userId} />
+          ))}
+        </CardColumns>
+
       </Container>
     </Container>
   );
