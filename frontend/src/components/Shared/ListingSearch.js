@@ -127,15 +127,17 @@ const ListingSearch = () => {
                 variant="outlined"
               />
             </Col>
-            <h5 className="font-weight-bold ml-3 mt-2 mb-1">Napredno pretraživanje</h5>
-            <Col xs={12} className="d-flex flex-column flex-sm-row justify-content-between align-items-center">
+            <Col xs={12}>
+              <h5 className="font-weight-bold mt-2 mb-1">Napredno pretraživanje</h5>
+            </Col>
+            <Col xs={12} md={5}>
               <Autocomplete
                 id="faultCategoryId"
                 name="faultCategoryId"
                 options={categories}
                 groupBy={(option) => option.parent.name}
                 getOptionLabel={(option) => option.name}
-                className="my-2 mr-sm-2 flex-fill flex-grow-1"
+                className="my-2 flex-fill flex-grow-1"
                 fullWidth
                 onChange={(_, value) =>
                   formik.setFieldValue("faultCategoryId", value ? value.id : "")
@@ -151,12 +153,14 @@ const ListingSearch = () => {
                   />
                 )}
               />
+            </Col>
+            <Col xs={12} md={4}>
               <Autocomplete
                 id="cityId"
                 name="cityId"
                 options={cities}
                 getOptionLabel={(option) => option.city}
-                className="my-2 mx-sm-2 flex-fill flex-grow-1"
+                className="my-2 flex-fill flex-grow-1"
                 fullWidth
                 onChange={(_, value) =>
                   formik.setFieldValue("cityId", value ? value.id : "")
@@ -172,7 +176,9 @@ const ListingSearch = () => {
                   />
                 )}
               />
-              <FormControl variant="outlined" className="my-2 ml-sm-2 flex-fill flex-grow-1" fullWidth>
+            </Col>
+            <Col xs={12} md={3}>
+              <FormControl variant="outlined" className="my-2 flex-fill flex-grow-1" fullWidth>
                 <InputLabel id="per_page_label">Broj oglasa po stranici</InputLabel>
                 <Select
                   labelId="per_page_label"
@@ -197,7 +203,7 @@ const ListingSearch = () => {
                 </Select>
               </FormControl>
             </Col>
-            <Col>
+            <Col xs={12}>
               {!loading &&
                 <div id="listings" className="d-flex justify-content-center align-items-center">
                   <Button

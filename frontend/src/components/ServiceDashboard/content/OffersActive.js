@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import axiosInstance from '../../../helpers/axiosInstance';
 import { useHistory } from 'react-router-dom';
 import OfferCard from '../../Shared/OfferCard';
-import ListingCard from '../../Shared/ListingCard';
 import Spinner from '../../Utils/Spinner';
 import { useServiceContext } from '../../../contexts/ServiceContext';
 import Container from 'react-bootstrap/esm/Container';
@@ -14,7 +13,6 @@ import Col from 'react-bootstrap/esm/Col';
 import { Accordion, AccordionSummary, AccordionDetails } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import CardColumns from 'react-bootstrap/esm/CardColumns';
-import Moment from 'react-moment';
 import ListingInfo from '../../Shared/ListingInfo';
 
 const OffersActive = () => {
