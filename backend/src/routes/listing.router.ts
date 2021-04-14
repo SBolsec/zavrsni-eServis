@@ -104,6 +104,23 @@ router.get("/active/:id", async (req, res) => {
   return res.send(listings);
 });
 
+router.get("/history/:id", async (req, res) => {
+  try {
+    await Joi.object({
+      id: Joi.number().required()
+    }).validateAsync(req.params);
+  } catch (err) {
+    return res.status(400).send({ message: err.details[0].message });
+  }
+
+  const listingController = new ListingController();
+  const {page, per_page} = req.query;
+  const listings: any = await listingController.getHistoryListings(req.params.id, 
+    page ? Number(req.query.page) : 0, per_page ? Number(req.query.per_page) : 10);
+  if (!listings) res.status(404).send({ message: "No listings found" });
+  return res.send(listings);
+});
+
 router.get("/search", async (req, res) => {
   try {
     await Joi.object({
