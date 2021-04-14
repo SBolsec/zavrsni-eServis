@@ -97,7 +97,9 @@ router.get("/active/:id", async (req, res) => {
   }
 
   const listingController = new ListingController();
-  const listings: any = await listingController.getActiveListings(req.params.id);
+  const {page, per_page} = req.query;
+  const listings: any = await listingController.getActiveListings(req.params.id, 
+    page ? Number(req.query.page) : 0, per_page ? Number(req.query.per_page) : 10);
   if (!listings) res.status(404).send({ message: "No listings found" });
   return res.send(listings);
 });

@@ -1,6 +1,6 @@
 import { Get, Route, Tags, Post, Body, Path, Query } from "tsoa";
 import cloudinary from "../config/cloudinary";
-import { IListingSearchResult } from "../interfaces";
+import { IListingPaginatedResult } from "../interfaces";
 import { Listing, Picture } from "../models";
 import { createListing, getListing, getListings, getActiveListings, IListingPayload, getPaginatedSearchListings } from '../repositories/listing.repository';
 import { IPicturePayload } from "../repositories/picture.repository";
@@ -28,8 +28,8 @@ export default class ListingController {
   }
 
   @Get("/active/:id")
-  public async getActiveListings(@Path() id: string): Promise<Listing[]> {
-    return getActiveListings(Number(id));
+  public async getActiveListings(@Path() id: string, @Query() page?: number, @Query() per_page?: number): Promise<IListingPaginatedResult> {
+    return getActiveListings({personId: Number(id), page, per_page});
   }
 
   @Get("/id/:id")
@@ -63,11 +63,12 @@ export default class ListingController {
   }
 
   @Get("/search")
-  public async getSearchResults(@Query() listing?: string, 
+  public async getSearchResults(
+    @Query() listing?: string, 
     @Query() faultCategoryId?: number,
     @Query() cityId?: number,
     @Query() page?: number,
-    @Query() per_page?: number): Promise<IListingSearchResult> {
+    @Query() per_page?: number): Promise<IListingPaginatedResult> {
 
     return getPaginatedSearchListings({
       listing,

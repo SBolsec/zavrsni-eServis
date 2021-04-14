@@ -54,7 +54,6 @@ router.get("/user/:id", auth([1, 2, 3]), async (req, res) => {
   } catch (err) {
     return res.status(400).send({ message: err.details[0].message });
   }
-  console.log(req.currentUser);
 
   const controller = new PersonController();
   const response = await controller.getPersonByUserId(req.params.id);

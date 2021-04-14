@@ -74,4 +74,21 @@ router.get("/:id", async (req, res) => {
   return res.send(response);
 });
 
+router.get("/active/:id", async (req, res) => {
+  try {
+    await Joi.object({
+      id: Joi.number().required()
+    }).validateAsync(req.params);
+  } catch (err) {
+    return res.status(400).send({ message: err.details[0].message });
+  }
+
+  const controller = new OfferController();
+  const {page, per_page} = req.query;
+  const listings: any = await controller.getActiveOffers(req.params.id, 
+    page ? Number(req.query.page) : 0, per_page ? Number(req.query.per_page) : 10);
+  if (!listings) res.status(404).send({ message: "No listings found" });
+  return res.send(listings);
+});
+
 export default router;
