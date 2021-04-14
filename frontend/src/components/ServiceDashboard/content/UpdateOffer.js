@@ -1,6 +1,9 @@
-import { Button, TextField } from '@material-ui/core';
+import { faSave, faUndo } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { TextField } from '@material-ui/core';
+import Button from 'react-bootstrap/esm/Button';
 import { useFormik } from 'formik';
-import React, {  useState } from 'react'
+import React, { useState } from 'react'
 import Alert from 'react-bootstrap/esm/Alert';
 import Col from 'react-bootstrap/esm/Col';
 import Container from 'react-bootstrap/esm/Container';
@@ -25,7 +28,7 @@ const validationSchema = yup.object({
     .required("Obavezno je staviti cijenu")
 });
 
-const UpdateOffer = ({offer, toggleUpdateMode, updateOffer}) => {
+const UpdateOffer = ({ offer, toggleUpdateMode, updateOffer }) => {
   const history = useHistory();
   const { id } = useParams();
   const { context } = useServiceContext();
@@ -63,13 +66,13 @@ const UpdateOffer = ({offer, toggleUpdateMode, updateOffer}) => {
   });
 
   return (
-    <Container className="my-3">
-      <div className="bg-white text-dark p-4">
+    <Container>
+      <div className="bg-white text-dark">
         <h5 className="text-uppercase font-weight-bold">Ažuriraj ponudu</h5>
 
         <form onSubmit={formik.handleSubmit}>
           <Row>
-            <Col xs={12}>
+            <Col xs={12} className="m-0 p-0">
               <TextField
                 className="my-2 mr-sm-2"
                 fullWidth
@@ -87,7 +90,7 @@ const UpdateOffer = ({offer, toggleUpdateMode, updateOffer}) => {
                 variant="outlined"
               />
             </Col>
-            <Col xs={12}>
+            <Col xs={12} className="m-0 p-0">
               <TextField
                 className="my-2 mr-sm-2 h-100"
                 fullWidth
@@ -107,7 +110,7 @@ const UpdateOffer = ({offer, toggleUpdateMode, updateOffer}) => {
                 variant="outlined"
               />
             </Col>
-            <Col xs={12}>
+            <Col xs={12} className="m-0 p-0">
               <TextField
                 className="my-2 mr-sm-2 h-100"
                 fullWidth
@@ -128,23 +131,21 @@ const UpdateOffer = ({offer, toggleUpdateMode, updateOffer}) => {
             </Col>
 
             <Col xs={12}>
-              <div className="px-4 my-2 d-flex flex-column flex-sm-row justify-content-center align-items-center">
+              <div className="px-4 my-2 d-flex justify-content-center align-items-center">
                 {!loading &&
                   <>
                     <Button
-                      variant="contained"
+                      variant="danger" className="no-round mx-4 text-uppercase"
                       type="submit"
-                      className="m-2 px-4 bg-danger text-white no-round font-weight-bold"
                       onClick={toggleUpdateMode}
                     >
-                      Odustani
+                      <FontAwesomeIcon icon={faUndo} className=" bg-danger" />
                    </Button>
                     <Button
-                      variant="contained"
+                      variant="blueAccent" className="no-round mx-4 text-uppercase"
                       type="submit"
-                      className="m-2 px-4 bg-blueAccent text-white no-round font-weight-bold"
                     >
-                      Ažuriraj ponudu
+                      <FontAwesomeIcon icon={faSave} className=" bg-blueAccent" />
                     </Button>
                   </>}
                 {loading && <Spinner />}
