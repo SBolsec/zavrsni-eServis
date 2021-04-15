@@ -8,8 +8,9 @@ import axiosInstance from '../../helpers/axiosInstance';
 import { useHistory } from 'react-router-dom';
 import UpdateOffer from '../ServiceDashboard/content/UpdateOffer';
 import Card from 'react-bootstrap/esm/Card';
+import Chip from '@material-ui/core/Chip';
 
-const OfferCard = ({ offer, authorId }) => {
+const OfferCard = ({ offer, authorId, margin }) => {
   const { auth } = useAuth();
   const history = useHistory();
   const [updateMode, setUpdateMode] = useState(false);
@@ -66,17 +67,18 @@ const OfferCard = ({ offer, authorId }) => {
   }
 
   return (
-    <Card className={`no-round mb-0 ${offer.statusId == 2 ? 'bg-accepted' : ''} ${offer.statusId == 3 ? 'bg-declined' : ''}`}>
+    <Card className={`no-round mb-0 ${margin ? margin : ''}`} >
       <Card.Body className="">
         {!updateMode &&
           <>
-            <h5>{offer1.title}</h5>
+            <h5 className="font-weight-bold">{offer1.title}</h5>
             <p>{offer1.description}</p>
-            <p>
-              <span>Cijena: </span>{offer1.price} <span> KN</span>
+            <p className="my-1">
+              <span className="text-gray text-uppercase">Cijena: </span>
+              <span className="text-blueAccent font-weight-bold">{Math.round(Number(offer1.price * 100) / 100).toFixed(2).replace(".", ",")} kn</span>
             </p>
-            <p>
-              <span className="text-gray" style={{ fontSize: '0.8em' }}>Objavljen: </span>
+            <p className="my-1">
+              <span className="text-gray text-uppercase">Datum objave: </span>
               <Moment format="DD.MM.YYYY">{offer.createdAt}</Moment>
             </p>
             {((history.location.pathname != '/service/active' && history.location.pathname != '/service/history') || offer.service.userId !== auth.data.userId) && <>
@@ -92,32 +94,45 @@ const OfferCard = ({ offer, authorId }) => {
 
         {updateMode && <UpdateOffer offer={offer1} toggleUpdateMode={toggleUpdateMode} updateOffer={updateOffer} />}
 
-      </Card.Body>
+        {(offer.statusId === 2 || offer.statusId === 3 || offer.statusId === 4) &&
+          <>
+            <hr />
+            {offer.statusId === 2 && <Chip label="Prihvaćena" className="bg-accepted text-white font-weight-bold" />}
+            {offer.statusId === 3 && <Chip label="Odbijena" className="bg-declined text-white font-weight-bold" />}
+            {offer.statusId === 4 && <Chip label="Uklonjena" className="bg-declined text-white font-weight-bold" />}
+          </>
+        }
 
-      {((auth.data.userId == authorId) || (!updateMode && auth.data.userId == offer.service.userId)) &&
-        <Card.Footer>
-          {auth.data.userId == authorId &&
-            <div className="d-flex justify-content-center">
-            <Button onClick={handleDeclineOffer} variant="danger" className="no-round mx-4 text-uppercase">
-                <FontAwesomeIcon icon={faTimes} className=" bg-danger" />
-              </Button>
-              <Button onClick={handleAcceptOffer} variant="success" className="no-round mx-4 text-uppercase">
-                <FontAwesomeIcon icon={faCheck} className=" bg-success" />
-              </Button>
-            </div>
-          }
-          {!updateMode && auth.data.userId == offer.service.userId &&
-            <div className="d-flex justify-content-center">
-              <Button onClick={handleOfferDelete} variant="danger" className="no-round mx-4 text-uppercase">
-                <FontAwesomeIcon icon={faTrashAlt} className=" bg-danger" />
-              </Button>
-              <Button onClick={toggleUpdateMode} variant="warning" className="no-round mx-4 text-uppercase">
-                <FontAwesomeIcon icon={faEdit} className=" bg-warning" />
-              </Button>
-            </div>
-          }
-        </Card.Footer>
-      }
+        {((offer.statusId !== 2 && offer.statusId !== 3 && offer.statusId !== 4) && ((auth.data.userId == authorId) || (!updateMode && auth.data.userId == offer.service.userId))) &&
+          <>
+            <hr />
+            {auth.data.userId == authorId &&
+              <>
+                <div className="d-flex justify-content-start">
+                  <Button onClick={handleDeclineOffer} variant="white" className="no-round mr-1 text-uppercase">
+                    <FontAwesomeIcon icon={faTimes} className="bg-thie text-blueAccent" />
+                  </Button>
+                  <Button onClick={handleAcceptOffer} variant="white" className="no-round ml-1 text-uppercase">
+                    <FontAwesomeIcon icon={faCheck} className="bg-thie text-blueAccent" />
+                  </Button>
+                </div>
+              </>
+            }
+            {!updateMode && auth.data.userId == offer.service.userId &&
+              <div className="d-flex justify-content-start">
+                <Button onClick={handleOfferDelete} variant="white" className="no-round mr-1 text-uppercase">
+                  <FontAwesomeIcon icon={faTrashAlt} className="bg-white text-blueAccent" />
+                </Button>
+                <Button onClick={toggleUpdateMode} variant="white" className="no-round ml-1 text-uppercase">
+                  <FontAwesomeIcon icon={faEdit} className="bg-thie text-blueAccent" />
+                </Button>
+              </div>
+            }
+
+
+          </>
+        }
+      </Card.Body>
     </Card>
   );
 }

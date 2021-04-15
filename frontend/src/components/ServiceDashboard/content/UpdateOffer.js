@@ -135,17 +135,17 @@ const UpdateOffer = ({ offer, toggleUpdateMode, updateOffer }) => {
                 {!loading &&
                   <>
                     <Button
-                      variant="danger" className="no-round mx-4 text-uppercase"
+                      variant="white" className="no-round mx-4 text-uppercase"
                       type="submit"
                       onClick={toggleUpdateMode}
                     >
-                      <FontAwesomeIcon icon={faUndo} className=" bg-danger" />
+                      <FontAwesomeIcon icon={faUndo} className="bg-white text-blueAccent fa-2x" />
                    </Button>
                     <Button
-                      variant="blueAccent" className="no-round mx-4 text-uppercase"
+                      variant="white" className="no-round mx-4 text-uppercase"
                       type="submit"
                     >
-                      <FontAwesomeIcon icon={faSave} className=" bg-blueAccent" />
+                      <FontAwesomeIcon icon={faSave} className="bg-white text-blueAccent fa-2x" />
                     </Button>
                   </>}
                 {loading && <Spinner />}
