@@ -32,7 +32,7 @@ export const createListing = async (
 export const getListing = async (id: number): Promise<Listing | null> => {
   const listingRepository = getRepository(Listing);
   const listing = await listingRepository.createQueryBuilder('listing')
-    .leftJoinAndSelect('listing.offers', 'offers', 'offers.statusId = 1')
+    .leftJoinAndSelect('listing.offers', 'offers', 'offers.statusId <> 4')
     .leftJoinAndSelect('offers.status', 'offerStatus')
     .leftJoinAndSelect('offers.service', 'offerService')
     .leftJoinAndSelect('offerService.user', 'offerServiceUser')
