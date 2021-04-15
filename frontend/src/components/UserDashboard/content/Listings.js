@@ -56,7 +56,7 @@ const ListingHistory = ({link, message}) => {
     <Container fluid id="top">
       {data && data.data.length === 0 &&
         <div className="text-center py-5 my-5">
-          <p>Nemate završenih oglasa!</p>
+          <p>{message}</p>
           <Button variant="blueAccent" className="no-border-radius">
             <Link to="/user/create" className="text-white text-uppercase" style={{ textDecoration: 'none' }}>Kreiraj oglas</Link>
           </Button>
