@@ -25,10 +25,9 @@ router.get('/', async (req, res) => {
   res.redirect(process.env.FRONTEND_URL!);
 });
 
-router.get('/test', auth([2,3]), async (req, res) => {
-  const userController = new UserController();
-  const users = await userController.getUsers();
-  res.send(users);
+router.get('/test', async (req, res) => {
+  console.log(process.env);
+  res.send();
 });
 
 router.use("/login", LoginRouter);
