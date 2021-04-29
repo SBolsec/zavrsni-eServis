@@ -4,8 +4,8 @@ import CityController from "../controllers/city.controller";
 import ServiceController from "../controllers/service.controller";
 import UserController from "../controllers/user.controller";
 import { IServicePayload } from "../repositories/service.repository";
-import auth from '../middlewares/isAuth';
 import Joi from 'joi';
+import auth from '../middlewares/isAuth';
 import { userToUserInfo } from "../mappers/userInfo.mapper";
 
 const router = express.Router();
@@ -23,6 +23,14 @@ router.post("/", auth([1, 2, 3]), async (req, res) => {
 });
 
 router.get("/:id", auth([1, 2, 3]), async (req, res) => {
+  try {
+    await Joi.object({
+      id: Joi.number().required()
+    }).validateAsync(req.params);
+  } catch (err) {
+    return res.status(400).send({ message: err.details[0].message});
+  }
+
   const controller = new ServiceController();
   const response = await controller.getService(req.params.id);
   if (!response) res.status(404).send({ message: "No service found" });
@@ -30,6 +38,14 @@ router.get("/:id", auth([1, 2, 3]), async (req, res) => {
 });
 
 router.get("/user/:id", auth([1, 3]), async (req, res) => {
+  try {
+    await Joi.object({
+      id: Joi.number().required()
+    }).validateAsync(req.params);
+  } catch (err) {
+    return res.status(400).send({ message: err.details[0].message});
+  }
+  
   const controller = new ServiceController();
   const response = await controller.getServiceByUserId(req.params.id);
   if (!response) res.status(404).send({ message: "No service found" });

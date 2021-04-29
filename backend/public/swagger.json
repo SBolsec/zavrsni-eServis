@@ -401,8 +401,7 @@
 						"type": "string"
 					},
 					"postalCode": {
-						"type": "number",
-						"format": "double"
+						"type": "string"
 					},
 					"services": {
 						"items": {
@@ -801,8 +800,7 @@
 						"type": "string"
 					},
 					"postalCode": {
-						"type": "number",
-						"format": "double"
+						"type": "string"
 					}
 				},
 				"required": [
@@ -850,6 +848,36 @@
 					"faultCategoryId",
 					"cityId",
 					"statusId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IListingPaginatedResult": {
+				"properties": {
+					"current_page": {
+						"type": "number",
+						"format": "double"
+					},
+					"total_pages": {
+						"type": "number",
+						"format": "double"
+					},
+					"per_page": {
+						"type": "number",
+						"format": "double"
+					},
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/Listing"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"current_page",
+					"total_pages",
+					"per_page",
+					"data"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -929,10 +957,6 @@
 						"type": "number",
 						"format": "double"
 					},
-					"statusId": {
-						"type": "number",
-						"format": "double"
-					},
 					"listingId": {
 						"type": "number",
 						"format": "double"
@@ -943,8 +967,37 @@
 					"description",
 					"price",
 					"serviceId",
-					"statusId",
 					"listingId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IOfferPaginatedResult": {
+				"properties": {
+					"current_page": {
+						"type": "number",
+						"format": "double"
+					},
+					"total_pages": {
+						"type": "number",
+						"format": "double"
+					},
+					"per_page": {
+						"type": "number",
+						"format": "double"
+					},
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/Offer"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"current_page",
+					"total_pages",
+					"per_page",
+					"data"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -1788,7 +1841,7 @@
 				}
 			}
 		},
-		"/cities/{id}": {
+		"/cities/id/{id}": {
 			"get": {
 				"operationId": "GetCity",
 				"responses": {
@@ -1926,10 +1979,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"items": {
-										"$ref": "#/components/schemas/Listing"
-									},
-									"type": "array"
+									"$ref": "#/components/schemas/IListingPaginatedResult"
 								}
 							}
 						}
@@ -1946,6 +1996,73 @@
 						"required": true,
 						"schema": {
 							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "per_page",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/listings/history/{id}": {
+			"get": {
+				"operationId": "GetHistoryListings",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IListingPaginatedResult"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Listing"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "per_page",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
 						}
 					}
 				]
@@ -2029,6 +2146,110 @@
 				}
 			}
 		},
+		"/listings/search": {
+			"get": {
+				"operationId": "GetSearchResults",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IListingPaginatedResult"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Listing"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "listing",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "faultCategoryId",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "cityId",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "per_page",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/listings/finish/{id}": {
+			"post": {
+				"operationId": "FinishListing",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/Listing"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Listing"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
 		"/faultCategories": {
 			"get": {
 				"operationId": "GetFaultCategories",
@@ -2084,7 +2305,7 @@
 				}
 			}
 		},
-		"/faultCategories/{id}": {
+		"/faultCategories/id/{id}": {
 			"get": {
 				"operationId": "GetFaultCategory",
 				"responses": {
@@ -2130,29 +2351,32 @@
 							"application/json": {
 								"schema": {
 									"items": {
-										"properties": {
-											"parentName": {
-												"type": "string"
-											},
-											"parentId": {
-												"type": "number",
-												"format": "double"
-											},
-											"name": {
-												"type": "string"
-											},
-											"id": {
-												"type": "number",
-												"format": "double"
-											}
-										},
-										"required": [
-											"parentName",
-											"parentId",
-											"name",
-											"id"
-										],
-										"type": "object"
+										"$ref": "#/components/schemas/FaultCategory"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Fault Category"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/faultCategories/search": {
+			"get": {
+				"operationId": "GetFaultCategoriesSearch",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/FaultCategory"
 									},
 									"type": "array"
 								}
@@ -2405,6 +2629,88 @@
 			}
 		},
 		"/offers/{id}": {
+			"put": {
+				"operationId": "UpdateOffer",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/Offer"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Offer"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IOfferPayload"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "DeleteOffer",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/Offer"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Offer"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/offers/id/{id}": {
 			"get": {
 				"operationId": "GetOffer",
 				"responses": {
@@ -2435,6 +2741,178 @@
 						"required": true,
 						"schema": {
 							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/offers/active/{id}": {
+			"get": {
+				"operationId": "GetActiveOffers",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IOfferPaginatedResult"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Offer"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "per_page",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/offers/history/{id}": {
+			"get": {
+				"operationId": "GetHistoryOffers",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IOfferPaginatedResult"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Offer"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "per_page",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/offers/accept/{id}": {
+			"post": {
+				"operationId": "AcceptOffer",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/Offer"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Offer"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/offers/decline/{id}": {
+			"post": {
+				"operationId": "DeclineOffer",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/Offer"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Offer"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
 						}
 					}
 				]

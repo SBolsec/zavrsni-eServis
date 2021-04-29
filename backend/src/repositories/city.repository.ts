@@ -3,7 +3,7 @@ import { City } from "../models";
 
 export interface ICityPayload {
   name: string;
-  postalCode: number;
+  postalCode: string;
 }
 
 export const getCities = async (): Promise<City[]> => {
