@@ -2179,8 +2179,7 @@
 						"name": "faultCategoryId",
 						"required": false,
 						"schema": {
-							"format": "double",
-							"type": "number"
+							"type": "string"
 						}
 					},
 					{
