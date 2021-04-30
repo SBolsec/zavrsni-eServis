@@ -124,7 +124,7 @@ export const getPaginatedSearchListings = async (query: IListingSearchPayload): 
     whereString += ` AND listing.cityId = :cityId `;
     whereData.cityId = query.cityId;
   }
-  if (query.faultCategoryId) {
+  if (query.faultCategoryId?.length !== 0) {
     whereString += ` AND (faultCategory.id IN (:...fcid) OR faultCategory.parentId IN (:...fcid)) `;
     whereData.fcid = query.faultCategoryId;
   }
