@@ -20,9 +20,10 @@ const ListingCard = ({ listing }) => {
   return (
     <Link to={`/${type}/listing/${listing.id}`} className="text-decoration-none text-dark">
       <Card >
-        <Card.Header className="p-0 m-0">
+        <Card.Header className="p-0 m-0 text-center">
           <img src={listing.pictures[0].url} alt={listing.pictures[0].name}
             className="img-fluid"
+            style={{maxHeight: '50vh'}}
           />
         </Card.Header>
         <Card.Body>
