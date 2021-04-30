@@ -1,0 +1,38 @@
+$theme-colors: (
+    "gray": #626d71,
+    "darkGray": #4a5255,
+    "darkestGray": #282c2e,
+    "lightGray": #eae9ee,
+    "blueAccent": #00a0d4,
+    "lightBlue": #a8dbec,
+    "white": #fdfbfc,
+    "black": #000,
+    "accepted": #3cc480,
+    "declined": #ff4141
+);
+
+* {
+    font-family: 'Hind', sans-serif;
+}
+
+.button-round {
+    border-radius: 50px !important;
+}
+
+.no-round {
+    border-radius: 0 !important;
+}
+
+.c-active {
+    border-left: 5px solid #00a0d4 !important;
+}
+
+.c-sidebar-nav-link:hover {
+    background: #005d8b !important;
+}
+
+// Import Bootstrap and its default variables
+@import '~bootstrap/scss/bootstrap.scss';
+
+// Import CoreUI
+@import "~@coreui/coreui/scss/coreui";
