@@ -52,6 +52,7 @@ export const getActiveOffers = async (query: IServicePaginatedPayload): Promise<
   
   const [result, total] = await offerRepository.createQueryBuilder('offer')
     .leftJoinAndSelect('offer.service', 'service')
+    .leftJoinAndSelect('service.reviews', 'reviews')
     .leftJoinAndSelect('service.user', 'serviceUser')
     .leftJoinAndSelect('serviceUser.profilePicture', 'serviceUserPicture')
     .leftJoinAndSelect('offer.status', 'status')
@@ -62,6 +63,7 @@ export const getActiveOffers = async (query: IServicePaginatedPayload): Promise<
     .leftJoinAndSelect('listing.pictures', 'listingPictures')
     .leftJoinAndSelect('listing.offers', 'offers', 'offers.statusId <> 4 AND offers.serviceId <> :sid', {sid: query.serviceId})
     .leftJoinAndSelect('offers.service', 'offerService')
+    .leftJoinAndSelect('offerService.reviews', 'serviceReviews')
     .leftJoinAndSelect('offerService.user', 'offerServiceUser')
     .leftJoinAndSelect('offerServiceUser.profilePicture', 'offerServiceUserPicture')
     .where('service.id = :id AND offer.statusId = 1', {id: query.serviceId})
@@ -88,6 +90,7 @@ export const getHistoryOffers = async (query: IServicePaginatedPayload): Promise
   
   const [result, total] = await offerRepository.createQueryBuilder('offer')
     .leftJoinAndSelect('offer.service', 'service')
+    .leftJoinAndSelect('service.reviews', 'reviews')
     .leftJoinAndSelect('service.user', 'serviceUser')
     .leftJoinAndSelect('serviceUser.profilePicture', 'serviceUserPicture')
     .leftJoinAndSelect('offer.status', 'status')
@@ -98,6 +101,7 @@ export const getHistoryOffers = async (query: IServicePaginatedPayload): Promise
     .leftJoinAndSelect('listing.pictures', 'listingPictures')
     .leftJoinAndSelect('listing.offers', 'offers', 'offers.statusId <> 4 AND offers.serviceId <> :sid', {sid: query.serviceId})
     .leftJoinAndSelect('offers.service', 'offerService')
+    .leftJoinAndSelect('offerService.reviews', 'serviceReviews')
     .leftJoinAndSelect('offerService.user', 'offerServiceUser')
     .leftJoinAndSelect('offerServiceUser.profilePicture', 'offerServiceUserPicture')
     .where('service.id = :id AND offer.statusId <> 1', {id: query.serviceId})
