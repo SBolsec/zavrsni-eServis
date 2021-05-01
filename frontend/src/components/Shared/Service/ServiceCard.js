@@ -62,7 +62,7 @@ const ServiceCard = ({ service }) => {
           {service.faultCategories.length !== 0 && (
             <>
               <p className="text-gray text-uppercase mb-0">Kategorije:</p>
-              <div className="mt-0 d-flex align-items-center">
+              <div className="mt-0 d-flex flex-wrap align-items-center">
                 {service.faultCategories.map((c, index) => (
                   <Chip
                     key={index}

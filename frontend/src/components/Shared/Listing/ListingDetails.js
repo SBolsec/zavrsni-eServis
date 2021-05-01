@@ -120,7 +120,7 @@ const ListingDetails = () => {
 
         <CardColumns>
           {listing.offers.map((offer, index) => (
-            <OfferCard key={index} offer={offer} authorId={listing.person.userId} margin="m-2" />
+            <OfferCard key={index} offer={offer} authorId={listing.person.userId} margin="m-2" showService="true" />
           ))}
         </CardColumns>
 

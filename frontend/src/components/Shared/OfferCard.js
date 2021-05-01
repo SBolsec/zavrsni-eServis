@@ -16,7 +16,7 @@ import Card from "react-bootstrap/esm/Card";
 import Chip from "@material-ui/core/Chip";
 import Rating from "@material-ui/lab/Rating";
 
-const OfferCard = ({ offer, authorId, margin }) => {
+const OfferCard = ({ offer, authorId, margin, showService }) => {
   const { auth } = useAuth();
   const history = useHistory();
   const [updateMode, setUpdateMode] = useState(false);
@@ -121,9 +121,7 @@ const OfferCard = ({ offer, authorId, margin }) => {
               <span className="text-gray text-uppercase">Datum objave: </span>
               <Moment format="DD.MM.YYYY">{offer.createdAt}</Moment>
             </p>
-            {((history.location.pathname != "/service/active" &&
-              history.location.pathname != "/service/history") ||
-              offer.service.userId !== auth.data.userId) && (
+            {showService && offer.service.userId !== auth.data.userId && (
               <>
                 <hr />
                 <Link

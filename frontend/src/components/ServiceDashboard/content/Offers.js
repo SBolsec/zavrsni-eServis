@@ -71,7 +71,7 @@ const OffersHistory = ({link, message}) => {
       {data && data.data.map((offer, index) => (
         <Row key={index} noGutters className="align-items-center my-4 bg-white">
           <Col xs={12} className="">
-            <OfferCard offer={offer} authorId={context.data.id} />
+            <OfferCard offer={offer} authorId={context.data.id} showService="true" />
           </Col>
           <Col xs={12} className="bg-lightGray">
             <Accordion className="no-round bg-lightGray">
@@ -99,7 +99,7 @@ const OffersHistory = ({link, message}) => {
                 {offer.listing.offers.length === 0 ? <p>Nema drugih ponuda!</p> :
                   <CardColumns className="mx-auto">
                     {offer.listing.offers.map((o, i) => (
-                      <OfferCard key={i} offer={o} authorId={offer.listing.personId} margin="m-2" />
+                      <OfferCard key={i} offer={o} authorId={offer.listing.personId} margin="m-2" showService={true} />
                     ))}
                   </CardColumns>
                 }
