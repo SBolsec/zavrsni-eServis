@@ -10,8 +10,8 @@ import CardColumns from 'react-bootstrap/esm/CardColumns';
 import Row from 'react-bootstrap/esm/Row';
 import { useHistory } from 'react-router';
 import * as yup from 'yup';
-import axiosInstance from "../../helpers/axiosInstance";
-import Spinner from '../Utils/Spinner';
+import axiosInstance from "../../../helpers/axiosInstance";
+import Spinner from '../../Utils/Spinner';
 import ListingCard from './ListingCard';
 
 const validationSchema = yup.object({

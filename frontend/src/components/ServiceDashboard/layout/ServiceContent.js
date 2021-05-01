@@ -6,11 +6,11 @@ import Messages from "../content/Messages";
 import OffersActive from "../content/OffersActive";
 import OffersHistory from "../content/OffersHistory";
 import Servicers from "../content/Servicers";
-import ListingSearch from '../../Shared/ListingSearch';
+import ListingSearch from '../../Shared/Listing/ListingSearch';
 import { Switch, Route, Redirect, useHistory } from "react-router-dom";
 import { useAuth } from "../../../contexts/AuthContext";
 import getUpdatedData from "../../../actions/auth/getUpdatedData";
-import ListingDetails from "../../Shared/ListingDetails";
+import ListingDetails from "../../Shared/Listing/ListingDetails";
 import CreateOffer from "../content/CreateOffer";
 import UpdateOffer from "../content/UpdateOffer";
 

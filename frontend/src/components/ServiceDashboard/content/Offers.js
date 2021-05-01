@@ -13,7 +13,7 @@ import Col from 'react-bootstrap/esm/Col';
 import { Accordion, AccordionSummary, AccordionDetails } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import CardColumns from 'react-bootstrap/esm/CardColumns';
-import ListingInfo from '../../Shared/ListingInfo';
+import ListingInfo from '../../Shared/Listing/ListingInfo';
 
 const OffersHistory = ({link, message}) => {
   const history = useHistory();

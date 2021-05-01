@@ -10,8 +10,8 @@ import { Redirect, Route, Switch, useHistory } from "react-router-dom";
 import CreateListing from "../content/CreateListing";
 import { useAuth } from "../../../contexts/AuthContext";
 import getUpdatedData from "../../../actions/auth/getUpdatedData";
-import ListingDetails from "../../Shared/ListingDetails";
-import ListingSearch from "../../Shared/ListingSearch";
+import ListingDetails from "../../Shared/Listing/ListingDetails";
+import ListingSearch from "../../Shared/Listing/ListingSearch";
 
 const loading = (
   <div className="pt-3 text-center">
