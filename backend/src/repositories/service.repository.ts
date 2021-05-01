@@ -29,7 +29,25 @@ export const createService = async (payload: IServicePayload): Promise<Service> 
 
 export const getService = async (id: number): Promise<Service | null> => {
   const serviceRepository = getRepository(Service);
-  const service = await serviceRepository.findOne({ id: id });
+  const service = await serviceRepository.findOne({ 
+    where: {
+      id: id
+    },
+    relations: [
+      "city", 
+      "user", 
+      "user.profilePicture", 
+      "reviews", 
+      "faultCategories", 
+      "offers", 
+      "offers.service",
+      "offers.service.reviews",
+      "offers.service.user", 
+      "offers.service.user.profilePicture", 
+      "offers.status",
+      "offers.listing"
+    ]
+  });
   return !service ? null : service;
 }
 

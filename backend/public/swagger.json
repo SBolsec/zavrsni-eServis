@@ -1588,11 +1588,6 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"allOf": [
-										{
-											"$ref": "#/components/schemas/Service"
-										}
-									],
 									"nullable": true
 								}
 							}

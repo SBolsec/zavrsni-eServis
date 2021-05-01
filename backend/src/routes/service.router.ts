@@ -45,7 +45,7 @@ router.post("/", auth([1, 2, 3]), async (req, res) => {
   return res.send(response);
 });
 
-router.get("/id/:id", auth([1, 2, 3]), async (req, res) => {
+router.get("/id/:id", async (req, res) => {
   try {
     await Joi.object({
       id: Joi.number().required()
