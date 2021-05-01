@@ -139,13 +139,13 @@ const UpdateOffer = ({ offer, toggleUpdateMode, updateOffer }) => {
                       type="submit"
                       onClick={toggleUpdateMode}
                     >
-                      <FontAwesomeIcon icon={faUndo} className="bg-white text-blueAccent fa-2x" />
+                      <FontAwesomeIcon icon={faUndo} className="bg-white text-blueAccent fa-1x" />
                    </Button>
                     <Button
                       variant="white" className="no-round mx-4 text-uppercase"
                       type="submit"
                     >
-                      <FontAwesomeIcon icon={faSave} className="bg-white text-blueAccent fa-2x" />
+                      <FontAwesomeIcon icon={faSave} className="bg-white text-blueAccent fa-1x" />
                     </Button>
                   </>}
                 {loading && <Spinner />}
