@@ -1,4 +1,5 @@
 import { getRepository } from 'typeorm';
+import { IServicePaginatedResult, IServiceSearchPayload } from '../interfaces';
 import { Service } from '../models';
 
 export interface IServicePayload {
@@ -46,4 +47,47 @@ export const getServiceByUserId = async (id: number): Promise<Service | null> =>
   const serviceRepository = getRepository(Service);
   const service = await serviceRepository.findOne({ userId: id });
   return !service ? null : service;
+}
+
+export const getPaginatedSearchListings = async (query: IServiceSearchPayload): Promise<IServicePaginatedResult> => {
+  const serviceRepository = getRepository(Service);
+  const take = query.per_page || 10;
+  const skip = query.page! * query.per_page! || 0;
+
+  let whereString: string = "";
+  let whereData: any = { };
+  if (query.service) {
+    whereString += ` AND (LOWER(service.name) LIKE '%${query.service}%' OR LOWER(service.description) LIKE '%${query.service}%') `;
+    // where.title = Raw(alias => `LOWER(${alias}) Like '%${query.listing}%'`);
+  }
+  if (query.cityId) {
+    whereString += ` AND service.cityId = :cityId `;
+    whereData.cityId = query.cityId;
+  }
+  // if (query.faultCategoryId?.length !== 0) {
+  //   whereString += ` AND (faultCategory.id IN (:...fcid) OR faultCategory.parentId IN (:...fcid)) `;
+  //   whereData.fcid = query.faultCategoryId;
+  // }
+
+  const [result, total] = await serviceRepository.createQueryBuilder('service')
+    .leftJoinAndSelect('service.city', 'city')
+    .leftJoinAndSelect('service.user', 'user')
+    .leftJoinAndSelect('user.profilePicture', 'profilePicture')
+    .leftJoinAndSelect('service.faultCategories', 'faultCategories')
+    .leftJoinAndSelect('service.reviews', 'reviews')
+    .where(whereString, whereData)
+    .orderBy({ 'service.updatedAt': "DESC" })
+    .take(take)
+    .skip(skip)
+    .getManyAndCount();
+
+  const totalPages = Math.floor(total / take);
+  const currentPage = totalPages - Math.floor((total - skip) / take);
+
+  return {
+    current_page: currentPage,
+    per_page: take,
+    total_pages: totalPages+1,
+    data: result
+  }
 }

@@ -5,6 +5,8 @@ import { IOfferPayload } from './offerPayload.interface';
 import { IListingSearchPayload } from './listingSearchPayload.interface';
 import { IListingPaginatedResult } from './listingPaginatedResult.interface';
 import { IUserInfo } from './userInfo.interface';
+import { IServiceSearchPayload } from './serviceSearchPayload.interface';
+import { IServicePaginatedResult } from './servicePaginatedResult.interface';
 
 export { 
   IUserInfo, 
@@ -13,5 +15,7 @@ export {
   IOfferPayload, 
   IListingPaginatedPayload,
   IServicePaginatedPayload,
-  IOfferPaginatedResult
+  IOfferPaginatedResult,
+  IServiceSearchPayload, 
+  IServicePaginatedResult
 };

@@ -10,6 +10,29 @@ import { userToUserInfo } from "../mappers/userInfo.mapper";
 
 const router = express.Router();
 
+router.get("/search", async (req, res) => {
+  try {
+    await Joi.object({
+      service: Joi.string(),
+      faultCategoryId: Joi.string(),
+      cityId: Joi.number(),
+      page: Joi.number(),
+      per_page: Joi.number(),
+    }).validateAsync(req.params);
+  } catch (err) {
+    return res.status(400).send({ message: err.details[0].message });
+  }
+
+  const serviceController = new ServiceController();
+  const { service, faultCategoryId, cityId, page, per_page } = req.query;
+  const services: any = await serviceController.getSearchResults(
+    service ? String(service) : undefined, faultCategoryId ? String(faultCategoryId) : undefined, cityId ? Number(cityId) : undefined,
+    page ? Number(page) : undefined, per_page ? Number(per_page) : undefined
+  );
+  if (!services) res.status(404).send({ message: "No services found" });
+  return res.send(services);
+});
+
 router.get("/", auth([1, 2, 3]), async (_req, res) => {
   const controller = new ServiceController();
   const response = await controller.getServices();
