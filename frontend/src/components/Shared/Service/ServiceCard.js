@@ -1,8 +1,9 @@
-import React from "react";
-import Moment from "react-moment";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../../contexts/AuthContext";
 import Card from "react-bootstrap/esm/Card";
+import Rating from "@material-ui/lab/Rating";
+import Chip from "@material-ui/core/Chip";
 
 const ServiceCard = ({ service }) => {
   const { auth } = useAuth();
@@ -22,38 +23,76 @@ const ServiceCard = ({ service }) => {
       break;
   }
 
+  const [rating, setRating] = useState(0);
+  if (service.reviews.length !== 0) {
+    let sumOfRatings = 0;
+    service.reviews.forEach(review => sumOfRatings += review.score);
+    // round number to closes factor of 0.5
+    setRating(Math.round((sumOfRatings / service.reviews.length) * 2) / 2);
+  }
+
   return (
     <Link
       to={`/${type}/service/${service.id}`}
       className="text-decoration-none text-dark"
     >
-      <Card>
-        {/* <Card.Header className="p-0 m-0 text-center">
-          <img src={listing.pictures[0].url} alt={listing.pictures[0].name}
-            className="img-fluid"
-            style={{maxHeight: '50vh'}}
-          />
-        </Card.Header> */}
+      <Card className="no-round">
         <Card.Body>
-          <Card.Title>{service.name}</Card.Title>
-          <Card.Text>
-            <p>
-              <span className="text-gray" style={{ fontSize: "0.8em" }}>
-                Adresa:
-              </span>
-              {service.address}
-            </p>
-            <p>
-              <span className="text-gray" style={{ fontSize: "0.8em" }}>
-                Mjesto:{" "}
-              </span>
-              {service.city.postalCode + " " + service.city.name}
-            </p>
-            <p>
-              Račun stvoren:{" "}
-              <Moment format="DD.MM.YYYY">{service.createdAt}</Moment>
-            </p>
-          </Card.Text>
+          <div className="d-flex justify-content-start align-items-center my-2">
+            <img
+              src={service.profilePicture.url}
+              alt="company picture"
+              className="rounded-circle mr-4"
+              style={{
+                width: "75px",
+                height: "75px",
+                border: "1px solid lightGray",
+              }}
+            />
+            <h5>{service.name}</h5>
+          </div>
+
+          <hr />
+
+          <p className="text-gray text-uppercase mb-0">Mjesto:</p>
+          <p className="mt-0">
+            {service.city.postalCode + " " + service.city.name}
+          </p>
+
+          {service.faultCategories.length !== 0 && (
+            <>
+              <p className="text-gray text-uppercase mb-0">Kategorije:</p>
+              <div className="mt-0 d-flex align-items-center">
+                {service.faultCategories.map((c, index) => (
+                  <Chip
+                    key={index}
+                    label={c.parent.name + " - " + c.name}
+                    className="bg-accepted text-white font-weight-bold"
+                  />
+                ))}
+              </div>
+            </>
+          )}
+
+          {service.description && (
+            <>
+              <p className="text-gray text-uppercase mb-0 mt-4">
+                Opis djelatnosti:
+              </p>
+              <p className="mt-0">{service.description}</p>
+            </>
+          )}
+
+          <hr />
+
+          <div className="text-center">
+            <Rating
+              className="text-blueAccent"
+              defaultValue={rating}
+              precision={0.5}
+              readOnly
+            />
+          </div>
         </Card.Body>
       </Card>
     </Link>
