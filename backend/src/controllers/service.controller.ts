@@ -1,5 +1,4 @@
 import { Get, Route, Tags, Post, Body, Path, Put, Query } from 'tsoa';
-import { IServicePaginatedResult } from '../interfaces';
 import { Service } from '../models';
 import { getServices, createService, updateService, IServicePayload, getService, getServiceByUserId, getPaginatedSearchListings } from '../repositories/service.repository'; 
 
@@ -16,7 +15,7 @@ export default class PersonController {
     return createService(body);
   }
 
-  @Get('/:id')
+  @Get('/id/:id')
   public async getService(@Path() id: string): Promise<Service | null> {
     return getService(Number(id));
   }

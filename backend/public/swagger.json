@@ -1579,7 +1579,7 @@
 				}
 			}
 		},
-		"/services/{id}": {
+		"/services/id/{id}": {
 			"get": {
 				"operationId": "GetService",
 				"responses": {
@@ -1613,7 +1613,9 @@
 						}
 					}
 				]
-			},
+			}
+		},
+		"/services/{id}": {
 			"put": {
 				"operationId": "UpdateService",
 				"responses": {
