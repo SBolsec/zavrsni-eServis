@@ -38,7 +38,8 @@ export const getService = async (id: number): Promise<Service | null> => {
       "user", 
       "user.profilePicture", 
       "reviews", 
-      "faultCategories", 
+      "faultCategories",
+      "faultCategories.parent",
       "offers", 
       "offers.service",
       "offers.service.reviews",
@@ -63,11 +64,15 @@ export const updateService = async (id: number, payload: IServicePayload): Promi
 
 export const getServiceByUserId = async (id: number): Promise<Service | null> => {
   const serviceRepository = getRepository(Service);
-  const service = await serviceRepository.findOne({ userId: id });
+  const service = await serviceRepository.findOne({ 
+    where: {
+      userId: id
+    }
+  });
   return !service ? null : service;
 }
 
-export const getPaginatedSearchListings = async (query: IServiceSearchPayload): Promise<IServicePaginatedResult> => {
+export const getPaginatedSearchServices = async (query: IServiceSearchPayload): Promise<IServicePaginatedResult> => {
   const serviceRepository = getRepository(Service);
   const take = query.per_page || 10;
   const skip = query.page! * query.per_page! || 0;
@@ -92,6 +97,7 @@ export const getPaginatedSearchListings = async (query: IServiceSearchPayload): 
     .leftJoinAndSelect('service.user', 'user')
     .leftJoinAndSelect('user.profilePicture', 'profilePicture')
     .leftJoinAndSelect('service.faultCategories', 'faultCategories')
+    .leftJoinAndSelect('faultCategories.parent', 'parentFaultCategory')
     .leftJoinAndSelect('service.reviews', 'reviews')
     .where(whereString, whereData)
     .orderBy({ 'service.updatedAt': "DESC" })

@@ -7,7 +7,7 @@ import {
   IServicePayload,
   getService,
   getServiceByUserId,
-  getPaginatedSearchListings,
+  getPaginatedSearchServices,
 } from "../repositories/service.repository";
 
 @Route("services")
@@ -77,7 +77,7 @@ export default class PersonController {
       faultCategoryId.split(":").forEach((id) => ids.push(Number(id)));
     }
 
-    let res: any = await getPaginatedSearchListings({
+    let res: any = await getPaginatedSearchServices({
       service,
       faultCategoryId: ids,
       cityId,

@@ -1,6 +1,5 @@
 import { getRepository } from "typeorm";
 import { FaultCategory } from "../models";
-
 export interface IFaultCategory {
   name: string;
   parentId: number;
@@ -44,4 +43,10 @@ export const getFaultCategoriesForSearch = async (): Promise<FaultCategory[]> =>
     .leftJoinAndSelect('faultCategory.parent', 'parent')
     .where("faultCategory.parentId IS NOT NULL")
     .getMany();
+}
+
+export const getFaultCategoriesOfService = async (id: number): Promise<FaultCategory[]> => {
+  
+  
+  return [];
 }
