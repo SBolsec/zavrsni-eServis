@@ -29,22 +29,22 @@ export const createService = async (payload: IServicePayload): Promise<Service> 
 
 export const getService = async (id: number): Promise<Service | null> => {
   const serviceRepository = getRepository(Service);
-  const service = await serviceRepository.findOne({ 
+  const service = await serviceRepository.findOne({
     where: {
       id: id
     },
     relations: [
-      "city", 
-      "user", 
-      "user.profilePicture", 
-      "reviews", 
+      "city",
+      "user",
+      "user.profilePicture",
+      "reviews",
       "faultCategories",
       "faultCategories.parent",
-      "offers", 
+      "offers",
       "offers.service",
       "offers.service.reviews",
-      "offers.service.user", 
-      "offers.service.user.profilePicture", 
+      "offers.service.user",
+      "offers.service.user.profilePicture",
       "offers.status",
       "offers.listing"
     ]
@@ -54,7 +54,7 @@ export const getService = async (id: number): Promise<Service | null> => {
 
 export const updateService = async (id: number, payload: IServicePayload): Promise<Service | null> => {
   const serviceRepository = getRepository(Service);
-  const service = await serviceRepository.findOne({id: id});
+  const service = await serviceRepository.findOne({ id: id });
   if (!service) return null;
   return serviceRepository.save({
     ...service,
@@ -64,7 +64,7 @@ export const updateService = async (id: number, payload: IServicePayload): Promi
 
 export const getServiceByUserId = async (id: number): Promise<Service | null> => {
   const serviceRepository = getRepository(Service);
-  const service = await serviceRepository.findOne({ 
+  const service = await serviceRepository.findOne({
     where: {
       userId: id
     },
@@ -79,19 +79,38 @@ export const getPaginatedSearchServices = async (query: IServiceSearchPayload): 
   const skip = query.page! * query.per_page! || 0;
 
   let whereString: string = "";
-  let whereData: any = { };
+  let whereData: any = {};
+  let somethingAdded: boolean = false;
   if (query.service) {
-    whereString += ` AND (LOWER(service.name) LIKE '%${query.service}%' OR LOWER(service.description) LIKE '%${query.service}%') `;
+    whereString += ` (LOWER(service.name) LIKE '%${query.service}%' OR LOWER(service.description) LIKE '%${query.service}%') `;
     // where.title = Raw(alias => `LOWER(${alias}) Like '%${query.listing}%'`);
+    somethingAdded = true;
   }
   if (query.cityId) {
-    whereString += ` AND service.cityId = :cityId `;
+    let cityString = ` service.cityId = :cityId `;
+    whereString += somethingAdded ? (' AND ' + cityString) : cityString;
     whereData.cityId = query.cityId;
+    somethingAdded = true;
   }
-  // if (query.faultCategoryId?.length !== 0) {
-  //   whereString += ` AND (faultCategory.id IN (:...fcid) OR faultCategory.parentId IN (:...fcid)) `;
-  //   whereData.fcid = query.faultCategoryId;
-  // }
+  if (query.faultCategoryId?.length !== 0) {
+    let categString = ` faultCategories.id IN (:...fcid) `;
+    whereString += somethingAdded ? (' AND ' + categString) : categString;
+    whereData.fcid = query.faultCategoryId;
+    // somethingAdded = true;
+  }
+
+  const temp = await serviceRepository.createQueryBuilder('service')
+    .leftJoinAndSelect('service.city', 'city')
+    .leftJoinAndSelect('service.user', 'user')
+    .leftJoinAndSelect('user.profilePicture', 'profilePicture')
+    .leftJoinAndSelect('service.faultCategories', 'faultCategories')
+    .leftJoinAndSelect('faultCategories.parent', 'parentFaultCategory')
+    .leftJoinAndSelect('service.reviews', 'reviews')
+    .where(whereString, whereData)
+    .orderBy({ 'service.updatedAt': "DESC" })
+    .take(take)
+    .skip(skip)
+    .getMany();
 
   const [result, total] = await serviceRepository.createQueryBuilder('service')
     .leftJoinAndSelect('service.city', 'city')
@@ -100,7 +119,7 @@ export const getPaginatedSearchServices = async (query: IServiceSearchPayload): 
     .leftJoinAndSelect('service.faultCategories', 'faultCategories')
     .leftJoinAndSelect('faultCategories.parent', 'parentFaultCategory')
     .leftJoinAndSelect('service.reviews', 'reviews')
-    .where(whereString, whereData)
+    .where("service.id IN (:...ids)", { ids: temp.map(s => s.id)})
     .orderBy({ 'service.updatedAt': "DESC" })
     .take(take)
     .skip(skip)
@@ -112,7 +131,7 @@ export const getPaginatedSearchServices = async (query: IServiceSearchPayload): 
   return {
     current_page: currentPage,
     per_page: take,
-    total_pages: totalPages+1,
+    total_pages: totalPages + 1,
     data: result
   }
 }
