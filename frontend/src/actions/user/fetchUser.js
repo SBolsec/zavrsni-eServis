@@ -16,7 +16,6 @@ const fetchUser = ({ userId }) => (dispatch) => {
   axiosInstance()
     .get(`/people/user/${userId}`)
     .then((res) => {
-      console.log(res);
       dispatch({
         type: USER_DATA_SUCCESS,
         payload: res.data,
