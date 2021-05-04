@@ -53,7 +53,7 @@ const serviceReducer = (state, { type, payload }) => {
         errorFault: false,
         data: {
           ...state.data,
-          faultCategories: payload
+          faultCategories: payload.faultCategories
         },
       };
     default:
