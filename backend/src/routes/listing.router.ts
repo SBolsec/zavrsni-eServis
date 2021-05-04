@@ -125,7 +125,7 @@ router.get("/search", async (req, res) => {
   try {
     await Joi.object({
       listing: Joi.string(),
-      faultCategoryId: Joi.number(),
+      faultCategoryId: Joi.string(),
       cityId: Joi.number(),
       page: Joi.number(),
       per_page: Joi.number(),
@@ -137,7 +137,7 @@ router.get("/search", async (req, res) => {
   const listingController = new ListingController();
   const { listing, faultCategoryId, cityId, page, per_page } = req.query;
   const listings: any = await listingController.getSearchResults(
-    listing ? String(listing) : undefined, faultCategoryId ? Number(faultCategoryId) : undefined, cityId ? Number(cityId) : undefined,
+    listing ? String(listing) : undefined, faultCategoryId ? String(faultCategoryId) : undefined, cityId ? Number(cityId) : undefined,
     page ? Number(page) : undefined, per_page ? Number(per_page) : undefined
   );
   if (!listings) res.status(404).send({ message: "No listings found" });

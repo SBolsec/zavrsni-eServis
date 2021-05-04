@@ -70,14 +70,19 @@ export default class ListingController {
   @Get("/search")
   public async getSearchResults(
     @Query() listing?: string, 
-    @Query() faultCategoryId?: number,
+    @Query() faultCategoryId?: string,
     @Query() cityId?: number,
     @Query() page?: number,
     @Query() per_page?: number): Promise<IListingPaginatedResult> {
 
+    let ids: number[] = [];
+    if (faultCategoryId) {
+      faultCategoryId.split(":").forEach(id => ids.push(Number(id)));
+    }
+
     return getPaginatedSearchListings({
       listing,
-      faultCategoryId,
+      faultCategoryId: ids,
       cityId,
       page,
       per_page

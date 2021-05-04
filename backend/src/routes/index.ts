@@ -16,18 +16,10 @@ import OfferRouter from "./offer.router";
 import OfferStatusRouter from "./offerStatus.router";
 import ReviewRouter from "./review.router";
 
-import auth from '../middlewares/isAuth';
-import UserController from '../controllers/user.controller';
-
 const router = express.Router();
 
-router.get('/', async (req, res) => {
+router.get('/', async (_, res) => {
   res.redirect(process.env.FRONTEND_URL!);
-});
-
-router.get('/test', async (req, res) => {
-  console.log(process.env);
-  res.send();
 });
 
 router.use("/login", LoginRouter);

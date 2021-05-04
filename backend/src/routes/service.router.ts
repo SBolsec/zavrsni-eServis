@@ -7,8 +7,34 @@ import { IServicePayload } from "../repositories/service.repository";
 import Joi from 'joi';
 import auth from '../middlewares/isAuth';
 import { userToUserInfo } from "../mappers/userInfo.mapper";
+import FaultCategoryController from '../controllers/faultCategory.controller';
+import { FaultCategory, Service } from "../models";
+import { getRepository } from "typeorm";
 
 const router = express.Router();
+
+router.get("/search", async (req, res) => {
+  try {
+    await Joi.object({
+      service: Joi.string(),
+      faultCategoryId: Joi.string(),
+      cityId: Joi.number(),
+      page: Joi.number(),
+      per_page: Joi.number(),
+    }).validateAsync(req.params);
+  } catch (err) {
+    return res.status(400).send({ message: err.details[0].message });
+  }
+
+  const serviceController = new ServiceController();
+  const { service, faultCategoryId, cityId, page, per_page } = req.query;
+  const services: any = await serviceController.getSearchResults(
+    service ? String(service) : undefined, faultCategoryId ? String(faultCategoryId) : undefined, cityId ? Number(cityId) : undefined,
+    page ? Number(page) : undefined, per_page ? Number(per_page) : undefined
+  );
+  if (!services) res.status(404).send({ message: "No services found" });
+  return res.send(services);
+});
 
 router.get("/", auth([1, 2, 3]), async (_req, res) => {
   const controller = new ServiceController();
@@ -22,7 +48,7 @@ router.post("/", auth([1, 2, 3]), async (req, res) => {
   return res.send(response);
 });
 
-router.get("/:id", auth([1, 2, 3]), async (req, res) => {
+router.get("/id/:id", async (req, res) => {
   try {
     await Joi.object({
       id: Joi.number().required()
@@ -135,6 +161,43 @@ router.put("/:id", auth([1, 3]), async (req, res) => {
   return res.send({
     user: userInfo,
     service
+  });
+});
+
+router.post("/setFaultCategories", auth([3]), async (req, res) => {
+  // provjera unesenih podataka
+  const schema = Joi.object({
+    faultCategories: Joi.array().required()
+  });
+
+  try {
+    await schema.validateAsync(req.body);
+  }
+  catch (err) {
+    return res.status(400).json({
+      message: "Neki od podataka je neispravan"
+    });
+  }
+  
+  const faultCategories: number[] = req.body.faultCategories;
+
+  const serviceController = new ServiceController();
+  const faultCategoryController = new FaultCategoryController();
+
+  const service = await serviceController.getServiceByUserId(req.currentUser.id.toString());
+
+  const categories:FaultCategory[] = [];
+  for (let c of faultCategories) {
+    const f = await faultCategoryController.getFaultCategory(c.toString());
+    categories.push(f!);
+  }
+
+  service!.faultCategories = categories;
+  const serviceRepository = getRepository(Service);
+  serviceRepository.save(service!);
+
+  res.json({
+    faultCategories: categories
   });
 });
 

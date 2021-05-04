@@ -117,15 +117,15 @@ export const getPaginatedSearchListings = async (query: IListingSearchPayload): 
   let whereString = "listing.statusId = :statusId ";
   let whereData: any = { statusId: 1 }
   if (query.listing) {
-    whereString += ` AND LOWER(listing.title) LIKE '%${query.listing}%' `;
+    whereString += ` AND (LOWER(listing.title) LIKE '%${query.listing}%' OR LOWER(listing.description) LIKE '%${query.listing}%') `;
     // where.title = Raw(alias => `LOWER(${alias}) Like '%${query.listing}%'`);
   }
   if (query.cityId) {
     whereString += ` AND listing.cityId = :cityId `;
     whereData.cityId = query.cityId;
   }
-  if (query.faultCategoryId) {
-    whereString += ` AND (faultCategory.id = :fcid OR faultCategory.parentId = :fcid) `;
+  if (query.faultCategoryId?.length !== 0) {
+    whereString += ` AND (faultCategory.id IN (:...fcid) OR faultCategory.parentId IN (:...fcid)) `;
     whereData.fcid = query.faultCategoryId;
   }
 

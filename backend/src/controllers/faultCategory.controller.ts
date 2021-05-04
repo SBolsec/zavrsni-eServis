@@ -1,3 +1,4 @@
+import { getFaultCategoriesOfService } from './../repositories/faulCategory.repository';
 import { Get, Route, Tags, Post, Body, Path } from "tsoa";
 import { FaultCategory } from "../models";
 import { createFaultCategory, getFaultCategories, getFaultCategoriesFormatted, getFaultCategoriesForSearch, getFaultCategory, IFaultCategory } from '../repositories/faulCategory.repository';
@@ -29,5 +30,10 @@ export default class FaultCategoryController {
   @Get("/search")
   public async getFaultCategoriesSearch(): Promise<FaultCategory[]> {
     return getFaultCategoriesForSearch();
+  }
+
+  @Get("/service/:id")
+  public async getFaultCategoriesOfService(@Path() id: string): Promise<FaultCategory[]> {
+    return getFaultCategoriesOfService(Number(id));
   }
 }
