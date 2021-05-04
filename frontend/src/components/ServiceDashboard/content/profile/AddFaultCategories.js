@@ -8,6 +8,8 @@ import { useHistory } from 'react-router';
 import * as yup from "yup";
 import axiosInstance from "../../../../helpers/axiosInstance";
 import Spinner from '../../../Utils/Spinner';
+import { useServiceContext } from '../../../../contexts/ServiceContext';
+import updateFaultCategories from '../../../../actions/service/updateFaultCategories';
 
 const validationSchema = yup.object({
   faultCategories: yup.array()
@@ -15,10 +17,11 @@ const validationSchema = yup.object({
 
 const AddFaultCategories = () => {
   const history = useHistory();
+  const { context, dispatch } = useServiceContext();
   const [allFaultCategories, setAllFaultCategories] = useState([]);
-  const [faultCategories, setFaultCategories] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
 
   // fetch all fault categories
   useEffect(() => {
@@ -34,24 +37,11 @@ const AddFaultCategories = () => {
 
   const formik = useFormik({
     initialValues: {
-      faultCategories: faultCategories
+      faultCategories: context.data.faultCategories
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      const ids = values.faultCategories.map(v => v.id);
-      
-      axiosInstance(history).post("/services/setFaultCategories", {
-        faultCategories: ids
-      })
-        .then(res => {
-          setLoading(false);
-          setError(false);
-        })
-        .catch(err => {
-          setLoading(false);
-          setError("Neuspješno spremanje na poslužitelju");
-          console.log(err);
-        })
+      updateFaultCategories(values.faultCategories)(dispatch);
     }
   });
 
@@ -67,11 +57,14 @@ const AddFaultCategories = () => {
 
         <Autocomplete
           multiple
+          disableCloseOnSelect
           id="faultCategories"
           name="faultCategories"
+          value={formik.faultCategories}
           options={allFaultCategories}
           groupBy={(option) => option.parent.name}
           getOptionLabel={(option) => option.name}
+          defaultValue={context.data.faultCategories}
           fullWidth
           className=""
           onChange={(_, value) =>
