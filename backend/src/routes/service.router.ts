@@ -196,7 +196,9 @@ router.post("/setFaultCategories", auth([3]), async (req, res) => {
   const serviceRepository = getRepository(Service);
   serviceRepository.save(service!);
 
-  res.send();
+  res.json({
+    faultCategories: categories
+  });
 });
 
 export default router;

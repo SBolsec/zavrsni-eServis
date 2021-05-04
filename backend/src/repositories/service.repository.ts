@@ -67,7 +67,8 @@ export const getServiceByUserId = async (id: number): Promise<Service | null> =>
   const service = await serviceRepository.findOne({ 
     where: {
       userId: id
-    }
+    },
+    relations: ["faultCategories", "faultCategories.parent"]
   });
   return !service ? null : service;
 }
