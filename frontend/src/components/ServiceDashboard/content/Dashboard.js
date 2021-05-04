@@ -41,7 +41,7 @@ const Dashboard = () => {
       </Container>
 
       {/* Replace this with something more generic */}
-      {(!auth.data.profilePictureSet || context.data.faultCategories.length === 0) &&
+      {(!auth.data.profilePictureSet || context.data.faultCategories === undefined || context.data.faultCategories.length === 0) &&
         <Container fluid className="my-4">
           <Row>
             {!auth.data.profilePictureSet &&
@@ -55,7 +55,7 @@ const Dashboard = () => {
                 <SetProfilePicture />
               </Col>
             }
-            {context.data.faultCategories.length === 0 &&
+            {(context.data.faultCategories === undefined || context.data.faultCategories.length === 0) &&
               <Col md={6} className="d-flex">
                 <div className="flex-grow-1 bg-white my-4 my-md-0">
                   <AddFaultCategories margin="" />
