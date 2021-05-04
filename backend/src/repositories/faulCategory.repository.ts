@@ -23,7 +23,12 @@ export const createFaultCategory = async (
 
 export const getFaultCategory = async (id: number): Promise<FaultCategory | null> => {
   const faultCategoryRepository = getRepository(FaultCategory);
-  const faultCategory = await faultCategoryRepository.findOne({ id: id });
+  const faultCategory = await faultCategoryRepository.findOne({ 
+    where: {
+      id: id
+    },
+    relations: ["parent"]
+  });
   return !faultCategory ? null : faultCategory;
 };
 
