@@ -10,7 +10,7 @@ import AddFaultCategories from "./profile/AddFaultCategories";
 
 const Dashboard = () => {
   const { auth } = useAuth();
-  const { context, dispatch } = useServiceContext();
+  const { context } = useServiceContext();
 
   return (
     <>
