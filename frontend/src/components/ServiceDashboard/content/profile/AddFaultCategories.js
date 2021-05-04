@@ -15,7 +15,7 @@ const validationSchema = yup.object({
   faultCategories: yup.array()
 });
 
-const AddFaultCategories = () => {
+const AddFaultCategories = ({margin}) => {
   const history = useHistory();
   const { context, dispatch } = useServiceContext();
   const [allFaultCategories, setAllFaultCategories] = useState([]);
@@ -44,7 +44,7 @@ const AddFaultCategories = () => {
   });
 
   return (
-    <Container fluid className="my-3 bg-white">
+    <Container fluid className={`bg-white ${margin ? margin : ""}`}>
       <form onSubmit={formik.handleSubmit}>
         <h5
           className="text-dark text-uppercase py-4 font-weight-bold"

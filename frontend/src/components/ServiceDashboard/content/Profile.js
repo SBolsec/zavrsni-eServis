@@ -18,15 +18,15 @@ const Profile = () => {
 
   return (
     <Container fluid>
-      <Grid container spacing={6}>
-        <Grid item xs={12} md={6}>
+      <Grid container spacing={3}>
+        <Grid item xs={12} md={6} className="p-0 p-md-3">
           {!editProfile ?
             <ShowProfileInfo enableEdit={enableEdit} />
             :
             <EditProfileInfo disableEdit={disableEdit} />}
         </Grid>
-        <Grid item xs={12} md={6}>
-          <AddFaultCategories />
+        <Grid item xs={12} md={6} className="p-0 p-md-3 mb-4">
+          <AddFaultCategories margin="my-3" />
         </Grid>
       </Grid>
           

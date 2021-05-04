@@ -46,13 +46,20 @@ const Dashboard = () => {
           <Row>
             {!auth.data.profilePictureSet &&
               <Col md={6}>
-                <div className="bg-white text-dark text-center pt-4 text-uppercase font-weight-bold" >Promijenite sliku profila</div>
+                <div className="bg-white text-dark pt-4 text-uppercase font-weight-bold" >
+                  <h5 
+                    className="text-dark text-uppercase py-0 my-0 mx-4 font-weight-bold"
+                    style={{ fontSize: "1.1em" }}
+                  >Promijenite sliku profila</h5>
+                </div>
                 <SetProfilePicture />
               </Col>
             }
             {context.data.faultCategories.length === 0 &&
-              <Col md={6}>
-                <AddFaultCategories />
+              <Col md={6} className="d-flex">
+                <div className="flex-grow-1 bg-white my-4 my-md-0">
+                  <AddFaultCategories margin="" />
+                </div>
               </Col>
             }
           </Row>
