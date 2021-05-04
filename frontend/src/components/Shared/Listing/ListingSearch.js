@@ -10,13 +10,13 @@ import CardColumns from 'react-bootstrap/esm/CardColumns';
 import Row from 'react-bootstrap/esm/Row';
 import { useHistory } from 'react-router';
 import * as yup from 'yup';
-import axiosInstance from "../../helpers/axiosInstance";
-import Spinner from '../Utils/Spinner';
+import axiosInstance from "../../../helpers/axiosInstance";
+import Spinner from '../../Utils/Spinner';
 import ListingCard from './ListingCard';
 
 const validationSchema = yup.object({
   listing: yup.string(),
-  faultCategoryId: yup.number(),
+  faultCategories: yup.array(),
   cityId: yup.number(),
   per_page: yup.number()
 });
@@ -68,13 +68,13 @@ const ListingSearch = () => {
   const formik = useFormik({
     initialValues: {
       listing: '',
-      faultCategoryId: '',
+      faultCategories: [],
       cityId: '',
       per_page: '',
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      fetchListings(values, 0)
+      fetchListings(values, 0);
     }
   });
 
@@ -85,7 +85,15 @@ const ListingSearch = () => {
   const fetchListings = (values, page) => {
     let query = "";
     if (values.listing) query += `listing=${values.listing}`;
-    if (values.faultCategoryId) query += `&faultCategoryId=${values.faultCategoryId}`;
+    if (values.faultCategories.length !== 0) {
+      let ids = "";
+      values.faultCategories.forEach((c, index) => {
+        ids += c.id;
+        if (index !== values.faultCategories.length - 1)
+          ids += ":";
+      });
+      query += `&faultCategoryId=${ids}`;
+    } 
     if (values.cityId) query += `&cityId=${values.cityId}`;
     if (values.per_page) query += `&per_page=${values.per_page}`;
     if (page) query += `&page=${page}`
@@ -132,6 +140,7 @@ const ListingSearch = () => {
             </Col>
             <Col xs={12} md={5}>
               <Autocomplete
+                multiple
                 id="faultCategoryId"
                 name="faultCategoryId"
                 options={categories}
@@ -140,7 +149,7 @@ const ListingSearch = () => {
                 className="my-2 flex-fill flex-grow-1"
                 fullWidth
                 onChange={(_, value) =>
-                  formik.setFieldValue("faultCategoryId", value ? value.id : "")
+                  formik.setFieldValue("faultCategories", value)
                 }
                 renderInput={(params) => (
                   <TextField

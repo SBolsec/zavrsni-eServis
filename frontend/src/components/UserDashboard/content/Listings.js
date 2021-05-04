@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axiosInstance from '../../../helpers/axiosInstance';
 import { useHistory } from 'react-router-dom';
-import ListingCard from '../../Shared/ListingCard';
+import ListingCard from '../../Shared/Listing/ListingCard';
 import Spinner from '../../Utils/Spinner';
 import { useUserContext } from '../../../contexts/UserContext';
 import Container from 'react-bootstrap/esm/Container';

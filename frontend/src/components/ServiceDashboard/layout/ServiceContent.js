@@ -5,12 +5,13 @@ import Profile from "../content/Profile";
 import Messages from "../content/Messages";
 import OffersActive from "../content/OffersActive";
 import OffersHistory from "../content/OffersHistory";
-import Servicers from "../content/Servicers";
-import ListingSearch from '../../Shared/ListingSearch';
+import ListingSearch from '../../Shared/Listing/ListingSearch';
 import { Switch, Route, Redirect, useHistory } from "react-router-dom";
 import { useAuth } from "../../../contexts/AuthContext";
 import getUpdatedData from "../../../actions/auth/getUpdatedData";
-import ListingDetails from "../../Shared/ListingDetails";
+import ListingDetails from "../../Shared/Listing/ListingDetails";
+import ServiceSearch from "../../Shared/Service/ServiceSearch";
+import ServiceDetails from "../../Shared/Service/ServiceDetails";
 import CreateOffer from "../content/CreateOffer";
 import UpdateOffer from "../content/UpdateOffer";
 
@@ -38,9 +39,10 @@ const ServiceContent = () => {
             <Route exact path="/service/messages" component={Messages} />
             <Route exact path="/service/active" component={OffersActive} />
             <Route exact path="/service/history" component={OffersHistory} />
-            <Route exact path="/service/servicers" component={Servicers} />
+            <Route exact path="/service/servicers" component={ServiceSearch} />
             <Route exact path="/service/search" component={ListingSearch} />
             <Route path="/service/listing/:id" component={ListingDetails} />
+            <Route path="/service/service/:id" component={ServiceDetails} />
             <Route path="/service/create/:id" component={CreateOffer} />
             <Route path="/service/update-offer/:id" component={UpdateOffer} />
             <Redirect to="/404" />

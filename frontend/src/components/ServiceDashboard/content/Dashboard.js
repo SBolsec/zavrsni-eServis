@@ -5,9 +5,12 @@ import Col from "react-bootstrap/Col";
 import { useAuth } from "../../../contexts/AuthContext";
 import SetProfilePicture from "../../Shared/SetProfilePicture";
 import InfoCard from "../../Shared/InfoCard";
+import { useServiceContext } from "../../../contexts/ServiceContext";
+import AddFaultCategories from "./profile/AddFaultCategories";
 
 const Dashboard = () => {
   const { auth } = useAuth();
+  const { context, dispatch } = useServiceContext();
 
   return (
     <>
@@ -38,16 +41,27 @@ const Dashboard = () => {
       </Container>
 
       {/* Replace this with something more generic */}
-      {!auth.data.profilePictureSet &&
+      {(!auth.data.profilePictureSet || context.data.faultCategories.length === 0) &&
         <Container fluid className="my-4">
           <Row>
-            <Col md={6}>
-              {!auth.data.profilePictureSet &&
-                <div>
-                  <div className="bg-white text-dark text-center pt-4 text-uppercase font-weight-bold" >Promijenite sliku profila</div>
-                  <SetProfilePicture />
-                </div>}
-            </Col>
+            {!auth.data.profilePictureSet &&
+              <Col md={6}>
+                <div className="bg-white text-dark pt-4 text-uppercase font-weight-bold" >
+                  <h5 
+                    className="text-dark text-uppercase py-0 my-0 mx-4 font-weight-bold"
+                    style={{ fontSize: "1.1em" }}
+                  >Promijenite sliku profila</h5>
+                </div>
+                <SetProfilePicture />
+              </Col>
+            }
+            {context.data.faultCategories.length === 0 &&
+              <Col md={6} className="d-flex">
+                <div className="flex-grow-1 bg-white my-4 my-md-0">
+                  <AddFaultCategories margin="" />
+                </div>
+              </Col>
+            }
           </Row>
         </Container>
       }

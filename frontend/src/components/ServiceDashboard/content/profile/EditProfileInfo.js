@@ -1,8 +1,6 @@
 import { Button, TextField } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import Container from "react-bootstrap/esm/Container";
-import Row from "react-bootstrap/esm/Row";
-import Col from "react-bootstrap/esm/Col";
 import { useAuth } from "../../../../contexts/AuthContext";
 import { useServiceContext } from "../../../../contexts/ServiceContext";
 import * as yup from "yup";
@@ -136,228 +134,224 @@ const EditProfileInfo = ({ disableEdit }) => {
   });
 
   return (
-    <Container fluid className="my-3">
-      <Row>
-        <Col lg={6} className="bg-white">
-          <form onSubmit={formik.handleSubmit}>
-            <div className="d-flex flex-column justify-content-center align-items-center">
-              <h5
-                className="text-dark text-uppercase my-4 font-weight-bold align-self-start"
-                style={{ fontSize: "1.1em" }}
-              >
-                Informacije o tvrtci
+    <Container fluid className="my-3 bg-white">
+      <form onSubmit={formik.handleSubmit}>
+        <div className="d-flex flex-column justify-content-center align-items-center">
+          <h5
+            className="text-dark text-uppercase my-4 font-weight-bold align-self-start"
+            style={{ fontSize: "1.1em" }}
+          >
+            Informacije o tvrtci
               </h5>
 
-              <SetProfilePicture />
+          <SetProfilePicture />
 
-              <TextField
-                className="my-2 mr-sm-2"
-                fullWidth
-                id="name"
-                name="name"
-                label="Naziv tvrtke"
-                value={formik.values.name}
-                onChange={formik.handleChange}
-                error={formik.touched.name && Boolean(formik.errors.name)}
-                helperText={formik.touched.name && formik.errors.name}
-                variant="outlined"
-              />
-              <TextField
-                className="my-2 mr-sm-2"
-                fullWidth
-                id="oib"
-                name="oib"
-                label="OIB tvrtke"
-                value={formik.values.oib}
-                onChange={formik.handleChange}
-                error={formik.touched.oib && Boolean(formik.errors.oib)}
-                helperText={formik.touched.oib && formik.errors.oib}
-                variant="outlined"
-              />
-              <div className="w-100 d-flex flex-column flex-sm-row justify-content-evenly align-items-center">
+          <TextField
+            className="my-2 mr-sm-2"
+            fullWidth
+            id="name"
+            name="name"
+            label="Naziv tvrtke"
+            value={formik.values.name}
+            onChange={formik.handleChange}
+            error={formik.touched.name && Boolean(formik.errors.name)}
+            helperText={formik.touched.name && formik.errors.name}
+            variant="outlined"
+          />
+          <TextField
+            className="my-2 mr-sm-2"
+            fullWidth
+            id="oib"
+            name="oib"
+            label="OIB tvrtke"
+            value={formik.values.oib}
+            onChange={formik.handleChange}
+            error={formik.touched.oib && Boolean(formik.errors.oib)}
+            helperText={formik.touched.oib && formik.errors.oib}
+            variant="outlined"
+          />
+          <div className="w-100 d-flex flex-column flex-sm-row justify-content-evenly align-items-center">
+            <TextField
+              className="my-2 mr-sm-2"
+              fullWidth
+              id="address"
+              name="address"
+              label="Adresa tvrtke"
+              value={formik.values.address}
+              onChange={formik.handleChange}
+              error={
+                formik.touched.address && Boolean(formik.errors.address)
+              }
+              helperText={formik.touched.address && formik.errors.address}
+              variant="outlined"
+            />
+            <Autocomplete
+              id="cityId"
+              name="cityId"
+              options={cities}
+              defaultValue={{ id: context.data.cityId, city: context.data.cityName }}
+              getOptionLabel={(option) => option.city}
+              fullWidth
+              className="my-2 ml-sm-2"
+              onChange={(_, value) =>
+                formik.setFieldValue("cityId", value ? value.id : "")
+              }
+              renderInput={(params) => (
                 <TextField
-                  className="my-2 mr-sm-2"
-                  fullWidth
-                  id="address"
-                  name="address"
-                  label="Adresa tvrtke"
-                  value={formik.values.address}
-                  onChange={formik.handleChange}
-                  error={
-                    formik.touched.address && Boolean(formik.errors.address)
-                  }
-                  helperText={formik.touched.address && formik.errors.address}
-                  variant="outlined"
-                />
-                <Autocomplete
-                  id="cityId"
+                  {...params}
                   name="cityId"
-                  options={cities}
-                  defaultValue={{ id: context.data.cityId, city: context.data.cityName }}
-                  getOptionLabel={(option) => option.city}
-                  fullWidth
-                  className="my-2 ml-sm-2"
-                  onChange={(_, value) =>
-                    formik.setFieldValue("cityId", value ? value.id : "")
-                  }
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      name="cityId"
-                      variant="outlined"
-                      defaultValue={context.data.cityName}
-                      label="Mjesto tvrtke"
-                      error={formik.touched.cityId && Boolean(formik.errors.cityId)}
-                      helperText={formik.touched.cityId && formik.errors.cityId}
-                    />
-                  )}
+                  variant="outlined"
+                  defaultValue={context.data.cityName}
+                  label="Mjesto tvrtke"
+                  error={formik.touched.cityId && Boolean(formik.errors.cityId)}
+                  helperText={formik.touched.cityId && formik.errors.cityId}
                 />
-              </div>
-              <TextField
-                className="my-2"
-                fullWidth
-                id="phone"
-                name="phone"
-                label="Broj telefona"
-                value={formik.values.phone}
-                onChange={formik.handleChange}
-                error={formik.touched.phone && Boolean(formik.errors.phone)}
-                helperText={formik.touched.phone && formik.errors.phone}
-                variant="outlined"
-              />
-              <TextField
-                className="my-2"
-                fullWidth
-                id="website"
-                name="website"
-                label="Web lokacija"
-                value={formik.values.website}
-                onChange={formik.handleChange}
-                error={formik.touched.website && Boolean(formik.errors.website)}
-                helperText={formik.touched.website && formik.errors.website}
-                variant="outlined"
-              />
-              <TextField
-                className="my-2"
-                fullWidth
-                id="description"
-                name="description"
-                label="Opis"
-                value={formik.values.description}
-                onChange={formik.handleChange}
-                error={
-                  formik.touched.description &&
-                  Boolean(formik.errors.description)
-                }
-                helperText={
-                  formik.touched.description && formik.errors.description
-                }
-                variant="outlined"
-                multiline={true}
-              />
-              <TextField
-                className="my-2"
-                fullWidth
-                id="email"
-                name="email"
-                label="E-mail"
-                value={formik.values.email}
-                onChange={formik.handleChange}
-                error={formik.touched.email && Boolean(formik.errors.email)}
-                helperText={formik.touched.email && formik.errors.email}
-                variant="outlined"
-              />
+              )}
+            />
+          </div>
+          <TextField
+            className="my-2"
+            fullWidth
+            id="phone"
+            name="phone"
+            label="Broj telefona"
+            value={formik.values.phone}
+            onChange={formik.handleChange}
+            error={formik.touched.phone && Boolean(formik.errors.phone)}
+            helperText={formik.touched.phone && formik.errors.phone}
+            variant="outlined"
+          />
+          <TextField
+            className="my-2"
+            fullWidth
+            id="website"
+            name="website"
+            label="Web lokacija"
+            value={formik.values.website}
+            onChange={formik.handleChange}
+            error={formik.touched.website && Boolean(formik.errors.website)}
+            helperText={formik.touched.website && formik.errors.website}
+            variant="outlined"
+          />
+          <TextField
+            className="my-2"
+            fullWidth
+            id="description"
+            name="description"
+            label="Opis"
+            value={formik.values.description}
+            onChange={formik.handleChange}
+            error={
+              formik.touched.description &&
+              Boolean(formik.errors.description)
+            }
+            helperText={
+              formik.touched.description && formik.errors.description
+            }
+            variant="outlined"
+            multiline={true}
+          />
+          <TextField
+            className="my-2"
+            fullWidth
+            id="email"
+            name="email"
+            label="E-mail"
+            value={formik.values.email}
+            onChange={formik.handleChange}
+            error={formik.touched.email && Boolean(formik.errors.email)}
+            helperText={formik.touched.email && formik.errors.email}
+            variant="outlined"
+          />
 
-              <h5
-                className="text-dark text-uppercase font-weight-bold align-self-start mt-4 mb-2"
-                style={{ fontSize: "1.1em" }}
-              >
-                Promijeni lozinku
+          <h5
+            className="text-dark text-uppercase font-weight-bold align-self-start mt-4 mb-2"
+            style={{ fontSize: "1.1em" }}
+          >
+            Promijeni lozinku
               </h5>
 
-              <TextField
-                className="my-2"
-                fullWidth
-                type="password"
-                id="currentPassword"
-                name="currentPassword"
-                label="Trenutna lozinka"
-                value={formik.values.currentPassword}
-                onChange={formik.handleChange}
-                error={
-                  formik.touched.currentPassword &&
-                  Boolean(formik.errors.currentPassword)
-                }
-                helperText={
-                  formik.touched.currentPassword &&
-                  formik.errors.currentPassword
-                }
-                variant="outlined"
-              />
-              <TextField
-                className="my-2"
-                fullWidth
-                type="password"
-                id="password"
-                name="password"
-                label="Nova lozinka"
-                value={formik.values.password}
-                onChange={formik.handleChange}
-                error={
-                  formik.touched.password && Boolean(formik.errors.password)
-                }
-                helperText={formik.touched.password && formik.errors.password}
-                variant="outlined"
-              />
-              <TextField
-                className="my-2"
-                fullWidth
-                type="password"
-                id="repeatPassword"
-                name="repeatPassword"
-                label="Potvrdi lozinku"
-                value={formik.values.repeatPassword}
-                onChange={formik.handleChange}
-                error={
-                  formik.touched.repeatPassword &&
-                  Boolean(formik.errors.repeatPassword)
-                }
-                helperText={
-                  formik.touched.repeatPassword && formik.errors.repeatPassword
-                }
-                variant="outlined"
-              />
+          <TextField
+            className="my-2"
+            fullWidth
+            type="password"
+            id="currentPassword"
+            name="currentPassword"
+            label="Trenutna lozinka"
+            value={formik.values.currentPassword}
+            onChange={formik.handleChange}
+            error={
+              formik.touched.currentPassword &&
+              Boolean(formik.errors.currentPassword)
+            }
+            helperText={
+              formik.touched.currentPassword &&
+              formik.errors.currentPassword
+            }
+            variant="outlined"
+          />
+          <TextField
+            className="my-2"
+            fullWidth
+            type="password"
+            id="password"
+            name="password"
+            label="Nova lozinka"
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            error={
+              formik.touched.password && Boolean(formik.errors.password)
+            }
+            helperText={formik.touched.password && formik.errors.password}
+            variant="outlined"
+          />
+          <TextField
+            className="my-2"
+            fullWidth
+            type="password"
+            id="repeatPassword"
+            name="repeatPassword"
+            label="Potvrdi lozinku"
+            value={formik.values.repeatPassword}
+            onChange={formik.handleChange}
+            error={
+              formik.touched.repeatPassword &&
+              Boolean(formik.errors.repeatPassword)
+            }
+            helperText={
+              formik.touched.repeatPassword && formik.errors.repeatPassword
+            }
+            variant="outlined"
+          />
 
-              <div className="w-100 px-4 mb-4 mt-2 d-flex flex-column flex-sm-row justify-content-center align-items-center">
-                {!loading && <>
-                  <Button
-                    variant="contained"
-                    className="w-100 m-2 px-4 bg-lightGray text-dark no-round font-weight-bold"
-                    onClick={() => disableEdit()}
-                  >
-                    Odustani
+          <div className="w-100 px-4 mb-4 mt-2 d-flex flex-column flex-sm-row justify-content-center align-items-center">
+            {!loading && <>
+              <Button
+                variant="contained"
+                className="w-100 m-2 px-4 bg-lightGray text-dark no-round font-weight-bold"
+                onClick={() => disableEdit()}
+              >
+                Odustani
                   </Button>
 
-                  <Button
-                    variant="contained"
-                    type="submit"
-                    className="w-100 m-2 px-4 bg-blueAccent text-white no-round font-weight-bold"
-                  >
-                    Spremi Promjene
+              <Button
+                variant="contained"
+                type="submit"
+                className="w-100 m-2 px-4 bg-blueAccent text-white no-round font-weight-bold"
+              >
+                Spremi Promjene
                   </Button>
-                </>}
-                {loading && <Spinner />}
-              </div>
-              {error &&
-                  <Alert className="w-100" variant="danger" onClick={() => { setError(false) }
-                  } dismissible>
-                    {error}
-                  </Alert>
-                }
-            </div>
-          </form>
-        </Col>
-      </Row>
+            </>}
+            {loading && <Spinner />}
+          </div>
+          {error &&
+            <Alert className="w-100" variant="danger" onClick={() => { setError(false) }
+            } dismissible>
+              {error}
+            </Alert>
+          }
+        </div>
+      </form>
     </Container>
   );
 };

@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useHistory, useParams } from 'react-router-dom';
-import axiosInstance from '../../helpers/axiosInstance';
-import Spinner from '../Utils/Spinner';
+import axiosInstance from '../../../helpers/axiosInstance';
+import Spinner from '../../Utils/Spinner';
 import Carousel from 'react-gallery-carousel';
 import 'react-gallery-carousel/dist/index.css';
 import Container from 'react-bootstrap/esm/Container';
 import CardColumns from 'react-bootstrap/esm/CardColumns';
 import Moment from 'react-moment';
 import Button from 'react-bootstrap/esm/Button';
-import { useAuth } from '../../contexts/AuthContext';
-import OfferCard from './OfferCard';
+import { useAuth } from '../../../contexts/AuthContext';
+import OfferCard from '../OfferCard';
 
 const ListingDetails = () => {
   const { id } = useParams();
@@ -120,7 +120,7 @@ const ListingDetails = () => {
 
         <CardColumns>
           {listing.offers.map((offer, index) => (
-            <OfferCard key={index} offer={offer} authorId={listing.person.userId} margin="m-2" />
+            <OfferCard key={index} offer={offer} authorId={listing.person.userId} margin="m-2" showService="true" />
           ))}
         </CardColumns>
 
