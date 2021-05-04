@@ -55,7 +55,6 @@ const AddFaultCategories = ({margin}) => {
 
         <Autocomplete
           multiple
-          disableCloseOnSelect
           id="faultCategories"
           name="faultCategories"
           value={formik.faultCategories}

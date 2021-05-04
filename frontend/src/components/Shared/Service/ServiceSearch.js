@@ -84,7 +84,7 @@ const ServiceSearch = () => {
 
   const fetchListings = (values, page) => {
     let query = "";
-    if (values.listing) query += `service=${values.service}`;
+    if (values.service) query += `service=${values.service}`;
     if (values.faultCategories.length !== 0) {
       let ids = "";
       values.faultCategories.forEach((c, index) => {
@@ -98,7 +98,7 @@ const ServiceSearch = () => {
     if (values.per_page) query += `&per_page=${values.per_page}`;
     if (page) query += `&page=${page}`
     setLoading(true);
-    axiosInstance(history).get("/service/search?" + query)
+    axiosInstance(history).get("/services/search?" + query)
       .then(res => {
         setLoading(false);
         setError(false);
