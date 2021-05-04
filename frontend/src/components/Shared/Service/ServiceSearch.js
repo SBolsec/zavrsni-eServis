@@ -123,7 +123,7 @@ const ServiceSearch = () => {
                 fullWidth
                 id="service"
                 name="service"
-                label="Pretražite servisere"
+                label="Pretražite servise"
                 value={formik.values.listing}
                 onChange={formik.handleChange}
                 error={
@@ -188,7 +188,7 @@ const ServiceSearch = () => {
             </Col>
             <Col xs={12} md={3}>
               <FormControl variant="outlined" className="my-2 flex-fill flex-grow-1" fullWidth>
-                <InputLabel id="per_page_label">Broj oglasa po stranici</InputLabel>
+                <InputLabel id="per_page_label">Broj servisa po stranici</InputLabel>
                 <Select
                   labelId="per_page_label"
                   label="Broj oglasa po stranici"
