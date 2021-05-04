@@ -123,8 +123,8 @@ const ServiceDetails = () => {
                   {service.faultCategories.map((c, index) => (
                     <Chip
                       key={index}
-                      label={c.parent.name + " - " + c.name}
-                      className="bg-accepted text-white font-weight-bold"
+                      label={!c.parent ? c.name : c.parent.name + " - " + c.name}
+                      className="bg-blueAccent m-1 text-white font-weight-bold"
                     />
                   ))}
                 </div>

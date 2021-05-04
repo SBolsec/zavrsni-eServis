@@ -66,8 +66,8 @@ const ServiceCard = ({ service }) => {
                 {service.faultCategories.map((c, index) => (
                   <Chip
                     key={index}
-                    label={c.parent.name + " - " + c.name}
-                    className="bg-accepted text-white font-weight-bold"
+                    label={c.name}
+                    className="bg-blueAccent text-white font-weight-bold m-1"
                   />
                 ))}
               </div>
