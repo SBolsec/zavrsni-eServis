@@ -19,8 +19,6 @@ const AddFaultCategories = () => {
   const history = useHistory();
   const { context, dispatch } = useServiceContext();
   const [allFaultCategories, setAllFaultCategories] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
 
 
   // fetch all fault categories
@@ -41,7 +39,7 @@ const AddFaultCategories = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      updateFaultCategories(values.faultCategories)(dispatch);
+      updateFaultCategories({faultCategories: values.faultCategories})(dispatch);
     }
   });
 
@@ -64,6 +62,7 @@ const AddFaultCategories = () => {
           options={allFaultCategories}
           groupBy={(option) => option.parent.name}
           getOptionLabel={(option) => option.name}
+          getOptionSelected={(option, value) => value.id === option.id}
           defaultValue={context.data.faultCategories}
           fullWidth
           className=""
@@ -84,7 +83,7 @@ const AddFaultCategories = () => {
         />
 
         <div className="w-100 py-3 px-4 d-flex flex-column flex-sm-row justify-content-center align-items-center">
-          {!loading && <>
+          {!context.loadingFault && <>
             <Button
               variant="contained"
               type="submit"
@@ -93,12 +92,11 @@ const AddFaultCategories = () => {
               Spremi Promjene
                   </Button>
           </>}
-          {loading && <Spinner />}
+          {context.loadingFault && <Spinner />}
         </div>
-        {error &&
-          <Alert className="w-100" variant="danger" onClick={() => { setError(false) }
-          } dismissible>
-            {error}
+        {context.errorFault &&
+          <Alert className="w-100" variant="danger" dismissible>
+            {context.errorFault}
           </Alert>
         }
       </form>

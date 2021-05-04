@@ -15,14 +15,12 @@ const serviceReducer = (state, { type, payload }) => {
         ...state,
         sidebarShow: payload,
       };
-    case SERVICE_FAULT_LOADING:
     case SERVICE_DATA_LOADING:
       return {
         ...state,
         loading: true,
         error: false,
       };
-    case SERVICE_FAULT_ERROR:
     case SERVICE_DATA_ERROR:
       return {
         ...state,
@@ -36,11 +34,23 @@ const serviceReducer = (state, { type, payload }) => {
         error: false,
         data: payload,
       };
+    case SERVICE_FAULT_ERROR:
+      return {
+        ...state,
+        loadingFault: false,
+        errorFault: payload,
+      };
+    case SERVICE_FAULT_LOADING:
+      return {
+        ...state,
+        loadingFault: true,
+        errorFault: false,
+      };
     case SERVICE_FAULT_SUCCESS:
       return {
         ...state,
-        loading: false,
-        error: false,
+        loadingFault: false,
+        errorFault: false,
         data: {
           ...state.data,
           faultCategories: payload
