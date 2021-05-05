@@ -74,7 +74,7 @@ const ListingDetails = () => {
 
       <Container className="bg-white text-black my-4 pt-4 pb-3">
         <h5>Opis oglasa</h5>
-        <pre style={{ fontSize: '1em' }}>{listing.description}</pre>
+        <p style={{ fontSize: '1em' }}>{listing.description}</p>
         <hr />
         <p>
           <span className="text-gray" style={{ fontSize: '0.8em' }}>Mjesto: </span>
@@ -119,8 +119,8 @@ const ListingDetails = () => {
         {listing.offers.length === 0 && <span className="ml-2 text-gray">Oglas još nema ponuda.</span>}
 
         <CardColumns>
-          {listing.offers.map((offer, index) => (
-            <OfferCard key={index} offer={offer} authorId={listing.person.userId} margin="m-2" showService="true" />
+          {listing.offers.map((offer) => (
+            <OfferCard key={offer.id} offer={offer} authorId={listing.person.userId} margin="m-2" showService="true" />
           ))}
         </CardColumns>
 
