@@ -23,12 +23,12 @@ const ServiceCard = ({ service }) => {
       break;
   }
 
-  const [rating, setRating] = useState(0);
+  let rating = 0;
   if (service.reviews.length !== 0) {
     let sumOfRatings = 0;
     service.reviews.forEach(review => sumOfRatings += review.score);
     // round number to closes factor of 0.5
-    setRating(Math.round((sumOfRatings / service.reviews.length) * 2) / 2);
+    rating = (Math.round((sumOfRatings / service.reviews.length) * 2) / 2);
   }
 
   return (
@@ -41,7 +41,7 @@ const ServiceCard = ({ service }) => {
           <div className="d-flex justify-content-start align-items-center my-2">
             <img
               src={service.profilePicture.url}
-              alt="company picture"
+              alt="company"
               className="rounded-circle mr-4"
               style={{
                 width: "75px",

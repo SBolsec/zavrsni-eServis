@@ -4,8 +4,6 @@ import axiosInstance from "../../../helpers/axiosInstance";
 import Spinner from "../../Utils/Spinner";
 import "react-gallery-carousel/dist/index.css";
 import Container from "react-bootstrap/esm/Container";
-import Row from "react-bootstrap/esm/Row";
-import Col from "react-bootstrap/esm/Col";
 import Button from "react-bootstrap/esm/Button";
 import { useAuth } from "../../../contexts/AuthContext";
 import OfferCard from "../OfferCard";
@@ -40,12 +38,12 @@ const ServiceDetails = () => {
       });
   }, []);
 
-  const [rating, setRating] = useState(0);
+  let rating = 0;
   if (service && service.reviews.length !== 0) {
     let sumOfRatings = 0;
     service.reviews.forEach((review) => (sumOfRatings += review.score));
     // round number to closes factor of 0.5
-    setRating(Math.round((sumOfRatings / service.reviews.length) * 2) / 2);
+    rating = (Math.round((sumOfRatings / service.reviews.length) * 2) / 2);
   }
 
   if (loading || !service) {
@@ -112,12 +110,11 @@ const ServiceDetails = () => {
               {service.website}
             </p>
             <span className="text-uppercase text-gray">Opis djelatnosti:</span>
-            <pre>{service.description}</pre>
-
-            <hr className="my-4" />
+            <p>{service.description}</p>
 
             {service.faultCategories.length !== 0 && (
               <>
+                <hr className="my-4" />
                 <p className="text-gray text-uppercase mb-0">Kategorije:</p>
                 <div className="mt-0 d-flex flex-wrap align-items-center">
                   {service.faultCategories.map((c, index) => (
@@ -146,7 +143,10 @@ const ServiceDetails = () => {
                 </div>
               }
               {service.reviews.map((review, index) => (
-                <Review key={index} review={review} />
+                <>
+                  <Review key={index} review={review} />
+                  <hr />
+                </>
               ))}
             </div>
 

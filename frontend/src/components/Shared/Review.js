@@ -3,11 +3,11 @@ import Rating from "@material-ui/lab/Rating";
 
 const Review = ({ review }) => {
   return (
-    <div>
+    <div className="mb-4">
       <div className="d-flex flex-row justify-content-start align-items-center">
         <img
           src={review.author.profilePicture.url}
-          alt="company picture"
+          alt="company"
           className="rounded-circle my-2"
           style={{
             height: "75px",
@@ -25,7 +25,7 @@ const Review = ({ review }) => {
           />
         </div>
       </div>
-      {review.content}
+      <p className="my-2">{review.content}</p>
     </div>
   );
 };
