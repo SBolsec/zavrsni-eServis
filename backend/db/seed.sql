@@ -1,3 +1,129 @@
+/* Uloge */
+INSERT INTO uloga (naziv_uloga) VALUES ('admin');
+INSERT INTO uloga (naziv_uloga) VALUES ('obican');
+INSERT INTO uloga (naziv_uloga) VALUES ('serviser');
+
+/* Statusi oglasa */
+INSERT INTO status_oglasa (naziv_status) VALUES ('aktivan');
+INSERT INTO status_oglasa (naziv_status) VALUES ('zavrsen');
+
+/* Statusi ponuda */
+INSERT INTO status_ponude (naziv_status) VALUES ('aktivna');
+INSERT INTO status_ponude (naziv_status) VALUES ('prihvacena');
+INSERT INTO status_ponude (naziv_status) VALUES ('odbijena');
+INSERT INTO status_ponude (naziv_status) VALUES ('obrisana');
+
+/* Glavne kategorije */
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Svi oglasi', NULL);
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Servis računala', 1);
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Servis mobitela i tableta', 1);
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Servis konzola', 1);
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Bijela tehnika', 1);
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Ostali uređaji', 1);
+
+/* Računala - glavne kategorije */
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Popravak računala', 2);
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Održavanje računala', 2);
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Instalacije programa', 2);
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Instalacija operativnog sistema', 2);
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Čišćenje virusa', 2);
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Uklanjanje prašine i zamjena termalne paste', 2);
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Zamjena baterije za laptop', 2);
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Popravak konektora', 2);
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Ostalo', 2);
+
+/* Mobiteli */
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Zamjena stakla', 3);
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Zamjena ekrana', 3);
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Zamjena baterije', 3);
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Zamjena kamere', 3);
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Zamjena poklopca', 3);
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Zamjena konektora punjenja', 3);
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Zamjena zvučnika i senzora', 3);
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Zamjena matične ploče', 3);
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Popravak softwera', 3);
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Otključavanje', 3);
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Ostalo', 3);
+
+/* Konzole  */
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Playstation 1', 4);
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Playstation 2', 4);
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Playstation 3', 4);
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Playstation 4', 4);
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Playstation 5', 4);
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Playstation Portable', 4);
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Playstation Vita', 4);
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Xbox 360', 4);
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Xbox One', 4);
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Nintendo Wii', 4);
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Nintendo Wii U', 4);
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Nintendo 3DS', 4);
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Nintendo Switch', 4);
+
+/* Bijela tehnika */
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Perilice posuđa', 5);
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Perilice rublja', 5);
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Sučilice rublja', 5);
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Hladnjaci', 5);
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Pećnice', 5);
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Štednjaci', 5);
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Nape', 5);
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Zamrzivači', 5);
+INSERT INTO kategorija_kvara (naziv_kategorija_kvara, sif_roditelj) VALUES ('Bojleri', 5);
+
+/* Slike koriničkih profila */
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-cottonbro-4067768', 'aznrtldugdfhxf10m2md', 'https://res.cloudinary.com/eservis/image/upload/v1620167835/aznrtldugdfhxf10m2md.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-luis-quintero-1759530', 'xcbdltsn2kotq1bjj2ao', 'https://res.cloudinary.com/eservis/image/upload/v1620167842/xcbdltsn2kotq1bjj2ao.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-pixabay-415829', 'calrx4mhyi5zzuj93ff3', 'https://res.cloudinary.com/eservis/image/upload/v1620167894/calrx4mhyi5zzuj93ff3.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-andrea-piacquadio-943084', 'ehjrfzopwoxylelfoz6i', 'https://res.cloudinary.com/eservis/image/upload/v1620167900/ehjrfzopwoxylelfoz6i.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-chloe-1043471', 'wqywccfi29fem2ndlcb4', 'https://res.cloudinary.com/eservis/image/upload/v1620167907/wqywccfi29fem2ndlcb4.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-giftpunditscom-1310522', 'kwbeqjf92d5hb9zochvr', 'https://res.cloudinary.com/eservis/image/upload/v1620167913/kwbeqjf92d5hb9zochvr.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-suliman-sallehi-1704488', 'z8lnj4evdsydata4041t', 'https://res.cloudinary.com/eservis/image/upload/v1620167918/z8lnj4evdsydata4041t.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-mohamed-abdelghaffar-771742', 'lix8kwcningchcasj96h', 'https://res.cloudinary.com/eservis/image/upload/v1620167923/lix8kwcningchcasj96h.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-pixabay-220453', 'w0izyetennwg1pnay0tp', 'https://res.cloudinary.com/eservis/image/upload/v1620167930/w0izyetennwg1pnay0tp.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-cottonbro-4067768', 'l0mqlqzynedud2lono6b', 'https://res.cloudinary.com/eservis/image/upload/v1620167952/l0mqlqzynedud2lono6b.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-luis-quintero-1759530', 'puohfxldj0e4nwjyez4g', 'https://res.cloudinary.com/eservis/image/upload/v1620167959/puohfxldj0e4nwjyez4g.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-pixabay-415829', 'nsdnxkzxnagraswpzupj', 'https://res.cloudinary.com/eservis/image/upload/v1620167966/nsdnxkzxnagraswpzupj.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-andrea-piacquadio-943084', 'wxupnouwl30ytltcnwfm', 'https://res.cloudinary.com/eservis/image/upload/v1620167972/wxupnouwl30ytltcnwfm.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-chloe-1043471', 'vdv8syz7ep7p4bnpzpyv', 'https://res.cloudinary.com/eservis/image/upload/v1620167978/vdv8syz7ep7p4bnpzpyv.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-giftpunditscom-1310522', 'hwnya3hacenwfl8mlvk8', 'https://res.cloudinary.com/eservis/image/upload/v1620167985/hwnya3hacenwfl8mlvk8.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-suliman-sallehi-1704488', 'jkpa7kkhn2fmzgwprszr', 'https://res.cloudinary.com/eservis/image/upload/v1620167990/jkpa7kkhn2fmzgwprszr.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-mohamed-abdelghaffar-771742', 'zqskbrqmbfk1hmcgznvh', 'https://res.cloudinary.com/eservis/image/upload/v1620167995/zqskbrqmbfk1hmcgznvh.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-pixabay-220453', 'zzxdeg0zblyjxowf4zgg', 'https://res.cloudinary.com/eservis/image/upload/v1620168003/zzxdeg0zblyjxowf4zgg.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-cottonbro-4067768', 'lq6sxosjzkqfzh1ulsnm', 'https://res.cloudinary.com/eservis/image/upload/v1620168011/lq6sxosjzkqfzh1ulsnm.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-luis-quintero-1759530', 'pbsuqzak04tn0a7icgtd', 'https://res.cloudinary.com/eservis/image/upload/v1620168018/pbsuqzak04tn0a7icgtd.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-pixabay-415829', 'tcexcgremmdwnysbxiyx', 'https://res.cloudinary.com/eservis/image/upload/v1620168025/tcexcgremmdwnysbxiyx.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-andrea-piacquadio-943084', 'ogsysraixx66sw7oszcb', 'https://res.cloudinary.com/eservis/image/upload/v1620168032/ogsysraixx66sw7oszcb.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-chloe-1043471', 'fqgmjtggjllzvosoeskv', 'https://res.cloudinary.com/eservis/image/upload/v1620168043/fqgmjtggjllzvosoeskv.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-giftpunditscom-1310522', 'ltnjsh6tdeezi7gpode4', 'https://res.cloudinary.com/eservis/image/upload/v1620168050/ltnjsh6tdeezi7gpode4.jpg', NULL);
+
+/* Slike servisa */
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-garrett-morrow-1337247', 'lba0et08am38479kfbjg', 'https://res.cloudinary.com/eservis/image/upload/v1620168470/lba0et08am38479kfbjg.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-lisa-4511372', 'jld92sy3xfthwy2k6xhd', 'https://res.cloudinary.com/eservis/image/upload/v1620168479/jld92sy3xfthwy2k6xhd.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-dmitry-demidov-3784566', 'ky63uaffxgolwns7aqd6', 'https://res.cloudinary.com/eservis/image/upload/v1620168488/ky63uaffxgolwns7aqd6.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-skitterphoto-1388947', 'aius8jszxj63ylj8hyfi', 'https://res.cloudinary.com/eservis/image/upload/v1620168493/aius8jszxj63ylj8hyfi.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-tyler-lastovich-719399', 'wveacjivasrbs5ajvgqs', 'https://res.cloudinary.com/eservis/image/upload/v1620168499/wveacjivasrbs5ajvgqs.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-athena-2582931', 'kbl9jzf7q8qoinbhr47r', 'https://res.cloudinary.com/eservis/image/upload/v1620168508/kbl9jzf7q8qoinbhr47r.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-pixabay-257886', 'qngs1cjss0oclcotetzt', 'https://res.cloudinary.com/eservis/image/upload/v1620168514/qngs1cjss0oclcotetzt.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-josh-sorenson-1054397', 'gqwivfpddxt1k5w3bbrx', 'https://res.cloudinary.com/eservis/image/upload/v1620168521/gqwivfpddxt1k5w3bbrx.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-pixabay-257736', 'pghq2o7so7l8xun8qeaj', 'https://res.cloudinary.com/eservis/image/upload/v1620168526/pghq2o7so7l8xun8qeaj.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-garrett-morrow-1337247', 'wkfnsm2zyiaz6wbhyv01', 'https://res.cloudinary.com/eservis/image/upload/v1620168532/wkfnsm2zyiaz6wbhyv01.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-lisa-4511372', 'x3xqvyh9vkhvvbz5n4ey', 'https://res.cloudinary.com/eservis/image/upload/v1620168541/x3xqvyh9vkhvvbz5n4ey.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-dmitry-demidov-3784566', 'd4dxfrislk1upf03deaj', 'https://res.cloudinary.com/eservis/image/upload/v1620168547/d4dxfrislk1upf03deaj.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-skitterphoto-1388947', 'f63dmak07ucc0nbbkyus', 'https://res.cloudinary.com/eservis/image/upload/v1620168552/f63dmak07ucc0nbbkyus.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-tyler-lastovich-719399', 'gcquixq6awkhg7bcnqbg', 'https://res.cloudinary.com/eservis/image/upload/v1620168557/gcquixq6awkhg7bcnqbg.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-athena-2582931', 'gh66f3duxi27tujx7ymb', 'https://res.cloudinary.com/eservis/image/upload/v1620168566/gh66f3duxi27tujx7ymb.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-pixabay-257886', 'cq5k3wzvzebinhr68ayj', 'https://res.cloudinary.com/eservis/image/upload/v1620168571/cq5k3wzvzebinhr68ayj.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-josh-sorenson-1054397', 'wezixahhciplji0cpwjq', 'https://res.cloudinary.com/eservis/image/upload/v1620168579/wezixahhciplji0cpwjq.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-pixabay-257736', 'xft2o7pdo0ykkx4mopj9', 'https://res.cloudinary.com/eservis/image/upload/v1620168585/xft2o7pdo0ykkx4mopj9.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-garrett-morrow-1337247', 'arbmqyvv1moqwtckvuhr', 'https://res.cloudinary.com/eservis/image/upload/v1620168590/arbmqyvv1moqwtckvuhr.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-dmitry-demidov-3784566', 'qfljirvtovlzavfwh6lw', 'https://res.cloudinary.com/eservis/image/upload/v1620168596/qfljirvtovlzavfwh6lw.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-tyler-lastovich-719399', 'ppunyrr7burbqx4o7orf', 'https://res.cloudinary.com/eservis/image/upload/v1620168602/ppunyrr7burbqx4o7orf.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-athena-2582931', 'n8r5aabgikhcw6orpzyd', 'https://res.cloudinary.com/eservis/image/upload/v1620168611/n8r5aabgikhcw6orpzyd.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-pixabay-257886', 's4jacs4d0u48s2ymtrus', 'https://res.cloudinary.com/eservis/image/upload/v1620168617/s4jacs4d0u48s2ymtrus.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-josh-sorenson-1054397', 'ujkzuozquo9uq6ls24v6', 'https://res.cloudinary.com/eservis/image/upload/v1620168624/ujkzuozquo9uq6ls24v6.jpg', NULL);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-pixabay-257736', 'e74yig41wumecmzktrzh', 'https://res.cloudinary.com/eservis/image/upload/v1620168630/e74yig41wumecmzktrzh.jpg', NULL);
+
 /* Računi običnih korisnika */
 INSERT INTO korisnik (email, lozinka, sif_uloga, verzija_tokena, trenutak_stvaranja, trenutak_promjene, sif_slika_profila) VALUES ('user1@gmail.com', '$2a$10$KPj2gHFAd5cpbX1payzmsuKgkFVG/DusXMgiTnldEauaThDoVLNIa', 2, 0, NOW()::TIMESTAMP, NOW()::TIMESTAMP, 1);
 INSERT INTO korisnik (email, lozinka, sif_uloga, verzija_tokena, trenutak_stvaranja, trenutak_promjene, sif_slika_profila) VALUES ('user2@gmail.com', '$2a$10$KPj2gHFAd5cpbX1payzmsuKgkFVG/DusXMgiTnldEauaThDoVLNIa', 2, 0, NOW()::TIMESTAMP, NOW()::TIMESTAMP, 2);
@@ -258,3 +384,101 @@ INSERT INTO recenzija (sadrzaj, ocjena, trenutak_stvaranja, trenutak_promjene, s
 INSERT INTO recenzija (sadrzaj, ocjena, trenutak_stvaranja, trenutak_promjene, sif_osoba, sif_servis) VALUES ('Venenatis a condimentum vitae sapien. Quisque egestas diam in arcu cursus.', 3, NOW()::TIMESTAMP, NOW()::TIMESTAMP, 7, 30);
 INSERT INTO recenzija (sadrzaj, ocjena, trenutak_stvaranja, trenutak_promjene, sif_osoba, sif_servis) VALUES ('Consectetur adipiscing elit pellentesque habitant.', 3, NOW()::TIMESTAMP, NOW()::TIMESTAMP, 2, 30);
 INSERT INTO recenzija (sadrzaj, ocjena, trenutak_stvaranja, trenutak_promjene, sif_osoba, sif_servis) VALUES ('Urna et pharetra pharetra massa massa ultricies. Odio ut sem nulla pharetra diam sit amet.', 4, NOW()::TIMESTAMP, NOW()::TIMESTAMP, 20, 30);
+
+/* Oglasi */
+INSERT INTO oglas (naslov, opis, trenutak_stvaranja, trenutak_promjene, sif_status, sif_osoba, sif_kategorija_kvara, sif_mjesto) VALUES ('Urna et pharetra', 'Leo duis ut diam quam nulla porttitor massa id neque. Consectetur lorem donec massa sapien faucibus et molestie ac feugiat.', NOW()::TIMESTAMP, NOW()::TIMESTAMP, 2, 4, 18, 533);
+INSERT INTO oglas (naslov, opis, trenutak_stvaranja, trenutak_promjene, sif_status, sif_osoba, sif_kategorija_kvara, sif_mjesto) VALUES ('Venenatis a condimentum vitae sapien', 'Venenatis a condimentum vitae sapien. Quisque egestas diam in arcu cursus.', NOW()::TIMESTAMP, NOW()::TIMESTAMP, 1, 4, 13, 686);
+INSERT INTO oglas (naslov, opis, trenutak_stvaranja, trenutak_promjene, sif_status, sif_osoba, sif_kategorija_kvara, sif_mjesto) VALUES ('Semper risus', 'Urna et pharetra pharetra massa massa ultricies. Odio ut sem nulla pharetra diam sit amet.', NOW()::TIMESTAMP, NOW()::TIMESTAMP, 1, 4, 32, 512);
+INSERT INTO oglas (naslov, opis, trenutak_stvaranja, trenutak_promjene, sif_status, sif_osoba, sif_kategorija_kvara, sif_mjesto) VALUES ('Faucibus in ornare', 'Semper risus in hendrerit gravida rutrum.', NOW()::TIMESTAMP, NOW()::TIMESTAMP, 1, 6, 33, 396);
+INSERT INTO oglas (naslov, opis, trenutak_stvaranja, trenutak_promjene, sif_status, sif_osoba, sif_kategorija_kvara, sif_mjesto) VALUES ('Venenatis a condimentum vitae sapien', 'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.', NOW()::TIMESTAMP, NOW()::TIMESTAMP, 1, 6, 17, 446);
+INSERT INTO oglas (naslov, opis, trenutak_stvaranja, trenutak_promjene, sif_status, sif_osoba, sif_kategorija_kvara, sif_mjesto) VALUES ('Pretium lectus', 'Semper risus in hendrerit gravida rutrum.', NOW()::TIMESTAMP, NOW()::TIMESTAMP, 1, 9, 32, 313);
+INSERT INTO oglas (naslov, opis, trenutak_stvaranja, trenutak_promjene, sif_status, sif_osoba, sif_kategorija_kvara, sif_mjesto) VALUES ('Pretium lectus', 'Faucibus scelerisque eleifend donec pretium vulputate sapien nec.', NOW()::TIMESTAMP, NOW()::TIMESTAMP, 1, 9, 35, 96);
+INSERT INTO oglas (naslov, opis, trenutak_stvaranja, trenutak_promjene, sif_status, sif_osoba, sif_kategorija_kvara, sif_mjesto) VALUES ('Pretium lectus', 'Consectetur adipiscing elit pellentesque habitant.', NOW()::TIMESTAMP, NOW()::TIMESTAMP, 1, 11, 25, 435);
+INSERT INTO oglas (naslov, opis, trenutak_stvaranja, trenutak_promjene, sif_status, sif_osoba, sif_kategorija_kvara, sif_mjesto) VALUES ('Faucibus in ornare', 'Sit amet dictum sit amet justo donec enim diam vulputate.', NOW()::TIMESTAMP, NOW()::TIMESTAMP, 1, 11, 21, 724);
+INSERT INTO oglas (naslov, opis, trenutak_stvaranja, trenutak_promjene, sif_status, sif_osoba, sif_kategorija_kvara, sif_mjesto) VALUES ('Odio ut sem', 'Sit amet dictum sit amet justo donec enim diam vulputate.', NOW()::TIMESTAMP, NOW()::TIMESTAMP, 2, 14, 42, 501);
+INSERT INTO oglas (naslov, opis, trenutak_stvaranja, trenutak_promjene, sif_status, sif_osoba, sif_kategorija_kvara, sif_mjesto) VALUES ('Faucibus in ornare', 'Volutpat consequat mauris nunc congue nisi vitae.', NOW()::TIMESTAMP, NOW()::TIMESTAMP, 1, 15, 10, 408);
+INSERT INTO oglas (naslov, opis, trenutak_stvaranja, trenutak_promjene, sif_status, sif_osoba, sif_kategorija_kvara, sif_mjesto) VALUES ('Pretium lectus', 'Semper risus in hendrerit gravida rutrum.', NOW()::TIMESTAMP, NOW()::TIMESTAMP, 1, 15, 11, 83);
+INSERT INTO oglas (naslov, opis, trenutak_stvaranja, trenutak_promjene, sif_status, sif_osoba, sif_kategorija_kvara, sif_mjesto) VALUES ('Consectetur adipiscing', 'Volutpat ac tincidunt vitae semper.', NOW()::TIMESTAMP, NOW()::TIMESTAMP, 1, 15, 24, 572);
+INSERT INTO oglas (naslov, opis, trenutak_stvaranja, trenutak_promjene, sif_status, sif_osoba, sif_kategorija_kvara, sif_mjesto) VALUES ('Quisque egestas diam in arcu cursus.', 'Pretium lectus quam id leo in vitae turpis massa.', NOW()::TIMESTAMP, NOW()::TIMESTAMP, 1, 16, 43, 805);
+INSERT INTO oglas (naslov, opis, trenutak_stvaranja, trenutak_promjene, sif_status, sif_osoba, sif_kategorija_kvara, sif_mjesto) VALUES ('Odio ut sem nulla pharetra', 'Faucibus in ornare quam viverra orci sagittis eu volutpat.', NOW()::TIMESTAMP, NOW()::TIMESTAMP, 1, 17, 10, 488);
+INSERT INTO oglas (naslov, opis, trenutak_stvaranja, trenutak_promjene, sif_status, sif_osoba, sif_kategorija_kvara, sif_mjesto) VALUES ('Odio ut sem nulla pharetra', 'Faucibus in ornare quam viverra orci sagittis eu volutpat.', NOW()::TIMESTAMP, NOW()::TIMESTAMP, 1, 17, 25, 585);
+INSERT INTO oglas (naslov, opis, trenutak_stvaranja, trenutak_promjene, sif_status, sif_osoba, sif_kategorija_kvara, sif_mjesto) VALUES ('Odio ut sem', 'Venenatis a condimentum vitae sapien. Quisque egestas diam in arcu cursus.', NOW()::TIMESTAMP, NOW()::TIMESTAMP, 1, 17, 7, 552);
+INSERT INTO oglas (naslov, opis, trenutak_stvaranja, trenutak_promjene, sif_status, sif_osoba, sif_kategorija_kvara, sif_mjesto) VALUES ('amet dictum sit amet', 'Pretium lectus quam id leo in vitae turpis massa.', NOW()::TIMESTAMP, NOW()::TIMESTAMP, 1, 18, 40, 118);
+INSERT INTO oglas (naslov, opis, trenutak_stvaranja, trenutak_promjene, sif_status, sif_osoba, sif_kategorija_kvara, sif_mjesto) VALUES ('Urna et pharetra', 'Semper risus in hendrerit gravida rutrum.', NOW()::TIMESTAMP, NOW()::TIMESTAMP, 1, 20, 33, 824);
+INSERT INTO oglas (naslov, opis, trenutak_stvaranja, trenutak_promjene, sif_status, sif_osoba, sif_kategorija_kvara, sif_mjesto) VALUES ('Faucibus in ornare', 'Venenatis a condimentum vitae sapien. Quisque egestas diam in arcu cursus.', NOW()::TIMESTAMP, NOW()::TIMESTAMP, 1, 20, 11, 118);
+INSERT INTO oglas (naslov, opis, trenutak_stvaranja, trenutak_promjene, sif_status, sif_osoba, sif_kategorija_kvara, sif_mjesto) VALUES ('Consectetur lorem donec massa', 'Volutpat ac tincidunt vitae semper.', NOW()::TIMESTAMP, NOW()::TIMESTAMP, 1, 20, 37, 287);
+INSERT INTO oglas (naslov, opis, trenutak_stvaranja, trenutak_promjene, sif_status, sif_osoba, sif_kategorija_kvara, sif_mjesto) VALUES ('Quisque egestas diam in arcu cursus.', 'Faucibus in ornare quam viverra orci sagittis eu volutpat.', NOW()::TIMESTAMP, NOW()::TIMESTAMP, 1, 20, 46, 171);
+INSERT INTO oglas (naslov, opis, trenutak_stvaranja, trenutak_promjene, sif_status, sif_osoba, sif_kategorija_kvara, sif_mjesto) VALUES ('Consectetur adipiscing', 'Faucibus scelerisque eleifend donec pretium vulputate sapien nec.', NOW()::TIMESTAMP, NOW()::TIMESTAMP, 1, 22, 11, 388);
+INSERT INTO oglas (naslov, opis, trenutak_stvaranja, trenutak_promjene, sif_status, sif_osoba, sif_kategorija_kvara, sif_mjesto) VALUES ('Consectetur adipiscing', 'Leo duis ut diam quam nulla porttitor massa id neque. Consectetur lorem donec massa sapien faucibus et molestie ac feugiat.', NOW()::TIMESTAMP, NOW()::TIMESTAMP, 1, 22, 14, 600);
+INSERT INTO oglas (naslov, opis, trenutak_stvaranja, trenutak_promjene, sif_status, sif_osoba, sif_kategorija_kvara, sif_mjesto) VALUES ('Odio ut sem nulla pharetra', 'Venenatis a condimentum vitae sapien. Quisque egestas diam in arcu cursus.', NOW()::TIMESTAMP, NOW()::TIMESTAMP, 1, 22, 42, 759);
+INSERT INTO oglas (naslov, opis, trenutak_stvaranja, trenutak_promjene, sif_status, sif_osoba, sif_kategorija_kvara, sif_mjesto) VALUES ('Odio ut sem', 'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.', NOW()::TIMESTAMP, NOW()::TIMESTAMP, 1, 22, 14, 958);
+INSERT INTO oglas (naslov, opis, trenutak_stvaranja, trenutak_promjene, sif_status, sif_osoba, sif_kategorija_kvara, sif_mjesto) VALUES ('Semper risus', 'Faucibus scelerisque eleifend donec pretium vulputate sapien nec.', NOW()::TIMESTAMP, NOW()::TIMESTAMP, 1, 23, 33, 90);
+INSERT INTO oglas (naslov, opis, trenutak_stvaranja, trenutak_promjene, sif_status, sif_osoba, sif_kategorija_kvara, sif_mjesto) VALUES ('amet dictum sit amet', 'Faucibus in ornare quam viverra orci sagittis eu volutpat.', NOW()::TIMESTAMP, NOW()::TIMESTAMP, 1, 23, 33, 312);
+INSERT INTO oglas (naslov, opis, trenutak_stvaranja, trenutak_promjene, sif_status, sif_osoba, sif_kategorija_kvara, sif_mjesto) VALUES ('Urna et pharetra', 'Leo duis ut diam quam nulla porttitor massa id neque. Consectetur lorem donec massa sapien faucibus et molestie ac feugiat.', NOW()::TIMESTAMP, NOW()::TIMESTAMP, 1, 23, 36, 74);
+INSERT INTO oglas (naslov, opis, trenutak_stvaranja, trenutak_promjene, sif_status, sif_osoba, sif_kategorija_kvara, sif_mjesto) VALUES ('Consectetur adipiscing', 'Semper risus in hendrerit gravida rutrum.', NOW()::TIMESTAMP, NOW()::TIMESTAMP, 2, 25, 44, 98);
+INSERT INTO oglas (naslov, opis, trenutak_stvaranja, trenutak_promjene, sif_status, sif_osoba, sif_kategorija_kvara, sif_mjesto) VALUES ('Quisque egestas diam in arcu cursus.', 'Leo duis ut diam quam nulla porttitor massa id neque. Consectetur lorem donec massa sapien faucibus et molestie ac feugiat.', NOW()::TIMESTAMP, NOW()::TIMESTAMP, 1, 25, 40, 174);
+INSERT INTO oglas (naslov, opis, trenutak_stvaranja, trenutak_promjene, sif_status, sif_osoba, sif_kategorija_kvara, sif_mjesto) VALUES ('Quisque egestas diam in arcu cursus.', 'Faucibus in ornare quam viverra orci sagittis eu volutpat.', NOW()::TIMESTAMP, NOW()::TIMESTAMP, 2, 25, 14, 879);
+
+/* Slike za oglase */
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-fauxels-3184454', 'nhiwgu19vxyuwn3psuls', 'https://res.cloudinary.com/eservis/image/upload/v1620246823/nhiwgu19vxyuwn3psuls.jpg', 1);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-josh-sorenson-1714208', 'exypyfawi41arc3cmxak', 'https://res.cloudinary.com/eservis/image/upload/v1620246837/exypyfawi41arc3cmxak.jpg', 2);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-designecologist-1779487', 'elmn31vgcki3rlqd2lad', 'https://res.cloudinary.com/eservis/image/upload/v1620246843/elmn31vgcki3rlqd2lad.jpg', 3);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-stas-knop-1298601', 'edaxfzmn6jfk18lt84y0', 'https://res.cloudinary.com/eservis/image/upload/v1620246850/edaxfzmn6jfk18lt84y0.jpg', 4);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-stas-knop-2520829', 'ykyemudow4gmqmumfyp6', 'https://res.cloudinary.com/eservis/image/upload/v1620246856/ykyemudow4gmqmumfyp6.jpg', 5);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-cleyder-duque-3637728', 'krju0b54edk9z2dr4wbz', 'https://res.cloudinary.com/eservis/image/upload/v1620246869/krju0b54edk9z2dr4wbz.jpg', 6);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-curtis-adams-3935334', 'hg6jrv1jcu1qkij3nf7k', 'https://res.cloudinary.com/eservis/image/upload/v1620246875/hg6jrv1jcu1qkij3nf7k.jpg', 7);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-adrienne-andersen-2254065', 'tt7fbz2tz0slajrqizzi', 'https://res.cloudinary.com/eservis/image/upload/v1620246883/tt7fbz2tz0slajrqizzi.jpg', 8);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-free-creative-stuff-1476321', 'j4ctct5nqzxbvcplq5hc', 'https://res.cloudinary.com/eservis/image/upload/v1620246891/j4ctct5nqzxbvcplq5hc.jpg', 9);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-skitterphoto-1388947', 'dprn65sb7x8zxksqk2f1', 'https://res.cloudinary.com/eservis/image/upload/v1620246896/dprn65sb7x8zxksqk2f1.jpg', 10);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-energepiccom-288479', 'yq4f8ikuprk8hqe2qpxi', 'https://res.cloudinary.com/eservis/image/upload/v1620246901/yq4f8ikuprk8hqe2qpxi.jpg', 11);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-fauxels-3184454', 'pzznexgopr62qm9crhe8', 'https://res.cloudinary.com/eservis/image/upload/v1620246909/pzznexgopr62qm9crhe8.jpg', 12);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-josh-sorenson-1714208', 'm7ntqndgt0morivd7jlf', 'https://res.cloudinary.com/eservis/image/upload/v1620246916/m7ntqndgt0morivd7jlf.jpg', 13);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-designecologist-1779487', 'ada1pcu6w0kwcshtczcm', 'https://res.cloudinary.com/eservis/image/upload/v1620246921/ada1pcu6w0kwcshtczcm.jpg', 14);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-stas-knop-1298601', 'jqwj2ra3d4g1dkfyjjqi', 'https://res.cloudinary.com/eservis/image/upload/v1620246928/jqwj2ra3d4g1dkfyjjqi.jpg', 15);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-stas-knop-2520829', 'udygb43jtqneqld252qi', 'https://res.cloudinary.com/eservis/image/upload/v1620246934/udygb43jtqneqld252qi.jpg', 16);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-cleyder-duque-3637728', 'xxdi8dts9njxvdfruhnn', 'https://res.cloudinary.com/eservis/image/upload/v1620246941/xxdi8dts9njxvdfruhnn.jpg', 17);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-curtis-adams-3935334', 'qd1bk0apmrhlpb1hi46j', 'https://res.cloudinary.com/eservis/image/upload/v1620246948/qd1bk0apmrhlpb1hi46j.jpg', 18);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-adrienne-andersen-2254065', 'xuh0oswhhxn7e1gqsz3z', 'https://res.cloudinary.com/eservis/image/upload/v1620246956/xuh0oswhhxn7e1gqsz3z.jpg', 19);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-free-creative-stuff-1476321', 'fojqeaqyga7yxemg2j0d', 'https://res.cloudinary.com/eservis/image/upload/v1620246962/fojqeaqyga7yxemg2j0d.jpg', 20);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-skitterphoto-1388947', 'tjggwzbovslmpx88zmgk', 'https://res.cloudinary.com/eservis/image/upload/v1620246970/tjggwzbovslmpx88zmgk.jpg', 21);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-energepiccom-288479', 'vidzkwz93mrhuleyc79m', 'https://res.cloudinary.com/eservis/image/upload/v1620246974/vidzkwz93mrhuleyc79m.jpg', 22);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-fauxels-3184454', 'iqmccnmifdqsiukl9vhg', 'https://res.cloudinary.com/eservis/image/upload/v1620246982/iqmccnmifdqsiukl9vhg.jpg', 23);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-josh-sorenson-1714208', 'ywcqyxbod7jqyypnkams', 'https://res.cloudinary.com/eservis/image/upload/v1620246990/ywcqyxbod7jqyypnkams.jpg', 24);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-designecologist-1779487', 'jth7feqbhce3mju2krxz', 'https://res.cloudinary.com/eservis/image/upload/v1620246996/jth7feqbhce3mju2krxz.jpg', 25);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-stas-knop-1298601', 'jtyvyul3u9kzjqywhgql', 'https://res.cloudinary.com/eservis/image/upload/v1620247003/jtyvyul3u9kzjqywhgql.jpg', 26);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-stas-knop-2520829', 'kfwyttxpkjwsmzaejnz3', 'https://res.cloudinary.com/eservis/image/upload/v1620247010/kfwyttxpkjwsmzaejnz3.jpg', 27);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-cleyder-duque-3637728', 'gpou39we5xnavwgsz35n', 'https://res.cloudinary.com/eservis/image/upload/v1620247018/gpou39we5xnavwgsz35n.jpg', 28);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-curtis-adams-3935334', 'fcl9ytdqdiseg8nm2be9', 'https://res.cloudinary.com/eservis/image/upload/v1620247025/fcl9ytdqdiseg8nm2be9.jpg', 29);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-adrienne-andersen-2254065', 'd5l3fz9kz8fjzpmxt2vs', 'https://res.cloudinary.com/eservis/image/upload/v1620247033/d5l3fz9kz8fjzpmxt2vs.jpg', 30);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-free-creative-stuff-1476321', 'doxfctteno3vmormpzwh', 'https://res.cloudinary.com/eservis/image/upload/v1620247040/doxfctteno3vmormpzwh.jpg', 31);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-skitterphoto-1388947', 'nhqdjj5hixlypbw9wydb', 'https://res.cloudinary.com/eservis/image/upload/v1620247045/nhqdjj5hixlypbw9wydb.jpg', 1);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-energepiccom-288479', 'djzhaxejtbpiqkzj2vao', 'https://res.cloudinary.com/eservis/image/upload/v1620247050/djzhaxejtbpiqkzj2vao.jpg', 2);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-fauxels-3184454', 'smbknbupxbbbl5devklb', 'https://res.cloudinary.com/eservis/image/upload/v1620247060/smbknbupxbbbl5devklb.jpg', 3);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-josh-sorenson-1714208', 'a104hmlapvhdwcrbylgr', 'https://res.cloudinary.com/eservis/image/upload/v1620247067/a104hmlapvhdwcrbylgr.jpg', 4);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-designecologist-1779487', 'oyz1ce9c5uhh5rcrsyko', 'https://res.cloudinary.com/eservis/image/upload/v1620247121/oyz1ce9c5uhh5rcrsyko.jpg', 5);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-stas-knop-1298601', 'kuky6ybbuzgflqsdtt4z', 'https://res.cloudinary.com/eservis/image/upload/v1620247140/kuky6ybbuzgflqsdtt4z.jpg', 6);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-stas-knop-2520829', 'jsfwnscpmxl72gxi8ct9', 'https://res.cloudinary.com/eservis/image/upload/v1620247147/jsfwnscpmxl72gxi8ct9.jpg', 7);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-cleyder-duque-3637728', 'e3hqbgzlgrwd1amowcxe', 'https://res.cloudinary.com/eservis/image/upload/v1620247155/e3hqbgzlgrwd1amowcxe.jpg', 8);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-curtis-adams-3935334', 'a7qyzfndwyl03fvwlop2', 'https://res.cloudinary.com/eservis/image/upload/v1620247162/a7qyzfndwyl03fvwlop2.jpg', 9);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-adrienne-andersen-2254065', 'ptzwumldxaxarf4yxbzu', 'https://res.cloudinary.com/eservis/image/upload/v1620247169/ptzwumldxaxarf4yxbzu.jpg', 10);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-free-creative-stuff-1476321', 'lx7p3gx0c4ltn5x6mblf', 'https://res.cloudinary.com/eservis/image/upload/v1620247175/lx7p3gx0c4ltn5x6mblf.jpg', 11);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-skitterphoto-1388947', 'd071e9lrdh1gfpvotnue', 'https://res.cloudinary.com/eservis/image/upload/v1620247180/d071e9lrdh1gfpvotnue.jpg', 12);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-energepiccom-288479', 'q0tsiu8d5kojqpc3eiq3', 'https://res.cloudinary.com/eservis/image/upload/v1620247185/q0tsiu8d5kojqpc3eiq3.jpg', 13);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-fauxels-3184454', 'hlrxqrvkqnd7vt435knw', 'https://res.cloudinary.com/eservis/image/upload/v1620247215/hlrxqrvkqnd7vt435knw.jpg', 14);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-josh-sorenson-1714208', 'dgxmwjytd7ck0motsiue', 'https://res.cloudinary.com/eservis/image/upload/v1620247222/dgxmwjytd7ck0motsiue.jpg', 15);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-designecologist-1779487', 'vtk0e4izwpgyzqx6ol7b', 'https://res.cloudinary.com/eservis/image/upload/v1620247227/vtk0e4izwpgyzqx6ol7b.jpg', 16);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-stas-knop-1298601', 'y4lomhktpqx7cw2ydy7v', 'https://res.cloudinary.com/eservis/image/upload/v1620247234/y4lomhktpqx7cw2ydy7v.jpg', 17);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-stas-knop-2520829', 'rguyv8s0j6mfjlrq6pc9', 'https://res.cloudinary.com/eservis/image/upload/v1620247240/rguyv8s0j6mfjlrq6pc9.jpg', 18);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-cleyder-duque-3637728', 'wfotf4k88hcpkpim2xiq', 'https://res.cloudinary.com/eservis/image/upload/v1620247248/wfotf4k88hcpkpim2xiq.jpg', 19);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-curtis-adams-3935334', 'upblz8gkfx34h9rxedql', 'https://res.cloudinary.com/eservis/image/upload/v1620247254/upblz8gkfx34h9rxedql.jpg', 20);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-adrienne-andersen-2254065', 'o9tvp747bxgwsmtriu1b', 'https://res.cloudinary.com/eservis/image/upload/v1620247261/o9tvp747bxgwsmtriu1b.jpg', 21);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-free-creative-stuff-1476321', 'jucvhfhyjwmwwgftpgrd', 'https://res.cloudinary.com/eservis/image/upload/v1620247267/jucvhfhyjwmwwgftpgrd.jpg', 22);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-skitterphoto-1388947', 'mbmrzsxvdwaqxku2vzjc', 'https://res.cloudinary.com/eservis/image/upload/v1620247272/mbmrzsxvdwaqxku2vzjc.jpg', 23);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-energepiccom-288479', 'oxpzb0ymkto1z2pwyari', 'https://res.cloudinary.com/eservis/image/upload/v1620247277/oxpzb0ymkto1z2pwyari.jpg', 24);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-fauxels-3184454', 'owd7usd7nomjiu2rztlr', 'https://res.cloudinary.com/eservis/image/upload/v1620247289/owd7usd7nomjiu2rztlr.jpg', 25);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-josh-sorenson-1714208', 'tom202iiqfhobnady5ul', 'https://res.cloudinary.com/eservis/image/upload/v1620247296/tom202iiqfhobnady5ul.jpg', 26);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-designecologist-1779487', 'ky6oqrbidagfj9j0alw9', 'https://res.cloudinary.com/eservis/image/upload/v1620247301/ky6oqrbidagfj9j0alw9.jpg', 27);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-stas-knop-1298601', 'ntjvixjaamz83aniteau', 'https://res.cloudinary.com/eservis/image/upload/v1620247307/ntjvixjaamz83aniteau.jpg', 28);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-stas-knop-2520829', 'ffmmd05aqptjadqamk0n', 'https://res.cloudinary.com/eservis/image/upload/v1620247313/ffmmd05aqptjadqamk0n.jpg', 29);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-cleyder-duque-3637728', 'uufq1djjleftxfb946a8', 'https://res.cloudinary.com/eservis/image/upload/v1620247322/uufq1djjleftxfb946a8.jpg', 30);
+INSERT INTO slika (naziv_slika, cloudinary_id, url, sif_oglas) VALUES ('pexels-curtis-adams-3935334', 'i5xjojic7pkv0f7zysog', 'https://res.cloudinary.com/eservis/image/upload/v1620247328/i5xjojic7pkv0f7zysog.jpg', 31);
