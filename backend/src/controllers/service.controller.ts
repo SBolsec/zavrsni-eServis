@@ -48,6 +48,17 @@ export default class PersonController {
       }
     });
 
+    service.reviews.forEach((review: any) => {
+      review.author.profilePicture = review.author.user.profilePicture;
+      delete review.author.user;
+      if (!review.author.profilePicture) {
+        review.author.profilePicture = {
+          url:
+            "https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/512x512/plain/user.png",
+        };
+      }
+    });
+
     return service;
   }
 

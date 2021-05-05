@@ -38,6 +38,9 @@ export const getService = async (id: number): Promise<Service | null> => {
       "user",
       "user.profilePicture",
       "reviews",
+      "reviews.author",
+      "reviews.author.user",
+      "reviews.author.user.profilePicture",
       "faultCategories",
       "faultCategories.parent",
       "offers",
@@ -76,7 +79,7 @@ export const getServiceByUserId = async (id: number): Promise<Service | null> =>
 export const getPaginatedSearchServices = async (query: IServiceSearchPayload): Promise<IServicePaginatedResult> => {
   const serviceRepository = getRepository(Service);
   const take = query.per_page || 10;
-  const skip = query.page! * query.per_page! || 0;
+  const skip = query.page! * take || 0;
 
   let whereString: string = "";
   let whereData: any = {};
@@ -99,7 +102,7 @@ export const getPaginatedSearchServices = async (query: IServiceSearchPayload): 
     // somethingAdded = true;
   }
 
-  const temp = await serviceRepository.createQueryBuilder('service')
+  const [temp, total] = await serviceRepository.createQueryBuilder('service')
     .leftJoinAndSelect('service.city', 'city')
     .leftJoinAndSelect('service.user', 'user')
     .leftJoinAndSelect('user.profilePicture', 'profilePicture')
@@ -110,9 +113,9 @@ export const getPaginatedSearchServices = async (query: IServiceSearchPayload): 
     .orderBy({ 'service.updatedAt': "DESC" })
     .take(take)
     .skip(skip)
-    .getMany();
+    .getManyAndCount();
 
-  const [result, total] = await serviceRepository.createQueryBuilder('service')
+  const result = await serviceRepository.createQueryBuilder('service')
     .leftJoinAndSelect('service.city', 'city')
     .leftJoinAndSelect('service.user', 'user')
     .leftJoinAndSelect('user.profilePicture', 'profilePicture')
@@ -120,10 +123,8 @@ export const getPaginatedSearchServices = async (query: IServiceSearchPayload): 
     .leftJoinAndSelect('faultCategories.parent', 'parentFaultCategory')
     .leftJoinAndSelect('service.reviews', 'reviews')
     .where("service.id IN (:...ids)", { ids: temp.map(s => s.id)})
-    .orderBy({ 'service.updatedAt': "DESC" })
-    .take(take)
-    .skip(skip)
-    .getManyAndCount();
+    .orderBy({ 'service.updatedAt': "DESC", 'service.id': "ASC" })
+    .getMany();
 
   const totalPages = Math.floor(total / take);
   const currentPage = totalPages - Math.floor((total - skip) / take);
@@ -131,7 +132,7 @@ export const getPaginatedSearchServices = async (query: IServiceSearchPayload): 
   return {
     current_page: currentPage,
     per_page: take,
-    total_pages: totalPages + 1,
+    total_pages: totalPages,
     data: result
   }
 }
