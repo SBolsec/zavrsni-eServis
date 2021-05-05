@@ -1,4 +1,3 @@
-import { createUser } from './user.repository';
 import { getRepository } from "typeorm";
 import { IListingSearchPayload, IListingPaginatedResult, IListingPaginatedPayload } from "../interfaces";
 import { Listing, Picture } from "../models";
@@ -143,8 +142,8 @@ export const getPaginatedSearchListings = async (query: IListingSearchPayload): 
     .skip(skip)
     .getManyAndCount();
 
-  const totalPages = Math.floor(total / take);
-  const currentPage = totalPages - Math.floor((total - skip) / take);
+  const totalPages = Math.ceil(total / take);
+  const currentPage = totalPages - Math.ceil((total - skip) / take);
 
   return {
     current_page: currentPage,
