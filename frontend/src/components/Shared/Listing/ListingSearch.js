@@ -84,7 +84,11 @@ const ListingSearch = () => {
 
   const fetchListings = (values, page) => {
     let query = "";
-    if (values.listing) query += `listing=${values.listing}`;
+    let somethingAdded = false;
+    if (values.listing) {
+      query += `listing=${values.listing}`;
+      somethingAdded = true;
+    }
     if (values.faultCategories.length !== 0) {
       let ids = "";
       values.faultCategories.forEach((c, index) => {
@@ -92,11 +96,22 @@ const ListingSearch = () => {
         if (index !== values.faultCategories.length - 1)
           ids += ":";
       });
-      query += `&faultCategoryId=${ids}`;
+      query += somethingAdded ? `&faultCategoryId=${ids}` : `faultCategoryId=${ids}`;
+      somethingAdded = true;
     } 
-    if (values.cityId) query += `&cityId=${values.cityId}`;
-    if (values.per_page) query += `&per_page=${values.per_page}`;
-    if (page) query += `&page=${page}`
+    if (values.cityId) {
+      query += somethingAdded ? `&cityId=${values.cityId}` : `cityId=${values.cityId}`;
+      somethingAdded = true;
+    }
+    if (values.per_page) {
+      query += somethingAdded ? `&per_page=${values.per_page}` : `per_page=${values.per_page}`;
+      somethingAdded = true;
+    }
+    if (page) {
+      query += somethingAdded ? `&page=${page}` : `page=${page}`;
+      //somethingAdded = true;
+    }
+
     setLoading(true);
     axiosInstance(history).get("/listings/search?" + query)
       .then(res => {

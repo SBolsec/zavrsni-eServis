@@ -4,8 +4,6 @@ import axiosInstance from "../../../helpers/axiosInstance";
 import Spinner from "../../Utils/Spinner";
 import "react-gallery-carousel/dist/index.css";
 import Container from "react-bootstrap/esm/Container";
-import Row from "react-bootstrap/esm/Row";
-import Col from "react-bootstrap/esm/Col";
 import Button from "react-bootstrap/esm/Button";
 import { useAuth } from "../../../contexts/AuthContext";
 import OfferCard from "../OfferCard";
@@ -14,6 +12,17 @@ import Chip from "@material-ui/core/Chip";
 import Grid from "@material-ui/core/Grid";
 import Review from "../Review";
 import { TextField } from "@material-ui/core";
+import * as yup from 'yup';
+import { useFormik } from 'formik';
+
+const validationSchema = yup.object({
+  content: yup
+    .string('Unesite recenziju')
+    .required('Unesite recenziju'),
+  score: yup
+    .number('Odaberite ocjenu')
+    .required('Obavezno je odabrati ocjenu'),
+});
 
 const ServiceDetails = () => {
   const { id } = useParams();
@@ -22,6 +31,7 @@ const ServiceDetails = () => {
   const [service, setService] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [loadingReview, setLoadingReview] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -31,6 +41,13 @@ const ServiceDetails = () => {
       .then((res) => {
         setLoading(false);
         setError("");
+        res.data.reviews.sort((a, b) => {
+          if (a.author.userId === auth.data.userId)
+            return -1;
+          if (b.author.userId === auth.data.userId)
+            return 1;
+          return 0;
+        })
         setService(res.data);
       })
       .catch((err) => {
@@ -40,12 +57,75 @@ const ServiceDetails = () => {
       });
   }, []);
 
-  const [rating, setRating] = useState(0);
+  const formik = useFormik({
+    initialValues: {
+      content: '',
+      score: 5,
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      setLoadingReview(true);
+      axiosInstance(history)
+        .post(`/reviews/`, {
+          content: values.content,
+          score: values.score,
+          serviceId: id
+        })
+        .then((res) => {
+          setLoadingReview(false);
+          setService({
+            ...service,
+            reviews: [res.data, ...service.reviews]
+          });
+        })
+        .catch((err) => {
+          setLoadingReview(false);
+          console.log(err);
+        });
+    },
+  });
+
+  const updateReview = (review) => {
+    axiosInstance(history)
+      .put(`/reviews/${review.id}`, {
+        content: review.content,
+        score: review.score,
+        serviceId: review.serviceId
+      })
+      .then((res) => {
+        setService({
+          ...service,
+          reviews: [res.data, ...service.reviews.filter(r => r.id !== review.id)]
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  const deleteReview = (review) => {
+    if (window.confirm("Jeste li sigurni da želite obrisati recenziju?")) {
+      axiosInstance(history)
+        .delete(`/reviews/${review.id}`)
+        .then((res) => {
+          setService({
+            ...service,
+            reviews: [...service.reviews.filter(r => r.id !== review.id)]
+          });
+        })
+        .catch((err) => {
+          alert("Brisanje neuspješno! Greška na poslužitelju.");
+          console.log(err);
+        });
+    }
+  }
+
+  let rating = 0;
   if (service && service.reviews.length !== 0) {
     let sumOfRatings = 0;
     service.reviews.forEach((review) => (sumOfRatings += review.score));
     // round number to closes factor of 0.5
-    setRating(Math.round((sumOfRatings / service.reviews.length) * 2) / 2);
+    rating = (Math.round((sumOfRatings / service.reviews.length) * 2) / 2);
   }
 
   if (loading || !service) {
@@ -112,12 +192,11 @@ const ServiceDetails = () => {
               {service.website}
             </p>
             <span className="text-uppercase text-gray">Opis djelatnosti:</span>
-            <pre>{service.description}</pre>
-
-            <hr className="my-4" />
+            <p>{service.description}</p>
 
             {service.faultCategories.length !== 0 && (
               <>
+                <hr className="my-4" />
                 <p className="text-gray text-uppercase mb-0">Kategorije:</p>
                 <div className="mt-0 d-flex flex-wrap align-items-center">
                   {service.faultCategories.map((c, index) => (
@@ -145,30 +224,55 @@ const ServiceDetails = () => {
                   }
                 </div>
               }
-              {service.reviews.map((review, index) => (
-                <Review key={index} review={review} />
+              {service.reviews.map((review) => (
+                <>
+                  <Review key={review.id} review={review} updateReview={updateReview} deleteReview={deleteReview} />
+                  <hr />
+                </>
               ))}
             </div>
 
-            {auth.data.role === 2 &&
+            {auth.data.role === 2 && service.reviews.filter(r => r.author.userId === auth.data.userId).length === 0 &&
               <div className="">
-                <TextField fullWidth label="Komentiraj..." variant="outlined" />
-                <div className="my-2 d-flex justify-content-between align-items-center">
-                  <div className="d-flex align-items-center flex-wrap">
-                    <span className="text-gray">Ocjena: </span>
-                    <Rating
-                      className="text-blueAccent"
-                      defaultValue={rating}
-                      precision={0.5}
-                    />
+                <form onSubmit={formik.handleSubmit}>
+                  <TextField
+                    className="mt-2 mb-1"
+                    fullWidth
+                    variant="outlined"
+                    id="content"
+                    name="content"
+                    label="Komentiraj..."
+                    value={formik.values.content}
+                    onChange={formik.handleChange}
+                    error={formik.touched.content && Boolean(formik.errors.content)}
+                    helperText={formik.touched.content && formik.errors.content}
+                  />
+                  <div className="my-1 d-flex justify-content-between align-items-center">
+                    <div className="d-flex align-items-center flex-wrap">
+                      <span className="text-gray mb-1">Ocjena: </span>
+                      <Rating
+                        className="text-blueAccent"
+                        fullWidth
+                        variant="outlined"
+                        id="score"
+                        name="score"
+                        value={formik.values.score}
+                        onChange={(_, value) => formik.setFieldValue('score', value ? value : 1)}
+                        error={formik.touched.score && Boolean(formik.errors.score)}
+                        helperText={formik.touched.score && formik.errors.score}
+                        precision={1}
+                      />
+                    </div>
+                    {!loadingReview &&
+                      <Button variant="contained" type="submit" className="my-2 bg-blueAccent text-white button-round text-uppercase">
+                        Podijeli
+                      </Button>
+                    }
+                    {loadingReview &&
+                      <Spinner />
+                    }
                   </div>
-                  <Button
-                    variant="blueAccent"
-                    className="button-round text-uppercase"
-                  >
-                    Podijeli
-                </Button>
-                </div>
+                </form>
               </div>
             }
           </div>
