@@ -144,7 +144,7 @@ const ServiceDetails = () => {
     <Container>
       <Grid container className="my-2 p-0" spacing={6}>
         <Grid item xs={12} md={7} className="m-0">
-          <div className="bg-white text-black p-4">
+          <div className="bg-white text-black p-4" id="information">
             <div className="d-flex flex-column justify-content-center align-items-center">
               <img
                 src={service.profilePicture.url}
@@ -215,7 +215,10 @@ const ServiceDetails = () => {
           <div className="bg-white text-black p-4 h-100 d-flex flex-column">
             <h5 className="text-uppercase text-gray mb-4">Recenzije</h5>
 
-            <div className="flex-grow-1">
+            <div 
+              className="flex-grow-1"
+              style={{ height: `320px`, overflow: 'auto' }}
+            >
               {service.reviews.length === 0 &&
                 <div>
                   <p>Još nema recenzija.</p>
