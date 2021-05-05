@@ -159,7 +159,7 @@ const ServiceDetails = () => {
               <h5 className="text-black">{service.name}</h5>
               <Rating
                 className="text-blueAccent"
-                defaultValue={rating}
+                value={rating}
                 precision={0.5}
                 readOnly
               />
