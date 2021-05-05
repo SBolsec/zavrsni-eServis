@@ -112,7 +112,7 @@ export const getHistoryListings = async (query: IListingPaginatedPayload): Promi
 export const getPaginatedSearchListings = async (query: IListingSearchPayload): Promise<IListingPaginatedResult> => {
   const listingRepository = getRepository(Listing);
   const take = query.per_page || 10;
-  const skip = query.page! * query.per_page! || 0;
+  const skip = query.page! * take || 0;
 
   let whereString = "listing.statusId = :statusId ";
   let whereData: any = { statusId: 1 }
@@ -138,7 +138,7 @@ export const getPaginatedSearchListings = async (query: IListingSearchPayload): 
     .leftJoinAndSelect('listing.status', 'listingStatus')
     .leftJoinAndSelect('listing.pictures', 'pictures')
     .where(whereString, whereData)
-    .orderBy({ 'listing.updatedAt': "DESC" })
+    .orderBy({ 'listing.updatedAt': "DESC", 'listing.id': "ASC" })
     .take(take)
     .skip(skip)
     .getManyAndCount();
@@ -149,7 +149,7 @@ export const getPaginatedSearchListings = async (query: IListingSearchPayload): 
   return {
     current_page: currentPage,
     per_page: take,
-    total_pages: totalPages+1,
+    total_pages: totalPages,
     data: result
   }
 }
