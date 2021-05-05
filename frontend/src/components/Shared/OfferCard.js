@@ -22,14 +22,12 @@ const OfferCard = ({ offer, authorId, margin, showService }) => {
   const [updateMode, setUpdateMode] = useState(false);
   const [offer1, setOffer] = useState(offer);
 
-  const [rating, setRating] = useState(0);
+  let rating = 0;
   if (offer.service.reviews.length !== 0) {
     let sumOfRatings = 0;
     offer.service.reviews.forEach((review) => (sumOfRatings += review.score));
     // round number to closes factor of 0.5
-    setRating(
-      Math.round((sumOfRatings / offer.service.reviews.length) * 2) / 2
-    );
+    rating = (Math.round((sumOfRatings / offer.service.reviews.length) * 2) / 2);
   }
 
   let type;
@@ -107,7 +105,7 @@ const OfferCard = ({ offer, authorId, margin, showService }) => {
         {!updateMode && (
           <>
             <h5 className="font-weight-bold">{offer1.title}</h5>
-            <pre>{offer1.description}</pre>
+            <p>{offer1.description}</p>
             <p className="my-1">
               <span className="text-gray text-uppercase">Cijena: </span>
               <span className="text-blueAccent font-weight-bold">
