@@ -1,8 +1,10 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Button, Form, FormGroup, InputGroup } from "react-bootstrap";
 import { useConversations } from "../../../contexts/ConversationsContext";
+import { useAuth } from '../../../contexts/AuthContext';
 
 const OpenConversation = () => {
+    const { auth } = useAuth();
   const [text, setText] = useState("");
   const setRef = useCallback((node) => {
     if (node) node.scrollIntoView({ smooth: true });
@@ -13,7 +15,7 @@ const OpenConversation = () => {
     e.preventDefault();
 
     sendMessage(
-      selectedConversation.recipients.map((r) => r.id),
+      selectedConversation.receiver.id,
       text
     );
     setText("");
@@ -31,22 +33,22 @@ const OpenConversation = () => {
                 ref={lastMessage ? setRef : null}
                 key={index}
                 className={`my-1 d-flex flex-column ${
-                  message.fromMe ? "align-self-end align-items-end" : "align-items-start"
+                  message.senderId === auth.data.userId ? "align-self-end align-items-end" : "align-items-start"
                 }`}
               >
                 <div
                   className={`rounded px-2 py-1 ${
-                    message.fromMe ? "bg-blueAccent text-white" : "bodrder"
+                    message.senderId === auth.data.userId ? "bg-blueAccent text-white" : "bodrder"
                   }`}
                 >
-                  {message.text}
+                  {message.content}
                 </div>
                 <div
                   className={`text-muted small ${
-                    message.fromMe ? "text-right" : ""
+                    message.senderId === auth.data.userId ? "text-right" : ""
                   }`}
                 >
-                  {message.fromMe ? "You" : message.senderName}
+                  {message.senderId === auth.data.userId ? "You" : selectedConversation.receiver.name}
                 </div>
               </div>
             );

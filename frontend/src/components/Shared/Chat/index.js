@@ -11,7 +11,7 @@ const Chat = () => {
   return (
     <SocketProvider id={auth.data.userId}>
       <ContactsProvider>
-        <ConversationsProvider id={auth.data.userId}>
+        <ConversationsProvider id={auth.data.userId} profilePictureURL={auth.data.profilePictureURL}>
           <Dashboard />
         </ConversationsProvider>
       </ContactsProvider>

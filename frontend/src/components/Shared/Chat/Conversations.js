@@ -15,7 +15,7 @@ const Conversations = () => {
                     onClick={() => selectConversationIndex(index)}
                     active={conversation.selected}
                 >
-                    {conversation.recipients.map(r => r.name).join(', ')}
+                    {conversation.receiver.name}
                 </ListGroup.Item>
             ))}
         </ListGroup>

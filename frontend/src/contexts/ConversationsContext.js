@@ -12,19 +12,18 @@ export function useConversations() {
   return useContext(ConversationsContext)
 }
 
-export function ConversationsProvider({ id, children }) {
+export function ConversationsProvider({ id, profilePictureURL, children }) {
   const [conversations, conversationsDispatch] = useLocalStorage('conversations', conversationsReducer, [])
   const [selectedConversationIndex, setSelectedConversationIndex] = useState(0)
   const { contacts } = useContacts()
   const socket = useSocket()
 
-  function createConv(recipients) {
-    createConversation({ recipients, messages: [] })(conversationsDispatch);
+  function createConv(receiver) {
+    createConversation({ receiver, messages: [] })(conversationsDispatch);
   }
 
-  const addMessageToConversation = useCallback(({ recipients, text, sender }) => {
-    console.log('context', recipients, text, sender);
-    addMessage(conversations, recipients, text, sender)(conversationsDispatch);
+  const addMessageToConversation = useCallback((message, receiver) => {
+    addMessage(conversations, message, receiver)(conversationsDispatch);
   }, [conversations]);
 
   useEffect(() => {
@@ -35,28 +34,24 @@ export function ConversationsProvider({ id, children }) {
     return () => socket.off('receive-message');
   }, [socket, addMessageToConversation]);
 
-  function sendMessage(recipients, text) {
-    socket.emit('send-message', { recipients, text });
+  function sendMessage(receiverId, content) {
+    const sender = {
+      id: id,
+      profilePicture: {
+        url: profilePictureURL
+      }
+    }
+    socket.emit('send-message', { receiverId, content, sender });
 
-    addMessageToConversation({ recipients, text, sender: id });
+    addMessageToConversation( 
+      {senderId: id, receiverId, content},
+      {id: receiverId}
+    );
   }
 
   const formattedConversations = conversations.map((conversation, index) => {
-    const recipients = conversation.recipients.map(recipient => {
-      const contact = contacts.find(contact => contact.id === recipient);
-      const name = (contact && contact.name) || recipient;
-      return { id: recipient, name };
-    });
-
-    const messages = conversation.messages.map(message => {
-      const contact = contacts.find(contact => contact.id === message.sender);
-      const name = (contact && contact.name) || message.sender;
-      const fromMe = id === message.sender;
-      return { ...message, senderName: name, fromMe };
-    });
-    
     const selected = index === selectedConversationIndex;
-    return { ...conversation, messages, recipients, selected };
+    return { ...conversation, selected };
   });
 
   const value = {
