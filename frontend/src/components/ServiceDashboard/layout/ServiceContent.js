@@ -14,6 +14,7 @@ import ServiceSearch from "../../Shared/Service/ServiceSearch";
 import ServiceDetails from "../../Shared/Service/ServiceDetails";
 import CreateOffer from "../content/CreateOffer";
 import UpdateOffer from "../content/UpdateOffer";
+import Chat from "../../Shared/Chat";
 
 const loading = (
   <div className="pt-3 text-center">
@@ -36,7 +37,7 @@ const ServiceContent = () => {
           <Switch>
             <Route exact path="/service/dashboard" component={Dashboard} />
             <Route exact path="/service/profile" component={Profile} />
-            <Route exact path="/service/messages" component={Messages} />
+            <Route exact path="/service/messages" component={Chat} />
             <Route exact path="/service/active" component={OffersActive} />
             <Route exact path="/service/history" component={OffersHistory} />
             <Route exact path="/service/servicers" component={ServiceSearch} />
