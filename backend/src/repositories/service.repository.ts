@@ -71,7 +71,7 @@ export const getServiceByUserId = async (id: number): Promise<Service | null> =>
     where: {
       userId: id
     },
-    relations: ["faultCategories", "faultCategories.parent"]
+    relations: ["faultCategories", "faultCategories.parent", "user", "user.profilePicture"]
   });
   return !service ? null : service;
 }

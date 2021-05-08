@@ -12,7 +12,7 @@ import {
 
 @Route("services")
 @Tags("Service")
-export default class PersonController {
+export default class ServiceController {
   @Get("/")
   public async getServices(): Promise<Service[]> {
     return getServices();
@@ -71,8 +71,20 @@ export default class PersonController {
   }
 
   @Get("/user/:id")
-  public async getServiceByUserId(@Path() id: string): Promise<Service | null> {
-    return getServiceByUserId(Number(id));
+  public async getServiceByUserId(@Path() id: string): Promise<any | null> {
+    let service: any = await getServiceByUserId(Number(id));
+    if (!service) return null;
+
+    // remove sensitive user info and add picture if needed
+    service.profilePicture = service.user.profilePicture;
+    if (!service.profilePicture) {
+      service.profilePicture = {
+        url:
+          "https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/512x512/plain/user.png",
+      };
+    }
+    delete service.user;
+    return service;
   }
 
   @Get("/search")

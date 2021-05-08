@@ -1497,11 +1497,6 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"allOf": [
-										{
-											"$ref": "#/components/schemas/Person"
-										}
-									],
 									"nullable": true
 								}
 							}
@@ -1665,11 +1660,6 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"allOf": [
-										{
-											"$ref": "#/components/schemas/Service"
-										}
-									],
 									"nullable": true
 								}
 							}
@@ -2631,7 +2621,7 @@
 				}
 			}
 		},
-		"/messages/{id}": {
+		"/messages/id/{id}": {
 			"get": {
 				"operationId": "GetMessage",
 				"responses": {
@@ -2647,6 +2637,35 @@
 									],
 									"nullable": true
 								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Message"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/messages/user/{id}": {
+			"get": {
+				"operationId": "GetUserMessages",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
 							}
 						}
 					}

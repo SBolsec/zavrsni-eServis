@@ -39,6 +39,9 @@ export const getPerson = async (id: number): Promise<Person | null> => {
 
 export const getPersonByUserId = async (id: number): Promise<Person | null> => {
   const personRepository = getRepository(Person);
-  const person = await personRepository.findOne({ userId: id });
+  const person = await personRepository.findOne({
+    where: {userId: id},
+    relations: ["user", "user.profilePicture"]
+  });
   return !person ? null : person;
 }

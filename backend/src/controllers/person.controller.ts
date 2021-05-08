@@ -26,7 +26,19 @@ export default class PersonController {
   }
 
   @Get('/user/:id')
-  public async getPersonByUserId(@Path() id: string): Promise<Person | null> {
-    return getPersonByUserId(Number(id));
+  public async getPersonByUserId(@Path() id: string): Promise<any | null> {
+    let person: any = await getPersonByUserId(Number(id));
+    if (!person) return null;
+
+    // remove sensitive user info and add picture if needed
+    person.profilePicture = person.user.profilePicture;
+    if (!person.profilePicture) {
+      person.profilePicture = {
+        url:
+          "https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/512x512/plain/user.png",
+      };
+    }
+    delete person.user;
+    return person;
   }
 }

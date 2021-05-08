@@ -11,6 +11,9 @@ import { Server, Socket } from 'socket.io';
 
 import Router from "./routes";
 import dbConfig from "./config/database";
+import MessageController from "./controllers/message.controller";
+import PersonController from "./controllers/person.controller";
+import ServiceController from "./controllers/service.controller";
 
 const PORT = process.env.PORT || 4000;
 
@@ -46,18 +49,30 @@ app.use(
 app.use(Router);
 
 io.on('connection', (socket: Socket) => {
-  console.log('connection');
   const id = socket.handshake.query.id;
   socket.join(id!);
-
-  socket.on('send-message', ({ recipients, text }) => {
-    recipients.forEach((recipient: any) => {
-      const newRecipients = recipients.filter((r: any) => r !== recipient);
-      newRecipients.push(id);
-      socket.broadcast.to(recipient).emit('receive-message', {
-        recipients: newRecipients, sender: id, text
-      });
+  
+  socket.on('send-message', async ({ receiverId, content, sender }) => {    
+    const messageController = new MessageController();
+    const message = await messageController.createMessage({
+      senderId: Number(id),
+      receiverId: Number(receiverId),
+      content: content,
+      delivered: false,
+      read: false
     });
+
+    const personController = new PersonController()
+    const person = await personController.getPersonByUserId(sender.id);
+    if (person) {
+      sender.name = person.firstName + ' ' + person.lastName;
+    } else {
+      const serviceController = new ServiceController();
+      const service = await serviceController.getServiceByUserId(sender.id);
+      sender.name = service.name;
+    }
+
+    socket.broadcast.to(receiverId.toString()).emit('receive-message', message, sender);
   });
 });
 
