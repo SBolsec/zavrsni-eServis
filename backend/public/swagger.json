@@ -1497,11 +1497,6 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"allOf": [
-										{
-											"$ref": "#/components/schemas/Person"
-										}
-									],
 									"nullable": true
 								}
 							}
@@ -1665,11 +1660,6 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"allOf": [
-										{
-											"$ref": "#/components/schemas/Service"
-										}
-									],
 									"nullable": true
 								}
 							}
@@ -2631,7 +2621,7 @@
 				}
 			}
 		},
-		"/messages/{id}": {
+		"/messages/id/{id}": {
 			"get": {
 				"operationId": "GetMessage",
 				"responses": {
@@ -2659,6 +2649,76 @@
 					{
 						"in": "path",
 						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/messages/user/{id}": {
+			"get": {
+				"operationId": "GetUserMessages",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Message"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/messages/contacts": {
+			"get": {
+				"operationId": "GetContacts",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Message"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "name",
 						"required": true,
 						"schema": {
 							"type": "string"
