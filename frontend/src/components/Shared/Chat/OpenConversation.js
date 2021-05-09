@@ -24,10 +24,13 @@ const OpenConversation = () => {
 
   return (
     <div className="d-flex flex-column flex-grow-1 bg-white text-black">
-      <div className="border-bottom p-2">
-        <div>
+      <div 
+        className="border-bottom p-2"
+        style={{height: '65px'}}
+      >
+        <div className="d-flex align-items-center">
           <img src={selectedConversation.receiver.profilePicture.url} alt="avatar"
-            className="rounded-circle mr-3"
+            className="rounded-circle mr-3 border"
             style={{ height: '45px', width: '45px'}}
           />
           <span className="font-weight-bold">{selectedConversation.receiver.name}</span>
@@ -91,7 +94,7 @@ const OpenConversation = () => {
           >
             <FontAwesomeIcon
               icon={faPaperPlane}
-              className="bg-white text-blueAccent fa-1x"
+              className="bg-white text-blueAccent fa-2x"
             />
           </Button>
         </div>
