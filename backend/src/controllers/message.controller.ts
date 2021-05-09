@@ -1,10 +1,11 @@
-import { Get, Route, Tags, Post, Body, Path } from "tsoa";
+import { Get, Route, Tags, Post, Body, Path, Query } from "tsoa";
 import { Message } from "../models";
 import {
   createMessage,
   getMessage,
   getMessages,
   getUserMessages,
+  getContacts,
   IMessagePayload,
 } from "../repositories/message.repository";
 import PersonController from "./person.controller";
@@ -63,6 +64,10 @@ export default class MessageController {
         };
       }
 
+      // delete receiver info from all messages
+      let receiver = message.receiver;
+      delete message.receiver;
+
       // group messages by receivers
       let foundReceiver = false;
       data.forEach((e) => {
@@ -73,12 +78,27 @@ export default class MessageController {
       });
       if (!foundReceiver) {
         data.push({
-          receiver: message.receiver,
+          receiver: receiver,
           messages: [message],
         });
       }
     }
 
     return data;
+  }
+
+  @Get("/contacts")
+  public async getContacts(@Query() id: number, @Query() name: string): Promise<any[]> {
+    let contacts: any = await getContacts(id, name);
+
+    // add picture if there is none
+    contacts.forEach((c: any) => {
+      c.profilePicture = {
+        url: c.profilepictureurl ? c.profilepictureurl : "https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/512x512/plain/user.png"
+      };
+      delete c.profilepictureurl;
+    });
+
+    return contacts;
   }
 }

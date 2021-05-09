@@ -55,7 +55,7 @@ io.on('connection', (socket: Socket) => {
   socket.on('send-message', async ({ receiverId, content, sender }) => {    
     const messageController = new MessageController();
     const message = await messageController.createMessage({
-      senderId: Number(id),
+      senderId: Number(sender.id),
       receiverId: Number(receiverId),
       content: content,
       delivered: false,
