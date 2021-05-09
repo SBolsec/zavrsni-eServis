@@ -44,7 +44,7 @@ router.get("/id/:id", auth([1, 2, 3]), async (req, res) => {
   return res.send(response);
 });
 
-router.get("/user/:id",  async (req, res) => {
+router.get("/user/:id", auth([1, 2, 3]),  async (req, res) => {
   try {
     await Joi.object({
       id: Joi.number().required()
@@ -53,9 +53,9 @@ router.get("/user/:id",  async (req, res) => {
     return res.status(400).send({ message: err.details[0].message });
   }
 
-  // if (Number(req.params.id) !== req.currentUser.id) {
-  //   return res.status(400).json({ message: "You are not authorized to do this" })
-  // }
+  if (Number(req.params.id) !== req.currentUser.id) {
+    return res.status(400).json({ message: "You are not authorized to do this" })
+  }
 
   const controller = new MessageController();
   const response = await controller.getUserMessages(req.params.id);
@@ -63,7 +63,7 @@ router.get("/user/:id",  async (req, res) => {
   return res.send(response);
 });
 
-router.get("/contacts", async (req, res) => {
+router.get("/contacts", auth([1, 2, 3]), async (req, res) => {
   try {
     await Joi.object({
       id: Joi.number().required(),
@@ -73,9 +73,9 @@ router.get("/contacts", async (req, res) => {
     return res.status(400).send({ message: err.details[0].message });
   }
 
-  // if (Number(req.query.id) !== req.currentUser.id) {
-  //   return res.status(400).json({ message: "You are not authorized to do this" })
-  // }
+  if (Number(req.query.id) !== req.currentUser.id) {
+    return res.status(400).json({ message: "You are not authorized to do this" })
+  }
 
   const controller = new MessageController();
   const response = await controller.getContacts(Number(req.query.id), String(req.query.name));
