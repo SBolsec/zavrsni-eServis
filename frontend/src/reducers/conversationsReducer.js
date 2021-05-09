@@ -1,14 +1,27 @@
-import { CREATE_CONVERSATION, ADD_MESSAGE } from '../constants/actionTypes';
+import { CREATE_CONVERSATION, ADD_MESSAGE, INITIALIZE_CONVERSATIONS, CHANGE_SELECTED_CONVERSATION_INDEX } from '../constants/actionTypes';
 
 const conversationsReducer = (state, { type, payload }) => {
     switch (type) {
         case CREATE_CONVERSATION:
-            return [
+            return {
                 ...state,
-                payload
-            ];
+                conversations: [
+                    payload,
+                    ...state.conversations
+                ],
+                selectedIndex: 0
+            }
+        case INITIALIZE_CONVERSATIONS:
         case ADD_MESSAGE:
-            return payload;
+            return {
+                ...state,
+                conversations: payload
+            }
+        case CHANGE_SELECTED_CONVERSATION_INDEX:
+            return {
+                ...state,
+                selectedIndex: payload
+            }
         default:
             return state;
     }

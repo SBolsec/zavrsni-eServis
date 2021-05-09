@@ -2,7 +2,6 @@ import React, { Suspense, useEffect } from "react";
 import { CFade } from "@coreui/react";
 import Dashboard from "../content/Dashboard";
 import Profile from "../content/Profile";
-import Messages from "../content/Messages";
 import OffersActive from "../content/OffersActive";
 import OffersHistory from "../content/OffersHistory";
 import ListingSearch from '../../Shared/Listing/ListingSearch';

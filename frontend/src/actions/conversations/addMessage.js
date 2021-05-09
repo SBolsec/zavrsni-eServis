@@ -18,7 +18,7 @@ const addMessage = (prevConversations, message, receiver) => (
 
   const payload = madeChange
     ? newConversations
-    : [...prevConversations, { receiver: receiver, messages: [message] }];
+    : [{ receiver: receiver, messages: [message] }, ...prevConversations];
 
   dispatch({
     type: ADD_MESSAGE,

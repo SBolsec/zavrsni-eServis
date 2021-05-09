@@ -24,17 +24,15 @@ const OpenConversation = () => {
 
   return (
     <div className="d-flex flex-column flex-grow-1 bg-white text-black">
-      <div 
-        className="border-bottom p-2"
-        style={{height: '65px'}}
+      <div
+        className="d-flex align-items-center border-bottom"
+        style={{ minHeight: "65px", maxHeight: '65px' }}
       >
-        <div className="d-flex align-items-center">
-          <img src={selectedConversation.receiver.profilePicture.url} alt="avatar"
-            className="rounded-circle mr-3 border"
-            style={{ height: '45px', width: '45px'}}
-          />
-          <span className="font-weight-bold">{selectedConversation.receiver.name}</span>
-        </div>
+        <img src={selectedConversation.receiver.profilePicture.url} alt="avatar"
+          className="rounded-circle mx-3 border"
+          style={{ height: '45px', width: '45px' }}
+        />
+        <span className="font-weight-bold">{selectedConversation.receiver.name}</span>
       </div>
       <div className="flex-grow-1 overflow-auto">
         <div className="d-flex flex-column align-items-start justify-content-end px-3">
@@ -45,29 +43,18 @@ const OpenConversation = () => {
               <div
                 ref={lastMessage ? setRef : null}
                 key={index}
-                className={`my-1 d-flex flex-column ${
-                  message.senderId === auth.data.userId
-                    ? "align-self-end align-items-end"
-                    : "align-items-start"
-                }`}
+                className={`my-1 d-flex flex-column ${message.senderId === auth.data.userId
+                  ? "align-self-end align-items-end"
+                  : "align-items-start"
+                  }`}
               >
                 <div
-                  className={`border px-2 py-1 ${
-                    message.senderId === auth.data.userId
-                      ? "bg-blueAccent text-white rounded-top rounded-left"
-                      : "bg-lightGray text-black rounded-top rounded-right"
-                  }`}
+                  className={`border px-2 py-1 ${message.senderId === auth.data.userId
+                    ? "bg-blueAccent text-white rounded-top rounded-left"
+                    : "bg-lightGray text-black rounded-top rounded-right"
+                    }`}
                 >
                   {message.content}
-                </div>
-                <div
-                  className={`text-muted small ${
-                    message.senderId === auth.data.userId ? "text-right" : ""
-                  }`}
-                >
-                  {message.senderId === auth.data.userId
-                    ? "You"
-                    : selectedConversation.receiver.name}
                 </div>
               </div>
             );
@@ -78,6 +65,7 @@ const OpenConversation = () => {
         <div className="d-flex border-top p-4">
           <TextField
             className=""
+            autoComplete="false"
             fullWidth
             variant="outlined"
             id="text"

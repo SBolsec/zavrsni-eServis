@@ -10,7 +10,7 @@ const Conversations = () => {
       <ListGroup variant="flush">
         {conversations.map((conversation, index) => (
           <ListGroup.Item
-            key={index}
+            key={conversation.receiver.id}
             action
             onClick={() => selectConversationIndex(index)}
             active={conversation.selected}

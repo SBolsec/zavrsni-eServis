@@ -1,10 +1,12 @@
-import React, { useContext, useState, useEffect, useCallback } from 'react'
+import React, { useContext, useEffect, useCallback } from 'react'
 import useLocalStorage from '../hooks/useLocalStorage';
-import { useContacts } from './ContactsContext';
 import { useSocket } from './SocketContext';
 import conversationsReducer from '../reducers/conversationsReducer';
 import createConversation from '../actions/conversations/createConversation';
 import addMessage from '../actions/conversations/addMessage';
+import axiosInstance from '../helpers/axiosInstance';
+import { INITIALIZE_CONVERSATIONS, CHANGE_SELECTED_CONVERSATION_INDEX } from '../constants/actionTypes';
+import conversationsInitialState from './initialStates/conversationsInitialState';
 
 const ConversationsContext = React.createContext()
 
@@ -13,18 +15,30 @@ export function useConversations() {
 }
 
 export function ConversationsProvider({ id, profilePictureURL, children }) {
-  const [conversations, conversationsDispatch] = useLocalStorage('conversations', conversationsReducer, [])
-  const [selectedConversationIndex, setSelectedConversationIndex] = useState(0)
-  const { contacts } = useContacts()
+  const [conversationsContext, conversationsContextDispatch] = useLocalStorage('conversations', conversationsReducer, conversationsInitialState)
   const socket = useSocket()
 
+  // fetch messages of user
+  useEffect(() => {
+    axiosInstance().get(`/messages/user/${id}`)
+      .then(res => {
+        conversationsContextDispatch({
+          type: INITIALIZE_CONVERSATIONS,
+          payload: res.data
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }, []);
+
   function createConv(receiver) {
-    createConversation({ receiver, messages: [] })(conversationsDispatch);
+    createConversation({ receiver, messages: [] })(conversationsContextDispatch);
   }
 
   const addMessageToConversation = useCallback((message, receiver) => {
-    addMessage(conversations, message, receiver)(conversationsDispatch);
-  }, [conversations]);
+    addMessage(conversationsContext.conversations, message, receiver)(conversationsContextDispatch);
+  }, [conversationsContext.conversations]);
 
   useEffect(() => {
     if (socket == null) return;
@@ -49,16 +63,23 @@ export function ConversationsProvider({ id, profilePictureURL, children }) {
     );
   }
 
-  const formattedConversations = conversations.map((conversation, index) => {
-    const selected = index === selectedConversationIndex;
+  const formattedConversations = conversationsContext.conversations.map((conversation, index) => {
+    const selected = index === conversationsContext.selectedIndex;
     return { ...conversation, selected };
   });
 
+  const setSelectedIndex = (index) => {
+    conversationsContextDispatch({
+      type: CHANGE_SELECTED_CONVERSATION_INDEX,
+      payload: index
+    });
+  }
+
   const value = {
     conversations: formattedConversations,
-    selectedConversation: formattedConversations[selectedConversationIndex],
+    selectedConversation: formattedConversations[conversationsContext.selectedIndex],
     sendMessage,
-    selectConversationIndex: setSelectedConversationIndex,
+    selectConversationIndex: setSelectedIndex,
     createConversation: createConv
   };
 

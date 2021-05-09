@@ -2,7 +2,6 @@ import React, { Suspense, useEffect } from "react";
 import { CFade } from "@coreui/react";
 import Dashboard from "../content/Dashboard";
 import Profile from "../content/Profile";
-import Messages from "../content/Messages";
 import ListingsActive from "../content/ListingsActive";
 import ListingsHistory from "../content/ListingsHistory";
 import { Redirect, Route, Switch, useHistory } from "react-router-dom";
@@ -13,6 +12,7 @@ import ListingDetails from "../../Shared/Listing/ListingDetails";
 import ListingSearch from "../../Shared/Listing/ListingSearch";
 import ServiceSearch from "../../Shared/Service/ServiceSearch";
 import ServiceDetails from "../../Shared/Service/ServiceDetails";
+import Chat from "../../Shared/Chat";
 
 const loading = (
   <div className="pt-3 text-center">
@@ -34,7 +34,7 @@ const UserContent = () => {
         <CFade>
           <Switch>
             <Route path="/user/dashboard" component={Dashboard} />
-            <Route path="/user/messages" component={Messages} />
+            <Route path="/user/messages" component={Chat} />
             <Route path="/user/profile" component={Profile} />
             <Route path="/user/create" component={CreateListing} />
             <Route path="/user/active" component={ListingsActive} />

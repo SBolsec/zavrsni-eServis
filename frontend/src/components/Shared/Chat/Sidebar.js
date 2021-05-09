@@ -26,9 +26,6 @@ const Sidebar = ({ id }) => {
       <div className="overflow-auto flex-grow-1">
         <Conversations />
       </div>
-      <div className="p-2 border-top small">
-        Your id: <span className="text-muted">{id}</span>
-      </div>
 
       <Modal show={modalOpen} onHide={closeModal}>
         <NewConversationModal closeModal={closeModal} />
