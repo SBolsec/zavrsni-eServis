@@ -2,17 +2,19 @@ import React, { useState } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 import { useConversations } from "../../../contexts/ConversationsContext";
 import { useContacts } from "../../../contexts/ContactsContext";
+import { useAuth } from "../../../contexts/AuthContext";
 
 const NewConversationModal = ({ closeModal }) => {
   const [selectedContactIds, setSelectedContactIds] = useState([]);
   const { createConversation } = useConversations();
   const { contacts } = useContacts();
+  const { auth } = useAuth();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     createConversation({
-      id: 30 + Math.round(Math.random() * 30),
+      id: 30 + (auth.data.userId === 31 ? 2 : 1),
       name: "test",
       profilePicture: {
         url:
