@@ -1,4 +1,4 @@
-import { CREATE_CONVERSATION, ADD_MESSAGE, INITIALIZE_CONVERSATIONS, CHANGE_SELECTED_CONVERSATION_INDEX } from '../constants/actionTypes';
+import { CREATE_CONVERSATION, ADD_MESSAGE, INITIALIZE_CONVERSATIONS, CHANGE_SELECTED_CONVERSATION_INDEX, READ_MESSAGES } from '../constants/actionTypes';
 
 const conversationsReducer = (state, { type, payload }) => {
     switch (type) {
@@ -12,6 +12,7 @@ const conversationsReducer = (state, { type, payload }) => {
                 selectedIndex: 0
             }
         case INITIALIZE_CONVERSATIONS:
+        case READ_MESSAGES:
             return {
                 ...state,
                 conversations: payload
