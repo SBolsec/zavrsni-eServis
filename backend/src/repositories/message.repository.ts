@@ -41,7 +41,7 @@ export const getUserMessages = async (id: number): Promise<Message[]> => {
   const messageRepository = getRepository(Message);
   return await messageRepository.createQueryBuilder('message')
     .where("message.senderId = :id OR message.receiverId = :id", { id })
-    .orderBy({ 'message.createdAt': "DESC", 'message.id': "DESC" })
+    .orderBy({ 'message.createdAt': "ASC", 'message.id': "DESC" })
     .getMany();
 }
 
@@ -67,4 +67,13 @@ export const getContacts = async (id: number, name: string): Promise<IContactInf
   WHERE id <> $1 AND LOWER(name) LIKE $2
   ORDER BY name ASC;`, [id, '%'+name+'%']);
   return result;
+}
+
+export const readMessage = async (messageId: number, receiverId: number): Promise <Message | null> => {
+  const messageRepository = getRepository(Message);
+  const message = await messageRepository.findOne({ where: { id: messageId } });
+  if (!message) return null;
+  if (message.receiverId !== receiverId) return null;
+  message.read = true;
+  return messageRepository.save(message);
 }

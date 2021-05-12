@@ -52,7 +52,7 @@ io.on('connection', (socket: Socket) => {
   const id = socket.handshake.query.id;
   socket.join(id!);
   
-  socket.on('send-message', async ({ receiverId, content, sender }) => {    
+  socket.on('send-message', async ({ receiverId, content, sender }) => {  
     const messageController = new MessageController();
     const message = await messageController.createMessage({
       senderId: Number(sender.id),
@@ -73,6 +73,11 @@ io.on('connection', (socket: Socket) => {
     }
 
     socket.broadcast.to(receiverId.toString()).emit('receive-message', message, sender);
+  });
+
+  socket.on('read-messages', async ({messagesToUpdate, receiverId, senderId}) => {
+    const messageController = new MessageController();
+    messagesToUpdate.forEach((m: number) => messageController.readMessage(m, senderId));
   });
 });
 
