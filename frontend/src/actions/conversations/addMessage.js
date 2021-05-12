@@ -16,13 +16,16 @@ const addMessage = (prevConversations, message, receiver) => (
     return conversation;
   });
 
-  const payload = madeChange
+  const conv = madeChange
     ? newConversations
     : [{ receiver: receiver, messages: [message] }, ...prevConversations];
 
   dispatch({
     type: ADD_MESSAGE,
-    payload
+    payload: {
+      conversations: conv,
+      updateIndex: !madeChange
+    }
   });
 };
 

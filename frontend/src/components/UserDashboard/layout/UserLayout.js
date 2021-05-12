@@ -1,4 +1,7 @@
 import React from 'react'
+import { useAuth } from '../../../contexts/AuthContext';
+import { ConversationsProvider } from '../../../contexts/ConversationsContext';
+import { SocketProvider } from '../../../contexts/SocketContext';
 import UserContextProvider from '../../../contexts/UserContext';
 import Footer from '../../Footer';
 import {
@@ -8,19 +11,25 @@ import {
 } from './index'
 
 const UserLayout = () => {
+  const { auth } = useAuth();
+
   return (
-    <UserContextProvider>
-      <div className="c-app c-default-layout">
-        <UserSidebar />
-        <div className="c-wrapper">
-          <UserHeader />
-          <div className="c-body">
-            <UserContent />
+    <SocketProvider id={auth.data.userId}>
+      <ConversationsProvider id={auth.data.userId} profilePictureURL={auth.data.profilePictureURL}>
+        <UserContextProvider>
+          <div className="c-app c-default-layout">
+            <UserSidebar />
+            <div className="c-wrapper">
+              <UserHeader />
+              <div className="c-body">
+                <UserContent />
+              </div>
+              <Footer />
+            </div>
           </div>
-          <Footer />
-        </div>
-      </div>
-    </UserContextProvider>
+        </UserContextProvider>
+      </ConversationsProvider>
+    </SocketProvider>
   )
 }
 
