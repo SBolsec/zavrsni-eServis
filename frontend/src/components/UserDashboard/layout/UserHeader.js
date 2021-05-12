@@ -64,7 +64,7 @@ const UserHeader = () => {
       </div>
 
       <div className="d-none d-md-flex align-items-center ml-4">
-        {title}
+        {title}        
       </div>
 
       <CHeaderBrand className="mx-auto my-1 d-lg-none" to="/user/dashboard">

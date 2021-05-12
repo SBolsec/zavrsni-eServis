@@ -78,7 +78,6 @@ export function ConversationsProvider({ id, profilePictureURL, children }) {
 
     socket.on('receive-message', (message, receiver) => {
       addMessageToConversation(message, receiver);
-      // readMessages();
     });
 
     return () => socket.off('receive-message');
