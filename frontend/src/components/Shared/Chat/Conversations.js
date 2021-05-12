@@ -17,7 +17,7 @@ const Conversations = () => {
             action
             onClick={() => selectConversationIndex(index)}
             active={conversation.selected}
-            variant={conversation.selected ? 'white' : 'white'}
+            variant={conversation.selected ? 'lightGray' : 'white'}
             className="border-bottom"
           >
             <div className="d-flex align-items-center">
