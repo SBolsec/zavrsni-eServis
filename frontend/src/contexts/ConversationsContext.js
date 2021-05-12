@@ -37,11 +37,13 @@ export function ConversationsProvider({ id, profilePictureURL, children }) {
   }
 
   const addMessage = (prevConversations, message, receiver) => {
-    if (socket && prevConversations[conversationsContext.selectedIndex].receiver.id === receiver.id) {
-      message.read = true;
-      socket.emit('read-messages', { messagesToUpdate: [message.id], receiverId: receiver.id, senderId: id });
+    if (socket) {
+      if (prevConversations.length !== 0 && prevConversations.length > 0 && prevConversations[conversationsContext.selectedIndex].receiver.id === receiver.id) {
+        message.read = true;
+        socket.emit('read-messages', { messagesToUpdate: [message.id], receiverId: receiver.id, senderId: id });
+      }
     }
-    
+
     let madeChange = false;
     const newConversations = prevConversations.map((conversation) => {
       if (conversation.receiver.id === receiver.id) {
