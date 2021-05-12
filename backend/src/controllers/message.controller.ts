@@ -6,6 +6,7 @@ import {
   getMessages,
   getUserMessages,
   getContacts,
+  readMessage,
   IMessagePayload,
 } from "../repositories/message.repository";
 import PersonController from "./person.controller";
@@ -84,6 +85,8 @@ export default class MessageController {
       }
     }
 
+    data.reverse();
+
     return data;
   }
 
@@ -100,5 +103,9 @@ export default class MessageController {
     });
 
     return contacts;
+  }
+
+  public async readMessage(messageId: number, receiverId: number) {
+    readMessage(messageId, receiverId);
   }
 }
