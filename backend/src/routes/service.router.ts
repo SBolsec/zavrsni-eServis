@@ -88,7 +88,7 @@ router.put("/:id", auth([1, 3]), async (req, res) => {
   const schema = Joi.object({
     name: Joi.string().min(1).required(),
     oib: Joi.string().pattern(new RegExp('[0-9]{11,11}')).required(),
-    phone: Joi.string().pattern(new RegExp('[0-9]{6,11}')).required(),
+    phone: Joi.string().pattern(new RegExp('[0-9+-]{6,15}')).required(),
     website: Joi.string().allow('').allow(null),
     description: Joi.string().allow('').allow(null),
     address: Joi.string().min(1).required(),
