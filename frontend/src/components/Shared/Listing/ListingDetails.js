@@ -62,7 +62,7 @@ const ListingDetails = () => {
           shouldMaximizeOnClick={true}
           shouldMinimizeOnClick={true}
           objectFit="contain"
-          style={{ maxHeight: '90vh' }}
+          style={{ maxHeight: '70vh' }}
         />
 
         <h3 className="px-4 pt-4">{listing.title}</h3>

@@ -43,9 +43,16 @@ const UserHeader = () => {
     case '/user/history': title = 'Povijest oglasa'; break;
     case '/user/servicers': title = 'Pretraga servisera'; break;
     case '/user/search': title = 'Pretraga oglasa'; break;
-    default: break;
+    default:
+      if (window.location.pathname.startsWith('/user/listing'))
+        title = 'Detalji oglasa';
+      else if (window.location.pathname.startsWith('/user/service'))
+        title =  'Detalji servisa';
+      else
+        title = '';
   }
-  document.title = 'e-servis | ' + title;
+  
+  document.title = 'e-servis' + (title.length !== 0 ? ' | ' + title : '');
 
   return (
     <CHeader className="bg-gray" >
