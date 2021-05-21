@@ -29,10 +29,6 @@ const Profile = () => {
           <AddFaultCategories margin="my-3" />
         </Grid>
       </Grid>
-          
-        
-
-          
     </Container>
   );
 }
