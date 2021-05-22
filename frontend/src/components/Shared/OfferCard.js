@@ -60,7 +60,7 @@ const OfferCard = ({ offer, authorId, margin, showService }) => {
       axiosInstance(history)
         .post(`/offers/accept/${offer.id}`)
         .then((res) => {
-          history.push(`/`);
+          history.push(`/user/accepted`);
         })
         .catch((err) => {
           alert("Prihvaćanje neuspješno! Greška na poslužitelju.");

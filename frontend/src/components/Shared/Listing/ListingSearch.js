@@ -233,7 +233,7 @@ const ListingSearch = () => {
                   <Button
                     variant="contained"
                     type="reset"
-                    className="my-2 mr-2 px-4 bg-danger text-white no-round font-weight-bold"
+                    className="my-2 mr-2 px-4 bg-declined text-white no-round font-weight-bold"
                     onClick={formik.resetForm}
                   >
                     Resetiraj

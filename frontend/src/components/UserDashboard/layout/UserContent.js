@@ -4,6 +4,7 @@ import Dashboard from "../content/Dashboard";
 import Profile from "../content/Profile";
 import ListingsActive from "../content/ListingsActive";
 import ListingsHistory from "../content/ListingsHistory";
+import OfferAccepted from "../content/OfferAccepted";
 import { Redirect, Route, Switch, useHistory } from "react-router-dom";
 import CreateListing from "../content/CreateListing";
 import { useAuth } from "../../../contexts/AuthContext";
@@ -43,6 +44,7 @@ const UserContent = () => {
             <Route path="/user/search" component={ListingSearch} />
             <Route path="/user/listing/:id" component={ListingDetails} />
             <Route path="/user/service/:id" component={ServiceDetails} />
+            <Route path="/user/accepted" component={OfferAccepted} />
             <Redirect to="/404" />
           </Switch>
         </CFade>
