@@ -69,6 +69,29 @@ export const getContacts = async (id: number, name: string): Promise<IContactInf
   return result;
 }
 
+export const getContactById = async (id: number): Promise<IContactInfo> => {
+  const manager = getManager();
+  const result: IContactInfo = await manager.query(`SELECT * FROM (
+    SELECT 
+      osoba.sif_korisnik AS id,
+      osoba.ime || ' ' || osoba.prezime AS name,
+      slika.url AS profilePictureURL
+    FROM osoba
+    LEFT JOIN korisnik USING (sif_korisnik)
+    LEFT JOIN slika ON (sif_slika_profila = sif_slika)
+  UNION
+    SELECT
+      servis.sif_korisnik AS id,
+      servis.naziv_servis AS name,
+      slika.url AS profilePictureURL
+    FROM servis
+    LEFT JOIN korisnik USING (sif_korisnik)
+    LEFT JOIN slika ON (sif_slika_profila = sif_slika)
+  ) AS t
+  WHERE id = $1`, [id]);
+  return result;
+}
+
 export const readMessage = async (messageId: number, receiverId: number): Promise <Message | null> => {
   const messageRepository = getRepository(Message);
   const message = await messageRepository.findOne({ where: { id: messageId } });

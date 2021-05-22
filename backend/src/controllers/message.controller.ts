@@ -6,6 +6,7 @@ import {
   getMessages,
   getUserMessages,
   getContacts,
+  getContactById,
   readMessage,
   IMessagePayload,
 } from "../repositories/message.repository";
@@ -91,18 +92,41 @@ export default class MessageController {
   }
 
   @Get("/contacts")
-  public async getContacts(@Query() id: number, @Query() name: string): Promise<any[]> {
+  public async getContacts(
+    @Query() id: number,
+    @Query() name: string
+  ): Promise<any[]> {
     let contacts: any = await getContacts(id, name);
 
     // add picture if there is none
     contacts.forEach((c: any) => {
       c.profilePicture = {
-        url: c.profilepictureurl ? c.profilepictureurl : "https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/512x512/plain/user.png"
+        url: c.profilepictureurl
+          ? c.profilepictureurl
+          : "https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/512x512/plain/user.png",
       };
       delete c.profilepictureurl;
     });
 
     return contacts;
+  }
+
+  @Get("/contacts/:id")
+  public async getContactById(@Path() id: number): Promise<any> {
+    let contact: any = await getContactById(id);
+  
+    if (contact != null && contact.length !== 0) {
+      contact = contact[0];
+    }
+    // add picture if there is none
+    contact.profilePicture = {
+      url: contact.profilepictureurl
+        ? contact.profilepictureurl
+        : "https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/512x512/plain/user.png",
+    };
+    delete contact.profilepictureurl;
+
+    return contact;
   }
 
   public async readMessage(messageId: number, receiverId: number) {

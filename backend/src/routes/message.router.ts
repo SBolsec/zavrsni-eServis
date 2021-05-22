@@ -83,4 +83,19 @@ router.get("/contacts", auth([1, 2, 3]), async (req, res) => {
   return res.send(response);
 });
 
+router.get("/contacts/:id", async (req, res) => {
+  try {
+    await Joi.object({
+      id: Joi.number().required()
+    }).validateAsync(req.params);
+  } catch (err) {
+    return res.status(400).send({ message: err.details[0].message });
+  }
+
+  const controller = new MessageController();
+  const response = await controller.getContactById(Number(req.params.id));
+  if (!response) res.status(404).send({ message: "No contact found" });
+  return res.send(response);
+});
+
 export default router;
