@@ -7,21 +7,6 @@ import Chip from "@material-ui/core/Chip";
 
 const ServiceCard = ({ service }) => {
   const { auth } = useAuth();
-  let type;
-  switch (auth.data.role) {
-    case 1:
-      type = "admin";
-      break;
-    case 2:
-      type = "user";
-      break;
-    case 3:
-      type = "service";
-      break;
-    default:
-      type = "user";
-      break;
-  }
 
   let rating = 0;
   if (service.reviews.length !== 0) {
@@ -33,7 +18,7 @@ const ServiceCard = ({ service }) => {
 
   return (
     <Link
-      to={`/${type}/service/${service.id}`}
+      to={`/${auth.data.role}/service/${service.id}`}
       className="text-decoration-none text-dark"
     >
       <Card className="no-round">

@@ -14,6 +14,7 @@ import Review from "../Review";
 import { TextField } from "@material-ui/core";
 import * as yup from 'yup';
 import { useFormik } from 'formik';
+import { ROLE_USER } from '../../../constants/global';
 
 const validationSchema = yup.object({
   content: yup
@@ -222,7 +223,7 @@ const ServiceDetails = () => {
               {service.reviews.length === 0 &&
                 <div>
                   <p>Još nema recenzija.</p>
-                  {auth.data.role === 2 &&
+                  {auth.data.role === ROLE_USER &&
                     <p>Budi prvi koji će objaviti svoje dojmove!</p>
                   }
                 </div>
@@ -235,7 +236,7 @@ const ServiceDetails = () => {
               ))}
             </div>
 
-            {auth.data.role === 2 && service.reviews.filter(r => r.author.userId === auth.data.userId).length === 0 &&
+            {auth.data.role === ROLE_USER && service.reviews.filter(r => r.author.userId === auth.data.userId).length === 0 &&
               <div className="">
                 <form onSubmit={formik.handleSubmit}>
                   <TextField

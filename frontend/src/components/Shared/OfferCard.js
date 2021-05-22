@@ -30,22 +30,6 @@ const OfferCard = ({ offer, authorId, margin, showService }) => {
     rating = (Math.round((sumOfRatings / offer.service.reviews.length) * 2) / 2);
   }
 
-  let type;
-  switch (auth.data.role) {
-    case 1:
-      type = "admin";
-      break;
-    case 2:
-      type = "user";
-      break;
-    case 3:
-      type = "service";
-      break;
-    default:
-      type = "user";
-      break;
-  }
-
   const toggleUpdateMode = () => {
     setUpdateMode(!updateMode);
   };
@@ -123,7 +107,7 @@ const OfferCard = ({ offer, authorId, margin, showService }) => {
               <>
                 <hr />
                 <Link
-                  to={`/${type}/service/${offer.service.id}`}
+                  to={`/${auth.data.role}/service/${offer.service.id}`}
                   className="text-decoration-none text-dark"
                 >
                   <div className="d-flex align-items-center flex-wrap">

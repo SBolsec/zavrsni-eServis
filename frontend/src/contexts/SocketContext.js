@@ -12,7 +12,7 @@ export function SocketProvider({ id, children }) {
 
   useEffect(() => {
     const newSocket = io(
-      'https://eservis.herokuapp.com', 
+      'http://localhost:4000', 
       { query: { id } }
     );
     setSocket(newSocket);

@@ -3,6 +3,7 @@ import useLocalStorage from '../hooks/useLocalStorage';
 import { useSocket } from './SocketContext';
 import conversationsReducer from '../reducers/conversationsReducer';
 import createConversation from '../actions/conversations/createConversation';
+import startConversation from '../actions/conversations/startConversation';
 // import addMessage from '../actions/conversations/addMessage';
 import axiosInstance from '../helpers/axiosInstance';
 import { INITIALIZE_CONVERSATIONS, CHANGE_SELECTED_CONVERSATION_INDEX, READ_MESSAGES, ADD_MESSAGE } from '../constants/actionTypes';
@@ -142,12 +143,17 @@ export function ConversationsProvider({ id, profilePictureURL, children }) {
     });
   }
 
+  const startConv = (contact) => {
+    startConversation(conversationsContext.conversations, contact)(conversationsContextDispatch);
+  }
+
   const value = {
     conversations: formattedConversations,
     selectedConversation: formattedConversations[conversationsContext.selectedIndex],
     sendMessage,
     selectConversationIndex: setSelectedIndex,
-    createConversation: createConv
+    createConversation: createConv,
+    startConversation: startConv
   };
 
   return (
