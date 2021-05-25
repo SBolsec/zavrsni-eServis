@@ -4,9 +4,8 @@ import { useSocket } from './SocketContext';
 import conversationsReducer from '../reducers/conversationsReducer';
 import createConversation from '../actions/conversations/createConversation';
 import startConversation from '../actions/conversations/startConversation';
-// import addMessage from '../actions/conversations/addMessage';
 import axiosInstance from '../helpers/axiosInstance';
-import { INITIALIZE_CONVERSATIONS, CHANGE_SELECTED_CONVERSATION_INDEX, READ_MESSAGES, ADD_MESSAGE } from '../constants/actionTypes';
+import { INITIALIZE_CONVERSATIONS, CHANGE_SELECTED_CONVERSATION_INDEX, READ_MESSAGES, ADD_MESSAGE, UNSELECT_CONVERSATION } from '../constants/actionTypes';
 import conversationsInitialState from './initialStates/conversationsInitialState';
 
 const ConversationsContext = React.createContext()
@@ -33,13 +32,19 @@ export function ConversationsProvider({ id, profilePictureURL, children }) {
       })
   }, []);
 
+  useEffect(() => {
+    conversationsContextDispatch({
+      type: UNSELECT_CONVERSATION
+    });
+  }, [window.location.pathname]);
+
   function createConv(receiver) {
     createConversation({ receiver, messages: [] })(conversationsContextDispatch);
   }
 
   const addMessage = (prevConversations, message, receiver) => {
     if (socket) {
-      if (prevConversations.length !== 0 && prevConversations.length > 0 && prevConversations[conversationsContext.selectedIndex].receiver.id === receiver.id) {
+      if (prevConversations.length !== 0 && prevConversations.length > 0 && conversationsContext.selectedIndex !== undefined && prevConversations[conversationsContext.selectedIndex].receiver.id === receiver.id) {
         message.read = true;
         socket.emit('read-messages', { messagesToUpdate: [message.id], receiverId: receiver.id, senderId: id });
       }
@@ -118,7 +123,9 @@ export function ConversationsProvider({ id, profilePictureURL, children }) {
 
   // read messages
   useEffect(() => {
-    readMessages();
+    if (conversationsContext.selectedIndex !== undefined) {
+      readMessages();
+    }
   }, [conversationsContext.selectedIndex]);
 
   function sendMessage(receiverId, content) {
@@ -149,7 +156,7 @@ export function ConversationsProvider({ id, profilePictureURL, children }) {
 
   const value = {
     conversations: formattedConversations,
-    selectedConversation: formattedConversations[conversationsContext.selectedIndex],
+    selectedConversation: conversationsContext.selectedIndex !== undefined ? formattedConversations[conversationsContext.selectedIndex] : undefined,
     sendMessage,
     selectConversationIndex: setSelectedIndex,
     createConversation: createConv,
