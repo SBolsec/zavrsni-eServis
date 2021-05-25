@@ -119,7 +119,7 @@ const ListingDetails = () => {
         </p>
       </Container>
 
-      {auth.data.userId != listing.person.userId && (
+      {auth.data.userId !== listing.person.userId && (
         <Container className="bg-white text-black my-4 pt-4 pb-3">
           <div className="d-flex flex-column flex-md-row justify-content-between align-items-center">
             <div>
@@ -147,7 +147,7 @@ const ListingDetails = () => {
           <h5>Ponude</h5>
           {auth.data.role === ROLE_SERVICE &&
             listing.offers.filter(
-              (offer) => offer.service.userId == auth.data.userId
+              (offer) => offer.service.userId === auth.data.userId
             ).length === 0 && (
               <Link to={`/service/create/${listing.id}`}>
                 <Button variant="blueAccent" className="no-round my-2">

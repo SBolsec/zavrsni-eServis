@@ -168,11 +168,11 @@ const OfferCard = ({ offer, authorId, margin, showService }) => {
         {offer.statusId !== 2 &&
           offer.statusId !== 3 &&
           offer.statusId !== 4 &&
-          (auth.data.userId == authorId ||
-            (!updateMode && auth.data.userId == offer.service.userId)) && (
+          (auth.data.userId === authorId ||
+            (!updateMode && auth.data.userId === offer.service.userId)) && (
             <>
               <hr />
-              {auth.data.userId == authorId && (
+              {auth.data.userId === authorId && (
                 <>
                   <div className="d-flex justify-content-start">
                     <Button
@@ -198,7 +198,7 @@ const OfferCard = ({ offer, authorId, margin, showService }) => {
                   </div>
                 </>
               )}
-              {!updateMode && auth.data.userId == offer.service.userId && (
+              {!updateMode && auth.data.userId === offer.service.userId && (
                 <div className="d-flex justify-content-start">
                   <Button
                     onClick={handleOfferDelete}
