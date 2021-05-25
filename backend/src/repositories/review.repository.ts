@@ -53,3 +53,18 @@ export const deleteReview = async (id: number): Promise<any> => {
   if (!review) return null;
   await reviewRepository.remove(review);
 }
+
+export const getMostRecentReviewsOfService = async (id: number, take: number): Promise<Review[]> => {
+  const reviewRepository = getRepository(Review);
+  return reviewRepository.find({
+    relations: ["author", "author.user", "author.user.profilePicture"],
+    where: {
+      serviceId: id
+    },
+    order: {
+      updatedAt: "DESC",
+      id: "DESC"
+    },
+    take: take
+  });
+}

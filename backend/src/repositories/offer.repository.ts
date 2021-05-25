@@ -136,3 +136,34 @@ export const declineOffer = async (id: number): Promise<Offer | null> => {
   result.statusId = 3;
   return repository.save(result);
 }
+
+export const getNewestOffersByServiceId = async (id: number, take: number): Promise<Offer[]> => {
+  const repository = getRepository(Offer);
+  return repository.find({
+    relations: ["service"],
+    where: {
+      serviceId: id
+    },
+    order: {
+      updatedAt: "DESC"
+    },
+    take: take
+  });
+}
+
+export const getNumberOfOffersByStatusFromService = async (id: number) => {
+  const repository = getRepository(Offer);
+
+  let data = [];
+  for (let i = 1; i <= 4; i++) {
+    let res = await repository.find({
+      where: { serviceId: id, statusId: i }
+    });
+    data.push(res.length);
+  }
+  
+  return {
+    labels: ['Aktivne', 'Prihvaćene', 'Odbijene', 'Obrisane'],
+    data
+  }
+}

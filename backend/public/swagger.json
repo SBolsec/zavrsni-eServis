@@ -827,6 +827,94 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"IOfferPayload": {
+				"properties": {
+					"title": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"price": {
+						"type": "number",
+						"format": "double"
+					},
+					"serviceId": {
+						"type": "number",
+						"format": "double"
+					},
+					"listingId": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"title",
+					"description",
+					"price",
+					"serviceId",
+					"listingId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IOfferPaginatedResult": {
+				"properties": {
+					"current_page": {
+						"type": "number",
+						"format": "double"
+					},
+					"total_pages": {
+						"type": "number",
+						"format": "double"
+					},
+					"per_page": {
+						"type": "number",
+						"format": "double"
+					},
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/Offer"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"current_page",
+					"total_pages",
+					"per_page",
+					"data"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IReviewPayload": {
+				"properties": {
+					"content": {
+						"type": "string"
+					},
+					"score": {
+						"type": "number",
+						"format": "double"
+					},
+					"authorId": {
+						"type": "number",
+						"format": "double"
+					},
+					"serviceId": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"content",
+					"score",
+					"authorId",
+					"serviceId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"IListingPayload": {
 				"properties": {
 					"personId": {
@@ -941,67 +1029,6 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"IOfferPayload": {
-				"properties": {
-					"title": {
-						"type": "string"
-					},
-					"description": {
-						"type": "string"
-					},
-					"price": {
-						"type": "number",
-						"format": "double"
-					},
-					"serviceId": {
-						"type": "number",
-						"format": "double"
-					},
-					"listingId": {
-						"type": "number",
-						"format": "double"
-					}
-				},
-				"required": [
-					"title",
-					"description",
-					"price",
-					"serviceId",
-					"listingId"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"IOfferPaginatedResult": {
-				"properties": {
-					"current_page": {
-						"type": "number",
-						"format": "double"
-					},
-					"total_pages": {
-						"type": "number",
-						"format": "double"
-					},
-					"per_page": {
-						"type": "number",
-						"format": "double"
-					},
-					"data": {
-						"items": {
-							"$ref": "#/components/schemas/Offer"
-						},
-						"type": "array"
-					}
-				},
-				"required": [
-					"current_page",
-					"total_pages",
-					"per_page",
-					"data"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
 			"IOfferStatusPayload": {
 				"properties": {
 					"status": {
@@ -1010,33 +1037,6 @@
 				},
 				"required": [
 					"status"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"IReviewPayload": {
-				"properties": {
-					"content": {
-						"type": "string"
-					},
-					"score": {
-						"type": "number",
-						"format": "double"
-					},
-					"authorId": {
-						"type": "number",
-						"format": "double"
-					},
-					"serviceId": {
-						"type": "number",
-						"format": "double"
-					}
-				},
-				"required": [
-					"content",
-					"score",
-					"authorId",
-					"serviceId"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -1746,6 +1746,31 @@
 				]
 			}
 		},
+		"/services/data/{id}": {
+			"get": {
+				"operationId": "GetData",
+				"responses": {
+					"204": {
+						"description": "No content"
+					}
+				},
+				"tags": [
+					"Service"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
 		"/roles": {
 			"get": {
 				"operationId": "GetRoles",
@@ -2127,6 +2152,540 @@
 				},
 				"tags": [
 					"Fault Category"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/offers": {
+			"get": {
+				"operationId": "GetOffers",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Offer"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Offer"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "CreateOffer",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Offer"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Offer"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IOfferPayload"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/offers/{id}": {
+			"put": {
+				"operationId": "UpdateOffer",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/Offer"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Offer"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IOfferPayload"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "DeleteOffer",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/Offer"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Offer"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/offers/id/{id}": {
+			"get": {
+				"operationId": "GetOffer",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/Offer"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Offer"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/offers/active/{id}": {
+			"get": {
+				"operationId": "GetActiveOffers",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IOfferPaginatedResult"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Offer"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "per_page",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/offers/history/{id}": {
+			"get": {
+				"operationId": "GetHistoryOffers",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IOfferPaginatedResult"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Offer"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "per_page",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/offers/accept/{id}": {
+			"post": {
+				"operationId": "AcceptOffer",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/Offer"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Offer"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/offers/decline/{id}": {
+			"post": {
+				"operationId": "DeclineOffer",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/Offer"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Offer"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/reviews": {
+			"get": {
+				"operationId": "GetReviews",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Review"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Review"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "CreateReview",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Review"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Review"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IReviewPayload"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/reviews/{id}": {
+			"put": {
+				"operationId": "UpdateReview",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Review"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Review"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IReviewPayload"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "DeleteReview",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Review"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/reviews/id/{id}": {
+			"get": {
+				"operationId": "GetReview",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Review"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/reviews/author/{id}": {
+			"get": {
+				"operationId": "GetReviewsByAuthorId",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Review"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Review"
 				],
 				"security": [],
 				"parameters": [
@@ -2757,351 +3316,6 @@
 				]
 			}
 		},
-		"/offers": {
-			"get": {
-				"operationId": "GetOffers",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"items": {
-										"$ref": "#/components/schemas/Offer"
-									},
-									"type": "array"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Offer"
-				],
-				"security": [],
-				"parameters": []
-			},
-			"post": {
-				"operationId": "CreateOffer",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/Offer"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Offer"
-				],
-				"security": [],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/IOfferPayload"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/offers/{id}": {
-			"put": {
-				"operationId": "UpdateOffer",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"allOf": [
-										{
-											"$ref": "#/components/schemas/Offer"
-										}
-									],
-									"nullable": true
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Offer"
-				],
-				"security": [],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"format": "double",
-							"type": "number"
-						}
-					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/IOfferPayload"
-							}
-						}
-					}
-				}
-			},
-			"delete": {
-				"operationId": "DeleteOffer",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"allOf": [
-										{
-											"$ref": "#/components/schemas/Offer"
-										}
-									],
-									"nullable": true
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Offer"
-				],
-				"security": [],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"format": "double",
-							"type": "number"
-						}
-					}
-				]
-			}
-		},
-		"/offers/id/{id}": {
-			"get": {
-				"operationId": "GetOffer",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"allOf": [
-										{
-											"$ref": "#/components/schemas/Offer"
-										}
-									],
-									"nullable": true
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Offer"
-				],
-				"security": [],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
-			}
-		},
-		"/offers/active/{id}": {
-			"get": {
-				"operationId": "GetActiveOffers",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/IOfferPaginatedResult"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Offer"
-				],
-				"security": [],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "query",
-						"name": "page",
-						"required": false,
-						"schema": {
-							"format": "double",
-							"type": "number"
-						}
-					},
-					{
-						"in": "query",
-						"name": "per_page",
-						"required": false,
-						"schema": {
-							"format": "double",
-							"type": "number"
-						}
-					}
-				]
-			}
-		},
-		"/offers/history/{id}": {
-			"get": {
-				"operationId": "GetHistoryOffers",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/IOfferPaginatedResult"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Offer"
-				],
-				"security": [],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "query",
-						"name": "page",
-						"required": false,
-						"schema": {
-							"format": "double",
-							"type": "number"
-						}
-					},
-					{
-						"in": "query",
-						"name": "per_page",
-						"required": false,
-						"schema": {
-							"format": "double",
-							"type": "number"
-						}
-					}
-				]
-			}
-		},
-		"/offers/accept/{id}": {
-			"post": {
-				"operationId": "AcceptOffer",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"allOf": [
-										{
-											"$ref": "#/components/schemas/Offer"
-										}
-									],
-									"nullable": true
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Offer"
-				],
-				"security": [],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"format": "double",
-							"type": "number"
-						}
-					}
-				]
-			}
-		},
-		"/offers/decline/{id}": {
-			"post": {
-				"operationId": "DeclineOffer",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"allOf": [
-										{
-											"$ref": "#/components/schemas/Offer"
-										}
-									],
-									"nullable": true
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Offer"
-				],
-				"security": [],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"format": "double",
-							"type": "number"
-						}
-					}
-				]
-			}
-		},
 		"/offerStatuses": {
 			"get": {
 				"operationId": "GetOfferStatuses",
@@ -3179,195 +3393,6 @@
 				},
 				"tags": [
 					"Offer status"
-				],
-				"security": [],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
-			}
-		},
-		"/reviews": {
-			"get": {
-				"operationId": "GetReviews",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"items": {
-										"$ref": "#/components/schemas/Review"
-									},
-									"type": "array"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Review"
-				],
-				"security": [],
-				"parameters": []
-			},
-			"post": {
-				"operationId": "CreateReview",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/Review"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Review"
-				],
-				"security": [],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/IReviewPayload"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/reviews/{id}": {
-			"put": {
-				"operationId": "UpdateReview",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/Review"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Review"
-				],
-				"security": [],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"format": "double",
-							"type": "number"
-						}
-					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/IReviewPayload"
-							}
-						}
-					}
-				}
-			},
-			"delete": {
-				"operationId": "DeleteReview",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Review"
-				],
-				"security": [],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
-			}
-		},
-		"/reviews/id/{id}": {
-			"get": {
-				"operationId": "GetReview",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"nullable": true
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Review"
-				],
-				"security": [],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
-			}
-		},
-		"/reviews/author/{id}": {
-			"get": {
-				"operationId": "GetReviewsByAuthorId",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"items": {
-										"$ref": "#/components/schemas/Review"
-									},
-									"type": "array"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Review"
 				],
 				"security": [],
 				"parameters": [

@@ -1,6 +1,6 @@
 import { Get, Route, Tags, Post, Body, Path, Put, Delete } from "tsoa";
 import { Review } from "../models";
-import { createReview, getReview, getReviews, getReviewsByAuthorId, updateReview, deleteReview, IReviewPayload } from '../repositories/review.repository';
+import { createReview, getReview, getReviews, getReviewsByAuthorId, updateReview, deleteReview, IReviewPayload, getMostRecentReviewsOfService } from '../repositories/review.repository';
 
 @Route("reviews")
 @Tags("Review")
@@ -43,5 +43,20 @@ export default class ReviewController {
   @Delete("/:id")
   public async deleteReview(@Path() id: string): Promise<any> {
     return deleteReview(Number(id));
+  }
+
+  public async getMostRecentReviewsOfService(id: number, take: number): Promise<any> {
+    let res: any = await getMostRecentReviewsOfService(id, take);
+    res.forEach((review: any) => {
+      review.author.profilePicture = review.author.user.profilePicture;
+      delete review.author.user;
+      if (!review.author.profilePicture) {
+        review.author.profilePicture = {
+          url:
+            "https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/512x512/plain/user.png",
+        };
+      }
+    });
+    return res;
   }
 }

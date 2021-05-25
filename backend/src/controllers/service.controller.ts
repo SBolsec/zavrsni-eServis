@@ -121,4 +121,9 @@ export default class ServiceController {
 
     return res;
   }
+
+  @Get("/data/:id")
+  public async getData(@Path() id: number) {
+    // here just for swagger
+  }
 }

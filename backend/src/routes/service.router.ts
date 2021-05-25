@@ -10,6 +10,8 @@ import { userToUserInfo } from "../mappers/userInfo.mapper";
 import FaultCategoryController from '../controllers/faultCategory.controller';
 import { FaultCategory, Service } from "../models";
 import { getRepository } from "typeorm";
+import OfferController from "../controllers/offer.controller";
+import ReviewController from "../controllers/review.controller";
 
 const router = express.Router();
 
@@ -61,6 +63,29 @@ router.get("/id/:id", async (req, res) => {
   const response = await controller.getService(req.params.id);
   if (!response) res.status(404).send({ message: "No service found" });
   return res.send(response);
+});
+
+router.get("/data/:id/", async (req, res) => {
+  try {
+    await Joi.object({
+      id: Joi.number().required()
+    }).validateAsync(req.params);
+  } catch (err) {
+    return res.status(400).send({ message: err.details[0].message});
+  }
+
+  const offerController = new OfferController();
+  const offers = await offerController.getNewestOffersByServiceId(Number(req.params.id), 5);
+  const pie = await offerController.getNumberOfOffersByStatusFromService(Number(req.params.id));
+
+  const reviewController = new ReviewController();
+  const reviews = await reviewController.getMostRecentReviewsOfService(Number(req.params.id), 5);
+  
+  return res.send({
+    offers,
+    pie,
+    reviews
+  });
 });
 
 router.get("/user/:id", auth([1, 3]), async (req, res) => {

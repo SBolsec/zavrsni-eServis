@@ -12,10 +12,10 @@ export class Review {
     @Column({name: 'ocjena'})
     score!: number;
 
-    @CreateDateColumn({name: 'trenutak_stvaranja', type: 'time without time zone'})
+    @CreateDateColumn({name: 'trenutak_stvaranja', type: 'timestamp without time zone'})
     createdAt!: Date;
 
-    @UpdateDateColumn({name: 'trenutak_promjene', type: 'time without time zone'})
+    @UpdateDateColumn({name: 'trenutak_promjene', type: 'timestamp with time zone'})
     updatedAt!: Date;
 
     @Column({name: 'sif_osoba'})
