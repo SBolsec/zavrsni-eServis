@@ -20,8 +20,7 @@ const conversationsReducer = (state, { type, payload }) => {
         case ADD_MESSAGE:
             return {
                 ...state,
-                conversations: payload.conversations,
-                selectedIndex: payload.updateIndex ? state.selectedIndex + 1 : state.selectedIndex
+                conversations: payload.conversations
             }
         case CHANGE_SELECTED_CONVERSATION_INDEX:
             return {

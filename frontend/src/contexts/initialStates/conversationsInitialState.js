@@ -1,6 +1,6 @@
 const conversationsInitialState = {
   conversations: [],
-  selectedIndex: 0
+  selectedIndex: undefined
 }
 
 export default conversationsInitialState;

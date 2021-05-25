@@ -33,10 +33,12 @@ export function ConversationsProvider({ id, profilePictureURL, children }) {
   }, []);
 
   useEffect(() => {
-    conversationsContextDispatch({
-      type: UNSELECT_CONVERSATION
-    });
-  }, [window.location.pathname]);
+    if (conversationsContext.selectedIndex !== undefined) {
+      conversationsContextDispatch({
+        type: UNSELECT_CONVERSATION
+      });
+    }
+  }, [window, window.location, window.location.pathname]);
 
   function createConv(receiver) {
     createConversation({ receiver, messages: [] })(conversationsContextDispatch);
@@ -71,15 +73,14 @@ export function ConversationsProvider({ id, profilePictureURL, children }) {
     conversationsContextDispatch({
       type: ADD_MESSAGE,
       payload: {
-        conversations: conv,
-        updateIndex: !madeChange
+        conversations: conv
       }
     });
   };
 
   const addMessageToConversation = useCallback((message, receiver) => {
     addMessage(conversationsContext.conversations, message, receiver);
-  }, [conversationsContext.conversations]);
+  }, [conversationsContext.conversations, conversationsContext.selectedIndex]);
 
   useEffect(() => {
     if (socket == null) return;
