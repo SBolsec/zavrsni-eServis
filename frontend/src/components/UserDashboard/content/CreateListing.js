@@ -13,6 +13,8 @@ import { useUserContext } from '../../../contexts/UserContext';
 import axiosInstance from "../../../helpers/axiosInstance";
 import Spinner from '../../Utils/Spinner';
 import './CreateListing.css';
+import { faTimes, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const validationSchema = yup.object({
   title: yup
@@ -98,11 +100,11 @@ const CreateListing = () => {
             setError(false);
             history.push(`/user/listing/${res.data.id}`);
           })
-          .catch(e => {
-            setLoading(false);
-            setError('Greška kod uploadanja slika');
-            console.log(e);
-          });
+            .catch(e => {
+              setLoading(false);
+              setError('Greška kod uploadanja slika');
+              console.log(e);
+            });
         })
         .catch(err => {
           setLoading(false);
@@ -251,13 +253,22 @@ const CreateListing = () => {
               </div>
               <div>
                 {preview.map((picture, index) => (
-                  <img key={index}
-                    src={picture}
-                    alt="slika"
-                    className="m-2 img-preview img-thumbnail"
+                  <div key={index}
+                    className="position-relative d-inline-block m-2"
                     style={{ maxWidth: "200px", maxHeight: "200px" }}
-                    onClick={() => deletePicture(index)}
-                  />
+                  >
+                    <img
+                      src={picture}
+                      alt="slika"
+                      className="m-2  img-thumbnail"
+                      style={{ maxWidth: "200px", maxHeight: "200px" }}
+                    />
+                      <FontAwesomeIcon icon={faTimes} 
+                        className="img-preview text-danger fa-2x position-absolute" 
+                        style={{ zIndex: 1, right: 0 }} 
+                        onClick={() => deletePicture(index)}
+                      />
+                  </div>
                 ))}
               </div>
             </Col>
