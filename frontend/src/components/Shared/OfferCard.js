@@ -23,7 +23,7 @@ const OfferCard = ({ offer, authorId, margin, showService }) => {
   const [offer1, setOffer] = useState(offer);
 
   let rating = 0;
-  if (offer.service.reviews.length !== 0) {
+  if (offer.service && offer.service.reviews && offer.service.reviews.length !== 0) {
     let sumOfRatings = 0;
     offer.service.reviews.forEach((review) => (sumOfRatings += review.score));
     // round number to closes factor of 0.5
