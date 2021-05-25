@@ -37,16 +37,14 @@ const ServiceSidebar = () => {
         }
       })
     });
-    console.log(unread);
+
     if (unread > 0) {
-      console.log('a');
       setItems(items.map(item => {
         if (item.name !== 'Poruke') return item;
         item.icon = <FontAwesomeIcon icon={faComments} className="c-sidebar-nav-icon text-blueAccent"/>
         return item;
       }));
     } else {
-      console.log('b');
       setItems(items.map(item => {
         if (item.name !== 'Poruke') return item;
         item.icon = <FontAwesomeIcon icon={faComments} className="c-sidebar-nav-icon"/>
