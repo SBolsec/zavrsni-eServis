@@ -13,6 +13,7 @@ import { useHistory } from "react-router";
 import Review from "../../Shared/Review";
 import CardColumns from "react-bootstrap/esm/CardColumns";
 import OfferCard from "../../Shared/OfferCard";
+import ListingCard from "../../Shared/Listing/ListingCard";
 
 const options = {
   responsive: true,
@@ -163,6 +164,15 @@ const Dashboard = () => {
                 />
               ))}
             </CardColumns>
+          </Container>
+
+          <Container>
+            {data.recomendations.length > 0 && <h5 className="font-weight-bold text-uppercase">Predloženi oglasi za Vas</h5>}
+            <CardColumns>
+            {data.recomendations.map((listing, index) => (
+              <ListingCard key={index} listing={listing} />
+            ))}
+        </CardColumns>
           </Container>
         </>
       }
