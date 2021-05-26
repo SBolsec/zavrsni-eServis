@@ -1,15 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../../../contexts/AuthContext';
+import { useUserContext } from '../../../contexts/UserContext';
 import SetProfilePicture from '../../Shared/SetProfilePicture';
 import InfoCard from '../../Shared/InfoCard';
+import axiosInstance from '../../../helpers/axiosInstance';
+import Counter from '../../Utils/Counter/Counter';
 
 const Dashboard = () => {
   const { auth } = useAuth();
+  const { context } = useUserContext();
+  const history = useHistory();
+  const [data, setData] = useState(false);
+
+  useEffect(() => {
+    if (context && context.data && context.data.id) {
+      axiosInstance(history).get(`/people/data/${context.data.id}`)
+        .then(res => {
+          setData(res.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  }, [context.data.id]);
 
   return (
     <>
@@ -49,7 +67,6 @@ const Dashboard = () => {
         </Row>
       </Container>
 
-      {/* Replace this with something more generic */}
       {!auth.data.profilePictureSet &&
         <Container fluid className="my-4">
           <Row>
@@ -59,6 +76,37 @@ const Dashboard = () => {
                   <div className="bg-white text-dark text-center pt-4 text-uppercase font-weight-bold" >Promijenite sliku profila</div>
                   <SetProfilePicture />
                 </div>}
+            </Col>
+          </Row>
+        </Container>
+      }
+
+      {data &&
+        <Container fluid className="mt-2 mb-5">
+          <Row className="px-3" >
+            <Col xs={6} md={4} lg={2} className="bg-white text-dark text-center d-flex flex-column justify-content-center align-items-center">
+              <Counter start={0} end={data.receivedOffers} style={{ fontSize: '2.5em', fontWeight: 'bold' }} />
+              <p className="text-uppercase" style={{ fontSize: '0.9em' }} >Dobivenih ponuda</p>
+            </Col>
+            <Col xs={6} md={4} lg={2} className="bg-white text-dark text-center d-flex flex-column justify-content-center align-items-center">
+              <Counter start={0} end={data.acceptedOffers} style={{ fontSize: '2.5em', fontWeight: 'bold' }} />
+              <p className="text-uppercase" style={{ fontSize: '0.9em' }}>Dobivenih ponuda</p>
+            </Col>
+            <Col xs={6} md={4} lg={2} className="bg-white text-dark text-center d-flex flex-column justify-content-center align-items-center">
+              <Counter start={0} end={data.declineOffers} style={{ fontSize: '2.5em', fontWeight: 'bold' }} />
+              <p className="text-uppercase" style={{ fontSize: '0.9em' }}>Dobivenih ponuda</p>
+            </Col>
+            <Col xs={6} md={4} lg={2} className="bg-white text-dark text-center d-flex flex-column justify-content-center align-items-center">
+              <Counter start={0} end={data.activeListings} style={{ fontSize: '2.5em', fontWeight: 'bold' }} />
+              <p className="text-uppercase" style={{ fontSize: '0.9em' }}>Dobivenih ponuda</p>
+            </Col>
+            <Col xs={6} md={4} lg={2} className="bg-white text-dark text-center d-flex flex-column justify-content-center align-items-center">
+              <Counter start={0} end={data.finishedListings} style={{ fontSize: '2.5em', fontWeight: 'bold' }} />
+              <p className="text-uppercase" style={{ fontSize: '0.9em' }}>Dobivenih ponuda</p>
+            </Col>
+            <Col xs={6} md={4} lg={2} className="bg-white text-dark text-center d-flex flex-column justify-content-center align-items-center">
+              <Counter start={0} end={data.numOfReviews} style={{ fontSize: '2.5em', fontWeight: 'bold' }} />
+              <p className="text-uppercase" style={{ fontSize: '0.9em' }}>Dobivenih ponuda</p>
             </Col>
           </Row>
         </Container>
