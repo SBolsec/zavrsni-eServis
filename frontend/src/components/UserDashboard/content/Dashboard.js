@@ -90,23 +90,23 @@ const Dashboard = () => {
             </Col>
             <Col xs={6} md={4} lg={2} className="bg-white text-dark text-center d-flex flex-column justify-content-center align-items-center">
               <Counter start={0} end={data.acceptedOffers} style={{ fontSize: '2.5em', fontWeight: 'bold' }} />
-              <p className="text-uppercase" style={{ fontSize: '0.9em' }}>Dobivenih ponuda</p>
+              <p className="text-uppercase" style={{ fontSize: '0.9em' }}>Prihvaćene ponude</p>
             </Col>
             <Col xs={6} md={4} lg={2} className="bg-white text-dark text-center d-flex flex-column justify-content-center align-items-center">
               <Counter start={0} end={data.declineOffers} style={{ fontSize: '2.5em', fontWeight: 'bold' }} />
-              <p className="text-uppercase" style={{ fontSize: '0.9em' }}>Dobivenih ponuda</p>
+              <p className="text-uppercase" style={{ fontSize: '0.9em' }}>Odbijene ponude</p>
             </Col>
             <Col xs={6} md={4} lg={2} className="bg-white text-dark text-center d-flex flex-column justify-content-center align-items-center">
               <Counter start={0} end={data.activeListings} style={{ fontSize: '2.5em', fontWeight: 'bold' }} />
-              <p className="text-uppercase" style={{ fontSize: '0.9em' }}>Dobivenih ponuda</p>
+              <p className="text-uppercase" style={{ fontSize: '0.9em' }}>Aktivna oglasa</p>
             </Col>
             <Col xs={6} md={4} lg={2} className="bg-white text-dark text-center d-flex flex-column justify-content-center align-items-center">
               <Counter start={0} end={data.finishedListings} style={{ fontSize: '2.5em', fontWeight: 'bold' }} />
-              <p className="text-uppercase" style={{ fontSize: '0.9em' }}>Dobivenih ponuda</p>
+              <p className="text-uppercase" style={{ fontSize: '0.9em' }}>Završena oglasa</p>
             </Col>
             <Col xs={6} md={4} lg={2} className="bg-white text-dark text-center d-flex flex-column justify-content-center align-items-center">
               <Counter start={0} end={data.numOfReviews} style={{ fontSize: '2.5em', fontWeight: 'bold' }} />
-              <p className="text-uppercase" style={{ fontSize: '0.9em' }}>Dobivenih ponuda</p>
+              <p className="text-uppercase" style={{ fontSize: '0.9em' }}>Recenzija</p>
             </Col>
           </Row>
         </Container>
