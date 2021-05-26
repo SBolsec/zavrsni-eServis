@@ -129,7 +129,7 @@ router.get("/search", async (req, res) => {
       cityId: Joi.number(),
       page: Joi.number(),
       per_page: Joi.number(),
-    }).validateAsync(req.params);
+    }).validateAsync(req.query);
   } catch (err) {
     return res.status(400).send({ message: err.details[0].message });
   }

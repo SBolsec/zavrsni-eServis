@@ -115,6 +115,17 @@ export const getPaginatedSearchServices = async (query: IServiceSearchPayload): 
     .skip(skip)
     .getManyAndCount();
 
+  if (total === 0) {
+    return {
+      current_page: 0,
+      per_page: take,
+      total_pages: 0,
+      data: []
+    };
+  } else {
+    whereString = "service.id IN (:...ids)";
+    whereData = { ids: temp.map(s => s.id)};
+  }
   const result = await serviceRepository.createQueryBuilder('service')
     .leftJoinAndSelect('service.city', 'city')
     .leftJoinAndSelect('service.user', 'user')
@@ -122,7 +133,7 @@ export const getPaginatedSearchServices = async (query: IServiceSearchPayload): 
     .leftJoinAndSelect('service.faultCategories', 'faultCategories')
     .leftJoinAndSelect('faultCategories.parent', 'parentFaultCategory')
     .leftJoinAndSelect('service.reviews', 'reviews')
-    .where("service.id IN (:...ids)", { ids: temp.map(s => s.id)})
+    .where(whereString, whereData)
     .orderBy({ 'service.updatedAt': "DESC", 'service.id': "ASC" })
     .getMany();
 
