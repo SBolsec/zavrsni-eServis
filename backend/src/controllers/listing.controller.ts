@@ -125,6 +125,7 @@ export default class ListingController {
     let faultCategories: number[] = service.faultCategories.map((f: any) => f.id);
     let parentCategories: number[] = service.faultCategories.map((f: any) => f.parentId);
     let reviewAuthors: number[] = service.reviews.map((r: any) => r.authorId);
+    let offers: number[] = service.offers.map((o: any) => o.listing.personId);
 
     // prepare dates
     const currentDate = new Date();
@@ -162,6 +163,15 @@ export default class ListingController {
           case 2: score -= 1; break;
           default: score -= 2; break;
         }
+      }
+      if (offers.includes(listing.personId)) {
+        service.offers.filter((o: any) => o.listing.personId === listing.personId).forEach((o: any) => {
+          switch(o.statusId) {
+            case 2: score += 1; break;
+            case 3: score -= 1; break;
+            default: break; 
+          }
+        });
       }
       scores.set(Number(listing.id), score);
     });
