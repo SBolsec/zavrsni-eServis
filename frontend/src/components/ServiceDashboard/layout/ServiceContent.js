@@ -39,7 +39,7 @@ const ServiceContent = () => {
             <Route exact path="/service/messages" component={Chat} />
             <Route exact path="/service/active" component={OffersActive} />
             <Route exact path="/service/history" component={OffersHistory} />
-            <Route exact path="/service/servicers" component={ServiceSearch} />
+            <Route exact path="/service/services" component={ServiceSearch} />
             <Route exact path="/service/search" component={ListingSearch} />
             <Route path="/service/listing/:id" component={ListingDetails} />
             <Route path="/service/service/:id" component={ServiceDetails} />
