@@ -31,7 +31,7 @@ const Dashboard = () => {
   const [data, setData] = useState(false);
 
   useEffect(() => {
-    if (context) {
+    if (context && context.data && context.data.id) {
       axiosInstance(history).get(`/services/data/${context.data.id}`)
         .then(res => {
           setData(res.data);
@@ -40,7 +40,7 @@ const Dashboard = () => {
           console.log(err);
         });
     }
-  }, [context]);
+  }, [context.data.id]);
 
   return (
     <>
@@ -100,41 +100,41 @@ const Dashboard = () => {
           <Container fluid className="my-2">
             <Row>
               {data.pie.data.filter(d => d !== 0).length !== 0 &&
-              <Col xs={12} md={4} className="my-2" >
-                <div
-                  className="bg-white p-3 text-dark"
-                  style={{ maxHeight: '350px', minHeight: '350px' }}
-                >
-                  <h5 className="font-weight-bold text-uppercase">Vaše ponude</h5>
-                  <div className="p-0 m-0 d-flex justify-content-center align-items-center">
-                    <Pie
-                      style={{ maxHeight: '350px', maxWidth: '350px', position: 'relative', top: '-20px' }}
-                      data={{
-                        labels: data.pie.labels,
-                        datasets: [
-                          {
-                            label: '# of Votes',
-                            data: data.pie.data,
-                            backgroundColor: [
-                              '#00a0d4',
-                              '#3cc480',
-                              '#f4666e',
-                              '#626d71'
-                            ],
-                            borderColor: [
-                              '#00a0d4',
-                              '#3cc480',
-                              '#f4666e',
-                              '#626d71'
-                            ],
-                            borderWidth: 1,
-                          },
-                        ],
-                      }} options={options}
-                    />
+                <Col xs={12} md={4} className="my-2" >
+                  <div
+                    className="bg-white p-3 text-dark"
+                    style={{ maxHeight: '350px', minHeight: '350px' }}
+                  >
+                    <h5 className="font-weight-bold text-uppercase">Vaše ponude</h5>
+                    <div className="p-0 m-0 d-flex justify-content-center align-items-center">
+                      <Pie
+                        style={{ maxHeight: '350px', maxWidth: '350px', position: 'relative', top: '-20px' }}
+                        data={{
+                          labels: data.pie.labels,
+                          datasets: [
+                            {
+                              label: '# of Votes',
+                              data: data.pie.data,
+                              backgroundColor: [
+                                '#00a0d4',
+                                '#3cc480',
+                                '#f4666e',
+                                '#626d71'
+                              ],
+                              borderColor: [
+                                '#00a0d4',
+                                '#3cc480',
+                                '#f4666e',
+                                '#626d71'
+                              ],
+                              borderWidth: 1,
+                            },
+                          ],
+                        }} options={options}
+                      />
+                    </div>
                   </div>
-                </div>
-              </Col>
+                </Col>
               }
 
               <Col xs={12} md={8} className="my-2" >
@@ -169,10 +169,10 @@ const Dashboard = () => {
           <Container>
             {data.recomendations.length > 0 && <h5 className="font-weight-bold text-uppercase">Predloženi oglasi za Vas</h5>}
             <CardColumns>
-            {data.recomendations.map((listing, index) => (
-              <ListingCard key={index} listing={listing} />
-            ))}
-        </CardColumns>
+              {data.recomendations.map((listing, index) => (
+                <ListingCard key={index} listing={listing} />
+              ))}
+            </CardColumns>
           </Container>
         </>
       }

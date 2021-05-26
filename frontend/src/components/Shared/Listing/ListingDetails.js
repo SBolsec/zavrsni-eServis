@@ -54,7 +54,6 @@ const ListingDetails = () => {
   
 
   const sendMessage = useCallback((e) => {
-    console.log('here');
     e.preventDefault();
     startConversation(contactInfo);
     history.push(`/${auth.data.role}/messages`);

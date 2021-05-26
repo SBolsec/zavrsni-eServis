@@ -1,5 +1,5 @@
 import Button from "react-bootstrap/esm/Button";
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Moment from "react-moment";
 import { useAuth } from "../../contexts/AuthContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,12 +15,15 @@ import UpdateOffer from "../ServiceDashboard/content/UpdateOffer";
 import Card from "react-bootstrap/esm/Card";
 import Chip from "@material-ui/core/Chip";
 import Rating from "@material-ui/lab/Rating";
+import { useConversations } from "../../contexts/ConversationsContext";
 
 const OfferCard = ({ offer, authorId, margin, showService }) => {
   const { auth } = useAuth();
   const history = useHistory();
+  const { startConversation } = useConversations();
   const [updateMode, setUpdateMode] = useState(false);
   const [offer1, setOffer] = useState(offer);
+  const [contactInfo, setContactInfo] = useState(false);
 
   let rating = 0;
   if (offer.service && offer.service.reviews && offer.service.reviews.length !== 0) {
@@ -29,6 +32,26 @@ const OfferCard = ({ offer, authorId, margin, showService }) => {
     // round number to closes factor of 0.5
     rating = (Math.round((sumOfRatings / offer.service.reviews.length) * 2) / 2);
   }
+
+  useEffect(() => {
+    if (offer && offer.listing) {
+      axiosInstance(history)
+        .get(`/messages/contacts/${offer.listing.personId}`)
+        .then((result) => {
+          console.log(result.data);
+          setContactInfo(result.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, []);
+
+  const sendMessage = useCallback((e) => {
+    e.preventDefault();
+    startConversation(contactInfo);
+    history.push(`/${auth.data.role}/messages`);
+  }, [auth, contactInfo]);
 
   const toggleUpdateMode = () => {
     setUpdateMode(!updateMode);
@@ -142,28 +165,38 @@ const OfferCard = ({ offer, authorId, margin, showService }) => {
         {(offer.statusId === 2 ||
           offer.statusId === 3 ||
           offer.statusId === 4) && (
-          <>
-            <hr />
-            {offer.statusId === 2 && (
-              <Chip
-                label="Prihvaćena"
-                className="bg-accepted text-white font-weight-bold"
-              />
-            )}
-            {offer.statusId === 3 && (
-              <Chip
-                label="Odbijena"
-                className="bg-declined text-white font-weight-bold"
-              />
-            )}
-            {offer.statusId === 4 && (
-              <Chip
-                label="Uklonjena"
-                className="bg-declined text-white font-weight-bold"
-              />
-            )}
-          </>
-        )}
+            <>
+              <hr />
+              {offer.statusId === 2 && (
+                <div className="d-flex justify-content-between">
+                  <Chip
+                    label="Prihvaćena"
+                    className="bg-accepted text-white font-weight-bold"
+                  />
+                  {!updateMode && auth.data.userId === offer.service.userId && (
+                    <>
+
+                      <Button variant="blueAccent" className="no-round mx-2" onClick={sendMessage}>
+                        Pošalji poruku
+                      </Button>
+                    </>
+                  )}
+                </div>
+              )}
+              {offer.statusId === 3 && (
+                <Chip
+                  label="Odbijena"
+                  className="bg-declined text-white font-weight-bold"
+                />
+              )}
+              {offer.statusId === 4 && (
+                <Chip
+                  label="Uklonjena"
+                  className="bg-declined text-white font-weight-bold"
+                />
+              )}
+            </>
+          )}
 
         {offer.statusId !== 2 &&
           offer.statusId !== 3 &&
