@@ -8,19 +8,12 @@ import { useAuth } from '../../../contexts/AuthContext';
 
 const ListingInfo = ({ listing }) => {
   const { auth } = useAuth();
-  let type;
-  switch (auth.data.role) {
-    case 1: type = 'admin'; break;
-    case 2: type = 'user'; break;
-    case 3: type = 'service'; break;
-    default: type = 'user'; break;
-  }
 
   // sort pictures so that the same one is used as the preview
   listing.pictures.sort((a, b) => (a.id > b.id) ? 1 : ((b.id > a.id) ? -1 : 0));
 
   return (
-    <Link to={`/${type}/listing/${listing.id}`} className="text-decoration-none text-dark">
+    <Link to={`/${auth.data.role}/listing/${listing.id}`} className="text-decoration-none text-dark">
       <Container fluid className="mx-auto">
         <Row>
           <Col md={3} className="mx-0 px-0">
