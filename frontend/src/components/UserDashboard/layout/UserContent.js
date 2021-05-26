@@ -40,7 +40,7 @@ const UserContent = () => {
             <Route path="/user/create" component={CreateListing} />
             <Route path="/user/active" component={ListingsActive} />
             <Route path="/user/history" component={ListingsHistory} />
-            <Route path="/user/servicers" component={ServiceSearch} />
+            <Route path="/user/services" component={ServiceSearch} />
             <Route path="/user/search" component={ListingSearch} />
             <Route path="/user/listing/:id" component={ListingDetails} />
             <Route path="/user/service/:id" component={ServiceDetails} />

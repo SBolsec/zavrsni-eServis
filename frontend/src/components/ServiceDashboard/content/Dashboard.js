@@ -7,7 +7,7 @@ import SetProfilePicture from "../../Shared/SetProfilePicture";
 import InfoCard from "../../Shared/InfoCard";
 import { useServiceContext } from "../../../contexts/ServiceContext";
 import AddFaultCategories from "./profile/AddFaultCategories";
-import { Pie } from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
 import axiosInstance from '../../../helpers/axiosInstance';
 import { useHistory } from "react-router";
 import Review from "../../Shared/Review";
@@ -107,7 +107,7 @@ const Dashboard = () => {
                   >
                     <h5 className="font-weight-bold text-uppercase">Vaše ponude</h5>
                     <div className="p-0 m-0 d-flex justify-content-center align-items-center">
-                      <Pie
+                      <Doughnut
                         style={{ maxHeight: '350px', maxWidth: '350px', position: 'relative', top: '-20px' }}
                         data={{
                           labels: data.pie.labels,

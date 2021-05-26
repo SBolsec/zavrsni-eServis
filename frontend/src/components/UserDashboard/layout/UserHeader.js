@@ -41,7 +41,7 @@ const UserHeader = () => {
     case '/user/create': title = 'Stvorite novi oglas'; break;
     case '/user/active': title = 'Aktivni oglasi'; break;
     case '/user/history': title = 'Povijest oglasa'; break;
-    case '/user/servicers': title = 'Pretraga servisera'; break;
+    case '/user/services': title = 'Pretraga servisa'; break;
     case '/user/search': title = 'Pretraga oglasa'; break;
     default:
       if (window.location.pathname.startsWith('/user/listing'))

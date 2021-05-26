@@ -50,7 +50,7 @@ const _nav =  [
   {
     _tag: 'CSidebarNavItem',
     name: 'Pretraga servisa',
-    to: '/user/servicers',
+    to: '/user/services',
     icon: <FontAwesomeIcon icon={faBuilding} className="c-sidebar-nav-icon"/>
   },
   {

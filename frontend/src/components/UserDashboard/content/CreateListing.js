@@ -265,7 +265,7 @@ const CreateListing = () => {
                     />
                       <FontAwesomeIcon icon={faTimes} 
                         className="img-preview text-danger fa-2x position-absolute" 
-                        style={{ zIndex: 1, right: 0, top: 0 }} 
+                        style={{ zIndex: 1, right: 0, top: 11 }} 
                         onClick={() => deletePicture(index)}
                       />
                   </div>
