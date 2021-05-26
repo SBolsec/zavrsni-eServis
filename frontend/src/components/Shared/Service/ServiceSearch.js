@@ -29,6 +29,10 @@ const ServiceSearch = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+  // used to reset autocomplete
+  const [fKey, setFKey] = useState(false);
+  const [cKey, setCKey] = useState(false);
+
   // fetch cities, categories and initial search results
   useEffect(() => {
     axiosInstance(history)
@@ -78,13 +82,19 @@ const ServiceSearch = () => {
     }
   });
 
+  const resetForm = () => {
+    formik.resetForm();
+    setFKey(!fKey);
+    setCKey(!cKey);
+  }
+
   const handlePageChange = (page) => {
     fetchListings(formik.values, page - 1);
   }
 
   const fetchListings = (values, page) => {
     let query = "";
-    let somethingAdded=false;
+    let somethingAdded = false;
     if (values.service) {
       query += `service=${values.service}`;
       somethingAdded = true;
@@ -156,6 +166,7 @@ const ServiceSearch = () => {
             <Col xs={12} md={5}>
               <Autocomplete
                 multiple
+                key={fKey}
                 id="faultCategoryId"
                 name="faultCategoryId"
                 options={categories}
@@ -180,6 +191,7 @@ const ServiceSearch = () => {
             </Col>
             <Col xs={12} md={4}>
               <Autocomplete
+                key={cKey}
                 id="cityId"
                 name="cityId"
                 options={cities}
@@ -233,8 +245,8 @@ const ServiceSearch = () => {
                   <Button
                     variant="contained"
                     type="reset"
-                    className="my-2 mr-2 px-4 bg-danger text-white no-round font-weight-bold"
-                    onClick={formik.resetForm}
+                    className="my-2 mr-2 px-4 bg-declined text-white no-round font-weight-bold"
+                    onClick={resetForm}
                   >
                     Resetiraj
                   </Button>
