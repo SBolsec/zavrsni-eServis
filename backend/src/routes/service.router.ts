@@ -66,7 +66,7 @@ router.get("/id/:id", async (req, res) => {
   return res.send(response);
 });
 
-router.get("/data/:id/", async (req, res) => {
+router.get("/data/:id/", auth([1, 3]), async (req, res) => {
   try {
     await Joi.object({
       id: Joi.number().required()
@@ -76,7 +76,7 @@ router.get("/data/:id/", async (req, res) => {
   }
 
   const offerController = new OfferController();
-  const offers = await offerController.getNewestOffersByServiceId(Number(req.params.id), 5);
+  const offers = await offerController.getNewestOffersByServiceId(Number(req.params.id), 6);
   const pie = await offerController.getNumberOfOffersByStatusFromService(Number(req.params.id));
 
   const reviewController = new ReviewController();
