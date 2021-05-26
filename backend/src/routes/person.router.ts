@@ -1,3 +1,4 @@
+import { declineOffer } from './../repositories/offer.repository';
 import express from "express";
 import PersonController from "../controllers/person.controller";
 import UserController from "../controllers/user.controller";
@@ -6,6 +7,9 @@ import { hash, compare } from "bcryptjs";
 import Joi from 'joi';
 import auth from '../middlewares/isAuth';
 import { userToUserInfo } from "../mappers/userInfo.mapper";
+import OfferController from "../controllers/offer.controller";
+import { getRepository } from "typeorm";
+import { Listing, Offer, Review } from "../models";
 
 const router = express.Router();
 
@@ -58,6 +62,21 @@ router.get("/user/:id", auth([1, 2, 3]), async (req, res) => {
   const controller = new PersonController();
   const response = await controller.getPersonByUserId(req.params.id);
   if (!response) res.status(404).send({ message: "No person found" });
+  return res.send(response);
+});
+
+router.get("/data/:id/", auth([1, 2]), async (req, res) => {
+  try {
+    await Joi.object({
+      id: Joi.number().required()
+    }).validateAsync(req.params);
+  } catch (err) {
+    return res.status(400).send({ message: err.details[0].message });
+  }
+
+  const controller = new PersonController();
+  const response = await controller.getDashboardData(Number(req.params.id));
+  if (!response) res.status(404).send({ message: "No data found" });
   return res.send(response);
 });
 

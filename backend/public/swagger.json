@@ -810,23 +810,6 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"IFaultCategory": {
-				"properties": {
-					"name": {
-						"type": "string"
-					},
-					"parentId": {
-						"type": "number",
-						"format": "double"
-					}
-				},
-				"required": [
-					"name",
-					"parentId"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
 			"IOfferPayload": {
 				"properties": {
 					"title": {
@@ -884,6 +867,23 @@
 					"total_pages",
 					"per_page",
 					"data"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IFaultCategory": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"parentId": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"name",
+					"parentId"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -1519,6 +1519,36 @@
 				]
 			}
 		},
+		"/people/data/{id}": {
+			"get": {
+				"operationId": "GetDashboardData",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Person"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
 		"/services": {
 			"get": {
 				"operationId": "GetServices",
@@ -1991,181 +2021,6 @@
 				"parameters": []
 			}
 		},
-		"/faultCategories": {
-			"get": {
-				"operationId": "GetFaultCategories",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"items": {
-										"$ref": "#/components/schemas/FaultCategory"
-									},
-									"type": "array"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Fault Category"
-				],
-				"security": [],
-				"parameters": []
-			},
-			"post": {
-				"operationId": "CreateFaultCategory",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/FaultCategory"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Fault Category"
-				],
-				"security": [],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/IFaultCategory"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/faultCategories/id/{id}": {
-			"get": {
-				"operationId": "GetFaultCategory",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"allOf": [
-										{
-											"$ref": "#/components/schemas/FaultCategory"
-										}
-									],
-									"nullable": true
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Fault Category"
-				],
-				"security": [],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
-			}
-		},
-		"/faultCategories/formatted": {
-			"get": {
-				"operationId": "GetFaultCategoriesFormatted",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"items": {
-										"$ref": "#/components/schemas/FaultCategory"
-									},
-									"type": "array"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Fault Category"
-				],
-				"security": [],
-				"parameters": []
-			}
-		},
-		"/faultCategories/search": {
-			"get": {
-				"operationId": "GetFaultCategoriesSearch",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"items": {
-										"$ref": "#/components/schemas/FaultCategory"
-									},
-									"type": "array"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Fault Category"
-				],
-				"security": [],
-				"parameters": []
-			}
-		},
-		"/faultCategories/service/{id}": {
-			"get": {
-				"operationId": "GetFaultCategoriesOfService",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"items": {
-										"$ref": "#/components/schemas/FaultCategory"
-									},
-									"type": "array"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Fault Category"
-				],
-				"security": [],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
-			}
-		},
 		"/offers": {
 			"get": {
 				"operationId": "GetOffers",
@@ -2506,6 +2361,181 @@
 						"schema": {
 							"format": "double",
 							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/faultCategories": {
+			"get": {
+				"operationId": "GetFaultCategories",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/FaultCategory"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Fault Category"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "CreateFaultCategory",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/FaultCategory"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Fault Category"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IFaultCategory"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/faultCategories/id/{id}": {
+			"get": {
+				"operationId": "GetFaultCategory",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/FaultCategory"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Fault Category"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/faultCategories/formatted": {
+			"get": {
+				"operationId": "GetFaultCategoriesFormatted",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/FaultCategory"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Fault Category"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/faultCategories/search": {
+			"get": {
+				"operationId": "GetFaultCategoriesSearch",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/FaultCategory"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Fault Category"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/faultCategories/service/{id}": {
+			"get": {
+				"operationId": "GetFaultCategoriesOfService",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/FaultCategory"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Fault Category"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
 						}
 					}
 				]
