@@ -33,6 +33,7 @@ export const getListing = async (id: number): Promise<Listing | null> => {
   const listing = await listingRepository.createQueryBuilder('listing')
     .leftJoinAndSelect('listing.offers', 'offers', 'offers.statusId <> 4')
     .leftJoinAndSelect('offers.status', 'offerStatus')
+    .leftJoinAndSelect('offers.listing', 'oListing')
     .leftJoinAndSelect('offers.service', 'offerService')
     .leftJoinAndSelect('offerService.user', 'offerServiceUser')
     .leftJoinAndSelect('offerServiceUser.profilePicture', 'offerServiceUserPicture')
