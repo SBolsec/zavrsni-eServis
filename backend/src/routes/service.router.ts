@@ -12,6 +12,7 @@ import { FaultCategory, Service } from "../models";
 import { getRepository } from "typeorm";
 import OfferController from "../controllers/offer.controller";
 import ReviewController from "../controllers/review.controller";
+import ListingController from "../controllers/listing.controller";
 
 const router = express.Router();
 
@@ -81,10 +82,14 @@ router.get("/data/:id/", async (req, res) => {
   const reviewController = new ReviewController();
   const reviews = await reviewController.getMostRecentReviewsOfService(Number(req.params.id), 5);
   
+  const listingController = new ListingController();
+  const recomendations = await listingController.getListingRecomendations(Number(req.params.id));
+
   return res.send({
     offers,
     pie,
-    reviews
+    reviews,
+    recomendations
   });
 });
 
