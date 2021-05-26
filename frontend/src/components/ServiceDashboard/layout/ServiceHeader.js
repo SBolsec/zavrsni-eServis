@@ -47,8 +47,6 @@ const ServiceHeader = () => {
         title = 'Detalji oglasa';
       else if (window.location.pathname.startsWith('/service/service'))
         title =  'Detalji servisa';
-      else
-        title = '';
   }
   document.title = 'e-servis | ' + title;
 

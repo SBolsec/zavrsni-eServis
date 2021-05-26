@@ -48,8 +48,6 @@ const UserHeader = () => {
         title = 'Detalji oglasa';
       else if (window.location.pathname.startsWith('/user/service'))
         title =  'Detalji servisa';
-      else
-        title = '';
   }
   
   document.title = 'e-servis' + (title.length !== 0 ? ' | ' + title : '');
@@ -98,7 +96,7 @@ const UserHeader = () => {
             <div className=" px-3 py-1 header-dropdown-item">
               <Link to="/logout" style={{ color: 'black', textDecoration: 'none' }}>
                 <FontAwesomeIcon icon={faSignOutAlt} className="mr-2 text-darkGray"/>
-                <span>Odjva</span>
+                <span>Odjava</span>
               </Link>
             </div>
           </Dropdown.Menu>

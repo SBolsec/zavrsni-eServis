@@ -1,9 +1,10 @@
 import CountUp from "react-countup";
 import AppearSensor from "./AppearSensor";
 
-const Counter = ({start, end}) => {
+const Counter = ({start, end, style}) => {
   if (!start) start = 0;
-  if (!end) end = 1000;
+  if (!end) end = 0;
+  if (!style) style = { fontSize: '4rem' };
 
   return (
     <AppearSensor>
@@ -13,10 +14,10 @@ const Counter = ({start, end}) => {
             start={start}
             end={end}
             className="text-blueAccent"
-            style={{ fontSize: '4rem' }} />
+            style={style} />
           : <span
             className="text-blueAccent"
-            style={{ fontSize: '4rem' }}
+            style={style}
           >{end}</span>
       }
     </AppearSensor>
