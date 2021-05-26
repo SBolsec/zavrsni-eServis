@@ -33,6 +33,7 @@ export const getListing = async (id: number): Promise<Listing | null> => {
   const listing = await listingRepository.createQueryBuilder('listing')
     .leftJoinAndSelect('listing.offers', 'offers', 'offers.statusId <> 4')
     .leftJoinAndSelect('offers.status', 'offerStatus')
+    .leftJoinAndSelect('offers.listing', 'oListing')
     .leftJoinAndSelect('offers.service', 'offerService')
     .leftJoinAndSelect('offerService.user', 'offerServiceUser')
     .leftJoinAndSelect('offerServiceUser.profilePicture', 'offerServiceUserPicture')
@@ -159,4 +160,20 @@ export const finishListing = async (id: number): Promise<Listing | null> => {
   if (!response) return null;
   response.statusId = 2;
   return repository.save(response);
+}
+
+export const getMostRecentListings = async (take: number): Promise<Listing[]> => {
+  const repository = getRepository(Listing);
+  return repository.find({
+    where: {
+      statusId: 1 // active listings only
+    },
+    relations: ["status", "person", "person.user", "person.user.profilePicture", 
+      "pictures", "faultCategory", "faultCategory.parent", "city"
+    ],
+    order: {
+      updatedAt: "DESC"
+    },
+    take: take
+  });
 }

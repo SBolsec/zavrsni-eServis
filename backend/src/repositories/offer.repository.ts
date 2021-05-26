@@ -140,7 +140,7 @@ export const declineOffer = async (id: number): Promise<Offer | null> => {
 export const getNewestOffersByServiceId = async (id: number, take: number): Promise<Offer[]> => {
   const repository = getRepository(Offer);
   return repository.find({
-    relations: ["service"],
+    relations: ["service", "listing"],
     where: {
       serviceId: id
     },

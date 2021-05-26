@@ -1,6 +1,7 @@
 import { Get, Route, Tags, Post, Body, Path, Put } from 'tsoa';
-import { Person } from '../models';
-import { getPeople, createPerson, updatePerson, IPersonPayload, getPerson, getPersonByUserId } from '../repositories/person.repository'; 
+import { getRepository } from 'typeorm';
+import { Listing, Offer, Person, Review } from '../models';
+import { getPeople, createPerson, updatePerson, IPersonPayload, getPerson, getPersonByUserId } from '../repositories/person.repository';
 
 @Route('people')
 @Tags("Person")
@@ -40,5 +41,52 @@ export default class PersonController {
     }
     delete person.user;
     return person;
+  }
+
+  @Get('/data/:id')
+  public async getDashboardData(@Path() id: number): Promise<any> {
+    const offerRepo = getRepository(Offer);
+    const receivedOffers = await offerRepo.createQueryBuilder('offer')
+      .leftJoinAndSelect('offer.listing', 'listing')
+      .where('listing.personId = :id', { id: id })
+      .getCount();
+    const acceptedOffers = await offerRepo.createQueryBuilder('offer')
+      .leftJoinAndSelect('offer.listing', 'listing')
+      .where('listing.personId = :id AND offer.statusId = 2', { id: id })
+      .getCount();
+    const declineOffers = await offerRepo.createQueryBuilder('offer')
+      .leftJoinAndSelect('offer.listing', 'listing')
+      .where('listing.personId = :id  AND offer.statusId = 3', { id: id })
+      .getCount();
+
+    const listingRepo = getRepository(Listing);
+    const activeListings = await listingRepo.count({
+      where: {
+        personId: id,
+        statusId: 1
+      }
+    });
+    const finishedListings = await listingRepo.count({
+      where: {
+        personId: id,
+        statusId: 2
+      }
+    });
+
+    const reviewRepo = getRepository(Review);
+    const numOfReviews = await reviewRepo.count({
+      where: {
+        authorId: id
+      }
+    });
+
+    return {
+      receivedOffers,
+      acceptedOffers,
+      declineOffers,
+      activeListings,
+      finishedListings,
+      numOfReviews
+    };
   }
 }

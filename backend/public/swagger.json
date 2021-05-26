@@ -364,12 +364,6 @@
 							"$ref": "#/components/schemas/Offer"
 						},
 						"type": "array"
-					},
-					"searchHistory": {
-						"items": {
-							"$ref": "#/components/schemas/SearchHistory"
-						},
-						"type": "array"
 					}
 				},
 				"required": [
@@ -385,8 +379,7 @@
 					"createdAt",
 					"updatedAt",
 					"reviews",
-					"offers",
-					"searchHistory"
+					"offers"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -595,47 +588,6 @@
 					"id",
 					"status",
 					"offers"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"SearchHistory": {
-				"properties": {
-					"id": {
-						"type": "number",
-						"format": "double"
-					},
-					"keyWord": {
-						"type": "string"
-					},
-					"points": {
-						"type": "number",
-						"format": "double"
-					},
-					"createdAt": {
-						"type": "string",
-						"format": "date-time"
-					},
-					"updatedAt": {
-						"type": "string",
-						"format": "date-time"
-					},
-					"serviceId": {
-						"type": "number",
-						"format": "double"
-					},
-					"service": {
-						"$ref": "#/components/schemas/Service"
-					}
-				},
-				"required": [
-					"id",
-					"keyWord",
-					"points",
-					"createdAt",
-					"updatedAt",
-					"serviceId",
-					"service"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -1514,6 +1466,36 @@
 						"required": true,
 						"schema": {
 							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/people/data/{id}": {
+			"get": {
+				"operationId": "GetDashboardData",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Person"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
 						}
 					}
 				]
