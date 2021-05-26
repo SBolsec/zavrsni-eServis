@@ -135,7 +135,7 @@ const ListingDetails = () => {
             </div>
             <div className="d-flex justify-content-between align-items-center my-4">
               <Button variant="blueAccent" className="no-round mx-2" onClick={sendMessage}>
-                Posalji poruku
+                Pošalji poruku
               </Button>
             </div>
           </div>
