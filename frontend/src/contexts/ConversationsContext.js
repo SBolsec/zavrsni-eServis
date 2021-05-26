@@ -33,7 +33,7 @@ export function ConversationsProvider({ id, profilePictureURL, children }) {
   }, []);
 
   useEffect(() => {
-    if (conversationsContext.selectedIndex !== undefined) {
+    if (conversationsContext.selectedIndex !== undefined && !window.location.pathname.includes('/messages')) {
       conversationsContextDispatch({
         type: UNSELECT_CONVERSATION
       });
