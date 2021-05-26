@@ -124,7 +124,8 @@ export default class ListingController {
 
     let faultCategories: number[] = service.faultCategories.map((f: any) => f.id);
     let parentCategories: number[] = service.faultCategories.map((f: any) => f.parentId);
-    
+    let reviewAuthors: number[] = service.reviews.map((r: any) => r.authorId);
+
     // prepare dates
     const currentDate = new Date();
     const weekAgoDate = new Date();
@@ -151,6 +152,16 @@ export default class ListingController {
       }
       if (listing.updatedAt.getDate() > weekAgoDate.getDate()) {
         score += 2;
+      }
+      if (reviewAuthors.includes(listing.personId)) {
+        let review = service.reviews.filter((r: any) => r.authorId === listing.personId)[0];
+        switch (review.score) {
+          case 5: score += 2; break;
+          case 4: score += 1; break;
+          case 3: break;
+          case 2: score -= 1; break;
+          default: score -= 2; break;
+        }
       }
       scores.set(Number(listing.id), score);
     });
