@@ -12,8 +12,7 @@ import {
   Review, 
   FaultCategory,
   OfferStatus,
-  Offer,
-  SearchHistory
+  Offer
 } from '../models';
 
 const config: ConnectionOptions = {
@@ -32,8 +31,7 @@ const config: ConnectionOptions = {
     Review, 
     FaultCategory,
     OfferStatus,
-    Offer,
-    SearchHistory
+    Offer
   ],
   ssl: {
     rejectUnauthorized: false

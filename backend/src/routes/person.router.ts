@@ -1,4 +1,3 @@
-import { declineOffer } from './../repositories/offer.repository';
 import express from "express";
 import PersonController from "../controllers/person.controller";
 import UserController from "../controllers/user.controller";
@@ -7,9 +6,6 @@ import { hash, compare } from "bcryptjs";
 import Joi from 'joi';
 import auth from '../middlewares/isAuth';
 import { userToUserInfo } from "../mappers/userInfo.mapper";
-import OfferController from "../controllers/offer.controller";
-import { getRepository } from "typeorm";
-import { Listing, Offer, Review } from "../models";
 
 const router = express.Router();
 

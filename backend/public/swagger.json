@@ -364,12 +364,6 @@
 							"$ref": "#/components/schemas/Offer"
 						},
 						"type": "array"
-					},
-					"searchHistory": {
-						"items": {
-							"$ref": "#/components/schemas/SearchHistory"
-						},
-						"type": "array"
 					}
 				},
 				"required": [
@@ -385,8 +379,7 @@
 					"createdAt",
 					"updatedAt",
 					"reviews",
-					"offers",
-					"searchHistory"
+					"offers"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -599,47 +592,6 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"SearchHistory": {
-				"properties": {
-					"id": {
-						"type": "number",
-						"format": "double"
-					},
-					"keyWord": {
-						"type": "string"
-					},
-					"points": {
-						"type": "number",
-						"format": "double"
-					},
-					"createdAt": {
-						"type": "string",
-						"format": "date-time"
-					},
-					"updatedAt": {
-						"type": "string",
-						"format": "date-time"
-					},
-					"serviceId": {
-						"type": "number",
-						"format": "double"
-					},
-					"service": {
-						"$ref": "#/components/schemas/Service"
-					}
-				},
-				"required": [
-					"id",
-					"keyWord",
-					"points",
-					"createdAt",
-					"updatedAt",
-					"serviceId",
-					"service"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
 			"Picture": {
 				"properties": {
 					"id": {
@@ -810,6 +762,23 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"IFaultCategory": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"parentId": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"name",
+					"parentId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"IOfferPayload": {
 				"properties": {
 					"title": {
@@ -867,23 +836,6 @@
 					"total_pages",
 					"per_page",
 					"data"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"IFaultCategory": {
-				"properties": {
-					"name": {
-						"type": "string"
-					},
-					"parentId": {
-						"type": "number",
-						"format": "double"
-					}
-				},
-				"required": [
-					"name",
-					"parentId"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -2021,6 +1973,181 @@
 				"parameters": []
 			}
 		},
+		"/faultCategories": {
+			"get": {
+				"operationId": "GetFaultCategories",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/FaultCategory"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Fault Category"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "CreateFaultCategory",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/FaultCategory"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Fault Category"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IFaultCategory"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/faultCategories/id/{id}": {
+			"get": {
+				"operationId": "GetFaultCategory",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/FaultCategory"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Fault Category"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/faultCategories/formatted": {
+			"get": {
+				"operationId": "GetFaultCategoriesFormatted",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/FaultCategory"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Fault Category"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/faultCategories/search": {
+			"get": {
+				"operationId": "GetFaultCategoriesSearch",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/FaultCategory"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Fault Category"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/faultCategories/service/{id}": {
+			"get": {
+				"operationId": "GetFaultCategoriesOfService",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/FaultCategory"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Fault Category"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
 		"/offers": {
 			"get": {
 				"operationId": "GetOffers",
@@ -2361,181 +2488,6 @@
 						"schema": {
 							"format": "double",
 							"type": "number"
-						}
-					}
-				]
-			}
-		},
-		"/faultCategories": {
-			"get": {
-				"operationId": "GetFaultCategories",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"items": {
-										"$ref": "#/components/schemas/FaultCategory"
-									},
-									"type": "array"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Fault Category"
-				],
-				"security": [],
-				"parameters": []
-			},
-			"post": {
-				"operationId": "CreateFaultCategory",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/FaultCategory"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Fault Category"
-				],
-				"security": [],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/IFaultCategory"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/faultCategories/id/{id}": {
-			"get": {
-				"operationId": "GetFaultCategory",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"allOf": [
-										{
-											"$ref": "#/components/schemas/FaultCategory"
-										}
-									],
-									"nullable": true
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Fault Category"
-				],
-				"security": [],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
-			}
-		},
-		"/faultCategories/formatted": {
-			"get": {
-				"operationId": "GetFaultCategoriesFormatted",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"items": {
-										"$ref": "#/components/schemas/FaultCategory"
-									},
-									"type": "array"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Fault Category"
-				],
-				"security": [],
-				"parameters": []
-			}
-		},
-		"/faultCategories/search": {
-			"get": {
-				"operationId": "GetFaultCategoriesSearch",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"items": {
-										"$ref": "#/components/schemas/FaultCategory"
-									},
-									"type": "array"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Fault Category"
-				],
-				"security": [],
-				"parameters": []
-			}
-		},
-		"/faultCategories/service/{id}": {
-			"get": {
-				"operationId": "GetFaultCategoriesOfService",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"items": {
-										"$ref": "#/components/schemas/FaultCategory"
-									},
-									"type": "array"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Fault Category"
-				],
-				"security": [],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"type": "string"
 						}
 					}
 				]
