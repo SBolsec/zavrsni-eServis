@@ -2,16 +2,18 @@ import React, { Suspense, useEffect } from "react";
 import { CFade } from "@coreui/react";
 import Dashboard from "../content/Dashboard";
 import Profile from "../content/Profile";
-import Messages from "../content/Messages";
 import ListingsActive from "../content/ListingsActive";
 import ListingsHistory from "../content/ListingsHistory";
-import Servicers from "../content/Servicers";
+import OfferAccepted from "../content/OfferAccepted";
 import { Redirect, Route, Switch, useHistory } from "react-router-dom";
 import CreateListing from "../content/CreateListing";
 import { useAuth } from "../../../contexts/AuthContext";
 import getUpdatedData from "../../../actions/auth/getUpdatedData";
-import ListingDetails from "../../Shared/ListingDetails";
-import ListingSearch from "../../Shared/ListingSearch";
+import ListingDetails from "../../Shared/Listing/ListingDetails";
+import ListingSearch from "../../Shared/Listing/ListingSearch";
+import ServiceSearch from "../../Shared/Service/ServiceSearch";
+import ServiceDetails from "../../Shared/Service/ServiceDetails";
+import Chat from "../../Shared/Chat";
 
 const loading = (
   <div className="pt-3 text-center">
@@ -33,14 +35,16 @@ const UserContent = () => {
         <CFade>
           <Switch>
             <Route path="/user/dashboard" component={Dashboard} />
-            <Route path="/user/messages" component={Messages} />
+            <Route path="/user/messages" component={Chat} />
             <Route path="/user/profile" component={Profile} />
             <Route path="/user/create" component={CreateListing} />
             <Route path="/user/active" component={ListingsActive} />
             <Route path="/user/history" component={ListingsHistory} />
-            <Route path="/user/servicers" component={Servicers} />
+            <Route path="/user/services" component={ServiceSearch} />
             <Route path="/user/search" component={ListingSearch} />
             <Route path="/user/listing/:id" component={ListingDetails} />
+            <Route path="/user/service/:id" component={ServiceDetails} />
+            <Route path="/user/accepted" component={OfferAccepted} />
             <Redirect to="/404" />
           </Switch>
         </CFade>

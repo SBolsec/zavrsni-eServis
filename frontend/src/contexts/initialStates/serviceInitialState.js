@@ -2,7 +2,11 @@ const serviceInitialState = {
   sidebarShow: 'responsive',
   loading: false,
   error: false,
-  data: {}
+  loadingFault: false,
+  errorFault: false,
+  data: {
+    faultCategories: []
+  }
 }
 
 export default serviceInitialState;

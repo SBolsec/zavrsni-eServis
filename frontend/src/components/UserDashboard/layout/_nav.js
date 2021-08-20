@@ -49,8 +49,8 @@ const _nav =  [
   },
   {
     _tag: 'CSidebarNavItem',
-    name: 'Pretraga servisera',
-    to: '/user/servicers',
+    name: 'Pretraga servisa',
+    to: '/user/services',
     icon: <FontAwesomeIcon icon={faBuilding} className="c-sidebar-nav-icon"/>
   },
   {

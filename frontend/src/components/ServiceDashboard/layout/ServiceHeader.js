@@ -40,9 +40,13 @@ const ServiceHeader = () => {
     case '/service/profile': title = 'Profil'; break;
     case '/service/active': title = 'Aktivne ponude'; break;
     case '/service/history': title = 'Povijest ponuda'; break;
-    case '/service/servicers': title = 'Pretraga servisera'; break;
+    case '/service/services': title = 'Pretraga servisa'; break;
     case '/service/search': title = 'Pretraga oglasa'; break;
-    default: break;
+    default:
+      if (window.location.pathname.startsWith('/service/listing'))
+        title = 'Detalji oglasa';
+      else if (window.location.pathname.startsWith('/service/service'))
+        title =  'Detalji servisa';
   }
   document.title = 'e-servis | ' + title;
 

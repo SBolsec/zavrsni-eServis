@@ -41,11 +41,16 @@ const UserHeader = () => {
     case '/user/create': title = 'Stvorite novi oglas'; break;
     case '/user/active': title = 'Aktivni oglasi'; break;
     case '/user/history': title = 'Povijest oglasa'; break;
-    case '/user/servicers': title = 'Pretraga servisera'; break;
+    case '/user/services': title = 'Pretraga servisa'; break;
     case '/user/search': title = 'Pretraga oglasa'; break;
-    default: break;
+    default:
+      if (window.location.pathname.startsWith('/user/listing'))
+        title = 'Detalji oglasa';
+      else if (window.location.pathname.startsWith('/user/service'))
+        title =  'Detalji servisa';
   }
-  document.title = 'e-servis | ' + title;
+  
+  document.title = 'e-servis' + (title.length !== 0 ? ' | ' + title : '');
 
   return (
     <CHeader className="bg-gray" >
@@ -64,7 +69,7 @@ const UserHeader = () => {
       </div>
 
       <div className="d-none d-md-flex align-items-center ml-4">
-        {title}
+        {title}        
       </div>
 
       <CHeaderBrand className="mx-auto my-1 d-lg-none" to="/user/dashboard">
@@ -91,7 +96,7 @@ const UserHeader = () => {
             <div className=" px-3 py-1 header-dropdown-item">
               <Link to="/logout" style={{ color: 'black', textDecoration: 'none' }}>
                 <FontAwesomeIcon icon={faSignOutAlt} className="mr-2 text-darkGray"/>
-                <span>Odjva</span>
+                <span>Odjava</span>
               </Link>
             </div>
           </Dropdown.Menu>

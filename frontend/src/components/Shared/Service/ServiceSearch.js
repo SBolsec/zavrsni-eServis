@@ -10,24 +10,28 @@ import CardColumns from 'react-bootstrap/esm/CardColumns';
 import Row from 'react-bootstrap/esm/Row';
 import { useHistory } from 'react-router';
 import * as yup from 'yup';
-import axiosInstance from "../../helpers/axiosInstance";
-import Spinner from '../Utils/Spinner';
-import ListingCard from './ListingCard';
+import axiosInstance from "../../../helpers/axiosInstance";
+import Spinner from '../../Utils/Spinner';
+import ServiceCard from './ServiceCard';
 
 const validationSchema = yup.object({
-  listing: yup.string(),
-  faultCategoryId: yup.number(),
+  service: yup.string(),
+  faultCategories: yup.array(),
   cityId: yup.number(),
   per_page: yup.number()
 });
 
-const ListingSearch = () => {
+const ServiceSearch = () => {
   const history = useHistory();
   const [cities, setCities] = useState([]);
   const [categories, setCategories] = useState([]);
   const [data, setData] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  // used to reset autocomplete
+  const [fKey, setFKey] = useState(false);
+  const [cKey, setCKey] = useState(false);
 
   // fetch cities, categories and initial search results
   useEffect(() => {
@@ -52,7 +56,7 @@ const ListingSearch = () => {
       });
 
     setLoading(true);
-    axiosInstance(history).get("/listings/search")
+    axiosInstance(history).get("/services/search")
       .then(res => {
         setLoading(false);
         setError(false);
@@ -67,16 +71,22 @@ const ListingSearch = () => {
 
   const formik = useFormik({
     initialValues: {
-      listing: '',
-      faultCategoryId: '',
+      service: '',
+      faultCategories: [],
       cityId: '',
       per_page: '',
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      fetchListings(values, 0)
+      fetchListings(values, 0);
     }
   });
+
+  const resetForm = () => {
+    formik.resetForm();
+    setFKey(!fKey);
+    setCKey(!cKey);
+  }
 
   const handlePageChange = (page) => {
     fetchListings(formik.values, page - 1);
@@ -84,18 +94,41 @@ const ListingSearch = () => {
 
   const fetchListings = (values, page) => {
     let query = "";
-    if (values.listing) query += `listing=${values.listing}`;
-    if (values.faultCategoryId) query += `&faultCategoryId=${values.faultCategoryId}`;
-    if (values.cityId) query += `&cityId=${values.cityId}`;
-    if (values.per_page) query += `&per_page=${values.per_page}`;
-    if (page) query += `&page=${page}`
+    let somethingAdded = false;
+    if (values.service) {
+      query += `service=${values.service}`;
+      somethingAdded = true;
+    }
+    if (values.faultCategories.length !== 0) {
+      let ids = "";
+      values.faultCategories.forEach((c, index) => {
+        ids += c.id;
+        if (index !== values.faultCategories.length - 1)
+          ids += ":";
+      });
+      query += somethingAdded ? `&faultCategoryId=${ids}` : `faultCategoryId=${ids}`;
+      somethingAdded = true;
+    } 
+    if (values.cityId) {
+      query += somethingAdded ? `&cityId=${values.cityId}` : `cityId=${values.cityId}`;
+      somethingAdded = true;
+    }
+    if (values.per_page) {
+      query += somethingAdded ? `&per_page=${values.per_page}` : `per_page=${values.per_page}`;
+      somethingAdded = true;
+    }
+    if (page) {
+      query += somethingAdded ? `&page=${page}` : `page=${page}`;
+      //somethingAdded = true;
+    }
+    
     setLoading(true);
-    axiosInstance(history).get("/listings/search?" + query)
+    axiosInstance(history).get("/services/search?" + query)
       .then(res => {
         setLoading(false);
         setError(false);
         setData(res.data);
-        document.getElementById("listings").scrollIntoView({ behavior: "smooth" });
+        document.getElementById("services").scrollIntoView({ behavior: "smooth" });
       })
       .catch(err => {
         setLoading(false);
@@ -113,16 +146,16 @@ const ListingSearch = () => {
               <TextField
                 className="my-2 h-100"
                 fullWidth
-                id="listing"
-                name="listing"
-                label="Pretražite aktivne oglase"
+                id="service"
+                name="service"
+                label="Pretražite servise"
                 value={formik.values.listing}
                 onChange={formik.handleChange}
                 error={
-                  formik.touched.listing && Boolean(formik.errors.listing)
+                  formik.touched.service && Boolean(formik.errors.service)
                 }
                 helperText={
-                  formik.touched.listing && formik.errors.listing
+                  formik.touched.service && formik.errors.service
                 }
                 variant="outlined"
               />
@@ -132,6 +165,8 @@ const ListingSearch = () => {
             </Col>
             <Col xs={12} md={5}>
               <Autocomplete
+                multiple
+                key={fKey}
                 id="faultCategoryId"
                 name="faultCategoryId"
                 options={categories}
@@ -140,7 +175,7 @@ const ListingSearch = () => {
                 className="my-2 flex-fill flex-grow-1"
                 fullWidth
                 onChange={(_, value) =>
-                  formik.setFieldValue("faultCategoryId", value ? value.id : "")
+                  formik.setFieldValue("faultCategories", value)
                 }
                 renderInput={(params) => (
                   <TextField
@@ -156,6 +191,7 @@ const ListingSearch = () => {
             </Col>
             <Col xs={12} md={4}>
               <Autocomplete
+                key={cKey}
                 id="cityId"
                 name="cityId"
                 options={cities}
@@ -179,7 +215,7 @@ const ListingSearch = () => {
             </Col>
             <Col xs={12} md={3}>
               <FormControl variant="outlined" className="my-2 flex-fill flex-grow-1" fullWidth>
-                <InputLabel id="per_page_label">Broj oglasa po stranici</InputLabel>
+                <InputLabel id="per_page_label">Broj servisa po stranici</InputLabel>
                 <Select
                   labelId="per_page_label"
                   label="Broj oglasa po stranici"
@@ -205,12 +241,12 @@ const ListingSearch = () => {
             </Col>
             <Col xs={12}>
               {!loading &&
-                <div id="listings" className="d-flex justify-content-center align-items-center">
+                <div id="services" className="d-flex justify-content-center align-items-center">
                   <Button
                     variant="contained"
                     type="reset"
-                    className="my-2 mr-2 px-4 bg-danger text-white no-round font-weight-bold"
-                    onClick={formik.resetForm}
+                    className="my-2 mr-2 px-4 bg-declined text-white no-round font-weight-bold"
+                    onClick={resetForm}
                   >
                     Resetiraj
                   </Button>
@@ -240,8 +276,8 @@ const ListingSearch = () => {
 
       <Container className="p-0 my-2 text-black">
         <CardColumns>
-          {data && data.data.map((listing, index) => (
-            <ListingCard key={index} listing={listing} />
+          {data && data.data.map((service, index) => (
+            <ServiceCard key={index} service={service} />
           ))}
         </CardColumns>
         {data &&
@@ -258,4 +294,4 @@ const ListingSearch = () => {
   );
 }
 
-export default ListingSearch;
+export default ServiceSearch;

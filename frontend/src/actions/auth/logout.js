@@ -6,6 +6,8 @@ const logout = (history) => (dispatch) => {
     localStorage.removeItem(PREFIX + 'auth');
     localStorage.removeItem(PREFIX + 'user');
     localStorage.removeItem(PREFIX + 'service');
+    localStorage.removeItem(PREFIX + 'contacts');
+    localStorage.removeItem(PREFIX + 'conversations');
     dispatch({
         type: LOGOUT
     });
