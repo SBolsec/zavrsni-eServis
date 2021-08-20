@@ -11,7 +11,6 @@ import { Review } from './review';
 import { FaultCategory } from './faultCategory';
 import { OfferStatus } from './offerStatus';
 import { Offer } from './offer';
-import { SearchHistory } from './searchHistory';
 
 export { 
     User, 
@@ -26,6 +25,5 @@ export {
     Review, 
     FaultCategory,
     OfferStatus,
-    Offer,
-    SearchHistory
+    Offer
 };

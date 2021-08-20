@@ -52,6 +52,7 @@ export const getActiveOffers = async (query: IServicePaginatedPayload): Promise<
   
   const [result, total] = await offerRepository.createQueryBuilder('offer')
     .leftJoinAndSelect('offer.service', 'service')
+    .leftJoinAndSelect('service.reviews', 'reviews')
     .leftJoinAndSelect('service.user', 'serviceUser')
     .leftJoinAndSelect('serviceUser.profilePicture', 'serviceUserPicture')
     .leftJoinAndSelect('offer.status', 'status')
@@ -62,6 +63,7 @@ export const getActiveOffers = async (query: IServicePaginatedPayload): Promise<
     .leftJoinAndSelect('listing.pictures', 'listingPictures')
     .leftJoinAndSelect('listing.offers', 'offers', 'offers.statusId <> 4 AND offers.serviceId <> :sid', {sid: query.serviceId})
     .leftJoinAndSelect('offers.service', 'offerService')
+    .leftJoinAndSelect('offerService.reviews', 'serviceReviews')
     .leftJoinAndSelect('offerService.user', 'offerServiceUser')
     .leftJoinAndSelect('offerServiceUser.profilePicture', 'offerServiceUserPicture')
     .where('service.id = :id AND offer.statusId = 1', {id: query.serviceId})
@@ -88,6 +90,7 @@ export const getHistoryOffers = async (query: IServicePaginatedPayload): Promise
   
   const [result, total] = await offerRepository.createQueryBuilder('offer')
     .leftJoinAndSelect('offer.service', 'service')
+    .leftJoinAndSelect('service.reviews', 'reviews')
     .leftJoinAndSelect('service.user', 'serviceUser')
     .leftJoinAndSelect('serviceUser.profilePicture', 'serviceUserPicture')
     .leftJoinAndSelect('offer.status', 'status')
@@ -98,6 +101,7 @@ export const getHistoryOffers = async (query: IServicePaginatedPayload): Promise
     .leftJoinAndSelect('listing.pictures', 'listingPictures')
     .leftJoinAndSelect('listing.offers', 'offers', 'offers.statusId <> 4 AND offers.serviceId <> :sid', {sid: query.serviceId})
     .leftJoinAndSelect('offers.service', 'offerService')
+    .leftJoinAndSelect('offerService.reviews', 'serviceReviews')
     .leftJoinAndSelect('offerService.user', 'offerServiceUser')
     .leftJoinAndSelect('offerServiceUser.profilePicture', 'offerServiceUserPicture')
     .where('service.id = :id AND offer.statusId <> 1', {id: query.serviceId})
@@ -131,4 +135,35 @@ export const declineOffer = async (id: number): Promise<Offer | null> => {
   if (!result) return null;
   result.statusId = 3;
   return repository.save(result);
+}
+
+export const getNewestOffersByServiceId = async (id: number, take: number): Promise<Offer[]> => {
+  const repository = getRepository(Offer);
+  return repository.find({
+    relations: ["service", "listing"],
+    where: {
+      serviceId: id
+    },
+    order: {
+      updatedAt: "DESC"
+    },
+    take: take
+  });
+}
+
+export const getNumberOfOffersByStatusFromService = async (id: number) => {
+  const repository = getRepository(Offer);
+
+  let data = [];
+  for (let i = 1; i <= 4; i++) {
+    let res = await repository.find({
+      where: { serviceId: id, statusId: i }
+    });
+    data.push(res.length);
+  }
+  
+  return {
+    labels: ['Aktivne', 'Prihvaćene', 'Odbijene', 'Obrisane'],
+    data
+  }
 }

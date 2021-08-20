@@ -364,12 +364,6 @@
 							"$ref": "#/components/schemas/Offer"
 						},
 						"type": "array"
-					},
-					"searchHistory": {
-						"items": {
-							"$ref": "#/components/schemas/SearchHistory"
-						},
-						"type": "array"
 					}
 				},
 				"required": [
@@ -385,8 +379,7 @@
 					"createdAt",
 					"updatedAt",
 					"reviews",
-					"offers",
-					"searchHistory"
+					"offers"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -599,47 +592,6 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"SearchHistory": {
-				"properties": {
-					"id": {
-						"type": "number",
-						"format": "double"
-					},
-					"keyWord": {
-						"type": "string"
-					},
-					"points": {
-						"type": "number",
-						"format": "double"
-					},
-					"createdAt": {
-						"type": "string",
-						"format": "date-time"
-					},
-					"updatedAt": {
-						"type": "string",
-						"format": "date-time"
-					},
-					"serviceId": {
-						"type": "number",
-						"format": "double"
-					},
-					"service": {
-						"$ref": "#/components/schemas/Service"
-					}
-				},
-				"required": [
-					"id",
-					"keyWord",
-					"points",
-					"createdAt",
-					"updatedAt",
-					"serviceId",
-					"service"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
 			"Picture": {
 				"properties": {
 					"id": {
@@ -810,6 +762,111 @@
 				"type": "object",
 				"additionalProperties": false
 			},
+			"IFaultCategory": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"parentId": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"name",
+					"parentId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IOfferPayload": {
+				"properties": {
+					"title": {
+						"type": "string"
+					},
+					"description": {
+						"type": "string"
+					},
+					"price": {
+						"type": "number",
+						"format": "double"
+					},
+					"serviceId": {
+						"type": "number",
+						"format": "double"
+					},
+					"listingId": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"title",
+					"description",
+					"price",
+					"serviceId",
+					"listingId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IOfferPaginatedResult": {
+				"properties": {
+					"current_page": {
+						"type": "number",
+						"format": "double"
+					},
+					"total_pages": {
+						"type": "number",
+						"format": "double"
+					},
+					"per_page": {
+						"type": "number",
+						"format": "double"
+					},
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/Offer"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"current_page",
+					"total_pages",
+					"per_page",
+					"data"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IReviewPayload": {
+				"properties": {
+					"content": {
+						"type": "string"
+					},
+					"score": {
+						"type": "number",
+						"format": "double"
+					},
+					"authorId": {
+						"type": "number",
+						"format": "double"
+					},
+					"serviceId": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"content",
+					"score",
+					"authorId",
+					"serviceId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
 			"IListingPayload": {
 				"properties": {
 					"personId": {
@@ -882,23 +939,6 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"IFaultCategory": {
-				"properties": {
-					"name": {
-						"type": "string"
-					},
-					"parentId": {
-						"type": "number",
-						"format": "double"
-					}
-				},
-				"required": [
-					"name",
-					"parentId"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
 			"IListingStatusPayload": {
 				"properties": {
 					"name": {
@@ -941,67 +981,6 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"IOfferPayload": {
-				"properties": {
-					"title": {
-						"type": "string"
-					},
-					"description": {
-						"type": "string"
-					},
-					"price": {
-						"type": "number",
-						"format": "double"
-					},
-					"serviceId": {
-						"type": "number",
-						"format": "double"
-					},
-					"listingId": {
-						"type": "number",
-						"format": "double"
-					}
-				},
-				"required": [
-					"title",
-					"description",
-					"price",
-					"serviceId",
-					"listingId"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"IOfferPaginatedResult": {
-				"properties": {
-					"current_page": {
-						"type": "number",
-						"format": "double"
-					},
-					"total_pages": {
-						"type": "number",
-						"format": "double"
-					},
-					"per_page": {
-						"type": "number",
-						"format": "double"
-					},
-					"data": {
-						"items": {
-							"$ref": "#/components/schemas/Offer"
-						},
-						"type": "array"
-					}
-				},
-				"required": [
-					"current_page",
-					"total_pages",
-					"per_page",
-					"data"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
 			"IOfferStatusPayload": {
 				"properties": {
 					"status": {
@@ -1010,33 +989,6 @@
 				},
 				"required": [
 					"status"
-				],
-				"type": "object",
-				"additionalProperties": false
-			},
-			"IReviewPayload": {
-				"properties": {
-					"content": {
-						"type": "string"
-					},
-					"score": {
-						"type": "number",
-						"format": "double"
-					},
-					"authorId": {
-						"type": "number",
-						"format": "double"
-					},
-					"serviceId": {
-						"type": "number",
-						"format": "double"
-					}
-				},
-				"required": [
-					"content",
-					"score",
-					"authorId",
-					"serviceId"
 				],
 				"type": "object",
 				"additionalProperties": false
@@ -1497,11 +1449,6 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"allOf": [
-										{
-											"$ref": "#/components/schemas/Person"
-										}
-									],
 									"nullable": true
 								}
 							}
@@ -1519,6 +1466,36 @@
 						"required": true,
 						"schema": {
 							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/people/data/{id}": {
+			"get": {
+				"operationId": "GetDashboardData",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Person"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
 						}
 					}
 				]
@@ -1579,7 +1556,7 @@
 				}
 			}
 		},
-		"/services/{id}": {
+		"/services/id/{id}": {
 			"get": {
 				"operationId": "GetService",
 				"responses": {
@@ -1588,11 +1565,6 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"allOf": [
-										{
-											"$ref": "#/components/schemas/Service"
-										}
-									],
 									"nullable": true
 								}
 							}
@@ -1613,7 +1585,9 @@
 						}
 					}
 				]
-			},
+			}
+		},
+		"/services/{id}": {
 			"put": {
 				"operationId": "UpdateService",
 				"responses": {
@@ -1668,11 +1642,6 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"allOf": [
-										{
-											"$ref": "#/components/schemas/Service"
-										}
-									],
 									"nullable": true
 								}
 							}
@@ -1690,6 +1659,95 @@
 						"required": true,
 						"schema": {
 							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/services/search": {
+			"get": {
+				"operationId": "GetSearchResults",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Service"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "service",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "faultCategoryId",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "cityId",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "per_page",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/services/data/{id}": {
+			"get": {
+				"operationId": "GetData",
+				"responses": {
+					"204": {
+						"description": "No content"
+					}
+				},
+				"tags": [
+					"Service"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
 						}
 					}
 				]
@@ -1915,341 +1973,6 @@
 				"parameters": []
 			}
 		},
-		"/listings": {
-			"get": {
-				"operationId": "GetListings",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"items": {
-										"$ref": "#/components/schemas/Listing"
-									},
-									"type": "array"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Listing"
-				],
-				"security": [],
-				"parameters": []
-			},
-			"post": {
-				"operationId": "CreateListing",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/Listing"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Listing"
-				],
-				"security": [],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/IListingPayload"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/listings/active/{id}": {
-			"get": {
-				"operationId": "GetActiveListings",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/IListingPaginatedResult"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Listing"
-				],
-				"security": [],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "query",
-						"name": "page",
-						"required": false,
-						"schema": {
-							"format": "double",
-							"type": "number"
-						}
-					},
-					{
-						"in": "query",
-						"name": "per_page",
-						"required": false,
-						"schema": {
-							"format": "double",
-							"type": "number"
-						}
-					}
-				]
-			}
-		},
-		"/listings/history/{id}": {
-			"get": {
-				"operationId": "GetHistoryListings",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/IListingPaginatedResult"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Listing"
-				],
-				"security": [],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "query",
-						"name": "page",
-						"required": false,
-						"schema": {
-							"format": "double",
-							"type": "number"
-						}
-					},
-					{
-						"in": "query",
-						"name": "per_page",
-						"required": false,
-						"schema": {
-							"format": "double",
-							"type": "number"
-						}
-					}
-				]
-			}
-		},
-		"/listings/id/{id}": {
-			"get": {
-				"operationId": "GetListing",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"allOf": [
-										{
-											"$ref": "#/components/schemas/Listing"
-										}
-									],
-									"nullable": true
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Listing"
-				],
-				"security": [],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
-			}
-		},
-		"/listings/upload-pictures/{id}": {
-			"post": {
-				"operationId": "UploadPictures",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"items": {
-										"$ref": "#/components/schemas/Picture"
-									},
-									"type": "array"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Listing"
-				],
-				"security": [],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {}
-						}
-					}
-				}
-			}
-		},
-		"/listings/search": {
-			"get": {
-				"operationId": "GetSearchResults",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/IListingPaginatedResult"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Listing"
-				],
-				"security": [],
-				"parameters": [
-					{
-						"in": "query",
-						"name": "listing",
-						"required": false,
-						"schema": {
-							"type": "string"
-						}
-					},
-					{
-						"in": "query",
-						"name": "faultCategoryId",
-						"required": false,
-						"schema": {
-							"format": "double",
-							"type": "number"
-						}
-					},
-					{
-						"in": "query",
-						"name": "cityId",
-						"required": false,
-						"schema": {
-							"format": "double",
-							"type": "number"
-						}
-					},
-					{
-						"in": "query",
-						"name": "page",
-						"required": false,
-						"schema": {
-							"format": "double",
-							"type": "number"
-						}
-					},
-					{
-						"in": "query",
-						"name": "per_page",
-						"required": false,
-						"schema": {
-							"format": "double",
-							"type": "number"
-						}
-					}
-				]
-			}
-		},
-		"/listings/finish/{id}": {
-			"post": {
-				"operationId": "FinishListing",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"allOf": [
-										{
-											"$ref": "#/components/schemas/Listing"
-										}
-									],
-									"nullable": true
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Listing"
-				],
-				"security": [],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"format": "double",
-							"type": "number"
-						}
-					}
-				]
-			}
-		},
 		"/faultCategories": {
 			"get": {
 				"operationId": "GetFaultCategories",
@@ -2391,9 +2114,9 @@
 				"parameters": []
 			}
 		},
-		"/listingStatuses": {
+		"/faultCategories/service/{id}": {
 			"get": {
-				"operationId": "GetListingStatuses",
+				"operationId": "GetFaultCategoriesOfService",
 				"responses": {
 					"200": {
 						"description": "Ok",
@@ -2401,7 +2124,7 @@
 							"application/json": {
 								"schema": {
 									"items": {
-										"$ref": "#/components/schemas/ListingStatus"
+										"$ref": "#/components/schemas/FaultCategory"
 									},
 									"type": "array"
 								}
@@ -2410,155 +2133,7 @@
 					}
 				},
 				"tags": [
-					"Listing status"
-				],
-				"security": [],
-				"parameters": []
-			},
-			"post": {
-				"operationId": "CreateListingStatus",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/ListingStatus"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Listing status"
-				],
-				"security": [],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/IListingStatusPayload"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/listingStatuses/{id}": {
-			"get": {
-				"operationId": "GetListingStatus",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"allOf": [
-										{
-											"$ref": "#/components/schemas/ListingStatus"
-										}
-									],
-									"nullable": true
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Listing status"
-				],
-				"security": [],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
-			}
-		},
-		"/messages": {
-			"get": {
-				"operationId": "GetMessages",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"items": {
-										"$ref": "#/components/schemas/Message"
-									},
-									"type": "array"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Message"
-				],
-				"security": [],
-				"parameters": []
-			},
-			"post": {
-				"operationId": "CreateMessage",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/Message"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Message"
-				],
-				"security": [],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/IMessagePayload"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/messages/{id}": {
-			"get": {
-				"operationId": "GetMessage",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"allOf": [
-										{
-											"$ref": "#/components/schemas/Message"
-										}
-									],
-									"nullable": true
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Message"
+					"Fault Category"
 				],
 				"security": [],
 				"parameters": [
@@ -2918,6 +2493,811 @@
 				]
 			}
 		},
+		"/reviews": {
+			"get": {
+				"operationId": "GetReviews",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Review"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Review"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "CreateReview",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Review"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Review"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IReviewPayload"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/reviews/{id}": {
+			"put": {
+				"operationId": "UpdateReview",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Review"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Review"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IReviewPayload"
+							}
+						}
+					}
+				}
+			},
+			"delete": {
+				"operationId": "DeleteReview",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Review"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/reviews/id/{id}": {
+			"get": {
+				"operationId": "GetReview",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Review"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/reviews/author/{id}": {
+			"get": {
+				"operationId": "GetReviewsByAuthorId",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Review"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Review"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/listings": {
+			"get": {
+				"operationId": "GetListings",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Listing"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Listing"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "CreateListing",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Listing"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Listing"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IListingPayload"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/listings/active/{id}": {
+			"get": {
+				"operationId": "GetActiveListings",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IListingPaginatedResult"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Listing"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "per_page",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/listings/history/{id}": {
+			"get": {
+				"operationId": "GetHistoryListings",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IListingPaginatedResult"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Listing"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "per_page",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/listings/id/{id}": {
+			"get": {
+				"operationId": "GetListing",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/Listing"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Listing"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/listings/upload-pictures/{id}": {
+			"post": {
+				"operationId": "UploadPictures",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Picture"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Listing"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {}
+						}
+					}
+				}
+			}
+		},
+		"/listings/search": {
+			"get": {
+				"operationId": "GetSearchResults",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IListingPaginatedResult"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Listing"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "listing",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "faultCategoryId",
+						"required": false,
+						"schema": {
+							"type": "string"
+						}
+					},
+					{
+						"in": "query",
+						"name": "cityId",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "page",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "per_page",
+						"required": false,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/listings/finish/{id}": {
+			"post": {
+				"operationId": "FinishListing",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/Listing"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Listing"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/listingStatuses": {
+			"get": {
+				"operationId": "GetListingStatuses",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/ListingStatus"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Listing status"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "CreateListingStatus",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ListingStatus"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Listing status"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IListingStatusPayload"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/listingStatuses/{id}": {
+			"get": {
+				"operationId": "GetListingStatus",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/ListingStatus"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Listing status"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/messages": {
+			"get": {
+				"operationId": "GetMessages",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/Message"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Message"
+				],
+				"security": [],
+				"parameters": []
+			},
+			"post": {
+				"operationId": "CreateMessage",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Message"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Message"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IMessagePayload"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/messages/id/{id}": {
+			"get": {
+				"operationId": "GetMessage",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"allOf": [
+										{
+											"$ref": "#/components/schemas/Message"
+										}
+									],
+									"nullable": true
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Message"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/messages/user/{id}": {
+			"get": {
+				"operationId": "GetUserMessages",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Message"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/messages/contacts": {
+			"get": {
+				"operationId": "GetContacts",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Message"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "query",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"in": "query",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/messages/contacts/{id}": {
+			"get": {
+				"operationId": "GetContactById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Message"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
 		"/offerStatuses": {
 			"get": {
 				"operationId": "GetOfferStatuses",
@@ -2995,97 +3375,6 @@
 				},
 				"tags": [
 					"Offer status"
-				],
-				"security": [],
-				"parameters": [
-					{
-						"in": "path",
-						"name": "id",
-						"required": true,
-						"schema": {
-							"type": "string"
-						}
-					}
-				]
-			}
-		},
-		"/reviews": {
-			"get": {
-				"operationId": "GetReviews",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"items": {
-										"$ref": "#/components/schemas/Review"
-									},
-									"type": "array"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Review"
-				],
-				"security": [],
-				"parameters": []
-			},
-			"post": {
-				"operationId": "CreateReview",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"$ref": "#/components/schemas/Review"
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Review"
-				],
-				"security": [],
-				"parameters": [],
-				"requestBody": {
-					"required": true,
-					"content": {
-						"application/json": {
-							"schema": {
-								"$ref": "#/components/schemas/IReviewPayload"
-							}
-						}
-					}
-				}
-			}
-		},
-		"/reviews/{id}": {
-			"get": {
-				"operationId": "GetReview",
-				"responses": {
-					"200": {
-						"description": "Ok",
-						"content": {
-							"application/json": {
-								"schema": {
-									"allOf": [
-										{
-											"$ref": "#/components/schemas/Review"
-										}
-									],
-									"nullable": true
-								}
-							}
-						}
-					}
-				},
-				"tags": [
-					"Review"
 				],
 				"security": [],
 				"parameters": [

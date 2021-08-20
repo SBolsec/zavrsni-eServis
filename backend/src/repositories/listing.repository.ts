@@ -1,4 +1,3 @@
-import { createUser } from './user.repository';
 import { getRepository } from "typeorm";
 import { IListingSearchPayload, IListingPaginatedResult, IListingPaginatedPayload } from "../interfaces";
 import { Listing, Picture } from "../models";
@@ -34,6 +33,7 @@ export const getListing = async (id: number): Promise<Listing | null> => {
   const listing = await listingRepository.createQueryBuilder('listing')
     .leftJoinAndSelect('listing.offers', 'offers', 'offers.statusId <> 4')
     .leftJoinAndSelect('offers.status', 'offerStatus')
+    .leftJoinAndSelect('offers.listing', 'oListing')
     .leftJoinAndSelect('offers.service', 'offerService')
     .leftJoinAndSelect('offerService.user', 'offerServiceUser')
     .leftJoinAndSelect('offerServiceUser.profilePicture', 'offerServiceUserPicture')
@@ -112,20 +112,20 @@ export const getHistoryListings = async (query: IListingPaginatedPayload): Promi
 export const getPaginatedSearchListings = async (query: IListingSearchPayload): Promise<IListingPaginatedResult> => {
   const listingRepository = getRepository(Listing);
   const take = query.per_page || 10;
-  const skip = query.page! * query.per_page! || 0;
+  const skip = query.page! * take || 0;
 
   let whereString = "listing.statusId = :statusId ";
   let whereData: any = { statusId: 1 }
   if (query.listing) {
-    whereString += ` AND LOWER(listing.title) LIKE '%${query.listing}%' `;
+    whereString += ` AND (LOWER(listing.title) LIKE '%${query.listing}%' OR LOWER(listing.description) LIKE '%${query.listing}%') `;
     // where.title = Raw(alias => `LOWER(${alias}) Like '%${query.listing}%'`);
   }
   if (query.cityId) {
     whereString += ` AND listing.cityId = :cityId `;
     whereData.cityId = query.cityId;
   }
-  if (query.faultCategoryId) {
-    whereString += ` AND (faultCategory.id = :fcid OR faultCategory.parentId = :fcid) `;
+  if (query.faultCategoryId?.length !== 0) {
+    whereString += ` AND (faultCategory.id IN (:...fcid) OR faultCategory.parentId IN (:...fcid)) `;
     whereData.fcid = query.faultCategoryId;
   }
 
@@ -138,18 +138,18 @@ export const getPaginatedSearchListings = async (query: IListingSearchPayload): 
     .leftJoinAndSelect('listing.status', 'listingStatus')
     .leftJoinAndSelect('listing.pictures', 'pictures')
     .where(whereString, whereData)
-    .orderBy({ 'listing.updatedAt': "DESC" })
+    .orderBy({ 'listing.updatedAt': "DESC", 'listing.id': "ASC" })
     .take(take)
     .skip(skip)
     .getManyAndCount();
 
-  const totalPages = Math.floor(total / take);
-  const currentPage = totalPages - Math.floor((total - skip) / take);
+  const totalPages = Math.ceil(total / take);
+  const currentPage = totalPages - Math.ceil((total - skip) / take);
 
   return {
     current_page: currentPage,
     per_page: take,
-    total_pages: totalPages+1,
+    total_pages: totalPages,
     data: result
   }
 }
@@ -160,4 +160,20 @@ export const finishListing = async (id: number): Promise<Listing | null> => {
   if (!response) return null;
   response.statusId = 2;
   return repository.save(response);
+}
+
+export const getMostRecentListings = async (take: number): Promise<Listing[]> => {
+  const repository = getRepository(Listing);
+  return repository.find({
+    where: {
+      statusId: 1 // active listings only
+    },
+    relations: ["status", "person", "person.user", "person.user.profilePicture", 
+      "pictures", "faultCategory", "faultCategory.parent", "city"
+    ],
+    order: {
+      updatedAt: "DESC"
+    },
+    take: take
+  });
 }

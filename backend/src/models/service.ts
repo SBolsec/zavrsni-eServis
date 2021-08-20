@@ -1,5 +1,5 @@
 import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn,  JoinColumn, OneToOne, ManyToOne, OneToMany, ManyToMany, JoinTable} from 'typeorm';
-import { City, FaultCategory, Offer, Review, SearchHistory, User } from '.';
+import { City, FaultCategory, Offer, Review, User } from '.';
 
 @Entity({name: "servis"})
 export class Service {
@@ -53,7 +53,4 @@ export class Service {
 
   @OneToMany(() => Offer, (offer) => offer.service)
   offers!: Offer[];
-
-  @OneToMany(() => SearchHistory, (history) => history.service)
-  searchHistory!: SearchHistory[];
 }

@@ -1,6 +1,5 @@
 import { getRepository } from "typeorm";
 import { FaultCategory } from "../models";
-
 export interface IFaultCategory {
   name: string;
   parentId: number;
@@ -24,7 +23,12 @@ export const createFaultCategory = async (
 
 export const getFaultCategory = async (id: number): Promise<FaultCategory | null> => {
   const faultCategoryRepository = getRepository(FaultCategory);
-  const faultCategory = await faultCategoryRepository.findOne({ id: id });
+  const faultCategory = await faultCategoryRepository.findOne({ 
+    where: {
+      id: id
+    },
+    relations: ["parent"]
+  });
   return !faultCategory ? null : faultCategory;
 };
 
@@ -44,4 +48,10 @@ export const getFaultCategoriesForSearch = async (): Promise<FaultCategory[]> =>
     .leftJoinAndSelect('faultCategory.parent', 'parent')
     .where("faultCategory.parentId IS NOT NULL")
     .getMany();
+}
+
+export const getFaultCategoriesOfService = async (id: number): Promise<FaultCategory[]> => {
+  
+  
+  return [];
 }

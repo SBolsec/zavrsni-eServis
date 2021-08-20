@@ -1,6 +1,6 @@
 export interface IListingSearchPayload {
   listing?: string,
-  faultCategoryId?: number,
+  faultCategoryId?: number[],
   cityId?: number,
   page?: number,
   per_page?: number 

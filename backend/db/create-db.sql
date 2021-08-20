@@ -44,8 +44,3 @@ CREATE TABLE Servis
   trenutak_stvaranja TIMESTAMP,
   trenutak_promjene TIMESTAMP
 );
-
-/* Uloge */
-INSERT INTO uloga (naziv_uloga) VALUES ('admin');
-INSERT INTO uloga (naziv_uloga) VALUES ('obican');
-INSERT INTO uloga (naziv_uloga) VALUES ('serviser');
